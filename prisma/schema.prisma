@@ -37,8 +37,6 @@ model Session {
   userId       String
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@index([userId])
 }
 
 enum Role {
@@ -57,4 +55,193 @@ model User {
 
   accounts Account[]
   sessions Session[]
+
+  anime              Anime[]
+  finishedWatching   FinishedWatching[]
+  currentlyWatching  CurrentlyWatching[]
+  notStartedWatching NotStartedWatching[]
+
+  community Community[]
+  post      Post[]
+  like      Like[]
+  member    Member[]
+
+  report Report[]
+
+  createdAt DateTime @default(now())
+}
+
+model Anime {
+  id    String  @id @default(cuid())
+  name  String  @unique
+  genre Genre[]
+
+  releaseYear Int
+  director    String
+  description String
+  trailerLink String?
+  coverImage  String?
+
+  finishedWatching   FinishedWatching[]
+  currentlyWatching  CurrentlyWatching[]
+  notStartedWatching NotStartedWatching[]
+
+  creatorId String
+  creator   User   @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+
+  report Report[]
+
+  createdAt DateTime @default(now())
+
+  @@index([creatorId])
+  @@index([name])
+}
+
+enum GenreTypes {
+  Action
+  Adventure
+  Comedy
+  Drama
+  Fantasy
+  Romance
+  ScienceFiction
+  Horror
+  Mystery
+  Thriller
+  SliceOfLife
+  Supernatural
+  Mecha
+  Sports
+  Psychological
+  Historical
+  Music
+  Ecchi
+  Harem
+  Shoujo
+  Shounen
+  Josei
+  Seinen
+}
+
+model Genre {
+  id   String     @id @default(cuid())
+  name GenreTypes
+
+  anime   Anime  @relation(fields: [animeId], references: [id], onDelete: Cascade)
+  animeId String
+
+  @@index([animeId])
+}
+
+//----------------------------------------
+model FinishedWatching {
+  id String @id @default(cuid())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  animeId String
+  anime   Anime  @relation(fields: [animeId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([animeId])
+}
+
+model CurrentlyWatching {
+  id String @id @default(cuid())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  animeId String
+  anime   Anime  @relation(fields: [animeId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([animeId])
+}
+
+model NotStartedWatching {
+  id String @id @default(cuid())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  animeId String
+  anime   Anime  @relation(fields: [animeId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([animeId])
+}
+
+//----------------------------------------
+
+model Community {
+  id String @id @default(cuid())
+
+  creatorId String
+  creator   User   @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+
+  post   Post[]
+  member Member[]
+
+  createdAt DateTime @default(now())
+
+  @@index([creatorId])
+}
+
+model Post {
+  id      String @id @default(cuid())
+  content Json?
+
+  creatorId String
+  creator   User   @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+
+  communityId String
+  community   Community @relation(fields: [communityId], references: [id], onDelete: Cascade)
+  like        Like[]
+
+  createdAt DateTime @default(now())
+
+  @@index([communityId])
+}
+
+model Like {
+  id String @id @default(cuid())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  postId String
+  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  isLiked Boolean @default(false)
+
+  @@index([postId])
+}
+
+model Member {
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  communityId String
+  community   Community @relation(fields: [communityId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@id([userId, communityId])
+  @@index([communityId])
+}
+
+// --------------------------------------
+
+model Report {
+  id String @id @default(cuid())
+
+  creatorId String
+  creator   User   @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+
+  animeId String
+  anime   Anime  @relation(fields: [animeId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
 }

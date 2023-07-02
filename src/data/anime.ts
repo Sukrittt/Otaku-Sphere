@@ -1,4 +1,4 @@
-const animeData: Anime[] = [
+export const animeData = [
   {
     id: 1,
     title: "Attack on Titan",
