@@ -1,10 +1,13 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
 
+import { Toaster } from "@/ui/Toaster";
+import Providers from "@/components/Providers";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Anime Wizard",
+  title: "Otaku Sphere",
   description: "A platform filled with anime lovers.",
 };
 
@@ -15,7 +18,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <Providers>
+          {children}
+          <Toaster />
+        </Providers>
+      </body>
     </html>
   );
 }
