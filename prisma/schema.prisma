@@ -82,6 +82,7 @@ model Anime {
   trailerLink String?
   coverImage  String?
 
+  community          Community[]
   finishedWatching   FinishedWatching[]
   currentlyWatching  CurrentlyWatching[]
   notStartedWatching NotStartedWatching[]
@@ -176,7 +177,11 @@ model NotStartedWatching {
 //----------------------------------------
 
 model Community {
-  id String @id @default(cuid())
+  id   String @id @default(cuid())
+  name String @unique
+
+  animeId String?
+  anime   Anime?  @relation(fields: [animeId], references: [id], onDelete: Cascade)
 
   creatorId String
   creator   User   @relation(fields: [creatorId], references: [id], onDelete: Cascade)
@@ -187,6 +192,7 @@ model Community {
   createdAt DateTime @default(now())
 
   @@index([creatorId])
+  @@index([animeId])
 }
 
 model Post {
@@ -239,6 +245,8 @@ model Report {
 
   creatorId String
   creator   User   @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+
+  text String
 
   animeId String
   anime   Anime  @relation(fields: [animeId], references: [id], onDelete: Cascade)
