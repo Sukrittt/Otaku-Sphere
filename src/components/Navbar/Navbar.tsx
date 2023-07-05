@@ -67,14 +67,17 @@ const Navbar: FC<NavbarProps> = async () => {
           ))}
         </div>
       </div>
-      <div className="flex justify-end gap-x-4">
+      <div className="flex gap-x-4">
         <Searchbar />
 
         {session ? (
           <UserAccountDropdown user={session.user} />
         ) : (
-          <Link href="/sign-in">
-            <Button>Sign in</Button>
+          <Link href="/sign-in" className=" tracking-tighter">
+            <Button className="mx-2 w-full" size="sm">
+              Sign In
+              <div className="sr-only">Sign In</div>
+            </Button>
           </Link>
         )}
       </div>
