@@ -5,6 +5,7 @@ import {
   User,
   LogOut,
   Settings,
+  LayoutDashboard,
 } from "lucide-react";
 
 export type Icon = LucideIcon;
@@ -67,4 +68,5 @@ export const Icons = {
   user: User,
   logOut: LogOut,
   settings: Settings,
+  dashboard: LayoutDashboard,
 };

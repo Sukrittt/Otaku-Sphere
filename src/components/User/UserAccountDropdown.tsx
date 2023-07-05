@@ -45,10 +45,12 @@ const UserAccountDropdown: FC<UserAccountDropdownProps> = ({ user }) => {
         <DropdownMenuSeparator />
 
         <DropdownMenuItem asChild>
-          <Link href="/">Feed</Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem asChild>
-          <Link href="/r/create">Create community</Link>
+          <Link href="/dashboard">
+            <div className="flex items-center gap-x-2">
+              <Icons.dashboard className="h-4 w-4" />
+              Dashboard
+            </div>
+          </Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
           <Link href="/settings">
