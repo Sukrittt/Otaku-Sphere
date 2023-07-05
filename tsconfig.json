@@ -21,6 +21,7 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
+      "@/styles/*": ["./src/app/styles/*"],
       "@/ui/*": ["./src/components/ui/*"],
     }
   },
