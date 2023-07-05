@@ -1,15 +1,28 @@
-import "./globals.css";
 import { Inter } from "next/font/google";
+import { Metadata } from "next";
+import "./styles/globals.css";
 
 import { Toaster } from "@/ui/Toaster";
 import Providers from "@/components/Providers";
-import Navbar from "@/components/Navbar/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Otaku Sphere",
-  description: "A platform filled with anime lovers.",
+  description:
+    "An open source all-in-one Anime Platform build with everything in Next.js 13.",
+  keywords: [
+    "Next.js",
+    "React",
+    "Tailwind CSS",
+    "Server Components",
+    "Server Actions",
+    "Anime",
+    "Watchlist",
+    "Anime List",
+    "Anime rating",
+    "Statistics",
+  ],
 };
 
 export default function RootLayout({
