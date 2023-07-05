@@ -3,6 +3,7 @@ import { User } from "next-auth";
 import { FC } from "react";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
+import type { Icon } from "lucide-react";
 
 import {
   DropdownMenu,
@@ -17,6 +18,28 @@ import { Icons } from "@/components/Icons";
 interface UserAccountDropdownProps {
   user: Pick<User, "name" | "email" | "image">;
 }
+
+type dropdownItemType = {
+  id: number;
+  label: string;
+  Icon: Icon;
+  href: string;
+};
+
+const dropdownItem: dropdownItemType[] = [
+  {
+    id: 1,
+    label: "Dashboard",
+    Icon: Icons.dashboard,
+    href: "/dashboard",
+  },
+  {
+    id: 2,
+    label: "Settings",
+    Icon: Icons.settings,
+    href: "/settings",
+  },
+];
 
 const UserAccountDropdown: FC<UserAccountDropdownProps> = ({ user }) => {
   return (
@@ -44,22 +67,16 @@ const UserAccountDropdown: FC<UserAccountDropdownProps> = ({ user }) => {
 
         <DropdownMenuSeparator />
 
-        <DropdownMenuItem asChild>
-          <Link href="/dashboard">
-            <div className="flex items-center gap-x-2">
-              <Icons.dashboard className="h-4 w-4" />
-              Dashboard
-            </div>
-          </Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem asChild>
-          <Link href="/settings">
-            <div className="flex items-center gap-x-2">
-              <Icons.settings className="h-4 w-4" />
-              Settings
-            </div>
-          </Link>
-        </DropdownMenuItem>
+        {dropdownItem.map((item) => (
+          <DropdownMenuItem key={item.id} asChild>
+            <Link href={item.href}>
+              <div className="flex items-center gap-x-2">
+                <item.Icon className="h-4 w-4" />
+                {item.label}
+              </div>
+            </Link>
+          </DropdownMenuItem>
+        ))}
 
         <DropdownMenuSeparator />
 
