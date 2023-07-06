@@ -6,6 +6,8 @@ import {
   LogOut,
   Settings,
   LayoutDashboard,
+  Sun,
+  Moon,
 } from "lucide-react";
 
 export type Icon = LucideIcon;
@@ -69,4 +71,6 @@ export const Icons = {
   logOut: LogOut,
   settings: Settings,
   dashboard: LayoutDashboard,
+  sun: Sun,
+  moon: Moon,
 };
