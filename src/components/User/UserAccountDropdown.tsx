@@ -1,9 +1,8 @@
 "use client";
-import { User } from "next-auth";
 import { FC } from "react";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
-import type { Icon } from "lucide-react";
+import { Session } from "next-auth";
 
 import {
   DropdownMenu,
@@ -14,17 +13,11 @@ import {
 } from "@/ui/DropdownMenu";
 import UserAvatar from "@/components/User/UserAvatar";
 import { Icons } from "@/components/Icons";
+import { dropdownItemType } from "@/types/item-type";
 
 interface UserAccountDropdownProps {
-  user: Pick<User, "name" | "email" | "image">;
+  session: Session;
 }
-
-type dropdownItemType = {
-  id: number;
-  label: string;
-  Icon: Icon;
-  href: string;
-};
 
 const dropdownItem: dropdownItemType[] = [
   {
@@ -41,7 +34,21 @@ const dropdownItem: dropdownItemType[] = [
   },
 ];
 
-const UserAccountDropdown: FC<UserAccountDropdownProps> = ({ user }) => {
+const UserAccountDropdown: FC<UserAccountDropdownProps> = ({ session }) => {
+  const { user } = session;
+
+  if (
+    user.role === "ADMIN" &&
+    !dropdownItem.find((item) => item.href === "/admin/users")
+  ) {
+    dropdownItem.push({
+      id: 3,
+      label: "Admin Panel",
+      Icon: Icons.admin,
+      href: "/admin/users",
+    });
+  }
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="focus:outline-none">

@@ -8,6 +8,8 @@ import {
   LayoutDashboard,
   Sun,
   Moon,
+  Lock,
+  Tv,
 } from "lucide-react";
 
 export type Icon = LucideIcon;
@@ -73,4 +75,6 @@ export const Icons = {
   dashboard: LayoutDashboard,
   sun: Sun,
   moon: Moon,
+  admin: Lock,
+  anime: Tv,
 };

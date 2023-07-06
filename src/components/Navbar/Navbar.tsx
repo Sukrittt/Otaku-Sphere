@@ -38,7 +38,7 @@ const Navbar: FC<NavbarProps> = async () => {
   ];
 
   return (
-    <div className="flex space-around items-center py-3 border-b px-16">
+    <div className="sticky top-0 z-40 w-full bg-background flex space-around items-center py-3 border-b px-16">
       <div className="w-full flex gap-x-8 items-center">
         <div className="relative z-20 flex items-center">
           <Link
@@ -71,7 +71,7 @@ const Navbar: FC<NavbarProps> = async () => {
         <Searchbar />
 
         {session ? (
-          <UserAccountDropdown user={session.user} />
+          <UserAccountDropdown session={session} />
         ) : (
           <Link href="/sign-in" className=" tracking-tighter">
             <Button className="mx-2 w-full" size="sm">
