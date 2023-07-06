@@ -62,6 +62,7 @@ export const authOptions: NextAuthOptions = {
         session.user.email = token.email;
         session.user.image = token.picture;
         session.user.username = token.username;
+        session.user.role = token.role;
       }
 
       return session;
@@ -94,6 +95,7 @@ export const authOptions: NextAuthOptions = {
         email: dbUser.email,
         picture: dbUser.image,
         username: dbUser.username,
+        role: dbUser.role,
       };
     },
     redirect() {

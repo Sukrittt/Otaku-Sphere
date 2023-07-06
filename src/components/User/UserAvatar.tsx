@@ -6,7 +6,7 @@ import { Icons } from "@/components/Icons";
 import { Avatar, AvatarFallback, AvatarImage } from "@/ui/Avatar";
 
 interface UserAvatarProps extends AvatarProps {
-  user: Pick<User, "name" | "email" | "image">;
+  user: Pick<User, "image" | "name">;
 }
 
 const UserAvatar: FC<UserAvatarProps> = ({ user, ...props }) => {

@@ -45,13 +45,7 @@ const UserAccountDropdown: FC<UserAccountDropdownProps> = ({ user }) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="focus:outline-none">
-        <UserAvatar
-          className="h-8 w-8"
-          user={{
-            name: user.image || null,
-            image: user.image || null,
-          }}
-        />
+        <UserAvatar className="h-8 w-8" user={user} />
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <div className="flex items-center justify-start gap-2 p-2 text-sm">
