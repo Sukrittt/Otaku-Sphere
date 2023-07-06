@@ -1,5 +1,4 @@
 import { FC } from "react";
-import { Command } from "lucide-react";
 import Link from "next/link";
 
 import { getAuthSession } from "@/lib/auth";
@@ -7,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { Button, buttonVariants } from "@/ui/Button";
 import Searchbar from "@/components/Navbar/Searchbar";
 import UserAccountDropdown from "@/components/User/UserAccountDropdown";
+import { Icons } from "@/components/Icons";
 
 interface NavbarProps {}
 
@@ -48,7 +48,7 @@ const Navbar: FC<NavbarProps> = async () => {
               "text-md tracking-tighter"
             )}
           >
-            <Command className="mr-2 h-5 w-5" />
+            <Icons.logo className="mr-2 h-6 w-6" />
             Otaku Sphere
           </Link>
         </div>

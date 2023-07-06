@@ -49,7 +49,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   };
 
   return (
-    <div className={cn("grid gap-6", className)} {...props}>
+    <div className={cn("grid gap-y-4", className)} {...props}>
       <Button
         onClick={handleGoogleLogin}
         variant="outline"

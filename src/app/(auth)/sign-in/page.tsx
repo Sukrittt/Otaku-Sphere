@@ -1,9 +1,9 @@
-import { Command } from "lucide-react";
 import Link from "next/link";
 
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/Button";
 import { UserAuthForm } from "@/components/User/UserAuthForm";
+import { Icons } from "@/components/Icons";
 
 const AuthenticationPage = () => {
   return (
@@ -19,7 +19,7 @@ const AuthenticationPage = () => {
               "text-lg font-medium"
             )}
           >
-            <Command className="mr-2 h-6 w-6" />
+            <Icons.logo className="mr-2 h-6 w-6" />
             Otaku Sphere
           </Link>
         </div>
