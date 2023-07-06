@@ -1,14 +1,16 @@
+import Footer from "@/components/Footer/Footer";
 import Navbar from "@/components/Navbar/Navbar";
 
-interface LobbyLayoutProps {
+interface SiteLayoutProps {
   children: React.ReactNode;
 }
 
-export default async function LobbyLayout({ children }: LobbyLayoutProps) {
+export default async function SiteLayout({ children }: SiteLayoutProps) {
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
-      {children}
+      <main className="flex-1">{children}</main>
+      <Footer />
     </div>
   );
 }
