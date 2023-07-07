@@ -28,9 +28,11 @@ export const Combobox: FC<ComboboxProps> = forwardRef<
 
   useEffect(() => {
     if (value) {
-      setGenre(value);
+      const findIndex = data.findIndex((item) => item.value === value);
+
+      setGenre(data[findIndex].label);
     }
-  }, [value, setGenre]);
+  }, [value, setGenre, data]);
 
   return (
     <Popover open={open} onOpenChange={setOpen} {...props}>
