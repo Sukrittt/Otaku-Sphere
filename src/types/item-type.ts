@@ -13,3 +13,8 @@ export type SidebarNavType = {
   label: string;
   Icon: Icon;
 };
+
+export type GenreItemType = {
+  value: string;
+  label: string;
+};

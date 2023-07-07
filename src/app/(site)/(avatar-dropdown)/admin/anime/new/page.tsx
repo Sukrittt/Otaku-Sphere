@@ -11,6 +11,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/ui/Card";
+import AddAnimeForm from "@/components/Forms/AddAnimeForm";
 
 export const metadata: Metadata = {
   title: "New Anime",
@@ -41,7 +42,9 @@ const page = async () => {
           <CardTitle className="text-2xl">Add anime</CardTitle>
           <CardDescription>Add a new anime for the users</CardDescription>
         </CardHeader>
-        <CardContent>{/* TODO: Add anime content form */}</CardContent>
+        <CardContent>
+          <AddAnimeForm />
+        </CardContent>
       </Card>
     </Shell>
   );

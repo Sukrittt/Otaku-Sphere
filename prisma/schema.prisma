@@ -72,15 +72,15 @@ model User {
 }
 
 model Anime {
-  id    String  @id @default(cuid())
-  name  String  @unique
-  genre Genre[]
+  id    String @id @default(cuid())
+  name  String @unique
+  genre String
 
-  releaseYear Int
+  releaseYear String
   director    String
-  description String
-  trailerLink String?
-  coverImage  String?
+  description String @db.VarChar(1500)
+  trailerLink String
+  coverImage  String
 
   community          Community[]
   finishedWatching   FinishedWatching[]
@@ -96,42 +96,6 @@ model Anime {
 
   @@index([creatorId])
   @@index([name])
-}
-
-enum GenreTypes {
-  Action
-  Adventure
-  Comedy
-  Drama
-  Fantasy
-  Romance
-  ScienceFiction
-  Horror
-  Mystery
-  Thriller
-  SliceOfLife
-  Supernatural
-  Mecha
-  Sports
-  Psychological
-  Historical
-  Music
-  Ecchi
-  Harem
-  Shoujo
-  Shounen
-  Josei
-  Seinen
-}
-
-model Genre {
-  id   String     @id @default(cuid())
-  name GenreTypes
-
-  anime   Anime  @relation(fields: [animeId], references: [id], onDelete: Cascade)
-  animeId String
-
-  @@index([animeId])
 }
 
 //----------------------------------------

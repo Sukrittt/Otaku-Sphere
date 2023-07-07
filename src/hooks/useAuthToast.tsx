@@ -21,5 +21,13 @@ export const useAuthToast = () => {
     });
   };
 
-  return { loginToast };
+  const endErrorToast = () => {
+    toast({
+      title: "Error",
+      description: "Something went wrong.",
+      variant: "destructive",
+    });
+  };
+
+  return { loginToast, endErrorToast };
 };

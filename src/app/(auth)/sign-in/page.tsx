@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/Button";
-import { UserAuthForm } from "@/components/User/UserAuthForm";
+import { UserAuthForm } from "@/components/Forms/AuthForm";
 import { Icons } from "@/components/Icons";
 
 const AuthenticationPage = () => {

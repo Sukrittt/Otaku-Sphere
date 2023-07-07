@@ -10,6 +10,7 @@ import {
   Moon,
   Lock,
   Tv,
+  Loader2,
 } from "lucide-react";
 
 export type Icon = LucideIcon;
@@ -66,4 +67,5 @@ export const Icons = {
   moon: Moon,
   admin: Lock,
   anime: Tv,
+  spinner: Loader2,
 };

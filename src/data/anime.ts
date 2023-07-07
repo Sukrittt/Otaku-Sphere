@@ -1,3 +1,5 @@
+import { GenreItemType } from "@/types/item-type";
+
 export const animeData = [
   {
     id: 1,
@@ -268,5 +270,56 @@ export const animeData = [
     director: "Takashi Otsuka",
     description:
       "The Straw Hat Pirates join a pirate festival where a legendary treasure is said to be hidden, but they soon find themselves caught in a battle against some of the most notorious pirates in the world.",
+  },
+];
+
+export const genres: GenreItemType[] = [
+  {
+    value: "shōnen",
+    label: "Shōnen",
+  },
+  {
+    value: "fiction",
+    label: "Fiction",
+  },
+  {
+    value: "comedy",
+    label: "Comedy",
+  },
+  {
+    value: "isekai",
+    label: "Isekai",
+  },
+  {
+    value: "horror",
+    label: "Horror",
+  },
+  {
+    value: "mystery",
+    label: "Mystery",
+  },
+  {
+    value: "shoujo",
+    label: "Shoujo",
+  },
+  {
+    value: "slice-of-life",
+    label: "Slice of life",
+  },
+  {
+    value: "romance",
+    label: "Romance",
+  },
+  {
+    value: "seinen",
+    label: "Seinen",
+  },
+  {
+    value: "mecha",
+    label: "Mecha",
+  },
+  {
+    value: "thriller",
+    label: "Thriller",
   },
 ];
