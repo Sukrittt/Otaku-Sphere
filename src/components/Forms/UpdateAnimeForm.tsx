@@ -12,7 +12,11 @@ import { Button } from "@/ui/Button";
 import { Input } from "@/ui/Input";
 import { Textarea } from "@/ui/Textarea";
 import { Icons } from "@/components/Icons";
-import { type AnimeSchemaType, animeSchema } from "@/lib/validators/add-anime";
+import {
+  type AnimeSchemaType,
+  animeSchema,
+  DeleteAnimeSchemaType,
+} from "@/lib/validators/add-anime";
 import {
   Form,
   FormControl,
@@ -24,6 +28,7 @@ import {
 import { Combobox } from "@/ui/ComboBox";
 import { uploadFiles } from "@/lib/uploadthing";
 import { useAuthToast } from "@/hooks/useAuthToast";
+import CustomAlertBox from "@/components/CustomAlertBox";
 
 interface UpdateAnimeFormProps {
   anime: AnimeSchemaType;
@@ -109,9 +114,9 @@ const UpdateAnimeForm: FC<UpdateAnimeFormProps> = ({ anime, animeId }) => {
 
   const { mutate: deleteAnime, isLoading: deleteLoader } = useMutation({
     mutationFn: async () => {
-      const payload = { id: animeId };
+      const payload: DeleteAnimeSchemaType = { id: animeId };
 
-      const { data } = await axios.delete("/api/anime", { data: payload });
+      const { data } = await axios.post("/api/anime/delete", payload);
       return data;
     },
     onSuccess: () => {
@@ -283,22 +288,26 @@ const UpdateAnimeForm: FC<UpdateAnimeFormProps> = ({ anime, animeId }) => {
             Update Anime
             <span className="sr-only">Update Anime</span>
           </Button>
-          <Button
-            className="w-fit"
-            disabled={deleteLoader}
-            variant="destructive"
-            type="button"
+          <CustomAlertBox
+            description="This action cannot be undone. This will permanently delete this anime from our servers."
             onClick={() => deleteAnime()}
           >
-            {deleteLoader && (
-              <Icons.spinner
-                className="mr-2 h-4 w-4 animate-spin"
-                aria-hidden="true"
-              />
-            )}
-            Delete Anime
-            <span className="sr-only">Delete Anime</span>
-          </Button>
+            <Button
+              className="w-fit"
+              disabled={deleteLoader}
+              variant="destructive"
+              type="button"
+            >
+              {deleteLoader && (
+                <Icons.spinner
+                  className="mr-2 h-4 w-4 animate-spin"
+                  aria-hidden="true"
+                />
+              )}
+              {deleteLoader ? "Deleting" : "Delete Anime"}
+              <span className="sr-only">Delete Anime</span>
+            </Button>
+          </CustomAlertBox>
         </div>
       </form>
     </Form>

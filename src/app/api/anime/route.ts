@@ -151,4 +151,3 @@ export async function PATCH(req: Request) {
     return new Response("Something went wrong", { status: 500 });
   }
 }
-export async function DELETE(req: Request) {}
