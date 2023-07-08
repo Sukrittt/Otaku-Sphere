@@ -1,8 +1,10 @@
 "use client";
-import { FC, useEffect, useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
+import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
-import { cn } from "@/lib/utils";
+import { cn, formatUrl } from "@/lib/utils";
 import { Button } from "@/ui/Button";
 import { Skeleton } from "@/ui/Skeleton";
 import { useDebounce } from "@/hooks/use-debounce";
@@ -16,14 +18,39 @@ import {
 } from "@/ui/Command";
 import { Icons } from "@/components/Icons";
 
-interface SearchbarProps {}
-
-const Searchbar: FC<SearchbarProps> = ({}) => {
+const Searchbar = () => {
   const router = useRouter();
+
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState("");
+
   const debouncedQuery = useDebounce(query, 300);
   const [isPending, startTransition] = useTransition();
+
+  const [data, setData] = useState<{ id: string; name: string }[]>([]);
+
+  const { data: queryResults, refetch } = useQuery({
+    queryFn: async () => {
+      if (!query) return [];
+
+      const { data } = await axios(`/api/anime/search?q=${query}`);
+
+      return data as { id: string; name: string }[];
+    },
+    queryKey: ["search-query"],
+    enabled: false, //by default it will not fetch
+  });
+
+  useEffect(() => {
+    if (!query) {
+      setData([]);
+      return;
+    }
+
+    if (queryResults) {
+      setData(queryResults);
+    }
+  }, [queryResults, query]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -35,6 +62,14 @@ const Searchbar: FC<SearchbarProps> = ({}) => {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
+
+  useEffect(() => {
+    if (debouncedQuery.length > 0) {
+      startTransition(() => {
+        refetch();
+      });
+    }
+  }, [debouncedQuery, refetch]);
 
   return (
     <>
@@ -57,11 +92,13 @@ const Searchbar: FC<SearchbarProps> = ({}) => {
           onValueChange={setQuery}
         />
         <CommandList>
+          {/* {data.length === 0 && ( */}
           <CommandEmpty
             className={cn(isPending ? "hidden" : "py-6 text-center text-sm")}
           >
-            No products found.
+            No anime found.
           </CommandEmpty>
+          {/* // )} */}
           {isPending ? (
             <div className="space-y-1 overflow-hidden px-1 py-2">
               <Skeleton className="h-4 w-10 rounded" />
@@ -69,18 +106,26 @@ const Searchbar: FC<SearchbarProps> = ({}) => {
               <Skeleton className="h-8 rounded-sm" />
             </div>
           ) : (
-            <CommandGroup
-              //   key={group.category}
-              className="capitalize"
-              heading="Testing heading"
-            >
-              <CommandItem
-                //   key={item.id}
-                onSelect={() => {}}
-              >
-                Example command item
-              </CommandItem>
-            </CommandGroup>
+            data.length > 0 && (
+              <CommandGroup heading="Anime">
+                {data.map((queryItem) => {
+                  const formattedHref = `/anime/${formatUrl(queryItem.name)}`;
+
+                  return (
+                    <CommandItem
+                      key={queryItem.id}
+                      onSelect={() => {
+                        setIsOpen(false);
+                        setQuery("");
+                        router.push(formattedHref);
+                      }}
+                    >
+                      {queryItem.name}
+                    </CommandItem>
+                  );
+                })}
+              </CommandGroup>
+            )
           )}
         </CommandList>
       </CommandDialog>

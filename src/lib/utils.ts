@@ -12,3 +12,11 @@ export function formatDescription(description: string, trim: number) {
 
   return description;
 }
+
+export function formatUrl(name: string, reverse?: boolean) {
+  if (reverse) {
+    return decodeURIComponent(name.split("-").join(" "));
+  }
+
+  return name.split(" ").join("-");
+}
