@@ -32,14 +32,14 @@ export function AnimeAdminCard({
       {...props}
     >
       <CardHeader className="border-b p-0">
-        <AspectRatio ratio={1 / 1}>
+        <AspectRatio ratio={3 / 2}>
           {anime?.coverImage?.length ? (
             <Image
               src={anime.coverImage ?? "/images/anime-placeholder.png"}
               alt={anime.name}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               fill
-              className="object-contain"
+              className="object-cover"
               loading="lazy"
             />
           ) : (
