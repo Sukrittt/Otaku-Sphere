@@ -57,6 +57,7 @@ model User {
   sessions Session[]
 
   anime              Anime[]
+  rating             Rating[]
   finishedWatching   FinishedWatching[]
   currentlyWatching  CurrentlyWatching[]
   notStartedWatching NotStartedWatching[]
@@ -82,6 +83,9 @@ model Anime {
   trailerLink String
   coverImage  String
 
+  rating      Rating[]
+  ratingCount Float    @default(0)
+
   community          Community[]
   finishedWatching   FinishedWatching[]
   currentlyWatching  CurrentlyWatching[]
@@ -96,6 +100,21 @@ model Anime {
 
   @@index([creatorId])
   @@index([name])
+}
+
+model Rating {
+  id String @id @default(cuid())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  animeId String
+  anime   Anime  @relation(fields: [animeId], references: [id], onDelete: Cascade)
+
+  rating Float
+
+  @@index([userId])
+  @@index([animeId])
 }
 
 //----------------------------------------

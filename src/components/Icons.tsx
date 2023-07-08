@@ -13,6 +13,7 @@ import {
   Loader2,
   Image,
   Crown,
+  Star,
 } from "lucide-react";
 
 export type Icon = LucideIcon;
@@ -72,4 +73,5 @@ export const Icons = {
   spinner: Loader2,
   placeholder: Image,
   crown: Crown,
+  star: Star,
 };
