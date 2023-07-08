@@ -15,7 +15,11 @@ import { db } from "@/lib/db";
 import { AnimeAdminCard } from "@/components/Cards/Anime";
 
 const AnimePage = async () => {
-  const allAnime = await db.anime.findMany({});
+  const allAnime = await db.anime.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
 
   return (
     <Shell layout="dashboard">
