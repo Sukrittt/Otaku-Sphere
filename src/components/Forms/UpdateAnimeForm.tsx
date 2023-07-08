@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios, { AxiosError } from "axios";
@@ -25,38 +25,43 @@ import { Combobox } from "@/ui/ComboBox";
 import { uploadFiles } from "@/lib/uploadthing";
 import { useAuthToast } from "@/hooks/useAuthToast";
 
-const AddAnimeForm = () => {
+interface UpdateAnimeFormProps {
+  anime: AnimeSchemaType;
+  animeId: string;
+}
+
+const UpdateAnimeForm: FC<UpdateAnimeFormProps> = ({ anime, animeId }) => {
   const router = useRouter();
   const { loginToast, endErrorToast } = useAuthToast();
 
   const [file, setFile] = useState<File | null>(null);
-  const [genre, setGenre] = useState("");
+  const [genre, setGenre] = useState(anime.genre);
 
   //react-hook-form initialization
   const form = useForm<AnimeSchemaType>({
     resolver: zodResolver(animeSchema),
     defaultValues: {
-      name: "",
-      description: "",
-      director: "",
-      genre: "",
-      releaseYear: "",
-      trailerLink: "",
+      name: anime.name,
+      description: anime.description,
+      director: anime.director,
+      genre: anime.genre,
+      releaseYear: anime.releaseYear,
+      trailerLink: anime.trailerLink,
     },
   });
 
-  const { mutate: addAnime, isLoading } = useMutation({
+  const { mutate: updateAnime, isLoading } = useMutation({
     mutationFn: async (content: AnimeSchemaType) => {
-      let fileUrl = null;
+      let fileUrl = anime.coverImage ?? null;
 
       if (file) {
         const { url } = await uploadByFile(file);
         fileUrl = url;
       }
 
-      const payload = { ...content, genre, coverImage: fileUrl };
+      const payload = { ...content, genre, coverImage: fileUrl, id: animeId };
 
-      const { data } = await axios.post("/api/anime", payload);
+      const { data } = await axios.patch("/api/anime", payload);
       return data;
     },
     onSuccess: () => {
@@ -65,8 +70,8 @@ const AddAnimeForm = () => {
       form.reset();
 
       toast({
-        title: "Anime added",
-        description: "The anime was added successfully.",
+        title: "Anime updated",
+        description: "The anime was updated successfully.",
       });
     },
     onError: (error) => {
@@ -85,7 +90,7 @@ const AddAnimeForm = () => {
         if (statusCode === 409) {
           return toast({
             title: "Error",
-            description: "The anime you are trying to add already exists.",
+            description: "This anime already exists.",
             variant: "destructive",
           });
         }
@@ -93,6 +98,42 @@ const AddAnimeForm = () => {
           return toast({
             title: "Error",
             description: "Cover image is missing.",
+            variant: "destructive",
+          });
+        }
+      }
+
+      endErrorToast();
+    },
+  });
+
+  const { mutate: deleteAnime, isLoading: deleteLoader } = useMutation({
+    mutationFn: async () => {
+      const payload = { id: animeId };
+
+      const { data } = await axios.delete("/api/anime", { data: payload });
+      return data;
+    },
+    onSuccess: () => {
+      router.push("/admin/anime");
+      router.refresh();
+      form.reset();
+
+      toast({
+        title: "Anime deleted",
+        description: "The anime was deleted successfully.",
+      });
+    },
+    onError: (error) => {
+      if (error instanceof AxiosError) {
+        const statusCode = error.response?.status;
+        if (statusCode === 401) {
+          return loginToast();
+        }
+        if (statusCode === 403) {
+          return toast({
+            title: "Error",
+            description: "You are not authorized to delete anime.",
             variant: "destructive",
           });
         }
@@ -116,7 +157,7 @@ const AddAnimeForm = () => {
   }
 
   function onSubmit(content: AnimeSchemaType) {
-    addAnime(content);
+    updateAnime(content);
   }
 
   return (
@@ -177,6 +218,7 @@ const AddAnimeForm = () => {
                 <Combobox
                   data={genres}
                   placeholder="Select genre..."
+                  selectedOption={genre}
                   setGenre={setGenre}
                 />
               </FormControl>
@@ -230,22 +272,40 @@ const AddAnimeForm = () => {
             </FormItem>
           )}
         />
-        <Button className="w-fit" disabled={isLoading}>
-          {isLoading && (
-            <Icons.spinner
-              className="mr-2 h-4 w-4 animate-spin"
-              aria-hidden="true"
-            />
-          )}
-          Add Anime
-          <span className="sr-only">Add Anime</span>
-        </Button>
+        <div className="flex gap-x-3 items-center">
+          <Button className="w-fit" disabled={isLoading} type="submit">
+            {isLoading && (
+              <Icons.spinner
+                className="mr-2 h-4 w-4 animate-spin"
+                aria-hidden="true"
+              />
+            )}
+            Update Anime
+            <span className="sr-only">Update Anime</span>
+          </Button>
+          <Button
+            className="w-fit"
+            disabled={deleteLoader}
+            variant="destructive"
+            type="button"
+            onClick={() => deleteAnime()}
+          >
+            {deleteLoader && (
+              <Icons.spinner
+                className="mr-2 h-4 w-4 animate-spin"
+                aria-hidden="true"
+              />
+            )}
+            Delete Anime
+            <span className="sr-only">Delete Anime</span>
+          </Button>
+        </div>
       </form>
     </Form>
   );
 };
 
-export default AddAnimeForm;
+export default UpdateAnimeForm;
 
 const FileInput = ({
   setFile,

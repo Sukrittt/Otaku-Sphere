@@ -11,6 +11,7 @@ import {
   Lock,
   Tv,
   Loader2,
+  Image,
 } from "lucide-react";
 
 export type Icon = LucideIcon;
@@ -68,4 +69,5 @@ export const Icons = {
   admin: Lock,
   anime: Tv,
   spinner: Loader2,
+  placeholder: Image,
 };

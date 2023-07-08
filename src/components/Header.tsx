@@ -6,20 +6,20 @@ interface HeaderProps extends React.HTMLAttributes<HTMLDivElement> {
   title: string;
   description?: string | null;
   size?: "default" | "sm";
-  showBack?: boolean;
+  goBackLink?: string;
 }
 
 export function Header({
   title,
   description,
   size = "default",
-  showBack,
+  goBackLink,
   className,
   ...props
 }: HeaderProps) {
   return (
     <div className={cn("grid gap-1", className)} {...props}>
-      {showBack && <ShowBack href="/admin/anime" />}
+      {goBackLink && <ShowBack href={goBackLink} />}
       <h1
         className={cn(
           "line-clamp-1 text-3xl font-bold tracking-tight",

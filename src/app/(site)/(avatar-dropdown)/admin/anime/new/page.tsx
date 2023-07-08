@@ -35,7 +35,7 @@ const page = async () => {
         title="New Anime"
         description="New anime for this application"
         size="sm"
-        showBack
+        goBackLink="/admin/anime"
       />
       <Card>
         <CardHeader className="space-y-1">

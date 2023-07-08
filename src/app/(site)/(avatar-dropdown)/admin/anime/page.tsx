@@ -11,8 +11,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/ui/Card";
+import { db } from "@/lib/db";
+import { AnimeAdminCard } from "@/components/Cards/Anime";
 
-const AnimePage = () => {
+const AnimePage = async () => {
+  const allAnime = await db.anime.findMany({});
+
   return (
     <Shell layout="dashboard">
       <Header
@@ -44,7 +48,11 @@ const AnimePage = () => {
             </Link>
           </CardContent>
         </Card>
-        {/* TODO: display anime's created by the admin-user */}
+      </div>
+      <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+        {allAnime.map((anime) => (
+          <AnimeAdminCard key={anime.id} anime={anime} />
+        ))}
       </div>
     </Shell>
   );
