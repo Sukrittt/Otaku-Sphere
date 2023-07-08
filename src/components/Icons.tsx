@@ -12,6 +12,7 @@ import {
   Tv,
   Loader2,
   Image,
+  Crown,
 } from "lucide-react";
 
 export type Icon = LucideIcon;
@@ -70,4 +71,5 @@ export const Icons = {
   anime: Tv,
   spinner: Loader2,
   placeholder: Image,
+  crown: Crown,
 };

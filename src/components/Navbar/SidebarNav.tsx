@@ -19,6 +19,12 @@ const sidebarNavItems: SidebarNavType[] = [
     Icon: Icons.anime,
     href: "/admin/anime",
   },
+  {
+    id: 3,
+    label: "Admins",
+    Icon: Icons.crown,
+    href: "/admin",
+  },
 ];
 
 const SidebarNav = () => {
