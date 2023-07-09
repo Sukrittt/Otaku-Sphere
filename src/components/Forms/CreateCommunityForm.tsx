@@ -32,7 +32,7 @@ const CreateCommunityForm: FC<CreateCommunityFormProps> = ({}) => {
   const router = useRouter();
   const { loginToast, endErrorToast } = useAuthToast();
 
-  const [category, setCategory] = useState("#general");
+  const [category, setCategory] = useState("General");
 
   //react-hook-form initialization
   const form = useForm<CreateCommunityValidatorType>({

@@ -3,22 +3,22 @@ import { ComboBoxItemType } from "@/types/item-type";
 export const categories: ComboBoxItemType[] = [
   {
     value: "general",
-    label: "#general",
+    label: "General",
   },
   {
     value: "anime",
-    label: "#anime",
+    label: "Anime",
   },
   {
     value: "manga",
-    label: "#manga",
+    label: "Manga",
   },
   {
     value: "question",
-    label: "#question",
+    label: "Question",
   },
   {
     value: "feedback",
-    label: "#feedback",
+    label: "Feedback",
   },
 ];

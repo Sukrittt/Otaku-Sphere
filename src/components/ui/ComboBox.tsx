@@ -25,6 +25,7 @@ export const Combobox: FC<ComboboxProps> = forwardRef<
   ComboboxProps
 >(({ data, placeholder, setState, selectedOption, ...props }, ref) => {
   const [open, setOpen] = useState(false);
+
   const selectedGenre = data.find((item) => item.label === selectedOption);
 
   const [value, setValue] = useState(selectedGenre?.value ?? "");
