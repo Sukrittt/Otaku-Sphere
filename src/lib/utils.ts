@@ -20,3 +20,13 @@ export function formatUrl(name: string, reverse?: boolean) {
 
   return name.split(" ").join("-");
 }
+
+export function convertToSingleDecimalPlace(
+  number: number,
+  decimalPlaces: number
+) {
+  const roundedNumber = number.toFixed(decimalPlaces);
+  const singleDecimalPlace = parseFloat(roundedNumber).toFixed(1);
+
+  return parseFloat(singleDecimalPlace);
+}

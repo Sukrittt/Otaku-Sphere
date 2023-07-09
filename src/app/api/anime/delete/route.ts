@@ -2,7 +2,7 @@ import { z } from "zod";
 
 import { db } from "@/lib/db";
 import { getAuthSession } from "@/lib/auth";
-import { deleteAnimeSchema } from "@/lib/validators/add-anime";
+import { idAnimeSchema } from "@/lib/validators/add-anime";
 
 export async function POST(req: Request) {
   try {
@@ -27,7 +27,7 @@ export async function POST(req: Request) {
     }
 
     const body = await req.json();
-    const { id } = deleteAnimeSchema.parse(body);
+    const { id } = idAnimeSchema.parse(body);
 
     const anime = await db.anime.findFirst({
       where: {

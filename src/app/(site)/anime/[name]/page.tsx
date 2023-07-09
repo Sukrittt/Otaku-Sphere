@@ -2,10 +2,11 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 
 import { db } from "@/lib/db";
-import { formatUrl } from "@/lib/utils";
+import { convertToSingleDecimalPlace, formatUrl } from "@/lib/utils";
 import { Shell } from "@/components/Shell";
 import Description from "@/ui/Description";
 import AnimeRating from "@/components/AnimeRating";
+import { getAuthSession } from "@/lib/auth";
 
 interface AnimePageProps {
   params: {
@@ -16,6 +17,8 @@ interface AnimePageProps {
 const AnimePage = async ({ params }: AnimePageProps) => {
   const { name: rawName } = params;
   const name = formatUrl(rawName, true);
+
+  const session = await getAuthSession();
 
   const anime = await db.anime.findUnique({
     where: {
@@ -29,6 +32,21 @@ const AnimePage = async ({ params }: AnimePageProps) => {
   if (!anime) {
     notFound();
   }
+
+  const calculatedRating = () => {
+    const totalRatings = anime.totalRatings;
+    const ratingLength = anime.rating.length * 10;
+
+    if (ratingLength === 0) return 0;
+
+    const rawRating = (totalRatings / ratingLength) * 10;
+
+    return convertToSingleDecimalPlace(rawRating, 2);
+  };
+
+  const userRating = anime.rating.find(
+    (r) => r.userId === session?.user.id
+  )?.rating;
 
   return (
     <div className="flex flex-col relative min-h-screen">
@@ -47,14 +65,21 @@ const AnimePage = async ({ params }: AnimePageProps) => {
             <div className="space-y-4">
               <div className="font-medium text-muted-foreground">
                 <span className="text-4xl font-bold text-zinc-300">
-                  {anime.ratingCount}
+                  {calculatedRating()}
                 </span>
                 /10 ·{" "}
-                <span className="text-sm">{anime.rating.length} votes</span>
+                <span className="text-sm">
+                  {anime.rating.length}{" "}
+                  {anime.rating.length == 1 ? "vote" : "votes"}
+                </span>
               </div>
               <div className="text-xs font-semibold text-muted-foreground">
                 <div></div>
-                <AnimeRating animeId={anime.id} />
+                <AnimeRating
+                  animeId={anime.id}
+                  session={session}
+                  userRating={userRating}
+                />
               </div>
             </div>
           </div>

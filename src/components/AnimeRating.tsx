@@ -1,22 +1,87 @@
 "use client";
 import { FC, useState } from "react";
-import { Icons } from "./Icons";
+import { usePrevious } from "@mantine/hooks";
+import axios, { AxiosError } from "axios";
+import { useRouter } from "next/navigation";
+import { useMutation } from "@tanstack/react-query";
+import { Session } from "next-auth";
+
 import { cn } from "@/lib/utils";
+import { Icons } from "@/components/Icons";
+import { useAuthToast } from "@/hooks/useAuthToast";
+import { RateAnimeSchemaType } from "@/lib/validators/add-anime";
+import { toast } from "@/hooks/use-toast";
 
 interface AnimeRatingProps {
+  session: Session | null;
   animeId: string;
+  userRating: number | undefined;
 }
 
-const AnimeRating: FC<AnimeRatingProps> = ({ animeId }) => {
-  const [rating, setRating] = useState(0);
+const AnimeRating: FC<AnimeRatingProps> = ({
+  animeId,
+  session,
+  userRating,
+}) => {
+  const { endErrorToast, loginToast } = useAuthToast();
+  const router = useRouter();
+
+  const [rating, setRating] = useState(userRating ?? 0);
+  const previousRating = usePrevious(rating);
 
   const handleRatingClick = (index: number) => {
-    if (rating - 1 === index) {
+    if (rating === index) {
       setRating(0);
       return;
     }
 
-    setRating(index + 1);
+    setRating(index);
+  };
+
+  const { mutate: rate } = useMutation({
+    mutationFn: async (index: number) => {
+      const payload: RateAnimeSchemaType = { id: animeId, rating: index };
+
+      const { data } = await axios.post("/api/anime/rate", payload);
+      return data;
+    },
+    onError: (error) => {
+      setRating(previousRating ?? 0);
+
+      if (error instanceof AxiosError) {
+        const statusCode = error.response?.status;
+        if (statusCode === 401) {
+          return loginToast();
+        }
+        if (statusCode === 404) {
+          return toast({
+            title: "Not found",
+            description: "Anime not found.",
+            variant: "destructive",
+          });
+        }
+      }
+
+      endErrorToast();
+    },
+    onSuccess: () => {
+      toast({
+        title: "Thank you",
+        description: "Your rating was recorded successfully.",
+      });
+      router.refresh();
+    },
+    onMutate: (index: number) => {
+      handleRatingClick(index);
+    },
+  });
+
+  const handleRateAnime = (index: number) => {
+    if (!session) {
+      return router.push("/sign-in");
+    }
+
+    rate(index);
   };
 
   return (
@@ -26,14 +91,14 @@ const AnimeRating: FC<AnimeRatingProps> = ({ animeId }) => {
       </span>
       <div className="flex gap-x-3 w-full text-muted">
         {Array.from({ length: 10 }, (_, i) => i + 1).map((index) => {
-          const isFilled = index <= rating - 1 ? true : false;
+          const isFilled = index <= rating ? true : false;
           return (
             <Icons.star
               key={index}
               className={cn("h-4 w-4 cursor-pointer", {
                 "text-yellow-700": isFilled,
               })}
-              onClick={() => handleRatingClick(index)}
+              onClick={() => handleRateAnime(index)}
             />
           );
         })}

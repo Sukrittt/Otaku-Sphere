@@ -15,7 +15,7 @@ import { Icons } from "@/components/Icons";
 import {
   type AnimeSchemaType,
   animeSchema,
-  DeleteAnimeSchemaType,
+  IdAnimeSchemaType,
 } from "@/lib/validators/add-anime";
 import {
   Form,
@@ -114,7 +114,7 @@ const UpdateAnimeForm: FC<UpdateAnimeFormProps> = ({ anime, animeId }) => {
 
   const { mutate: deleteAnime, isLoading: deleteLoader } = useMutation({
     mutationFn: async () => {
-      const payload: DeleteAnimeSchemaType = { id: animeId };
+      const payload: IdAnimeSchemaType = { id: animeId };
 
       const { data } = await axios.post("/api/anime/delete", payload);
       return data;

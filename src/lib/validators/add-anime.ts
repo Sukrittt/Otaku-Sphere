@@ -25,8 +25,14 @@ export const animeSchema = z.object({
 
 export type AnimeSchemaType = z.infer<typeof animeSchema>;
 
-export const deleteAnimeSchema = z.object({
+export const idAnimeSchema = z.object({
   id: z.string(),
 });
 
-export type DeleteAnimeSchemaType = z.infer<typeof deleteAnimeSchema>;
+export type IdAnimeSchemaType = z.infer<typeof idAnimeSchema>;
+
+export const rateAnimeSchema = idAnimeSchema.extend({
+  rating: z.number().min(1).max(10),
+});
+
+export type RateAnimeSchemaType = z.infer<typeof rateAnimeSchema>;
