@@ -14,7 +14,7 @@ export type SidebarNavType = {
   Icon: Icon;
 };
 
-export type GenreItemType = {
+export type ComboBoxItemType = {
   value: string;
   label: string;
 };

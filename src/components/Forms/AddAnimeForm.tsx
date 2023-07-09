@@ -12,7 +12,7 @@ import { Button } from "@/ui/Button";
 import { Input } from "@/ui/Input";
 import { Textarea } from "@/ui/Textarea";
 import { Icons } from "@/components/Icons";
-import { type AnimeSchemaType, animeSchema } from "@/lib/validators/add-anime";
+import { type AnimeSchemaType, animeSchema } from "@/lib/validators/anime";
 import {
   Form,
   FormControl,
@@ -177,7 +177,7 @@ const AddAnimeForm = () => {
                 <Combobox
                   data={genres}
                   placeholder="Select genre..."
-                  setGenre={setGenre}
+                  setState={setGenre}
                 />
               </FormControl>
               <FormMessage />

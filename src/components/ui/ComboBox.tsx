@@ -11,19 +11,19 @@ import {
   CommandItem,
 } from "@/ui/Command";
 import { Popover, PopoverContent, PopoverTrigger } from "@/ui/Popover";
-import { GenreItemType } from "@/types/item-type";
+import { ComboBoxItemType } from "@/types/item-type";
 
 interface ComboboxProps extends React.HTMLAttributes<HTMLInputElement> {
   placeholder: string;
-  data: GenreItemType[];
-  setGenre: (genre: string) => void;
+  data: ComboBoxItemType[];
+  setState: (genre: string) => void;
   selectedOption?: string;
 }
 
 export const Combobox: FC<ComboboxProps> = forwardRef<
   HTMLInputElement,
   ComboboxProps
->(({ data, placeholder, setGenre, selectedOption, ...props }, ref) => {
+>(({ data, placeholder, setState, selectedOption, ...props }, ref) => {
   const [open, setOpen] = useState(false);
   const selectedGenre = data.find((item) => item.label === selectedOption);
 
@@ -33,9 +33,9 @@ export const Combobox: FC<ComboboxProps> = forwardRef<
     if (value) {
       const findIndex = data.findIndex((item) => item.value === value);
 
-      setGenre(data[findIndex].label);
+      setState(data[findIndex].label);
     }
-  }, [value, setGenre, data]);
+  }, [value, setState, data]);
 
   return (
     <Popover open={open} onOpenChange={setOpen} {...props}>

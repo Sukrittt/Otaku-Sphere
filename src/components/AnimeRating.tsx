@@ -9,7 +9,7 @@ import { Session } from "next-auth";
 import { cn } from "@/lib/utils";
 import { Icons } from "@/components/Icons";
 import { useAuthToast } from "@/hooks/useAuthToast";
-import { RateAnimeSchemaType } from "@/lib/validators/add-anime";
+import { RateAnimeSchemaType } from "@/lib/validators/anime";
 import { toast } from "@/hooks/use-toast";
 
 interface AnimeRatingProps {

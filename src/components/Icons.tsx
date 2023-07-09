@@ -14,6 +14,12 @@ import {
   Image,
   Crown,
   Star,
+  Users,
+  Boxes,
+  Info,
+  Book,
+  HelpCircle,
+  MessageSquare,
 } from "lucide-react";
 
 export type Icon = LucideIcon;
@@ -74,4 +80,10 @@ export const Icons = {
   placeholder: Image,
   crown: Crown,
   star: Star,
+  boxes: Boxes,
+  users: Users,
+  info: Info,
+  book: Book,
+  question: HelpCircle,
+  feedback: MessageSquare,
 };

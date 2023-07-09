@@ -1,4 +1,4 @@
-import { GenreItemType } from "@/types/item-type";
+import { ComboBoxItemType } from "@/types/item-type";
 
 export const animeData = [
   {
@@ -273,7 +273,7 @@ export const animeData = [
   },
 ];
 
-export const genres: GenreItemType[] = [
+export const genres: ComboBoxItemType[] = [
   {
     value: "shōnen",
     label: "Shōnen",

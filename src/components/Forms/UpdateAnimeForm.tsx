@@ -16,7 +16,7 @@ import {
   type AnimeSchemaType,
   animeSchema,
   IdAnimeSchemaType,
-} from "@/lib/validators/add-anime";
+} from "@/lib/validators/anime";
 import {
   Form,
   FormControl,
@@ -224,7 +224,7 @@ const UpdateAnimeForm: FC<UpdateAnimeFormProps> = ({ anime, animeId }) => {
                   data={genres}
                   placeholder="Select genre..."
                   selectedOption={genre}
-                  setGenre={setGenre}
+                  setState={setGenre}
                 />
               </FormControl>
               <FormMessage />

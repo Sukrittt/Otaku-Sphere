@@ -1,13 +1,13 @@
 "use client";
-import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 import { cn } from "@/lib/utils";
-import { adminSidebarNavItems } from "@/data";
+import { communitySidebarNavItems } from "@/data";
 
-const SidebarNav = () => {
+const CommunitySidebar = () => {
   const pathname = usePathname();
-  const data = adminSidebarNavItems;
+  const data = communitySidebarNavItems;
 
   return (
     <div className="flex w-full flex-col gap-2">
@@ -30,4 +30,4 @@ const SidebarNav = () => {
   );
 };
 
-export default SidebarNav;
+export default CommunitySidebar;

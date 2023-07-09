@@ -2,7 +2,7 @@ import { z } from "zod";
 
 import { db } from "@/lib/db";
 import { getAuthSession } from "@/lib/auth";
-import { rateAnimeSchema } from "@/lib/validators/add-anime";
+import { rateAnimeSchema } from "@/lib/validators/anime";
 
 export async function POST(req: Request) {
   try {
