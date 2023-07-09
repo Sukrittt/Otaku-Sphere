@@ -25,6 +25,7 @@ import {
 } from "@/lib/validators/community";
 import { Combobox } from "@/ui/ComboBox";
 import { categories } from "@/data/community";
+import { Textarea } from "@/ui/Textarea";
 
 interface CreateCommunityFormProps {}
 
@@ -39,6 +40,7 @@ const CreateCommunityForm: FC<CreateCommunityFormProps> = ({}) => {
     resolver: zodResolver(createCommunityValidator),
     defaultValues: {
       name: "",
+      description: "",
       category: "",
     },
   });
@@ -47,6 +49,7 @@ const CreateCommunityForm: FC<CreateCommunityFormProps> = ({}) => {
     mutationFn: async (content: CreateCommunityValidatorType) => {
       const payload: CreateCommunityValidatorType = {
         name: content.name,
+        description: content.description,
         category,
       };
 
@@ -93,6 +96,22 @@ const CreateCommunityForm: FC<CreateCommunityFormProps> = ({}) => {
               <FormLabel>Name</FormLabel>
               <FormControl>
                 <Input placeholder="Type community name here." {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="description"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Description</FormLabel>
+              <FormControl>
+                <Textarea
+                  placeholder="Little bit about this community."
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>

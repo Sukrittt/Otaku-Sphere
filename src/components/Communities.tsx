@@ -1,24 +1,21 @@
 "use client";
-import { FC, useEffect, useRef, useState } from "react";
-import { Community } from "@prisma/client";
+import { FC, useEffect, useRef } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useIntersection } from "@mantine/hooks";
 import Link from "next/link";
 
-import { Input } from "@/ui/Input";
-import { useDebounce } from "@/hooks/use-debounce";
 import { INFINITE_SCROLLING_PAGINATION_RESULTS } from "@/config";
 import { buttonVariants } from "@/ui/Button";
+import CommunityCard from "@/components/Cards/CommunityCard";
+import { ExtendedCommunity } from "@/types/db";
 
-interface SearchCommunityProps {
-  initialCommunites: Community[];
+interface CommunitiesProps {
+  initialCommunites: ExtendedCommunity[];
+  category?: string;
 }
 
-const SearchCommunity: FC<SearchCommunityProps> = ({ initialCommunites }) => {
-  const [query, setQuery] = useState("");
-
-  const debouncedQuery = useDebounce(query, 300);
+const Communities: FC<CommunitiesProps> = ({ initialCommunites, category }) => {
   const lastPostRef = useRef<HTMLElement>(null);
 
   const { ref, entry } = useIntersection({
@@ -29,11 +26,11 @@ const SearchCommunity: FC<SearchCommunityProps> = ({ initialCommunites }) => {
   const { data, fetchNextPage, isFetchingNextPage } = useInfiniteQuery(
     ["infinite-query"],
     async ({ pageParam = 1 }) => {
-      const queryUrl = `/api/posts?q=${query}&limit=${INFINITE_SCROLLING_PAGINATION_RESULTS}&page=${pageParam}`;
+      const queryUrl = `/api/community?limit=${INFINITE_SCROLLING_PAGINATION_RESULTS}&page=${pageParam}`;
 
       const { data } = await axios(queryUrl);
 
-      return data as Community[];
+      return data as ExtendedCommunity[];
     },
     {
       getNextPageParam: (_, pages) => {
@@ -52,14 +49,19 @@ const SearchCommunity: FC<SearchCommunityProps> = ({ initialCommunites }) => {
   }, [entry, fetchNextPage]);
 
   return (
-    <div className="flex gap-x-2 flex-col md:flex-row">
-      <Input placeholder="Search communities here..." className="md:w-1/2" />
-      <Link href="/community/create" className={buttonVariants()}>
-        Create your own community
-      </Link>
-      {/* TODO: DISPLAY COMMUNITIES */}
+    <div className="flex flex-col gap-y-4">
+      <div className="flex gap-x-2 flex-col md:flex-row">
+        <Link href="/community/create" className={buttonVariants()}>
+          Create your own community
+        </Link>
+      </div>
+      <div className="flex flex-col gap-y-4">
+        {communities.map((community) => (
+          <CommunityCard key={community.id} community={community} />
+        ))}
+      </div>
     </div>
   );
 };
 
-export default SearchCommunity;
+export default Communities;

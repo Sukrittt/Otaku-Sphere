@@ -159,8 +159,9 @@ model NotStartedWatching {
 //----------------------------------------
 
 model Community {
-  id   String @id @default(cuid())
-  name String @unique
+  id          String @id @default(cuid())
+  name        String @unique
+  description String @db.VarChar(300)
 
   category String
 
