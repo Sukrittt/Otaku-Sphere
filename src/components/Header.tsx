@@ -29,12 +29,7 @@ export function Header({
         {title}
       </h1>
       {description ? (
-        <p
-          className={cn(
-            "line-clamp-2 text-muted-foreground",
-            size === "default" && "text-lg"
-          )}
-        >
+        <p className="line-clamp-2 text-muted-foreground text-md">
           {description}
         </p>
       ) : null}

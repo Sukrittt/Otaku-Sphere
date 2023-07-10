@@ -64,8 +64,10 @@ model User {
 
   community Community[]
   post      Post[]
-  like      Like[]
-  member    Member[]
+  comment   Comment[]
+
+  like        Like[]
+  commentLike CommentLike[]
 
   report Report[]
 
@@ -168,8 +170,7 @@ model Community {
   creatorId String
   creator   User   @relation(fields: [creatorId], references: [id], onDelete: Cascade)
 
-  post   Post[]
-  member Member[]
+  post Post[]
 
   createdAt DateTime @default(now())
 
@@ -178,7 +179,7 @@ model Community {
 
 model Post {
   id      String @id @default(cuid())
-  content Json?
+  message String @db.VarChar(600)
 
   creatorId String
   creator   User   @relation(fields: [creatorId], references: [id], onDelete: Cascade)
@@ -187,9 +188,25 @@ model Post {
   community   Community @relation(fields: [communityId], references: [id], onDelete: Cascade)
   like        Like[]
 
+  comment Comment[]
+
   createdAt DateTime @default(now())
 
   @@index([communityId])
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  text      String
+  createdAt DateTime @default(now())
+
+  author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId String
+
+  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId String
+
+  like CommentLike[]
 }
 
 model Like {
@@ -201,22 +218,19 @@ model Like {
   postId String
   post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
 
-  isLiked Boolean @default(false)
-
   @@index([postId])
 }
 
-model Member {
+model CommentLike {
+  id String @id @default(cuid())
+
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  communityId String
-  community   Community @relation(fields: [communityId], references: [id], onDelete: Cascade)
+  commentId String
+  comment   Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
 
-  createdAt DateTime @default(now())
-
-  @@id([userId, communityId])
-  @@index([communityId])
+  @@index([commentId])
 }
 
 // --------------------------------------

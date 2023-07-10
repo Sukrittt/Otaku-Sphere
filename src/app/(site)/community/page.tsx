@@ -8,7 +8,6 @@ const CommunityPage = async () => {
     take: INFINITE_SCROLLING_PAGINATION_RESULTS,
     include: {
       post: true,
-      member: true,
       creator: true,
     },
   });

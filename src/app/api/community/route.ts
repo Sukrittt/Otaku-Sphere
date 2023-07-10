@@ -67,7 +67,6 @@ export async function GET(req: Request) {
       where: whereClause,
       include: {
         creator: true,
-        member: true,
         post: true,
       },
     });
