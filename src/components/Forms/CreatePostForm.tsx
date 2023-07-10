@@ -23,6 +23,7 @@ import {
   FormMessage,
 } from "@/ui/Form";
 import { Textarea } from "@/ui/Textarea";
+import { Input } from "@/ui/Input";
 
 interface CreatePostFormProps {
   category: string;
@@ -38,12 +39,14 @@ const CreatePostForm: FC<CreatePostFormProps> = ({ category, communityId }) => {
     resolver: zodResolver(createPostValidator),
     defaultValues: {
       text: "",
+      title: "",
     },
   });
 
   const { mutate: createCommunity, isLoading } = useMutation({
     mutationFn: async (content: CreatePostValidatorType) => {
       const payload: CreatePostValidatorType = {
+        title: content.title,
         text: content.text,
       };
 
@@ -88,6 +91,19 @@ const CreatePostForm: FC<CreatePostFormProps> = ({ category, communityId }) => {
         className="grid w-full max-w-xl gap-5"
         onSubmit={(...args) => void form.handleSubmit(onSubmit)(...args)}
       >
+        <FormField
+          control={form.control}
+          name="title"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Title</FormLabel>
+              <FormControl>
+                <Input placeholder="Type your title to here." {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <FormField
           control={form.control}
           name="text"

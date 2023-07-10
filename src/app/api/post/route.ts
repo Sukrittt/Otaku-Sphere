@@ -20,10 +20,12 @@ export async function POST(req: Request) {
       communityId: url.searchParams.get("communityId"),
     };
 
-    const { communityId, text } = creatPostServerValidator.parse(extendedBody);
+    const { communityId, text, title } =
+      creatPostServerValidator.parse(extendedBody);
 
     await db.post.create({
       data: {
+        title,
         message: text,
         communityId,
         creatorId: session.user.id,

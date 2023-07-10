@@ -11,6 +11,7 @@ export type CreateCommunityValidatorType = z.infer<
 >;
 
 export const createPostValidator = z.object({
+  title: z.string().min(3).max(80),
   text: z.string().min(3).max(600),
 });
 

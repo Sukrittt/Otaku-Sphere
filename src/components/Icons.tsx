@@ -20,6 +20,7 @@ import {
   Book,
   HelpCircle,
   MessageSquare,
+  Heart,
 } from "lucide-react";
 
 export type Icon = LucideIcon;
@@ -86,4 +87,5 @@ export const Icons = {
   book: Book,
   question: HelpCircle,
   feedback: MessageSquare,
+  like: Heart,
 };

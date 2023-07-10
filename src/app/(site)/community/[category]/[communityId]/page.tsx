@@ -7,6 +7,7 @@ import { getAuthSession } from "@/lib/auth";
 import { Header } from "@/components/Header";
 import { buttonVariants } from "@/ui/Button";
 import { cn } from "@/lib/utils";
+import PostCard from "@/components/Cards/PostCard";
 
 interface CommunityCategoryPageProps {
   params: {
@@ -27,6 +28,12 @@ const CommunityCategoryPage = async ({
       post: {
         orderBy: {
           createdAt: "desc",
+        },
+        include: {
+          comment: true,
+          creator: true,
+          like: true,
+          community: true,
         },
       },
     },
@@ -56,7 +63,7 @@ const CommunityCategoryPage = async ({
         Create a post
       </Link>
       {community.post.map((postItem) => (
-        <div key={postItem.id}>{postItem.message}</div>
+        <PostCard key={postItem.id} post={postItem} />
       ))}
     </Shell>
   );

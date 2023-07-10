@@ -178,7 +178,9 @@ model Community {
 }
 
 model Post {
-  id      String @id @default(cuid())
+  id String @id @default(cuid())
+
+  title   String @db.VarChar(80)
   message String @db.VarChar(600)
 
   creatorId String
