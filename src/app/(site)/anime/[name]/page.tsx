@@ -1,12 +1,15 @@
 import Image from "next/image";
 import { notFound } from "next/navigation";
+import Link from "next/link";
 
 import { db } from "@/lib/db";
-import { convertToSingleDecimalPlace, formatUrl } from "@/lib/utils";
+import { cn, convertToSingleDecimalPlace, formatUrl } from "@/lib/utils";
 import { Shell } from "@/components/Shell";
 import Description from "@/ui/Description";
 import AnimeRating from "@/components/AnimeRating";
 import { getAuthSession } from "@/lib/auth";
+import { buttonVariants } from "@/ui/Button";
+import { Icons } from "@/components/Icons";
 
 interface AnimePageProps {
   params: {
@@ -98,6 +101,14 @@ const AnimePage = async ({ params }: AnimePageProps) => {
               <span>{anime.releaseYear}</span>
             </div>
             <Description description={anime.description} />
+            <Link
+              href={anime.trailerLink}
+              target="_blank"
+              className={cn(buttonVariants(), "w-fit")}
+            >
+              <Icons.play className="w-4 h-4 mr-2" />
+              Watch trailer
+            </Link>
           </div>
         </div>
       </Shell>

@@ -21,6 +21,7 @@ import {
   HelpCircle,
   MessageSquare,
   Heart,
+  Play,
 } from "lucide-react";
 
 export type Icon = LucideIcon;
@@ -88,4 +89,5 @@ export const Icons = {
   question: HelpCircle,
   feedback: MessageSquare,
   like: Heart,
+  play: Play,
 };
