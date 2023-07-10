@@ -26,7 +26,9 @@ const Communities: FC<CommunitiesProps> = ({ initialCommunites, category }) => {
   const { data, fetchNextPage, isFetchingNextPage } = useInfiniteQuery(
     ["infinite-query"],
     async ({ pageParam = 1 }) => {
-      const queryUrl = `/api/community?limit=${INFINITE_SCROLLING_PAGINATION_RESULTS}&page=${pageParam}`;
+      const queryUrl =
+        `/api/community?limit=${INFINITE_SCROLLING_PAGINATION_RESULTS}&page=${pageParam}` +
+        (!!category ? `&category=${category}` : "");
 
       const { data } = await axios(queryUrl);
 
