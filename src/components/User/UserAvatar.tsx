@@ -12,14 +12,11 @@ interface UserAvatarProps extends AvatarProps {
 const UserAvatar: FC<UserAvatarProps> = ({ user, ...props }) => {
   return (
     <Avatar {...props}>
-      {user.image ? (
-        <AvatarImage src={user.image} />
-      ) : (
-        <AvatarFallback>
-          <span className="sr-only">{user?.name}</span>
-          <Icons.user className="h-4 w-4" />
-        </AvatarFallback>
-      )}
+      <AvatarImage src={user.image ?? ""} alt={user.name ?? "user avatar"} />
+      <AvatarFallback>
+        <span className="sr-only">{user?.name}</span>
+        <Icons.user className="h-4 w-4" />
+      </AvatarFallback>
     </Avatar>
   );
 };
