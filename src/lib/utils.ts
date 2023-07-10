@@ -33,6 +33,20 @@ export function convertToSingleDecimalPlace(
   return parseFloat(singleDecimalPlace);
 }
 
+export function calculateIncreasePercentage(
+  current: number,
+  previous: number
+): number {
+  if (previous === 0) {
+    return 0;
+  }
+
+  return convertToSingleDecimalPlace(
+    ((current - previous) / previous) * 100,
+    1
+  );
+}
+
 const formatDistanceLocale = {
   lessThanXSeconds: "just now",
   xSeconds: "just now",
