@@ -9,8 +9,9 @@ import { getAuthSession } from "@/lib/auth";
 import { Icons } from "@/components/Icons";
 import CommentCard from "@/components/Cards/CommentCard";
 import AddCommentForm from "@/components/Forms/AddCommentForm";
-import { buttonVariants } from "@/components/ui/Button";
+import { Button, buttonVariants } from "@/ui/Button";
 import { cn, formatTimeToNow } from "@/lib/utils";
+import CommunityDropdown from "@/components/Dropdown/CommunityDropdown";
 
 interface IndividualPostPageProps {
   params: {
@@ -58,12 +59,24 @@ const IndividualPostPage = async ({ params }: IndividualPostPageProps) => {
       <Card>
         <CardHeader className="border-b flex flex-col gap-y-2">
           <div className="grid gap-1">
-            <Link
-              href={`/community/${category}/${communityId}`}
-              className={cn(buttonVariants({ variant: "link" }), "w-fit px-0")}
-            >
-              Go back
-            </Link>
+            <div className="w-full flex justify-between items-center">
+              <Link
+                href={`/community/${category}/${communityId}`}
+                className={cn(
+                  buttonVariants({ variant: "link" }),
+                  "w-fit px-0"
+                )}
+              >
+                Go back
+              </Link>
+              {post.creator.id === session.user.id && (
+                <CommunityDropdown>
+                  <Button size="icon" variant="ghost">
+                    <Icons.options className="h-4 w-4" />
+                  </Button>
+                </CommunityDropdown>
+              )}
+            </div>
             <div>
               <span className="text-sm font-medium text-muted-foreground">
                 Posted by {`u/${formattedName}`} ·{" "}

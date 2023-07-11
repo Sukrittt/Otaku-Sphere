@@ -22,6 +22,9 @@ import {
   MessageSquare,
   Heart,
   Play,
+  MoreVertical,
+  ClipboardCheck,
+  Trash2,
 } from "lucide-react";
 
 export type Icon = LucideIcon;
@@ -90,4 +93,7 @@ export const Icons = {
   feedback: MessageSquare,
   like: Heart,
   play: Play,
+  options: MoreVertical,
+  share: ClipboardCheck,
+  delete: Trash2,
 };

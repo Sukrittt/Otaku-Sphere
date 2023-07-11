@@ -58,12 +58,22 @@ const CommunityCategoryPage = async ({
         description={community.description}
         goBackLink={baseLink}
       />
-      <Link
-        href={`${baseLink}/${community.id}/post`}
-        className={cn(buttonVariants(), "w-fit")}
-      >
-        Create a post
-      </Link>
+      <div className="flex items-center gap-x-2">
+        <Link
+          href={`${baseLink}/${community.id}/post`}
+          className={cn(buttonVariants(), "w-fit")}
+        >
+          Create a post
+        </Link>
+        {community.creatorId === session.user.id && (
+          <Link
+            href={`${baseLink}/${community.id}/edit}`}
+            className={cn(buttonVariants({ variant: "outline" }), "w-fit")}
+          >
+            Edit details
+          </Link>
+        )}
+      </div>
       <div className="flex flex-col gap-y-4">
         {community.post.map((postItem) => (
           <PostCard key={postItem.id} post={postItem} />
