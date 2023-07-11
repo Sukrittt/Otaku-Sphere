@@ -67,7 +67,7 @@ const AnimePage = async ({ params }: AnimePageProps) => {
             </div>
             <div className="space-y-4">
               <div className="font-medium text-muted-foreground">
-                <span className="text-4xl font-bold text-zinc-300">
+                <span className="text-4xl font-bold text-zinc-800 dark:text-zinc-300">
                   {calculatedRating()}
                 </span>
                 /10 ·{" "}
@@ -77,7 +77,6 @@ const AnimePage = async ({ params }: AnimePageProps) => {
                 </span>
               </div>
               <div className="text-xs font-semibold text-muted-foreground">
-                <div></div>
                 <AnimeRating
                   animeId={anime.id}
                   session={session}
@@ -92,7 +91,7 @@ const AnimePage = async ({ params }: AnimePageProps) => {
                 {anime.name}
               </h1>
               <span className="text-xl text-zinc-400 font-medium">
-                ({anime.releaseYear})
+                {anime.releaseYear}
               </span>
             </div>
             <div className="flex gap-x-3 items-center text-xs font-bold">

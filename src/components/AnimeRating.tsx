@@ -66,7 +66,6 @@ const AnimeRating: FC<AnimeRatingProps> = ({
     },
     onSuccess: () => {
       toast({
-        title: "Thank you",
         description: "Your rating was recorded successfully.",
       });
       router.refresh();
@@ -89,7 +88,7 @@ const AnimeRating: FC<AnimeRatingProps> = ({
       <span className="text-sm text-muted-foreground font-semibold">
         Rate this
       </span>
-      <div className="flex gap-x-3 w-full text-muted">
+      <div className="flex gap-x-3 w-full text-zinc-600 dark:text-muted">
         {Array.from({ length: 10 }, (_, i) => i + 1).map((index) => {
           const isFilled = index <= rating ? true : false;
           return (

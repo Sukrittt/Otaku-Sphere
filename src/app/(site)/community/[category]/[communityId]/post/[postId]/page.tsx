@@ -1,7 +1,7 @@
+import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 
 import { db } from "@/lib/db";
-import { Header } from "@/components/Header";
 import { Shell } from "@/components/Shell";
 import { Card, CardContent, CardFooter, CardHeader } from "@/ui/Card";
 import LikePost from "@/components/LikePost";
@@ -9,6 +9,8 @@ import { getAuthSession } from "@/lib/auth";
 import { Icons } from "@/components/Icons";
 import CommentCard from "@/components/Cards/CommentCard";
 import AddCommentForm from "@/components/Forms/AddCommentForm";
+import { buttonVariants } from "@/components/ui/Button";
+import { cn, formatTimeToNow } from "@/lib/utils";
 
 interface IndividualPostPageProps {
   params: {
@@ -49,42 +51,52 @@ const IndividualPostPage = async ({ params }: IndividualPostPageProps) => {
     (eachObj) => eachObj.userId === session.user.id
   );
 
+  const formattedName = post.creator.name?.split(" ")[0].toLowerCase();
+
   return (
     <Shell>
       <Card>
-        <CardHeader>
-          <Header
-            title={post.title}
-            goBackLink={`/community/${category}/${communityId}`}
-            description={post.message}
-          />
-        </CardHeader>
-        <CardContent className="border-b">
+        <CardHeader className="border-b pb-3 flex flex-col gap-y-2">
+          <div className="grid gap-1">
+            <Link
+              href={`/community/${category}/${communityId}`}
+              className={cn(buttonVariants({ variant: "link" }), "w-fit px-0")}
+            >
+              Go back
+            </Link>
+            <div>
+              <span className="text-sm font-medium text-muted-foreground">
+                Posted by {`u/${formattedName}`} ·{" "}
+                {formatTimeToNow(new Date(post.createdAt))}
+              </span>
+              <h1 className="line-clamp-1 text-3xl font-bold tracking-tight py-1 md:text-4xl">
+                {post.title}
+              </h1>
+            </div>
+            <p className="text-muted-foreground text-md">{post.message}</p>
+          </div>
           <div className="flex items-center gap-x-5">
             <div className="flex items-center gap-x-1">
-              <Icons.feedback className="h-4 w-4" />
+              <Icons.feedback className="h-3.5 w-3.5" />
               <span className="text-sm text-muted-foreground">
                 {post.comment.length}
               </span>
             </div>
             <LikePost likes={post.like.length} initialLike={initialLike} />
           </div>
-        </CardContent>
-        <CardFooter className="mt-2 w-full flex flex-col">
+        </CardHeader>
+        <CardContent className="mt-2 w-full flex flex-col gap-y-4 pb-3.5">
           <AddCommentForm postId={post.id} />
-          {post.comment.length > 0 && (
-            <div className="w-full border border-red-500">
-              <p className="text-sm font-medium text-muted-foreground w-full">
-                Comments
-              </p>
-              <div className="flex flex-col gap-y-2 w-full">
-                {post.comment.map((commentItem) => (
-                  <CommentCard key={commentItem.id} comment={commentItem} />
-                ))}
-              </div>
+        </CardContent>
+        {post.comment.length > 0 && (
+          <CardFooter className="border-t py-3">
+            <div className="flex flex-col gap-y-6 w-full">
+              {post.comment.map((commentItem) => (
+                <CommentCard key={commentItem.id} comment={commentItem} />
+              ))}
             </div>
-          )}
-        </CardFooter>
+          </CardFooter>
+        )}
       </Card>
     </Shell>
   );

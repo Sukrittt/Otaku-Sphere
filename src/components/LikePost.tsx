@@ -20,7 +20,7 @@ const LikePost: FC<LikePostProps> = ({ initialLike, likes }) => {
   return (
     <div className="flex items-center gap-x-1.5">
       <Icons.like
-        className={cn("h-4 w-4 cursor-pointer", {
+        className={cn("h-3.5 w-3.5 cursor-pointer", {
           "text-red-600": isLiked,
         })}
       />
