@@ -5,7 +5,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 
-import { Input } from "@/ui/Input";
 import { useAuthToast } from "@/hooks/useAuthToast";
 import { toast } from "@/hooks/use-toast";
 import {
@@ -23,6 +22,7 @@ import {
   CreateCommentValidator,
   ServerCommentValidatorType,
 } from "@/lib/validators/community";
+import { Textarea } from "@/ui/Textarea";
 
 const AddCommentForm = ({ postId }: { postId: string }) => {
   const router = useRouter();
@@ -95,7 +95,7 @@ const AddCommentForm = ({ postId }: { postId: string }) => {
             <FormItem>
               <FormLabel>Your comment</FormLabel>
               <FormControl>
-                <Input placeholder="Type your comment here." {...field} />
+                <Textarea placeholder="Type your comment here." {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
