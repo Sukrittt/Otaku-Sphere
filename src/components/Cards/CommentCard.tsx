@@ -22,7 +22,7 @@ const CommentCard: FC<CommentCardProps> = ({ comment }) => {
             {formatTimeToNow(new Date(comment.createdAt))}
           </span>
         </div>
-        <p className="text-zinc-800 dark:text-zinc-300 text-md">
+        <p className="text-zinc-800 dark:text-zinc-300 text-sm">
           {comment.text}
         </p>
       </div>
