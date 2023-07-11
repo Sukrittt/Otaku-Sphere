@@ -86,7 +86,7 @@ const AddCommentForm = ({ postId }: { postId: string }) => {
   return (
     <Form {...form}>
       <form
-        className="grid w-full gap-5 mt-1.5"
+        className="grid w-full gap-5"
         onSubmit={(...args) => void form.handleSubmit(onSubmit)(...args)}
       >
         <FormField

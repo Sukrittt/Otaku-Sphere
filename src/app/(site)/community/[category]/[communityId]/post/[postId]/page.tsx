@@ -56,7 +56,7 @@ const IndividualPostPage = async ({ params }: IndividualPostPageProps) => {
   return (
     <Shell>
       <Card>
-        <CardHeader className="border-b pb-3 flex flex-col gap-y-2">
+        <CardHeader className="border-b flex flex-col gap-y-2">
           <div className="grid gap-1">
             <Link
               href={`/community/${category}/${communityId}`}
@@ -89,7 +89,7 @@ const IndividualPostPage = async ({ params }: IndividualPostPageProps) => {
             />
           </div>
         </CardHeader>
-        <CardContent className="mt-2 w-full flex flex-col gap-y-4 pb-3.5">
+        <CardContent className="w-full flex flex-col gap-y-4 py-5">
           <AddCommentForm postId={post.id} />
         </CardContent>
         {post.comment.length > 0 && (

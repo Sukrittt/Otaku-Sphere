@@ -3,10 +3,8 @@ import { FC, useEffect, useRef } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useIntersection } from "@mantine/hooks";
-import Link from "next/link";
 
 import { INFINITE_SCROLLING_PAGINATION_RESULTS } from "@/config";
-import { buttonVariants } from "@/ui/Button";
 import CommunityCard from "@/components/Cards/CommunityCard";
 import { ExtendedCommunity } from "@/types/db";
 
@@ -52,16 +50,9 @@ const Communities: FC<CommunitiesProps> = ({ initialCommunites, category }) => {
 
   return (
     <div className="flex flex-col gap-y-4">
-      <div className="flex gap-x-2 flex-col md:flex-row">
-        <Link href="/community/create" className={buttonVariants()}>
-          Create your own community
-        </Link>
-      </div>
-      <div className="flex flex-col gap-y-4">
-        {communities.map((community) => (
-          <CommunityCard key={community.id} community={community} />
-        ))}
-      </div>
+      {communities.map((community) => (
+        <CommunityCard key={community.id} community={community} />
+      ))}
     </div>
   );
 };

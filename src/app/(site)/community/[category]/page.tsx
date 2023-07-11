@@ -2,6 +2,9 @@ import { db } from "@/lib/db";
 import { Shell } from "@/components/Shell";
 import Communities from "@/components/Communities";
 import { INFINITE_SCROLLING_PAGINATION_RESULTS } from "@/config";
+import Link from "next/link";
+import { buttonVariants } from "@/components/ui/Button";
+import { cn } from "@/lib/utils";
 
 interface CommunityCategoryPageProps {
   params: {
@@ -36,6 +39,9 @@ const CommunityCategoryPage = async ({
       <h1 className="text-3xl font-bold leading-tight tracking-tighter md:text-5xl lg:text-6xl lg:leading-[1.1]">
         {formattedCategory} Communities
       </h1>
+      <Link href="/community/create" className={cn(buttonVariants(), "w-fit")}>
+        Create your own community
+      </Link>
       <Communities initialCommunites={initialCommunities} category={category} />
     </Shell>
   );
