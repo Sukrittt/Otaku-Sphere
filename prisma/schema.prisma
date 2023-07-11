@@ -66,8 +66,7 @@ model User {
   post      Post[]
   comment   Comment[]
 
-  like        Like[]
-  commentLike CommentLike[]
+  like Like[]
 
   report Report[]
 
@@ -207,8 +206,6 @@ model Comment {
 
   post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId String
-
-  like CommentLike[]
 }
 
 model Like {
@@ -219,16 +216,6 @@ model Like {
   post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
 
   @@id([userId, postId])
-}
-
-model CommentLike {
-  userId String
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  commentId String
-  comment   Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
-
-  @@id([userId, commentId])
 }
 
 // --------------------------------------
