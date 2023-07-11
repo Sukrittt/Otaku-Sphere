@@ -6,6 +6,11 @@ import { INFINITE_SCROLLING_PAGINATION_RESULTS } from "@/config";
 const CommunityPage = async () => {
   const initialCommunities = await db.community.findMany({
     take: INFINITE_SCROLLING_PAGINATION_RESULTS,
+    orderBy: {
+      post: {
+        _count: "desc",
+      },
+    },
     include: {
       post: true,
       creator: true,

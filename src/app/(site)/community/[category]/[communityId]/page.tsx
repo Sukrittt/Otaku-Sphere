@@ -27,7 +27,9 @@ const CommunityCategoryPage = async ({
       creator: true,
       post: {
         orderBy: {
-          createdAt: "desc",
+          comment: {
+            _count: "desc",
+          },
         },
         include: {
           comment: true,
@@ -62,9 +64,11 @@ const CommunityCategoryPage = async ({
       >
         Create a post
       </Link>
-      {community.post.map((postItem) => (
-        <PostCard key={postItem.id} post={postItem} />
-      ))}
+      <div className="flex flex-col gap-y-4">
+        {community.post.map((postItem) => (
+          <PostCard key={postItem.id} post={postItem} />
+        ))}
+      </div>
     </Shell>
   );
 };

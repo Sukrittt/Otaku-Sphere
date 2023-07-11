@@ -62,7 +62,9 @@ export async function GET(req: Request) {
       take: parseInt(limit),
       skip: (parseInt(page) - 1) * parseInt(limit),
       orderBy: {
-        createdAt: "desc",
+        post: {
+          _count: "desc",
+        },
       },
       where: whereClause,
       include: {
