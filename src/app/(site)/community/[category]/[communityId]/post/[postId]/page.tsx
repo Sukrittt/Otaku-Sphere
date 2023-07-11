@@ -82,7 +82,11 @@ const IndividualPostPage = async ({ params }: IndividualPostPageProps) => {
                 {post.comment.length}
               </span>
             </div>
-            <LikePost likes={post.like.length} initialLike={initialLike} />
+            <LikePost
+              likes={post.like.length}
+              initialLike={initialLike}
+              postId={post.id}
+            />
           </div>
         </CardHeader>
         <CardContent className="mt-2 w-full flex flex-col gap-y-4 pb-3.5">

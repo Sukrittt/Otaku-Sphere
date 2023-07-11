@@ -65,6 +65,7 @@ const AddCommentForm = ({ postId }: { postId: string }) => {
             title: "Post not found",
             description:
               "The post you are trying to comment on does not exist.",
+            variant: "destructive",
           });
         }
       }
