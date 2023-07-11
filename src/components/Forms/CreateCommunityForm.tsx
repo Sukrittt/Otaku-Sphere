@@ -62,7 +62,6 @@ const CreateCommunityForm: FC<CreateCommunityFormProps> = ({}) => {
       form.reset();
 
       toast({
-        title: "Community created",
         description: "Your communnity was created successfully.",
       });
     },

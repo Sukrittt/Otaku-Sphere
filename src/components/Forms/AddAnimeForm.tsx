@@ -65,8 +65,7 @@ const AddAnimeForm = () => {
       form.reset();
 
       toast({
-        title: "Anime added",
-        description: "The anime was added successfully.",
+        description: "This anime was added successfully.",
       });
     },
     onError: (error) => {

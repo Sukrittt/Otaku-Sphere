@@ -65,7 +65,6 @@ const CreatePostForm: FC<CreatePostFormProps> = ({ category, communityId }) => {
       form.reset();
 
       toast({
-        title: "Post created",
         description: "Your post was created successfully.",
       });
     },

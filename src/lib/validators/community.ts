@@ -20,3 +20,17 @@ export type CreatePostValidatorType = z.infer<typeof createPostValidator>;
 export const creatPostServerValidator = createPostValidator.extend({
   communityId: z.string(),
 });
+
+export const CreateCommentValidator = z.object({
+  text: z.string().min(3).max(150),
+});
+
+export type CommentValidatorType = z.infer<typeof CreateCommentValidator>;
+
+export const CreateServerCommentValidator = CreateCommentValidator.extend({
+  postId: z.string(),
+});
+
+export type ServerCommentValidatorType = z.infer<
+  typeof CreateServerCommentValidator
+>;

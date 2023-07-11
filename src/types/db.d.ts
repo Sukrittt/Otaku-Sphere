@@ -11,3 +11,7 @@ export type ExtendedPost = Post & {
   like: Like[];
   community: Community;
 };
+
+export type ExtendedComment = Comment & {
+  author: User;
+};

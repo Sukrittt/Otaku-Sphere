@@ -75,8 +75,7 @@ const UpdateAnimeForm: FC<UpdateAnimeFormProps> = ({ anime, animeId }) => {
       form.reset();
 
       toast({
-        title: "Anime updated",
-        description: "The anime was updated successfully.",
+        description: "This anime was updated successfully.",
       });
     },
     onError: (error) => {
