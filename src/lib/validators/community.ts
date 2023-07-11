@@ -22,7 +22,7 @@ export const creatPostServerValidator = createPostValidator.extend({
 });
 
 export const CreateCommentValidator = z.object({
-  text: z.string().min(3).max(150),
+  text: z.string().min(3).max(300),
 });
 
 export type CommentValidatorType = z.infer<typeof CreateCommentValidator>;

@@ -199,7 +199,7 @@ model Post {
 
 model Comment {
   id        String   @id @default(cuid())
-  text      String
+  text      String   @db.VarChar(300)
   createdAt DateTime @default(now())
 
   author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
