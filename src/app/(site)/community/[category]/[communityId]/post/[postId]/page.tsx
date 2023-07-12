@@ -7,11 +7,11 @@ import { Card, CardContent, CardFooter, CardHeader } from "@/ui/Card";
 import LikePost from "@/components/LikePost";
 import { getAuthSession } from "@/lib/auth";
 import { Icons } from "@/components/Icons";
-import CommentCard from "@/components/Cards/CommentCard";
 import AddCommentForm from "@/components/Forms/AddCommentForm";
 import { buttonVariants } from "@/ui/Button";
 import { cn, formatTimeToNow } from "@/lib/utils";
 import PostDropdown from "@/components/Dropdown/PostDropdown";
+import CommentCard from "@/components/Cards/CommentCard";
 
 interface IndividualPostPageProps {
   params: {
@@ -41,7 +41,17 @@ const IndividualPostPage = async ({ params }: IndividualPostPageProps) => {
         include: {
           author: true,
         },
+        orderBy: {
+          createdAt: "desc",
+        },
+        take: 10,
       },
+    },
+  });
+
+  const commentCount = await db.comment.count({
+    where: {
+      postId,
     },
   });
 
@@ -98,7 +108,7 @@ const IndividualPostPage = async ({ params }: IndividualPostPageProps) => {
             <div className="flex items-center gap-x-1">
               <Icons.feedback className="h-3.5 w-3.5" />
               <span className="text-sm text-muted-foreground">
-                {post.comment.length}
+                {commentCount.toLocaleString()}
               </span>
             </div>
             <LikePost
@@ -114,8 +124,8 @@ const IndividualPostPage = async ({ params }: IndividualPostPageProps) => {
         {post.comment.length > 0 && (
           <CardFooter className="border-t py-3">
             <div className="flex flex-col gap-y-6 w-full">
-              {post.comment.map((commentItem) => (
-                <CommentCard key={commentItem.id} comment={commentItem} />
+              {post.comment.map((comment) => (
+                <CommentCard key={comment.id} comment={comment} />
               ))}
             </div>
           </CardFooter>

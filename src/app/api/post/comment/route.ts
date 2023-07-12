@@ -1,8 +1,8 @@
 import { z } from "zod";
 
+import { db } from "@/lib/db";
 import { getAuthSession } from "@/lib/auth";
 import { CreateServerCommentValidator } from "@/lib/validators/community";
-import { db } from "@/lib/db";
 
 export async function POST(req: Request) {
   try {
