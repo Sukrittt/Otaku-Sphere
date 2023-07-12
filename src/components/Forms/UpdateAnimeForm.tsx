@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import axios, { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
+import { Anime } from "@prisma/client";
 
 import { genres } from "@/data/anime";
 import { toast } from "@/hooks/use-toast";
@@ -31,11 +32,10 @@ import { useAuthToast } from "@/hooks/useAuthToast";
 import CustomAlertBox from "@/components/CustomAlertBox";
 
 interface UpdateAnimeFormProps {
-  anime: AnimeSchemaType;
-  animeId: string;
+  anime: Anime;
 }
 
-const UpdateAnimeForm: FC<UpdateAnimeFormProps> = ({ anime, animeId }) => {
+const UpdateAnimeForm: FC<UpdateAnimeFormProps> = ({ anime }) => {
   const router = useRouter();
   const { loginToast, endErrorToast } = useAuthToast();
 
@@ -64,7 +64,7 @@ const UpdateAnimeForm: FC<UpdateAnimeFormProps> = ({ anime, animeId }) => {
         fileUrl = url;
       }
 
-      const payload = { ...content, genre, coverImage: fileUrl, id: animeId };
+      const payload = { ...content, genre, coverImage: fileUrl, id: anime.id };
 
       const { data } = await axios.patch("/api/anime", payload);
       return data;
@@ -113,7 +113,7 @@ const UpdateAnimeForm: FC<UpdateAnimeFormProps> = ({ anime, animeId }) => {
 
   const { mutate: deleteAnime, isLoading: deleteLoader } = useMutation({
     mutationFn: async () => {
-      const payload: IdAnimeSchemaType = { id: animeId };
+      const payload: IdAnimeSchemaType = { id: anime.id };
 
       const { data } = await axios.post("/api/anime/delete", payload);
       return data;

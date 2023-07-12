@@ -48,7 +48,7 @@ const AnimeUpdatePage = async ({ params }: AnimeUpdatePageProps) => {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <UpdateAnimeForm anime={anime} animeId={anime.id} />
+          <UpdateAnimeForm anime={anime} />
         </CardContent>
       </Card>
     </Shell>
