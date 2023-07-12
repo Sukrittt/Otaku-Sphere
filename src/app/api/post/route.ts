@@ -41,3 +41,54 @@ export async function POST(req: Request) {
     return new Response("Something went wrong", { status: 500 });
   }
 }
+
+export async function GET(req: Request) {
+  const url = new URL(req.url);
+
+  try {
+    const session = await getAuthSession();
+
+    if (!session) {
+      return new Response("Unauthorized", { status: 401 });
+    }
+
+    const { limit, page, communityId } = z
+      .object({
+        limit: z.string(),
+        page: z.string(),
+        communityId: z.string(),
+      })
+      .parse({
+        limit: url.searchParams.get("limit"),
+        page: url.searchParams.get("page"),
+        communityId: url.searchParams.get("communityId"),
+      });
+
+    const posts = await db.post.findMany({
+      take: parseInt(limit),
+      skip: (parseInt(page) - 1) * parseInt(limit),
+      where: {
+        communityId: communityId,
+      },
+      orderBy: {
+        comment: {
+          _count: "desc",
+        },
+      },
+      include: {
+        comment: true,
+        creator: true,
+        like: true,
+        community: true,
+      },
+    });
+
+    return new Response(JSON.stringify(posts));
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return new Response(error.message, { status: 422 });
+    }
+
+    return new Response("Something went wrong", { status: 500 });
+  }
+}

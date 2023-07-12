@@ -42,6 +42,12 @@ export async function GET(req: Request) {
   const url = new URL(req.url);
 
   try {
+    const session = await getAuthSession();
+
+    if (!session) {
+      return new Response("Unauthorized", { status: 401 });
+    }
+
     const { limit, page, category, query } = z
       .object({
         limit: z.string().nullish().optional(),

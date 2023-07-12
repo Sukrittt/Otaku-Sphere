@@ -7,7 +7,8 @@ import { getAuthSession } from "@/lib/auth";
 import { Header } from "@/components/Header";
 import { buttonVariants } from "@/ui/Button";
 import { cn } from "@/lib/utils";
-import PostCard from "@/components/Cards/PostCard";
+import { INFINITE_SCROLLING_PAGINATION_RESULTS } from "@/config";
+import Posts from "@/components/Posts";
 
 interface CommunityCategoryPageProps {
   params: {
@@ -31,6 +32,7 @@ const CommunityCategoryPage = async ({
             _count: "desc",
           },
         },
+        take: INFINITE_SCROLLING_PAGINATION_RESULTS,
         include: {
           comment: true,
           creator: true,
@@ -74,11 +76,7 @@ const CommunityCategoryPage = async ({
           </Link>
         )}
       </div>
-      <div className="flex flex-col gap-y-4">
-        {community.post.map((postItem) => (
-          <PostCard key={postItem.id} post={postItem} />
-        ))}
-      </div>
+      <Posts initialPosts={community.post} />
     </Shell>
   );
 };

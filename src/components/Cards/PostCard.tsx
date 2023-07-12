@@ -1,25 +1,17 @@
 import { FC } from "react";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 
 import { ExtendedPost } from "@/types/db";
 import UserAvatar from "@/components/User/UserAvatar";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/ui/Card";
 import { formatDescription } from "@/lib/utils";
-import { getAuthSession } from "@/lib/auth";
-import { Icons } from "../Icons";
+import { Icons } from "@/components/Icons";
 
 interface PostCardProps {
   post: ExtendedPost;
 }
 
-const PostCard: FC<PostCardProps> = async ({ post }) => {
-  const session = await getAuthSession();
-
-  if (!session) {
-    redirect("/sign-in");
-  }
-
+const PostCard: FC<PostCardProps> = ({ post }) => {
   const formattedCategory = post.community.category.toLowerCase();
 
   const href = `/community/${formattedCategory}/${post.communityId}/post/${post.id}`;
