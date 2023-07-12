@@ -42,28 +42,44 @@ export async function GET(req: Request) {
   const url = new URL(req.url);
 
   try {
-    const { limit, page, category } = z
+    const { limit, page, category, query } = z
       .object({
-        limit: z.string(),
-        page: z.string(),
+        limit: z.string().nullish().optional(),
+        page: z.string().nullish().optional(),
         category: z.string().nullish().optional(),
+        query: z.string().nullish().optional(),
       })
       .parse({
+        query: url.searchParams.get("q"),
         limit: url.searchParams.get("limit"),
         page: url.searchParams.get("page"),
         category: url.searchParams.get("category"),
       });
 
     let whereClause = {};
+    let takeClause = undefined;
+    let skipClause = undefined;
+
     if (category) {
       whereClause = {
         category: category,
       };
     }
 
+    if (!limit && !page && query) {
+      whereClause = {
+        name: {
+          startsWith: query,
+        },
+      };
+    } else if (limit && page) {
+      takeClause = parseInt(limit);
+      skipClause = (parseInt(page) - 1) * parseInt(limit);
+    }
+
     const communities = await db.community.findMany({
-      take: parseInt(limit),
-      skip: (parseInt(page) - 1) * parseInt(limit),
+      take: takeClause,
+      skip: skipClause,
       orderBy: {
         post: {
           _count: "desc",
