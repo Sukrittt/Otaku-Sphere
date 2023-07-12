@@ -52,7 +52,7 @@ const CommunityCategoryPage = async ({
   const baseLink = `/community/${community.category.toLowerCase()}`;
 
   return (
-    <Shell>
+    <Shell layout="dashboard">
       <Header
         title={community.name}
         description={community.description}
@@ -67,7 +67,7 @@ const CommunityCategoryPage = async ({
         </Link>
         {community.creator.id === session.user.id && (
           <Link
-            href={`${baseLink}/${community.id}/edit}`}
+            href={`${baseLink}/${community.id}/edit`}
             className={cn(buttonVariants({ variant: "outline" }), "w-fit")}
           >
             Edit details

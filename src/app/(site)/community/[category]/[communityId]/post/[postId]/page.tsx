@@ -56,7 +56,7 @@ const IndividualPostPage = async ({ params }: IndividualPostPageProps) => {
   const formattedName = post.creator.name?.split(" ")[0].toLowerCase();
 
   return (
-    <Shell>
+    <Shell layout="dashboard">
       <Card>
         <CardHeader className="border-b flex flex-col gap-y-2">
           <div className="grid gap-1">
