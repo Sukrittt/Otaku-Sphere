@@ -95,7 +95,7 @@ const Communities: FC<CommunitiesProps> = ({ initialCommunites, category }) => {
           );
         } else {
           return (
-            <div key={community.id} ref={ref}>
+            <div key={community.id}>
               <CommunityCard community={community} />
             </div>
           );

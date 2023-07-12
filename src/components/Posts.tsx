@@ -57,7 +57,7 @@ const Posts: FC<PostsProps> = ({ initialPosts }) => {
           );
         } else {
           return (
-            <div key={post.id} ref={ref}>
+            <div key={post.id}>
               <PostCard key={post.id} post={post} />
             </div>
           );

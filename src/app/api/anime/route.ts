@@ -151,3 +151,41 @@ export async function PATCH(req: Request) {
     return new Response("Something went wrong", { status: 500 });
   }
 }
+
+export async function GET(req: Request) {
+  const url = new URL(req.url);
+
+  try {
+    const session = await getAuthSession();
+
+    if (!session) {
+      return new Response("Unauthorized", { status: 401 });
+    }
+
+    const { limit, page } = z
+      .object({
+        limit: z.string(),
+        page: z.string(),
+      })
+      .parse({
+        limit: url.searchParams.get("limit"),
+        page: url.searchParams.get("page"),
+      });
+
+    const animes = await db.anime.findMany({
+      take: parseInt(limit),
+      skip: (parseInt(page) - 1) * parseInt(limit),
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+
+    return new Response(JSON.stringify(animes));
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return new Response(error.message, { status: 422 });
+    }
+
+    return new Response("Something went wrong", { status: 500 });
+  }
+}

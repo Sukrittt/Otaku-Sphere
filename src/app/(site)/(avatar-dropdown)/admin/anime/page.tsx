@@ -12,13 +12,15 @@ import {
   CardTitle,
 } from "@/ui/Card";
 import { db } from "@/lib/db";
-import { AnimeAdminCard } from "@/components/Cards/Anime";
+import Animes from "@/components/Animes";
+import { INFINITE_SCROLLING_PAGINATION_ANIME } from "@/config";
 
 const AnimePage = async () => {
   const allAnime = await db.anime.findMany({
     orderBy: {
       createdAt: "desc",
     },
+    take: INFINITE_SCROLLING_PAGINATION_ANIME,
   });
 
   return (
@@ -53,11 +55,8 @@ const AnimePage = async () => {
           </CardContent>
         </Card>
       </div>
-      <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
-        {allAnime.map((anime) => (
-          <AnimeAdminCard key={anime.id} anime={anime} />
-        ))}
-      </div>
+
+      <Animes initialAnimes={allAnime} />
     </Shell>
   );
 };
