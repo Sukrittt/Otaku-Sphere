@@ -9,7 +9,7 @@ import { getAuthSession } from "@/lib/auth";
 import { Icons } from "@/components/Icons";
 import CommentCard from "@/components/Cards/CommentCard";
 import AddCommentForm from "@/components/Forms/AddCommentForm";
-import { Button, buttonVariants } from "@/ui/Button";
+import { buttonVariants } from "@/ui/Button";
 import { cn, formatTimeToNow } from "@/lib/utils";
 import PostDropdown from "@/components/Dropdown/PostDropdown";
 
@@ -72,9 +72,14 @@ const IndividualPostPage = async ({ params }: IndividualPostPageProps) => {
               </Link>
               {post.creator.id === session.user.id && (
                 <PostDropdown post={post}>
-                  <Button size="icon" variant="ghost">
+                  <div
+                    className={buttonVariants({
+                      variant: "ghost",
+                      size: "icon",
+                    })}
+                  >
                     <Icons.options className="h-4 w-4" />
-                  </Button>
+                  </div>
                 </PostDropdown>
               )}
             </div>

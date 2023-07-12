@@ -65,7 +65,7 @@ const CommunityCategoryPage = async ({
         >
           Create a post
         </Link>
-        {community.creatorId === session.user.id && (
+        {community.creator.id === session.user.id && (
           <Link
             href={`${baseLink}/${community.id}/edit}`}
             className={cn(buttonVariants({ variant: "outline" }), "w-fit")}
