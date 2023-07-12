@@ -65,7 +65,7 @@ const CreatePostForm: FC<CreatePostFormProps> = ({ category, communityId }) => {
       form.reset();
 
       toast({
-        description: "Your post was created successfully.",
+        description: "Post created successfully.",
       });
     },
     onError: (error) => {
@@ -77,6 +77,11 @@ const CreatePostForm: FC<CreatePostFormProps> = ({ category, communityId }) => {
       }
 
       endErrorToast();
+    },
+    onMutate: () => {
+      toast({
+        description: "Please wait while we are creating your post.",
+      });
     },
   });
 

@@ -51,7 +51,7 @@ const AddCommentForm = ({ postId }: { postId: string }) => {
       form.reset();
 
       toast({
-        description: "Your comment was added successfully.",
+        description: "Comment added successfully.",
       });
     },
     onError: (error) => {
@@ -62,9 +62,7 @@ const AddCommentForm = ({ postId }: { postId: string }) => {
         }
         if (statusCode === 404) {
           return toast({
-            title: "Post not found",
-            description:
-              "The post you are trying to comment on does not exist.",
+            description: "Post does not exist.",
             variant: "destructive",
           });
         }
@@ -74,7 +72,7 @@ const AddCommentForm = ({ postId }: { postId: string }) => {
     },
     onMutate: () => {
       toast({
-        description: "Please wait while we add your comment...",
+        description: "Please wait while we add your comment.",
       });
     },
   });

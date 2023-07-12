@@ -111,7 +111,7 @@ const UpdateCommunityForm: FC<UpdateCommunityFormProps> = ({ community }) => {
     },
     onMutate: () => {
       toast({
-        description: "Please wait while we are updating your community...",
+        description: "Please wait while we are updating this community.",
       });
     },
   });
@@ -157,7 +157,7 @@ const UpdateCommunityForm: FC<UpdateCommunityFormProps> = ({ community }) => {
     },
     onMutate: () => {
       toast({
-        description: "Please wait while we are deleting your community...",
+        description: "Please wait while we are deleting your community.",
       });
     },
   });

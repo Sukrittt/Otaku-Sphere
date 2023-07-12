@@ -35,7 +35,9 @@ const CommunityEditPage = async ({ params }: CommunityEditPageProps) => {
     <Shell layout="dashboard">
       <Header
         title={community.name}
-        goBackLink={`/community/${community.category.toLowerCase()}`}
+        goBackLink={`/community/${community.category.toLowerCase()}/${
+          community.id
+        }`}
       />
       <Card>
         <CardHeader className="space-y-1">

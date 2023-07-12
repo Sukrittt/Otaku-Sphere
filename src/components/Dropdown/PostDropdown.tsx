@@ -46,7 +46,6 @@ const PostDropdown: FC<PostDropdownProps> = ({ children, post }) => {
         }
         if (statusCode === 404) {
           return toast({
-            title: "Post not found",
             description: "The post you are trying to delete does not exist.",
             variant: "destructive",
           });
@@ -63,7 +62,7 @@ const PostDropdown: FC<PostDropdownProps> = ({ children, post }) => {
     },
     onMutate: () => {
       toast({
-        description: "Please wait while we delete your post...",
+        description: "Please wait while we are deleting your post.",
       });
     },
   });
@@ -77,7 +76,6 @@ const PostDropdown: FC<PostDropdownProps> = ({ children, post }) => {
       });
     } catch (error) {
       toast({
-        title: "Error",
         description: "Could not copy to clipboard.",
         variant: "destructive",
       });

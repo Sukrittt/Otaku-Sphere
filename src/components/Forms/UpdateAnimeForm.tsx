@@ -86,21 +86,18 @@ const UpdateAnimeForm: FC<UpdateAnimeFormProps> = ({ anime }) => {
         }
         if (statusCode === 403) {
           return toast({
-            title: "Error",
             description: "You are not authorized to add anime.",
             variant: "destructive",
           });
         }
         if (statusCode === 409) {
           return toast({
-            title: "Error",
-            description: "This anime already exists.",
+            description: "Anime already exists.",
             variant: "destructive",
           });
         }
         if (statusCode === 400) {
           return toast({
-            title: "Error",
             description: "Cover image is missing.",
             variant: "destructive",
           });
@@ -124,8 +121,7 @@ const UpdateAnimeForm: FC<UpdateAnimeFormProps> = ({ anime }) => {
       form.reset();
 
       toast({
-        title: "Anime deleted",
-        description: "The anime was deleted successfully.",
+        description: "Anime deleted successfully.",
       });
     },
     onError: (error) => {
@@ -136,14 +132,18 @@ const UpdateAnimeForm: FC<UpdateAnimeFormProps> = ({ anime }) => {
         }
         if (statusCode === 403) {
           return toast({
-            title: "Error",
-            description: "You are not authorized to delete anime.",
+            description: "You are not authorized to delete this anime.",
             variant: "destructive",
           });
         }
       }
 
       endErrorToast();
+    },
+    onMutate: () => {
+      toast({
+        description: "Please wait while we are deleting this anime.",
+      });
     },
   });
 

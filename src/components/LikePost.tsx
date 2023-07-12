@@ -43,7 +43,6 @@ const LikePost: FC<LikePostProps> = ({ initialLike, likes, postId }) => {
         }
         if (statusCode === 404) {
           return toast({
-            title: "Post not found",
             description: "The post you are trying to like does not exist.",
             variant: "destructive",
           });

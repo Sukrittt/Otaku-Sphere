@@ -75,6 +75,11 @@ const CreateCommunityForm: FC<CreateCommunityFormProps> = ({}) => {
 
       endErrorToast();
     },
+    onMutate: () => {
+      toast({
+        description: "Please wait while we are creating this community.",
+      });
+    },
   });
 
   function onSubmit(content: CreateCommunityValidatorType) {

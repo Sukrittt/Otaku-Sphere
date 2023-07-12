@@ -55,7 +55,6 @@ const AnimeRating: FC<AnimeRatingProps> = ({
         }
         if (statusCode === 404) {
           return toast({
-            title: "Not found",
             description: "Anime not found.",
             variant: "destructive",
           });
@@ -76,10 +75,6 @@ const AnimeRating: FC<AnimeRatingProps> = ({
   });
 
   const handleRateAnime = (index: number) => {
-    if (!session) {
-      return router.push("/sign-in");
-    }
-
     rate(index);
   };
 
