@@ -11,7 +11,7 @@ import CommentCard from "@/components/Cards/CommentCard";
 import AddCommentForm from "@/components/Forms/AddCommentForm";
 import { Button, buttonVariants } from "@/ui/Button";
 import { cn, formatTimeToNow } from "@/lib/utils";
-import CommunityDropdown from "@/components/Dropdown/CommunityDropdown";
+import PostDropdown from "@/components/Dropdown/PostDropdown";
 
 interface IndividualPostPageProps {
   params: {
@@ -36,6 +36,7 @@ const IndividualPostPage = async ({ params }: IndividualPostPageProps) => {
     include: {
       like: true,
       creator: true,
+      community: true,
       comment: {
         include: {
           author: true,
@@ -70,11 +71,11 @@ const IndividualPostPage = async ({ params }: IndividualPostPageProps) => {
                 Go back
               </Link>
               {post.creator.id === session.user.id && (
-                <CommunityDropdown>
+                <PostDropdown post={post}>
                   <Button size="icon" variant="ghost">
                     <Icons.options className="h-4 w-4" />
                   </Button>
-                </CommunityDropdown>
+                </PostDropdown>
               )}
             </div>
             <div>

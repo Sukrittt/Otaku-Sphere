@@ -34,3 +34,10 @@ export const CreateServerCommentValidator = CreateCommentValidator.extend({
 export type ServerCommentValidatorType = z.infer<
   typeof CreateServerCommentValidator
 >;
+
+export const DeletePostValidator = z.object({
+  postId: z.string(),
+  creatorId: z.string(),
+});
+
+export type DeletePostValidatorType = z.infer<typeof DeletePostValidator>;
