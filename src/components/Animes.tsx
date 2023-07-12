@@ -1,6 +1,6 @@
 "use client";
-import { FC, useEffect, useRef } from "react";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { FC, useEffect, useRef, useState } from "react";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useIntersection } from "@mantine/hooks";
 
@@ -8,6 +8,8 @@ import { INFINITE_SCROLLING_PAGINATION_ANIME } from "@/config";
 import { Icons } from "@/components/Icons";
 import { Anime } from "@prisma/client";
 import { AnimeAdminCard } from "./Cards/Anime";
+import { Input } from "./ui/Input";
+import { Button } from "./ui/Button";
 
 interface AnimesProps {
   initialAnimes: Anime[];
@@ -15,6 +17,10 @@ interface AnimesProps {
 
 const Animes: FC<AnimesProps> = ({ initialAnimes }) => {
   const lastPostRef = useRef<HTMLElement>(null);
+
+  const [animes, setAnimes] = useState(initialAnimes);
+
+  const [query, setQuery] = useState("");
 
   const { ref, entry } = useIntersection({
     root: lastPostRef.current,
@@ -38,7 +44,25 @@ const Animes: FC<AnimesProps> = ({ initialAnimes }) => {
     }
   );
 
-  const animes = data?.pages.flatMap((page) => page) ?? initialAnimes;
+  const { data: queryResults, refetch } = useQuery({
+    queryFn: async () => {
+      const queryUrl = `/api/anime?q=${query}`;
+
+      const { data } = await axios(queryUrl);
+
+      return data as Anime[];
+    },
+    queryKey: ["search-query"],
+    enabled: false, //by default it will not fetch
+  });
+
+  useEffect(() => {
+    if (queryResults) {
+      setAnimes(queryResults);
+      return;
+    }
+    setAnimes(data?.pages.flatMap((page) => page) ?? initialAnimes);
+  }, [data, queryResults, initialAnimes]);
 
   useEffect(() => {
     if (entry?.isIntersecting) {
@@ -48,6 +72,15 @@ const Animes: FC<AnimesProps> = ({ initialAnimes }) => {
 
   return (
     <>
+      <div className="flex gap-x-2 items-center px-1">
+        <Input
+          placeholder="Type a anime name here."
+          onChange={(e) => setQuery(e.target.value)}
+        />
+        <Button onClick={() => refetch()} disabled={query.length === 0}>
+          Search
+        </Button>
+      </div>
       <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
         {animes.map((anime, index) => {
           if (index === animes.length - 1) {

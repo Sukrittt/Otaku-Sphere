@@ -162,19 +162,37 @@ export async function GET(req: Request) {
       return new Response("Unauthorized", { status: 401 });
     }
 
-    const { limit, page } = z
+    const { limit, page, query } = z
       .object({
-        limit: z.string(),
-        page: z.string(),
+        limit: z.string().nullish().optional(),
+        page: z.string().nullish().optional(),
+        query: z.string().nullish().optional(),
       })
       .parse({
         limit: url.searchParams.get("limit"),
         page: url.searchParams.get("page"),
+        query: url.searchParams.get("q"),
       });
 
+    let whereClause = {};
+    let takeClause = undefined;
+    let skipClause = undefined;
+
+    if (limit && page) {
+      takeClause = parseInt(limit);
+      skipClause = (parseInt(page) - 1) * parseInt(limit);
+    } else if (query && query.length > 0) {
+      whereClause = {
+        name: {
+          startsWith: query,
+        },
+      };
+    }
+
     const animes = await db.anime.findMany({
-      take: parseInt(limit),
-      skip: (parseInt(page) - 1) * parseInt(limit),
+      take: takeClause,
+      skip: skipClause,
+      where: whereClause,
       orderBy: {
         createdAt: "desc",
       },
