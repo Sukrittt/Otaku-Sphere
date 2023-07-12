@@ -102,6 +102,20 @@ export async function PATCH(req: Request) {
       return new Response("Category is required", { status: 422 });
     }
 
+    const existingCommunity = await db.community.findUnique({
+      where: {
+        id: communityId,
+      },
+    });
+
+    if (!existingCommunity) {
+      return new Response("Not found", { status: 404 });
+    }
+
+    if (existingCommunity.creatorId !== session.user.id) {
+      return new Response("Unauthorized", { status: 403 });
+    }
+
     const community = await db.community.findFirst({
       where: {
         name,

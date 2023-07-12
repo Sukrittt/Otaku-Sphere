@@ -29,6 +29,7 @@ import {
 } from "@/lib/validators/community";
 import { categories } from "@/data/community";
 import { IdAnimeSchemaType } from "@/lib/validators/anime";
+import CustomAlertBox from "@/components/CustomAlertBox";
 
 interface UpdateCommunityFormProps {
   community: Community;
@@ -63,14 +64,12 @@ const UpdateCommunityForm: FC<UpdateCommunityFormProps> = ({ community }) => {
       return data;
     },
     onSuccess: () => {
-      router.push(
-        `/community/${community.category.toLowerCase()}/${community.id}`
-      );
+      router.push(`/community/${category.toLowerCase()}/${community.id}`);
       router.refresh();
       form.reset();
 
       toast({
-        description: "This community was updated successfully.",
+        description: "Community updated successfully.",
       });
     },
     onError: (error) => {
@@ -83,6 +82,19 @@ const UpdateCommunityForm: FC<UpdateCommunityFormProps> = ({ community }) => {
           return toast({
             title: "This name already exists.",
             description: "Please choose another name.",
+            variant: "destructive",
+          });
+        }
+        if (statusCode === 404) {
+          return toast({
+            description: "Community not found.",
+            variant: "destructive",
+          });
+        }
+        if (statusCode === 403) {
+          return toast({
+            title: "Unauthorized",
+            description: "You can only edit the communities you create.",
             variant: "destructive",
           });
         }
@@ -108,17 +120,16 @@ const UpdateCommunityForm: FC<UpdateCommunityFormProps> = ({ community }) => {
     mutationFn: async () => {
       const payload: IdAnimeSchemaType = { id: community.id };
 
-      const { data } = await axios.post("/api/anime/delete", payload);
+      const { data } = await axios.post("/api/community/delete", payload);
       return data;
     },
     onSuccess: () => {
-      router.push("/admin/anime");
+      router.push(`/community/${community.category.toLowerCase()}`);
       router.refresh();
       form.reset();
 
       toast({
-        title: "Anime deleted",
-        description: "The anime was deleted successfully.",
+        description: "Community deleted successfully.",
       });
     },
     onError: (error) => {
@@ -127,16 +138,27 @@ const UpdateCommunityForm: FC<UpdateCommunityFormProps> = ({ community }) => {
         if (statusCode === 401) {
           return loginToast();
         }
+        if (statusCode === 404) {
+          return toast({
+            description: "Community not found.",
+            variant: "destructive",
+          });
+        }
         if (statusCode === 403) {
           return toast({
-            title: "Error",
-            description: "You are not authorized to delete anime.",
+            title: "Unauthorized",
+            description: "You can only delete the communities you create.",
             variant: "destructive",
           });
         }
       }
 
       endErrorToast();
+    },
+    onMutate: () => {
+      toast({
+        description: "Please wait while we are deleting your community...",
+      });
     },
   });
 
@@ -208,8 +230,8 @@ const UpdateCommunityForm: FC<UpdateCommunityFormProps> = ({ community }) => {
             Update Community
             <span className="sr-only">Update Community</span>
           </Button>
-          {/* <CustomAlertBox
-            description="This action cannot be undone. This will permanently delete this anime from our servers."
+          <CustomAlertBox
+            description="This action cannot be undone. This will permanently delete this community from our servers."
             onClick={() => deleteAnime()}
           >
             <Button
@@ -224,10 +246,10 @@ const UpdateCommunityForm: FC<UpdateCommunityFormProps> = ({ community }) => {
                   aria-hidden="true"
                 />
               )}
-              {deleteLoader ? "Deleting" : "Delete Anime"}
-              <span className="sr-only">Delete Anime</span>
+              {deleteLoader ? "Deleting" : "Delete"}
+              <span className="sr-only">Delete Community</span>
             </Button>
-          </CustomAlertBox> */}
+          </CustomAlertBox>
         </div>
       </form>
     </Form>

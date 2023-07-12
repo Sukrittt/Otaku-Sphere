@@ -57,7 +57,7 @@ const CreateCommunityForm: FC<CreateCommunityFormProps> = ({}) => {
       return data;
     },
     onSuccess: () => {
-      router.push("/community");
+      router.push(`/community/${category.toLowerCase()}`);
       router.refresh();
       form.reset();
 
