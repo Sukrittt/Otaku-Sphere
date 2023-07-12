@@ -7,6 +7,7 @@ import { useIntersection } from "@mantine/hooks";
 import { INFINITE_SCROLLING_PAGINATION_RESULTS } from "@/config";
 import CommunityCard from "@/components/Cards/CommunityCard";
 import { ExtendedCommunity } from "@/types/db";
+import { Icons } from "@/components/Icons";
 
 interface CommunitiesProps {
   initialCommunites: ExtendedCommunity[];
@@ -50,9 +51,29 @@ const Communities: FC<CommunitiesProps> = ({ initialCommunites, category }) => {
 
   return (
     <div className="flex flex-col gap-y-4">
-      {communities.map((community) => (
-        <CommunityCard key={community.id} community={community} />
-      ))}
+      {communities.map((community, index) => {
+        if (index === communities.length - 1) {
+          return (
+            <div key={community.id} ref={ref}>
+              <CommunityCard community={community} />
+            </div>
+          );
+        } else {
+          return (
+            <div key={community.id} ref={ref}>
+              <CommunityCard community={community} />
+            </div>
+          );
+        }
+      })}
+      {isFetchingNextPage && (
+        <div className="w-full flex justify-center">
+          <Icons.spinner
+            className="mr-2 h-4 w-4 animate-spin"
+            aria-hidden="true"
+          />
+        </div>
+      )}
     </div>
   );
 };
