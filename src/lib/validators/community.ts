@@ -41,3 +41,9 @@ export const DeletePostValidator = z.object({
 });
 
 export type DeletePostValidatorType = z.infer<typeof DeletePostValidator>;
+
+export const EditCommunityValidator = createCommunityValidator.extend({
+  communityId: z.string(),
+});
+
+export type EditCommunityValidatorType = z.infer<typeof EditCommunityValidator>;

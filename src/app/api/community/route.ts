@@ -2,7 +2,10 @@ import { z } from "zod";
 
 import { db } from "@/lib/db";
 import { getAuthSession } from "@/lib/auth";
-import { createCommunityValidator } from "@/lib/validators/community";
+import {
+  EditCommunityValidator,
+  createCommunityValidator,
+} from "@/lib/validators/community";
 
 export async function POST(req: Request) {
   try {
@@ -74,6 +77,54 @@ export async function GET(req: Request) {
     });
 
     return new Response(JSON.stringify(communities));
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return new Response(error.message, { status: 422 });
+    }
+
+    return new Response("Something went wrong", { status: 500 });
+  }
+}
+
+export async function PATCH(req: Request) {
+  try {
+    const session = await getAuthSession();
+
+    if (!session) {
+      return new Response("Unauthorized", { status: 401 });
+    }
+
+    const body = await req.json();
+    const { communityId, description, name, category } =
+      EditCommunityValidator.parse(body);
+
+    if (!category) {
+      return new Response("Category is required", { status: 422 });
+    }
+
+    const community = await db.community.findFirst({
+      where: {
+        name,
+      },
+    });
+
+    if (community && community.id !== communityId) {
+      return new Response("Community name already exists", { status: 409 });
+    }
+
+    // all checks complete ✅
+    await db.community.update({
+      where: {
+        id: communityId,
+      },
+      data: {
+        description,
+        name,
+        category,
+      },
+    });
+
+    return new Response("OK");
   } catch (error) {
     if (error instanceof z.ZodError) {
       return new Response(error.message, { status: 422 });
