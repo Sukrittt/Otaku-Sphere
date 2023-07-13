@@ -25,7 +25,7 @@ const Posts: FC<PostsProps> = ({ initialPosts }) => {
   const { data, fetchNextPage, isFetchingNextPage } = useInfiniteQuery<
     ExtendedPost[]
   >(
-    ["infinite-query"],
+    ["posts-infinite-query"],
     async ({ pageParam = 1 }) => {
       const queryUrl = `/api/post?limit=${INFINITE_SCROLLING_PAGINATION_RESULTS}&page=${pageParam}&communityId=${initialPosts[0].communityId}`;
 
