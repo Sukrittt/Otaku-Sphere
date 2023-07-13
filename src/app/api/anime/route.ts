@@ -1,7 +1,7 @@
 import { z } from "zod";
 
-import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
+import { getAuthSession } from "@/lib/auth";
 import { animeSchema } from "@/lib/validators/anime";
 
 export async function POST(req: Request) {

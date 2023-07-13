@@ -3,13 +3,13 @@ import { FC, useEffect, useRef, useState } from "react";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useIntersection } from "@mantine/hooks";
+import { Anime } from "@prisma/client";
 
 import { INFINITE_SCROLLING_PAGINATION_ANIME } from "@/config";
 import { Icons } from "@/components/Icons";
-import { Anime } from "@prisma/client";
-import { AnimeAdminCard } from "./Cards/Anime";
-import { Input } from "./ui/Input";
-import { Button } from "./ui/Button";
+import { AnimeAdminCard } from "@/components/Cards/Anime";
+import { Input } from "@/ui/Input";
+import { Button } from "@/ui/Button";
 
 interface AnimesProps {
   initialAnimes: Anime[];
