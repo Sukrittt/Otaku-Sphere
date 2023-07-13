@@ -18,7 +18,7 @@ const PostCard: FC<PostCardProps> = ({ post }) => {
   const trimmedMessage = formatDescription(post.message, 250);
 
   return (
-    <Link href={href}>
+    <a href={href}>
       <Card className="flex h-full flex-col">
         <CardHeader className="flex gap-x-2 flex-row">
           <UserAvatar className="h-6 w-6 mt-2" user={post.creator} />
@@ -36,7 +36,7 @@ const PostCard: FC<PostCardProps> = ({ post }) => {
           </div>
         </CardHeader>
       </Card>
-    </Link>
+    </a>
   );
 };
 

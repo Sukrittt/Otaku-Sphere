@@ -14,9 +14,7 @@ const CommunityCard: FC<CommunityCardProps> = ({ community }) => {
   console.log("community", community);
 
   return (
-    <Link
-      href={`/community/${community.category.toLowerCase()}/${community.id}`}
-    >
+    <a href={`/community/${community.category.toLowerCase()}/${community.id}`}>
       <Card className="flex h-full flex-col">
         <CardHeader className="flex-1">
           <CardTitle className="line-clamp-1 pb-1">
@@ -36,7 +34,7 @@ const CommunityCard: FC<CommunityCardProps> = ({ community }) => {
           </CardDescription>
         </CardHeader>
       </Card>
-    </Link>
+    </a>
   );
 };
 
