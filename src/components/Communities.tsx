@@ -60,7 +60,7 @@ const Communities: FC<CommunitiesProps> = ({ initialCommunites, category }) => {
 
       return data as ExtendedCommunity[];
     },
-    queryKey: ["search-query"],
+    queryKey: ["community-search-query"],
     enabled: false, //by default it will not fetch
   });
 

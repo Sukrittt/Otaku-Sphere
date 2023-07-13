@@ -56,7 +56,7 @@ const Animes: FC<AnimesProps> = ({ initialAnimes }) => {
 
       return data as Anime[];
     },
-    queryKey: ["search-query"],
+    queryKey: ["anime-search-query"],
     enabled: false, //by default it will not fetch
   });
 
