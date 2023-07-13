@@ -4,7 +4,6 @@ import { usePrevious } from "@mantine/hooks";
 import axios, { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
-import { Session } from "next-auth";
 
 import { cn } from "@/lib/utils";
 import { Icons } from "@/components/Icons";
@@ -13,16 +12,11 @@ import { RateAnimeSchemaType } from "@/lib/validators/anime";
 import { toast } from "@/hooks/use-toast";
 
 interface AnimeRatingProps {
-  session: Session | null;
   animeId: string;
   userRating: number | undefined;
 }
 
-const AnimeRating: FC<AnimeRatingProps> = ({
-  animeId,
-  session,
-  userRating,
-}) => {
+const AnimeRating: FC<AnimeRatingProps> = ({ animeId, userRating }) => {
   const { endErrorToast, loginToast } = useAuthToast();
   const router = useRouter();
 

@@ -36,14 +36,22 @@ export async function POST(req: Request) {
     let updatedRating;
 
     if (alreadyRated) {
-      await db.rating.update({
-        where: {
-          id: alreadyRated.id,
-        },
-        data: {
-          rating,
-        },
-      });
+      if (alreadyRated.rating === rating) {
+        await db.rating.delete({
+          where: {
+            id: alreadyRated.id,
+          },
+        });
+      } else {
+        await db.rating.update({
+          where: {
+            id: alreadyRated.id,
+          },
+          data: {
+            rating,
+          },
+        });
+      }
 
       updatedRating = anime.totalRatings - alreadyRated.rating + rating;
     } else {
