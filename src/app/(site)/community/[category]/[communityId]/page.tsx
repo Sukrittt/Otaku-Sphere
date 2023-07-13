@@ -54,12 +54,6 @@ const CommunityCategoryPage = async ({
 
   return (
     <Shell layout="dashboard">
-      {/* <Header
-        title={community.name}
-        description={community.description}
-        goBackLink={baseLink}
-      /> */}
-
       <div className="grid gap-1">
         <a
           href={baseLink}

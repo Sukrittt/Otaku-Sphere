@@ -41,8 +41,6 @@ const Posts: FC<PostsProps> = ({ initialPosts }) => {
     }
   );
 
-  // const posts = data?.pages.flatMap((page) => page) ?? initialPosts;
-
   useEffect(() => {
     setPosts(data?.pages.flatMap((page) => page) ?? initialPosts);
   }, [data, initialPosts]);
