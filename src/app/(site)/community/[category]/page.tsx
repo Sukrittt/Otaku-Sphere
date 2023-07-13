@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { notFound } from "next/navigation";
 
 import { db } from "@/lib/db";
 import { cn } from "@/lib/utils";
@@ -6,6 +7,7 @@ import { Shell } from "@/components/Shell";
 import Communities from "@/components/Communities";
 import { buttonVariants } from "@/components/ui/Button";
 import { INFINITE_SCROLLING_PAGINATION_RESULTS } from "@/config";
+import { categories } from "@/data/community";
 
 interface CommunityCategoryPageProps {
   params: {
@@ -18,6 +20,14 @@ const CommunityCategoryPage = async ({
 }: CommunityCategoryPageProps) => {
   const { category } = params;
   const formattedCategory = category[0].toUpperCase() + category.slice(1);
+
+  const categoryValidation = categories.find(
+    (category) => category.label === formattedCategory
+  );
+
+  if (!categoryValidation) {
+    notFound();
+  }
 
   const initialCommunities = await db.community.findMany({
     take: INFINITE_SCROLLING_PAGINATION_RESULTS,

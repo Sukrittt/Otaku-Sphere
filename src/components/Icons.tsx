@@ -25,6 +25,7 @@ import {
   MoreVertical,
   ClipboardCheck,
   Trash2,
+  AlertTriangle,
 } from "lucide-react";
 
 export type Icon = LucideIcon;
@@ -96,4 +97,5 @@ export const Icons = {
   options: MoreVertical,
   share: ClipboardCheck,
   delete: Trash2,
+  warning: AlertTriangle,
 };
