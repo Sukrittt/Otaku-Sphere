@@ -1,5 +1,4 @@
 import { FC } from "react";
-import Link from "next/link";
 
 import { ExtendedCommunity } from "@/types/db";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/ui/Card";
@@ -11,8 +10,6 @@ interface CommunityCardProps {
 }
 
 const CommunityCard: FC<CommunityCardProps> = ({ community }) => {
-  console.log("community", community);
-
   return (
     <a href={`/community/${community.category.toLowerCase()}/${community.id}`}>
       <Card className="flex h-full flex-col">

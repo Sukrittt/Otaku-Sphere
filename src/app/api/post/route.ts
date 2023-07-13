@@ -45,11 +45,6 @@ export async function POST(req: Request) {
 export async function GET(req: Request) {
   const url = new URL(req.url);
 
-  console.log("---------------------------------");
-  console.log("---------------------------------");
-  console.log("---------------------------------");
-  console.log("---------------------------------");
-
   try {
     const session = await getAuthSession();
 
@@ -87,8 +82,6 @@ export async function GET(req: Request) {
         community: true,
       },
     });
-
-    console.log("SERVER POSTS?????", posts);
 
     return new Response(JSON.stringify(posts));
   } catch (error) {

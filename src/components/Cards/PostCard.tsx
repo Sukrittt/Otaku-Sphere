@@ -1,5 +1,4 @@
 import { FC } from "react";
-import Link from "next/link";
 
 import { ExtendedPost } from "@/types/db";
 import UserAvatar from "@/components/User/UserAvatar";

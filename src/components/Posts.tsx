@@ -29,8 +29,6 @@ const Posts: FC<PostsProps> = ({ initialPosts }) => {
     async ({ pageParam = 1 }) => {
       const queryUrl = `/api/post?limit=${INFINITE_SCROLLING_PAGINATION_RESULTS}&page=${pageParam}&communityId=${initialPosts[0].communityId}`;
 
-      console.log("queryUrl", queryUrl);
-
       const { data } = await axios(queryUrl);
 
       return data;
@@ -45,17 +43,12 @@ const Posts: FC<PostsProps> = ({ initialPosts }) => {
 
   // const posts = data?.pages.flatMap((page) => page) ?? initialPosts;
 
-  console.log("initialPosts", initialPosts);
-  console.log("posts", posts);
-  console.log("data", data);
-
   useEffect(() => {
     setPosts(data?.pages.flatMap((page) => page) ?? initialPosts);
   }, [data, initialPosts]);
 
   useEffect(() => {
     if (entry?.isIntersecting) {
-      console.log("FETCHING NEXT PAGE");
       fetchNextPage();
     }
   }, [entry, fetchNextPage]);

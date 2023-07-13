@@ -4,14 +4,10 @@ import Link from "next/link";
 import { db } from "@/lib/db";
 import { Shell } from "@/components/Shell";
 import { getAuthSession } from "@/lib/auth";
-import { Header } from "@/components/Header";
 import { buttonVariants } from "@/ui/Button";
 import { cn } from "@/lib/utils";
 import { INFINITE_SCROLLING_PAGINATION_RESULTS } from "@/config";
 import Posts from "@/components/Posts";
-
-export const dynamic = "force-dynamic";
-export const fetchCache = "force-no-store";
 
 interface CommunityCategoryPageProps {
   params: {
