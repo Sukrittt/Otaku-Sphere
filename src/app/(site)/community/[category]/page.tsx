@@ -35,6 +35,8 @@ const CommunityCategoryPage = async ({
     },
   });
 
+  console.log("initialCommunities", initialCommunities);
+
   return (
     <Shell layout="dashboard">
       <h1 className="text-3xl font-bold leading-tight tracking-tighter md:text-5xl lg:text-6xl lg:leading-[1.1]">

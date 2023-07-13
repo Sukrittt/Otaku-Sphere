@@ -11,6 +11,8 @@ interface CommunityCardProps {
 }
 
 const CommunityCard: FC<CommunityCardProps> = ({ community }) => {
+  console.log("community", community);
+
   return (
     <Link
       href={`/community/${community.category.toLowerCase()}/${community.id}`}

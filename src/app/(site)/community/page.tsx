@@ -7,6 +7,9 @@ import { buttonVariants } from "@/ui/Button";
 import Communities from "@/components/Communities";
 import { INFINITE_SCROLLING_PAGINATION_RESULTS } from "@/config";
 
+export const dynamic = "force-dynamic";
+export const fetchCache = "force-no-store";
+
 const CommunityPage = async () => {
   const initialCommunities = await db.community.findMany({
     take: INFINITE_SCROLLING_PAGINATION_RESULTS,

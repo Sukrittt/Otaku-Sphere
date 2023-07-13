@@ -1,5 +1,5 @@
 "use client";
-import { FC, useEffect, useRef } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useIntersection } from "@mantine/hooks";
@@ -15,20 +15,25 @@ interface PostsProps {
 
 const Posts: FC<PostsProps> = ({ initialPosts }) => {
   const lastPostRef = useRef<HTMLElement>(null);
+  const [posts, setPosts] = useState<ExtendedPost[]>(initialPosts);
 
   const { ref, entry } = useIntersection({
     root: lastPostRef.current,
     threshold: 1,
   });
 
-  const { data, fetchNextPage, isFetchingNextPage } = useInfiniteQuery(
+  const { data, fetchNextPage, isFetchingNextPage } = useInfiniteQuery<
+    ExtendedPost[]
+  >(
     ["infinite-query"],
     async ({ pageParam = 1 }) => {
       const queryUrl = `/api/post?limit=${INFINITE_SCROLLING_PAGINATION_RESULTS}&page=${pageParam}&communityId=${initialPosts[0].communityId}`;
 
+      console.log("queryUrl", queryUrl);
+
       const { data } = await axios(queryUrl);
 
-      return data as ExtendedPost[];
+      return data;
     },
     {
       getNextPageParam: (_, pages) => {
@@ -38,10 +43,19 @@ const Posts: FC<PostsProps> = ({ initialPosts }) => {
     }
   );
 
-  const posts = data?.pages.flatMap((page) => page) ?? initialPosts;
+  // const posts = data?.pages.flatMap((page) => page) ?? initialPosts;
+
+  console.log("initialPosts", initialPosts);
+  console.log("posts", posts);
+  console.log("data", data);
+
+  useEffect(() => {
+    setPosts(data?.pages.flatMap((page) => page) ?? initialPosts);
+  }, [data, initialPosts]);
 
   useEffect(() => {
     if (entry?.isIntersecting) {
+      console.log("FETCHING NEXT PAGE");
       fetchNextPage();
     }
   }, [entry, fetchNextPage]);
@@ -52,13 +66,13 @@ const Posts: FC<PostsProps> = ({ initialPosts }) => {
         if (index === posts.length - 1) {
           return (
             <div key={post.id} ref={ref}>
-              <PostCard key={post.id} post={post} />
+              <PostCard post={post} />
             </div>
           );
         } else {
           return (
             <div key={post.id}>
-              <PostCard key={post.id} post={post} />
+              <PostCard post={post} />
             </div>
           );
         }
