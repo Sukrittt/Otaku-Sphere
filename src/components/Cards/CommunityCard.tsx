@@ -1,4 +1,5 @@
 import { FC } from "react";
+import Link from "next/link";
 
 import { ExtendedCommunity } from "@/types/db";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/ui/Card";
@@ -11,7 +12,9 @@ interface CommunityCardProps {
 
 const CommunityCard: FC<CommunityCardProps> = ({ community }) => {
   return (
-    <a href={`/community/${community.category.toLowerCase()}/${community.id}`}>
+    <Link
+      href={`/community/${community.category.toLowerCase()}/${community.id}`}
+    >
       <Card className="flex h-full flex-col">
         <CardHeader className="flex-1">
           <CardTitle className="line-clamp-1 pb-1">
@@ -31,7 +34,7 @@ const CommunityCard: FC<CommunityCardProps> = ({ community }) => {
           </CardDescription>
         </CardHeader>
       </Card>
-    </a>
+    </Link>
   );
 };
 

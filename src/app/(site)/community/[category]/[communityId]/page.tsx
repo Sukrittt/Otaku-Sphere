@@ -8,6 +8,7 @@ import { buttonVariants } from "@/ui/Button";
 import { cn } from "@/lib/utils";
 import { INFINITE_SCROLLING_PAGINATION_RESULTS } from "@/config";
 import Posts from "@/components/Posts";
+import { Header } from "@/components/Header";
 
 interface CommunityCategoryPageProps {
   params: {
@@ -54,18 +55,11 @@ const CommunityCategoryPage = async ({
 
   return (
     <Shell layout="dashboard">
-      <div className="grid gap-1">
-        <a
-          href={baseLink}
-          className={cn(buttonVariants({ variant: "link" }), "w-fit px-0")}
-        >
-          Go back
-        </a>
-        <h1 className="line-clamp-1 text-3xl font-bold tracking-tight py-1 md:text-4xl">
-          {community.name}
-        </h1>
-        <p className="text-muted-foreground text-md">{community.description}</p>
-      </div>
+      <Header
+        title={community.name}
+        description={community.description}
+        goBackLink={baseLink}
+      />
 
       <div className="flex items-center gap-x-2">
         <Link
