@@ -28,7 +28,7 @@ const Animes: FC<AnimesProps> = ({ initialAnimes }) => {
   });
 
   const { data, fetchNextPage, isFetchingNextPage } = useInfiniteQuery(
-    ["infinite-query"],
+    ["anime-infinite-query"],
     async ({ pageParam = 1 }) => {
       const queryUrl = `/api/anime?limit=${INFINITE_SCROLLING_PAGINATION_ANIME}&page=${pageParam}`;
 
@@ -44,7 +44,11 @@ const Animes: FC<AnimesProps> = ({ initialAnimes }) => {
     }
   );
 
-  const { data: queryResults, refetch } = useQuery({
+  const {
+    data: queryResults,
+    refetch,
+    isFetching,
+  } = useQuery({
     queryFn: async () => {
       const queryUrl = `/api/anime?q=${query}`;
 
@@ -76,9 +80,17 @@ const Animes: FC<AnimesProps> = ({ initialAnimes }) => {
         <Input
           placeholder="Type a anime name here."
           onChange={(e) => setQuery(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              refetch();
+            }
+          }}
         />
-        <Button onClick={() => refetch()} disabled={query.length === 0}>
-          Search
+        <Button
+          onClick={() => refetch()}
+          disabled={query.length === 0 || isFetching}
+        >
+          {isFetching ? "Searching" : "Search"}
         </Button>
       </div>
       <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
@@ -98,6 +110,11 @@ const Animes: FC<AnimesProps> = ({ initialAnimes }) => {
           }
         })}
       </div>
+      {query.length > 0 && animes.length === 0 && (
+        <p className="text-center text-sm text-muted-foreground">
+          No results found.
+        </p>
+      )}
       {isFetchingNextPage && (
         <div className="w-full flex justify-center">
           <Icons.spinner

@@ -46,7 +46,11 @@ const Communities: FC<CommunitiesProps> = ({ initialCommunites, category }) => {
     }
   );
 
-  const { data: queryResults, refetch } = useQuery({
+  const {
+    data: queryResults,
+    refetch,
+    isFetching,
+  } = useQuery({
     queryFn: async () => {
       const queryUrl =
         `/api/community?q=${query}` +
@@ -80,9 +84,17 @@ const Communities: FC<CommunitiesProps> = ({ initialCommunites, category }) => {
         <Input
           placeholder="Type a community name here."
           onChange={(e) => setQuery(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              refetch();
+            }
+          }}
         />
-        <Button onClick={() => refetch()} disabled={query.length === 0}>
-          Search
+        <Button
+          onClick={() => refetch()}
+          disabled={query.length === 0 || isFetching}
+        >
+          {isFetching ? "Searching" : "Search"}
         </Button>
       </div>
 
