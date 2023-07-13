@@ -58,11 +58,25 @@ const CommunityCategoryPage = async ({
 
   return (
     <Shell layout="dashboard">
-      <Header
+      {/* <Header
         title={community.name}
         description={community.description}
         goBackLink={baseLink}
-      />
+      /> */}
+
+      <div className="grid gap-1">
+        <a
+          href={baseLink}
+          className={cn(buttonVariants({ variant: "link" }), "w-fit px-0")}
+        >
+          Go back
+        </a>
+        <h1 className="line-clamp-1 text-3xl font-bold tracking-tight py-1 md:text-4xl">
+          {community.name}
+        </h1>
+        <p className="text-muted-foreground text-md">{community.description}</p>
+      </div>
+
       <div className="flex items-center gap-x-2">
         <Link
           href={`${baseLink}/${community.id}/post`}
