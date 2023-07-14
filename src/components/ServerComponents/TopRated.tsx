@@ -6,7 +6,7 @@ import { formatUrl } from "@/lib/utils";
 
 const TopRated = async () => {
   const animes = await db.anime.findMany({
-    take: 4,
+    take: 5,
     orderBy: {
       totalRatings: "desc",
     },
@@ -21,7 +21,7 @@ const TopRated = async () => {
         Top picks for you. Updated daily.
       </p>
 
-      <div className="grid gap-4 sm:grid-cols-3 md:grid-cols-4">
+      <div className="grid gap-4 sm:grid-cols-3 md:grid-cols-5">
         {animes.map((anime) => {
           const formattedHref = `/anime/${formatUrl(anime.name)}`;
 

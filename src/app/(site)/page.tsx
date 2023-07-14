@@ -133,10 +133,10 @@ export default async function Home() {
         <TopRated />
       </Suspense>
       <Suspense fallback={<p className="text-4xl">Loading....</p>}>
-        <UserDesigned />
+        <RecentlyAdded />
       </Suspense>
       <Suspense fallback={<p className="text-4xl">Loading....</p>}>
-        <RecentlyAdded />
+        <UserDesigned />
       </Suspense>
 
       <div className="flex justify-center text-sm mt-8">
