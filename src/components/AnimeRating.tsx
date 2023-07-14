@@ -4,6 +4,7 @@ import { usePrevious } from "@mantine/hooks";
 import axios, { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
+import { Session } from "next-auth";
 
 import { cn } from "@/lib/utils";
 import { Icons } from "@/components/Icons";
@@ -14,9 +15,14 @@ import { toast } from "@/hooks/use-toast";
 interface AnimeRatingProps {
   animeId: string;
   userRating: number | undefined;
+  session: Session | null;
 }
 
-const AnimeRating: FC<AnimeRatingProps> = ({ animeId, userRating }) => {
+const AnimeRating: FC<AnimeRatingProps> = ({
+  animeId,
+  userRating,
+  session,
+}) => {
   const { endErrorToast, loginToast } = useAuthToast();
   const router = useRouter();
 
@@ -62,9 +68,11 @@ const AnimeRating: FC<AnimeRatingProps> = ({ animeId, userRating }) => {
     },
     onMutate: (index: number) => {
       handleRatingClick(index);
-      toast({
-        description: "Your rating was recorded successfully.",
-      });
+      if (session) {
+        toast({
+          description: "Your rating was recorded successfully.",
+        });
+      }
     },
   });
 

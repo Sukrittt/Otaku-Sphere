@@ -13,7 +13,7 @@ export const useAuthToast = () => {
         <Link
           href="/sign-in"
           onClick={() => dismiss()}
-          className={buttonVariants({ variant: "outline" })}
+          className={buttonVariants()}
         >
           Login
         </Link>

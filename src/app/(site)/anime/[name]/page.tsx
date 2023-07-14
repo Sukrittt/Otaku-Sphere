@@ -77,7 +77,11 @@ const AnimePage = async ({ params }: AnimePageProps) => {
                 </span>
               </div>
               <div className="text-xs font-semibold text-muted-foreground">
-                <AnimeRating animeId={anime.id} userRating={userRating} />
+                <AnimeRating
+                  animeId={anime.id}
+                  userRating={userRating}
+                  session={session}
+                />
               </div>
             </div>
           </div>
