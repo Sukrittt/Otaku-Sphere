@@ -1,8 +1,10 @@
 "use client";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import { HTML5Backend } from "react-dnd-html5-backend";
 import { SessionProvider } from "next-auth/react";
 
 import { ThemeProvider } from "./ThemeProvider";
+import { DndProvider } from "react-dnd";
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
   const queryClient = new QueryClient();
@@ -11,7 +13,7 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
     <QueryClientProvider client={queryClient}>
       <SessionProvider>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          {children}
+          <DndProvider backend={HTML5Backend}>{children}</DndProvider>
         </ThemeProvider>
       </SessionProvider>
     </QueryClientProvider>
