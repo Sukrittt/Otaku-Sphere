@@ -6,6 +6,13 @@ export async function middleware(req: NextRequest) {
 
   const pathname = req.nextUrl.pathname;
   const isSignInPage = pathname === "/sign-in";
+  const isAdminPage = pathname === "/admin" || pathname.startsWith("/admin/");
+
+  if (isAuthenticated) {
+    if (isAdminPage && isAuthenticated.role !== "ADMIN") {
+      return NextResponse.redirect(new URL("/", req.nextUrl));
+    }
+  }
 
   if (isSignInPage && isAuthenticated) {
     return NextResponse.redirect(new URL("/", req.nextUrl));
@@ -22,7 +29,7 @@ export const config = {
     "/settings",
     "/dashboard",
     "/watchlist",
-    "/admin:path*",
+    "/admin/:path*",
     "/sign-in",
   ],
 };
