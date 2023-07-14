@@ -2,44 +2,37 @@
 
 import Image from "next/image";
 import { Anime } from "@prisma/client";
-import Link from "next/link";
 
 import { cn, formatDescription } from "@/lib/utils";
 import { AspectRatio } from "@/ui/AspectRatio";
-import { Button } from "@/ui/Button";
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/ui/Card";
 import { Icons } from "@/components/Icons";
 
-interface AnimeAdminCardProps extends React.HTMLAttributes<HTMLDivElement> {
+interface AnimeCardProps extends React.HTMLAttributes<HTMLDivElement> {
   anime: Anime;
 }
 
-export function AnimeAdminCard({
-  anime,
-  className,
-  ...props
-}: AnimeAdminCardProps) {
+export function AnimeCard({ anime, className, ...props }: AnimeCardProps) {
   return (
     <Card
-      className={cn("h-full overflow-hidden rounded-sm", className)}
+      className={cn("h-full overflow-hidden rounded-sm group", className)}
       {...props}
     >
       <CardHeader className="border-b p-0">
-        <AspectRatio ratio={3 / 4}>
+        <AspectRatio ratio={3 / 4} className="overflow-hidden">
           {anime?.coverImage?.length ? (
             <Image
               src={anime.coverImage ?? "/images/anime-placeholder.png"}
               alt={anime.name}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               fill
-              className="object-cover"
+              className="object-cover group-hover:scale-105 transition-all"
               loading="lazy"
             />
           ) : (
@@ -63,18 +56,17 @@ export function AnimeAdminCard({
           {formatDescription(anime.description, 100)}
         </CardDescription>
       </CardContent>
-      <CardFooter className="p-4">
+      {/* <CardFooter className="p-4">
         <Link href={`/admin/anime/${anime.id}`} className="w-full">
           <Button
             aria-label="Edit content"
             size="sm"
             className="w-full tracking-tight"
-            onClick={() => {}}
           >
             Edit content
           </Button>
         </Link>
-      </CardFooter>
+      </CardFooter> */}
     </Card>
   );
 }

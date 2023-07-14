@@ -1,11 +1,17 @@
 import { Suspense } from "react";
 import { Balancer } from "react-wrap-balancer";
+import Link from "next/link";
 
 import { db } from "@/lib/db";
 import { Shell } from "@/components/Shell";
 import { Icons } from "@/components/Icons";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ui/Card";
-import { calculateIncreasePercentage } from "@/lib/utils";
+import { calculateIncreasePercentage, cn } from "@/lib/utils";
+import TopRated from "@/components/ServerComponents/TopRated";
+import RecentlyAdded from "@/components/ServerComponents/RecentlyAdded";
+import { categories } from "@/data/community";
+import { buttonVariants } from "@/ui/Button";
+import UserDesigned from "@/components/ServerComponents/UserDesigned";
 
 export const dynamic = "force-dynamic";
 export const fetchCache = "force-no-store";
@@ -59,7 +65,7 @@ export default async function Home() {
           Animated Wonders, Where Imagination Knows No Bounds
         </Balancer>
       </section>
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 pb-24">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Users</CardTitle>
@@ -122,6 +128,32 @@ export default async function Home() {
             </CardContent>
           </Suspense>
         </Card>
+      </div>
+      <Suspense fallback={<p className="text-4xl">Loading....</p>}>
+        <TopRated />
+      </Suspense>
+      <Suspense fallback={<p className="text-4xl">Loading....</p>}>
+        <UserDesigned />
+      </Suspense>
+      <Suspense fallback={<p className="text-4xl">Loading....</p>}>
+        <RecentlyAdded />
+      </Suspense>
+
+      <div className="flex justify-center text-sm mt-8">
+        {categories.map((category) => {
+          const href = `/community/${category.value}`;
+
+          return (
+            <Link
+              key={category.label}
+              href={href}
+              className={cn(
+                buttonVariants({ variant: "link" }),
+                "text-muted-foreground "
+              )}
+            >{`#${category.value}`}</Link>
+          );
+        })}
       </div>
     </Shell>
   );

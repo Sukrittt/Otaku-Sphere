@@ -7,7 +7,7 @@ import { Anime } from "@prisma/client";
 
 import { INFINITE_SCROLLING_PAGINATION_ANIME } from "@/config";
 import { Icons } from "@/components/Icons";
-import { AnimeAdminCard } from "@/components/Cards/Anime";
+import { AnimeAdminCard } from "@/components/Cards/AdminAnime";
 import { Input } from "@/ui/Input";
 import { Button } from "@/ui/Button";
 

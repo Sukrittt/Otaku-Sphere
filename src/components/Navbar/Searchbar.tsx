@@ -92,13 +92,11 @@ const Searchbar = () => {
           onValueChange={setQuery}
         />
         <CommandList>
-          {/* {data.length === 0 && ( */}
           <CommandEmpty
             className={cn(isPending ? "hidden" : "py-6 text-center text-sm")}
           >
             No anime found.
           </CommandEmpty>
-          {/* // )} */}
           {isPending ? (
             <div className="space-y-1 overflow-hidden px-1 py-2">
               <Skeleton className="h-4 w-10 rounded" />
