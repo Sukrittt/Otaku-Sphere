@@ -4,13 +4,12 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 
 import { db } from "@/lib/db";
-import { cn, convertToSingleDecimalPlace, formatUrl } from "@/lib/utils";
 import { Shell } from "@/components/Shell";
-import Description from "@/ui/Description";
 import AnimeRating from "@/components/AnimeRating";
 import { getAuthSession } from "@/lib/auth";
 import { buttonVariants } from "@/ui/Button";
 import { Icons } from "@/components/Icons";
+import { cn, convertToSingleDecimalPlace, formatUrl } from "@/lib/utils";
 import TopTenAnimeCheck from "@/components/ServerComponents/TopTenAnimeCheck";
 
 interface AnimePageProps {
@@ -105,7 +104,7 @@ const AnimePage = async ({ params }: AnimePageProps) => {
               <span>{anime.genre}</span>
               <span>{anime.releaseYear}</span>
             </div>
-            <Description description={anime.description} />
+            <p className="text-muted-foreground">{anime.description}</p>
             <Link
               href={anime.trailerLink}
               target="_blank"
