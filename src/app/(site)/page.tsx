@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { Balancer } from "react-wrap-balancer";
 
 import { db } from "@/lib/db";
@@ -64,31 +65,39 @@ export default async function Home() {
             <CardTitle className="text-sm font-medium">Total Users</CardTitle>
             <Icons.users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">
-              +{userCount.toLocaleString()}
-            </div>
-            <p className="text-xs text-muted-foreground">
-              +{calculateIncreasePercentage(userCount, previousMonthUserCount)}%
-              from last month
-            </p>
-          </CardContent>
+          <Suspense fallback={<p className="text-4xl">Loading....</p>}>
+            <CardContent>
+              <div className="text-2xl font-bold">
+                +{userCount.toLocaleString()}
+              </div>
+              <p className="text-xs text-muted-foreground">
+                +
+                {calculateIncreasePercentage(userCount, previousMonthUserCount)}
+                % from last month
+              </p>
+            </CardContent>
+          </Suspense>
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Animes</CardTitle>
             <Icons.anime className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">
-              +{animeCount.toLocaleString()}
-            </div>
-            <p className="text-xs text-muted-foreground">
-              +
-              {calculateIncreasePercentage(animeCount, previousMonthAnimeCount)}
-              % from last month
-            </p>
-          </CardContent>
+          <Suspense fallback={<p className="text-4xl">Loading....</p>}>
+            <CardContent>
+              <div className="text-2xl font-bold">
+                +{animeCount.toLocaleString()}
+              </div>
+              <p className="text-xs text-muted-foreground">
+                +
+                {calculateIncreasePercentage(
+                  animeCount,
+                  previousMonthAnimeCount
+                )}
+                % from last month
+              </p>
+            </CardContent>
+          </Suspense>
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -97,19 +106,21 @@ export default async function Home() {
             </CardTitle>
             <Icons.boxes className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">
-              +{communityCount.toLocaleString()}
-            </div>
-            <p className="text-xs text-muted-foreground">
-              +
-              {calculateIncreasePercentage(
-                communityCount,
-                previousMonthCommunityCount
-              )}
-              % from last month
-            </p>
-          </CardContent>
+          <Suspense fallback={<p className="text-4xl">Loading....</p>}>
+            <CardContent>
+              <div className="text-2xl font-bold">
+                +{communityCount.toLocaleString()}
+              </div>
+              <p className="text-xs text-muted-foreground">
+                +
+                {calculateIncreasePercentage(
+                  communityCount,
+                  previousMonthCommunityCount
+                )}
+                % from last month
+              </p>
+            </CardContent>
+          </Suspense>
         </Card>
       </div>
     </Shell>
