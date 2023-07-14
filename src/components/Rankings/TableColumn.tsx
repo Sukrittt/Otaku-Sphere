@@ -1,12 +1,23 @@
 "use client";
+import { ColumnDef } from "@tanstack/react-table";
 
 import { AnimeRanking } from "@/types/item-type";
-import { ColumnDef } from "@tanstack/react-table";
+import { Button } from "@/ui/Button";
+import { Icons } from "@/components/Icons";
 
 export const columns: ColumnDef<AnimeRanking>[] = [
   {
     accessorKey: "rank",
-    header: () => <div className="text-center">Rank</div>,
+    header: ({ column }) => (
+      <div className="flex justify-center">
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Rank <Icons.upDown className="ml-2 h-4 w-4" />
+        </Button>
+      </div>
+    ),
     cell: ({ row }) => {
       return <div className="text-center">{row.getValue("rank")}</div>;
     },
@@ -21,18 +32,48 @@ export const columns: ColumnDef<AnimeRanking>[] = [
   },
   {
     accessorKey: "genre",
-    header: "Genre",
+    header: ({ column }) => (
+      <div className="flex justify-center">
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Genre <Icons.upDown className="ml-2 h-4 w-4" />
+        </Button>
+      </div>
+    ),
+    cell: ({ row }) => {
+      return <div className="text-center">{row.getValue("genre")}</div>;
+    },
   },
   {
     accessorKey: "rating",
-    header: () => <div className="text-center">Rating</div>,
+    header: ({ column }) => (
+      <div className="flex justify-center">
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Rating <Icons.upDown className="ml-2 h-4 w-4" />
+        </Button>
+      </div>
+    ),
     cell: ({ row }) => {
       return <div className="text-center">{row.getValue("rating")}</div>;
     },
   },
   {
     accessorKey: "votes",
-    header: () => <div className="text-center">Votes</div>,
+    header: ({ column }) => (
+      <div className="flex justify-center">
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Votes <Icons.upDown className="ml-2 h-4 w-4" />
+        </Button>
+      </div>
+    ),
     cell: ({ row }) => {
       return <div className="text-center">{row.getValue("votes")}</div>;
     },

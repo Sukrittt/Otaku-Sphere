@@ -26,6 +26,7 @@ import {
   ClipboardCheck,
   Trash2,
   AlertTriangle,
+  ArrowUpDown,
 } from "lucide-react";
 
 export type Icon = LucideIcon;
@@ -98,4 +99,5 @@ export const Icons = {
   share: ClipboardCheck,
   delete: Trash2,
   warning: AlertTriangle,
+  upDown: ArrowUpDown,
 };
