@@ -58,13 +58,13 @@ const AnimeRating: FC<AnimeRatingProps> = ({ animeId, userRating }) => {
       endErrorToast();
     },
     onSuccess: () => {
-      toast({
-        description: "Your rating was recorded successfully.",
-      });
       router.refresh();
     },
     onMutate: (index: number) => {
       handleRatingClick(index);
+      toast({
+        description: "Your rating was recorded successfully.",
+      });
     },
   });
 
