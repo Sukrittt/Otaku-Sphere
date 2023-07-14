@@ -42,6 +42,8 @@ export async function POST(req: Request) {
             id: alreadyRated.id,
           },
         });
+
+        updatedRating = anime.totalRatings - alreadyRated.rating;
       } else {
         await db.rating.update({
           where: {
@@ -51,9 +53,8 @@ export async function POST(req: Request) {
             rating,
           },
         });
+        updatedRating = anime.totalRatings - alreadyRated.rating + rating;
       }
-
-      updatedRating = anime.totalRatings - alreadyRated.rating + rating;
     } else {
       await db.rating.create({
         data: {
