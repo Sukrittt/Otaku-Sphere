@@ -35,6 +35,7 @@ const StatisticsPage = async () => {
       genre: anime.genre,
       rating: calculatedRating(anime),
       rank: index + 1,
+      votes: anime.rating.length.toLocaleString(),
     })
   );
 

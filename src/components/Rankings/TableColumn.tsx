@@ -30,4 +30,11 @@ export const columns: ColumnDef<AnimeRanking>[] = [
       return <div className="text-center">{row.getValue("rating")}</div>;
     },
   },
+  {
+    accessorKey: "votes",
+    header: () => <div className="text-center">Votes</div>,
+    cell: ({ row }) => {
+      return <div className="text-center">{row.getValue("votes")}</div>;
+    },
+  },
 ];

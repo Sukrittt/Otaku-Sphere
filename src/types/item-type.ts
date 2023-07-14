@@ -25,4 +25,5 @@ export type AnimeRanking = {
   director: string;
   genre: string;
   rating: number;
+  votes: string;
 };
