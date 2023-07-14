@@ -3,7 +3,7 @@ import { z } from "zod";
 export const animeSchema = z.object({
   id: z.string().optional(), //server validation
   name: z.string().min(3).max(50),
-  description: z.string().min(3).max(1500),
+  description: z.string().min(3).max(1200),
   genre: z.string(),
   releaseYear: z
     .string()

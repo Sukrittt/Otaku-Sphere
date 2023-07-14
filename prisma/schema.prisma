@@ -78,7 +78,7 @@ model Anime {
 
   releaseYear String
   director    String
-  description String @db.VarChar(1500)
+  description String @db.VarChar(1200)
   trailerLink String
   coverImage  String
 
