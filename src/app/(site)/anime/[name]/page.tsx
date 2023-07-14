@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import Link from "next/link";
@@ -10,6 +11,7 @@ import AnimeRating from "@/components/AnimeRating";
 import { getAuthSession } from "@/lib/auth";
 import { buttonVariants } from "@/ui/Button";
 import { Icons } from "@/components/Icons";
+import TopTenAnimeCheck from "@/components/ServerComponents/TopTenAnimeCheck";
 
 interface AnimePageProps {
   params: {
@@ -90,9 +92,13 @@ const AnimePage = async ({ params }: AnimePageProps) => {
               <h1 className="text-4xl font-bold leading-tight tracking-tighter lg:text-5xl lg:leading[1.1]">
                 {anime.name}
               </h1>
-              <span className="text-xl text-zinc-400 font-medium">
-                {anime.releaseYear}
-              </span>
+              <div className="space-x-2 text-xl text-zinc-400 font-medium">
+                <span>{anime.releaseYear}</span>
+                <span>·</span>
+                <Suspense fallback={<p>Loading...</p>}>
+                  <TopTenAnimeCheck name={name} />
+                </Suspense>
+              </div>
             </div>
             <div className="flex gap-x-3 items-center text-xs font-bold">
               <span>{anime.director}</span>
@@ -106,7 +112,7 @@ const AnimePage = async ({ params }: AnimePageProps) => {
               className={cn(buttonVariants(), "w-fit")}
             >
               <Icons.play className="w-4 h-4 mr-2" />
-              Watch trailer
+              Watch Trailer
             </Link>
           </div>
         </div>

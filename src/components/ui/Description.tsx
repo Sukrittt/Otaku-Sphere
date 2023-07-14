@@ -1,7 +1,6 @@
 "use client";
 import { formatDescription } from "@/lib/utils";
 import { FC, useEffect, useState } from "react";
-import { Balancer } from "react-wrap-balancer";
 
 interface DescriptionProps {
   description: string;
@@ -20,7 +19,7 @@ const Description: FC<DescriptionProps> = ({ description, trim }) => {
   }, [toggleFullView, description, trim]);
 
   return (
-    <Balancer className="text-muted-foreground">
+    <p className="text-muted-foreground">
       {formattedDescription}{" "}
       <span
         className="cursor-pointer font-medium"
@@ -28,7 +27,7 @@ const Description: FC<DescriptionProps> = ({ description, trim }) => {
       >
         {toggleFullView ? "Read Less" : "Read More"}
       </span>
-    </Balancer>
+    </p>
   );
 };
 
