@@ -1,7 +1,59 @@
-import React from "react";
+import { db } from "@/lib/db";
+import { Shell } from "@/components/Shell";
+import { ExtendedAnime } from "@/types/db";
+import { AnimeRanking } from "@/types/item-type";
+import { convertToSingleDecimalPlace, formatUrl } from "@/lib/utils";
+import { DataTable } from "@/components/Rankings/DataTable";
+import { columns } from "@/components/Rankings/TableColumn";
 
-const StatisticsPage = () => {
-  return <div>StatisticsPage</div>;
+const StatisticsPage = async () => {
+  const animes = await db.anime.findMany({
+    take: 10,
+    orderBy: {
+      totalRatings: "desc",
+    },
+    include: {
+      rating: true,
+    },
+  });
+
+  const calculatedRating = (anime: ExtendedAnime) => {
+    const totalRatings = anime.totalRatings;
+    const ratingLength = anime.rating.length * 10;
+
+    if (ratingLength === 0) return 0;
+
+    const rawRating = (totalRatings / ratingLength) * 10;
+
+    return convertToSingleDecimalPlace(rawRating, 2);
+  };
+
+  const structuredRankingData: AnimeRanking[] = animes.flatMap(
+    (anime, index) => ({
+      anime: anime.name,
+      director: anime.director,
+      genre: anime.genre,
+      rating: calculatedRating(anime),
+      rank: index + 1,
+    })
+  );
+
+  const animeHrefs: string[] = animes.flatMap(
+    (anime) => `/anime/${formatUrl(anime.name)}`
+  );
+
+  return (
+    <Shell>
+      <h1 className="text-4xl text-center font-bold leading-tight tracking-tighter md:text-6xl lg:text-7xl lg:leading-[1.1]">
+        Leaderboard
+      </h1>
+      <DataTable
+        columns={columns}
+        data={structuredRankingData}
+        animeHrefs={animeHrefs}
+      />
+    </Shell>
+  );
 };
 
 export default StatisticsPage;

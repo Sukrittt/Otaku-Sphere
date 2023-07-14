@@ -1,4 +1,12 @@
-import { Comment, Community, Like, Post, User } from "@prisma/client";
+import {
+  Anime,
+  Comment,
+  Community,
+  Like,
+  Post,
+  Rating,
+  User,
+} from "@prisma/client";
 
 export type ExtendedCommunity = Community & {
   creator: User;
@@ -14,4 +22,8 @@ export type ExtendedPost = Post & {
 
 export type ExtendedComment = Comment & {
   author: User;
+};
+
+export type ExtendedAnime = Anime & {
+  rating: Rating[];
 };

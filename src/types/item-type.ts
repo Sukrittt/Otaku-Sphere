@@ -18,3 +18,11 @@ export type ComboBoxItemType = {
   value: string;
   label: string;
 };
+
+export type AnimeRanking = {
+  rank: number;
+  anime: string;
+  director: string;
+  genre: string;
+  rating: number;
+};
