@@ -68,8 +68,6 @@ model User {
 
   like Like[]
 
-  report Report[]
-
   createdAt DateTime @default(now())
 }
 
@@ -93,8 +91,6 @@ model Anime {
 
   creatorId String
   creator   User   @relation(fields: [creatorId], references: [id], onDelete: Cascade)
-
-  report Report[]
 
   createdAt DateTime @default(now())
 
@@ -216,20 +212,4 @@ model Like {
   post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
 
   @@id([userId, postId])
-}
-
-// --------------------------------------
-
-model Report {
-  id String @id @default(cuid())
-
-  creatorId String
-  creator   User   @relation(fields: [creatorId], references: [id], onDelete: Cascade)
-
-  text String
-
-  animeId String
-  anime   Anime  @relation(fields: [animeId], references: [id], onDelete: Cascade)
-
-  createdAt DateTime @default(now())
 }
