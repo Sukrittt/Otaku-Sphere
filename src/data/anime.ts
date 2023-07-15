@@ -308,8 +308,8 @@ export const genres: ComboBoxItemType[] = [
     label: "Shoujo",
   },
   {
-    value: "slice-of-life",
-    label: "Slice of life",
+    value: "sports",
+    label: "Sports",
   },
   {
     value: "romance",
