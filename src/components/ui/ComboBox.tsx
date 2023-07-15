@@ -11,12 +11,12 @@ import {
   CommandItem,
 } from "@/ui/Command";
 import { Popover, PopoverContent, PopoverTrigger } from "@/ui/Popover";
-import { ComboBoxItemType } from "@/types/item-type";
+import { ComboBoxItemType, ZodCategoryType } from "@/types/item-type";
 
 interface ComboboxProps extends React.HTMLAttributes<HTMLInputElement> {
   placeholder: string;
   data: ComboBoxItemType[];
-  setState: (genre: string) => void;
+  setState: (genre: ZodCategoryType) => void;
   selectedOption?: string;
 }
 
@@ -34,7 +34,7 @@ export const Combobox: FC<ComboboxProps> = forwardRef<
     if (value) {
       const findIndex = data.findIndex((item) => item.value === value);
 
-      setState(data[findIndex].label);
+      setState(data[findIndex].value as ZodCategoryType);
     }
   }, [value, setState, data]);
 

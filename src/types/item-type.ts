@@ -39,3 +39,5 @@ export type DummyType = {
   name: string;
   category: CategoryType;
 };
+
+export type ZodCategoryType = "pending" | "watching" | "finished";

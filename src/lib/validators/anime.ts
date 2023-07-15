@@ -36,3 +36,23 @@ export const rateAnimeSchema = idAnimeSchema.extend({
 });
 
 export type RateAnimeSchemaType = z.infer<typeof rateAnimeSchema>;
+
+export const AnimeWatchlistSchema = z.object({
+  category: z.string().optional(),
+  animeId: z.string().optional(),
+});
+
+export type AnimeWatchlistSchemaType = z.infer<typeof AnimeWatchlistSchema>;
+
+export const ZodCategoryType = z.union([
+  z.literal("pending"),
+  z.literal("watching"),
+  z.literal("finished"),
+]);
+
+export const AnimeWatchlistServer = z.object({
+  animeId: z.string().min(3),
+  category: ZodCategoryType,
+});
+
+export type AnimeWatchlistServerType = z.infer<typeof AnimeWatchlistServer>;

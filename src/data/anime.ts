@@ -1,5 +1,10 @@
-import { ComboBoxItemType } from "@/types/item-type";
+import {
+  CategoryType,
+  ComboBoxItemType,
+  ZodCategoryType,
+} from "@/types/item-type";
 
+// REMOVE THIS !!!
 export const animeData = [
   {
     id: 1,
@@ -321,5 +326,20 @@ export const genres: ComboBoxItemType[] = [
   {
     value: "thriller",
     label: "Thriller",
+  },
+];
+
+export const watchlists: { value: ZodCategoryType; label: string }[] = [
+  {
+    value: "pending",
+    label: "Pending",
+  },
+  {
+    value: "watching",
+    label: "Watching",
+  },
+  {
+    value: "finished",
+    label: "Finished",
   },
 ];
