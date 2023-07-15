@@ -1,5 +1,5 @@
 import { Icons } from "@/components/Icons";
-import { SidebarNavType } from "@/types/item-type";
+import { DummyType, SidebarNavType } from "@/types/item-type";
 
 export const adminSidebarNavItems: SidebarNavType[] = [
   {
@@ -58,5 +58,25 @@ export const communitySidebarNavItems: SidebarNavType[] = [
     label: "#feedback",
     Icon: Icons.feedback,
     href: "/community/feedback",
+  },
+];
+
+// REMOVE THIS!!!
+
+export const dummyData: DummyType[] = [
+  {
+    id: 1,
+    name: "Item 1",
+    category: "notStarted",
+  },
+  {
+    id: 2,
+    name: "Item 2",
+    category: "notStarted",
+  },
+  {
+    id: 3,
+    name: "Item 3",
+    category: "notStarted",
   },
 ];

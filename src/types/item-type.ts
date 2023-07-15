@@ -27,3 +27,15 @@ export type AnimeRanking = {
   rating: number;
   votes: string;
 };
+
+// REMOVE THIS!!!
+export type CategoryType =
+  | "notStarted"
+  | "currentlyWatching"
+  | "finishedWatching";
+
+export type DummyType = {
+  id: number;
+  name: string;
+  category: CategoryType;
+};
