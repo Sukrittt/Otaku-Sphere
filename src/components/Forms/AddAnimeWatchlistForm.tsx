@@ -23,8 +23,8 @@ import {
 } from "@/ui/Form";
 import { Combobox } from "@/ui/ComboBox";
 import { useAuthToast } from "@/hooks/useAuthToast";
-import CustomCommand from "@/components/CustomCommand";
-import { Input } from "../ui/Input";
+import CustomCommand from "@/components/Custom-UI/CustomCommand";
+import { Input } from "@/ui/Input";
 import { ZodCategoryType } from "@/types/item-type";
 
 const AddAnimeWatchlistForm = () => {

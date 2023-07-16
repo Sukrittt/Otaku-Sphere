@@ -29,7 +29,7 @@ import {
 } from "@/lib/validators/community";
 import { categories } from "@/data/community";
 import { IdAnimeSchemaType } from "@/lib/validators/anime";
-import CustomAlertBox from "@/components/CustomAlertBox";
+import CustomAlertBox from "@/components/Custom-UI/CustomAlertBox";
 
 interface UpdateCommunityFormProps {
   community: Community;

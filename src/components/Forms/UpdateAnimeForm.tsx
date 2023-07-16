@@ -29,7 +29,7 @@ import {
 import { Combobox } from "@/ui/ComboBox";
 import { uploadFiles } from "@/lib/uploadthing";
 import { useAuthToast } from "@/hooks/useAuthToast";
-import CustomAlertBox from "@/components/CustomAlertBox";
+import CustomAlertBox from "@/components/Custom-UI/CustomAlertBox";
 
 interface UpdateAnimeFormProps {
   anime: Anime;

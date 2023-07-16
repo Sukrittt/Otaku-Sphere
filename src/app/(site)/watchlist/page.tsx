@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
 import { Shell } from "@/components/Shell";
 import DragContainer from "@/components/DragDrop/DragContainer";
-import CustomSheet from "@/components/CustomSheet";
+import CustomSheet from "@/components/Custom-UI/CustomSheet";
 import { getAuthSession } from "@/lib/auth";
 import { DragItemType } from "@/types/item-type";
 
