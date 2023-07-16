@@ -114,7 +114,8 @@ model Reviews {
 
   reviewLikes ReviewLike[]
 
-  review String @db.VarChar(350)
+  title String @db.VarChar(50)
+  text  String @db.VarChar(1500)
 
   createdAt DateTime @default(now())
 

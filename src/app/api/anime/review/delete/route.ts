@@ -2,7 +2,7 @@ import { z } from "zod";
 
 import { db } from "@/lib/db";
 import { getAuthSession } from "@/lib/auth";
-import { DeletePostValidator } from "@/lib/validators/community";
+import { AnimeReviewDeleteSchema } from "@/lib/validators/anime";
 
 export async function POST(req: Request) {
   try {
@@ -13,36 +13,26 @@ export async function POST(req: Request) {
     }
 
     const body = await req.json();
-    const { creatorId, postId } = DeletePostValidator.parse(body);
+    const { reviewId } = AnimeReviewDeleteSchema.parse(body);
 
-    const post = await db.post.findFirst({
+    const review = await db.reviews.findFirst({
       where: {
-        id: postId,
+        id: reviewId,
       },
     });
 
-    if (!post) {
-      return new Response("Post not found", { status: 404 });
+    if (!review) {
+      return new Response("Review not found", { status: 404 });
     }
 
-    const postCreator = await db.user.findFirst({
-      where: {
-        id: creatorId,
-      },
-    });
-
-    if (!postCreator) {
-      return new Response("User not found", { status: 404 });
-    }
-
-    if (postCreator.id !== session.user.id) {
+    if (review.userId !== session.user.id) {
       return new Response("Forbidden", { status: 403 });
     }
 
     //all checks complete✅
-    await db.post.delete({
+    await db.reviews.delete({
       where: {
-        id: postId,
+        id: reviewId,
       },
     });
 

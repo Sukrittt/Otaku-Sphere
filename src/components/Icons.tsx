@@ -27,6 +27,7 @@ import {
   Trash2,
   AlertTriangle,
   ArrowUpDown,
+  Plus,
 } from "lucide-react";
 
 export type Icon = LucideIcon;
@@ -100,4 +101,5 @@ export const Icons = {
   delete: Trash2,
   warning: AlertTriangle,
   upDown: ArrowUpDown,
+  plus: Plus,
 };

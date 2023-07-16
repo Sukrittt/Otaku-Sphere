@@ -50,6 +50,13 @@ const PostDropdown: FC<PostDropdownProps> = ({ children, post }) => {
             variant: "destructive",
           });
         }
+        if (statusCode === 403) {
+          return toast({
+            title: "Forbidden",
+            description: "You are not authorized to delete this post.",
+            variant: "destructive",
+          });
+        }
       }
 
       endErrorToast();
