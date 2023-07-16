@@ -66,6 +66,9 @@ model User {
   post      Post[]
   comment   Comment[]
 
+  reviews     Reviews[]
+  reviewLikes ReviewLike[]
+
   like Like[]
 
   createdAt DateTime @default(now())
@@ -89,6 +92,8 @@ model Anime {
   currentlyWatching  CurrentlyWatching[]
   notStartedWatching NotStartedWatching[]
 
+  reviews Reviews[]
+
   creatorId String
   creator   User   @relation(fields: [creatorId], references: [id], onDelete: Cascade)
 
@@ -96,6 +101,35 @@ model Anime {
 
   @@index([creatorId])
   @@index([name])
+}
+
+model Reviews {
+  id String @id @default(cuid())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  animeId String
+  anime   Anime  @relation(fields: [animeId], references: [id], onDelete: Cascade)
+
+  reviewLikes ReviewLike[]
+
+  review String @db.VarChar(350)
+
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([animeId])
+}
+
+model ReviewLike {
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  reviewId String
+  review   Reviews @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+
+  @@id([userId, reviewId])
 }
 
 model Rating {
