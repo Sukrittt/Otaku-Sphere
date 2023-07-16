@@ -103,10 +103,6 @@ export async function PATCH(req: Request) {
 
     const { animeId, category, dropTo } = AnimeWatchlistUpdate.parse(body);
 
-    if (category === dropTo) {
-      return new Response("Nothing to change here.");
-    }
-
     const anime = await db.anime.findUnique({
       where: {
         id: animeId,
