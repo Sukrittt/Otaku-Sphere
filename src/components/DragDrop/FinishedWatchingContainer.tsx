@@ -102,7 +102,12 @@ const FinishedWatchingContainer = () => {
       <CardHeader>
         <CardTitle className="text-center">Completed</CardTitle>
       </CardHeader>
-      <div className="flex flex-col w-full">
+      <div className="flex flex-col w-full pb-2">
+        {board.length === 0 && (
+          <p className="text-center text-muted-foreground text-sm">
+            Nothing to show here
+          </p>
+        )}
         {board.map((item) => {
           const structuredItem: DragItemType = {
             id: item.id,
