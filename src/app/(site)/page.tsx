@@ -17,38 +17,47 @@ export const dynamic = "force-dynamic";
 export const fetchCache = "force-no-store";
 
 export default async function Home() {
-  const userCount = await db.user.count();
-  const animeCount = await db.anime.count();
-  const communityCount = await db.community.count();
-
-  const currentDate = new Date(); // Get the current date
+  const currentDate = new Date();
   const previousMonth = new Date(
     currentDate.getFullYear(),
     currentDate.getMonth() - 1
   );
 
-  const previousMonthUserCount = await db.user.count({
-    where: {
-      createdAt: {
-        lte: previousMonth,
+  const promises = [
+    db.user.count(),
+    db.anime.count(),
+    db.community.count(),
+    db.user.count({
+      where: {
+        createdAt: {
+          lte: previousMonth,
+        },
       },
-    },
-  });
+    }),
+    db.anime.count({
+      where: {
+        createdAt: {
+          lte: previousMonth,
+        },
+      },
+    }),
+    db.community.count({
+      where: {
+        createdAt: {
+          lte: previousMonth,
+        },
+      },
+    }),
+  ];
 
-  const previousMonthAnimeCount = await db.user.count({
-    where: {
-      createdAt: {
-        lte: previousMonth,
-      },
-    },
-  });
-  const previousMonthCommunityCount = await db.user.count({
-    where: {
-      createdAt: {
-        lte: previousMonth,
-      },
-    },
-  });
+  const [
+    userCount,
+    animeCount,
+    communityCount,
+    previousMonthUserCount,
+    previousMonthAnimeCount,
+    previousMonthCommunityCount,
+  ] = await Promise.all(promises);
 
   return (
     <Shell>
