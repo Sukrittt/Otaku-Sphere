@@ -99,7 +99,7 @@ const FinishedWatchingContainer = () => {
       })}
       ref={drop}
     >
-      <CardHeader>
+      <CardHeader className="pb-3">
         <CardTitle className="text-center">Completed</CardTitle>
       </CardHeader>
       <div className="flex flex-col w-full pb-2">

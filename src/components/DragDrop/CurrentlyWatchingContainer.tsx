@@ -99,7 +99,7 @@ const CurrentlyWatchingContainer = () => {
       })}
       ref={drop}
     >
-      <CardHeader>
+      <CardHeader className="pb-3">
         <CardTitle className="text-center">In Progress</CardTitle>
       </CardHeader>
       <div className="flex flex-col w-full pb-2">
