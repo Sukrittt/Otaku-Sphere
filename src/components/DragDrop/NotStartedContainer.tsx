@@ -102,7 +102,12 @@ const NotStartedContainer = () => {
       <CardHeader>
         <CardTitle className="text-center">To-Watch List</CardTitle>
       </CardHeader>
-      <div className="flex flex-col w-full">
+      <div className="flex flex-col w-full pb-2">
+        {board.length === 0 && (
+          <p className="text-center text-muted-foreground text-sm">
+            Nothing to show here
+          </p>
+        )}
         {board.map((item) => {
           const structuredItem: DragItemType = {
             id: item.id,
@@ -111,7 +116,7 @@ const NotStartedContainer = () => {
             category: "pending",
           };
           return (
-            <CardContent className="w-full" key={item.id}>
+            <CardContent className="w-full py-2" key={item.id}>
               <DragItem item={structuredItem} />
             </CardContent>
           );

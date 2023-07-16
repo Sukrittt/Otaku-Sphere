@@ -110,7 +110,7 @@ const CurrentlyWatchingContainer = () => {
             category: "watching",
           };
           return (
-            <CardContent className="w-full" key={item.id}>
+            <CardContent className="w-full py-2" key={item.id}>
               <DragItem item={structuredItem} />
             </CardContent>
           );

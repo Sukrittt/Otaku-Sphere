@@ -1,7 +1,7 @@
 import { useDrag } from "react-dnd";
 
-import { Card, CardHeader } from "@/ui/Card";
 import { cn } from "@/lib/utils";
+import { Card, CardHeader } from "@/ui/Card";
 import { DragItemType } from "@/types/item-type";
 
 export const DragItem = ({ item }: { item: DragItemType }) => {
@@ -25,7 +25,7 @@ export const DragItem = ({ item }: { item: DragItemType }) => {
         "opacity-50": isDragging,
       })}
     >
-      <CardHeader>{item.name}</CardHeader>
+      <CardHeader className="py-4">{item.name}</CardHeader>
     </Card>
   );
 };
