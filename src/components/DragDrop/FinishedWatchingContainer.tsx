@@ -13,6 +13,7 @@ import useNotStarted from "@/hooks/watchlist/useNotStartedModal";
 import { useAuthToast } from "@/hooks/useAuthToast";
 import { AnimeWatchlistUpdateType } from "@/lib/validators/anime";
 import { toast } from "@/hooks/use-toast";
+import CustomContextMenu from "../Custom-UI/CustomContextMenu";
 
 const FinishedWatchingContainer = () => {
   const { endErrorToast, loginToast } = useAuthToast();
@@ -110,9 +111,11 @@ const FinishedWatchingContainer = () => {
             category: "finished",
           };
           return (
-            <CardContent className="w-full py-2" key={item.id}>
-              <DragItem item={structuredItem} />
-            </CardContent>
+            <CustomContextMenu key={item.id} data={item}>
+              <CardContent className="w-full py-2">
+                <DragItem item={structuredItem} />
+              </CardContent>
+            </CustomContextMenu>
           );
         })}
       </div>

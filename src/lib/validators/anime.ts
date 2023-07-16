@@ -64,3 +64,10 @@ export const AnimeWatchlistUpdate = z.object({
 });
 
 export type AnimeWatchlistUpdateType = z.infer<typeof AnimeWatchlistUpdate>;
+
+export const AnimeWatchlistDelete = z.object({
+  watchlistId: z.string().min(3),
+  category: ZodCategoryType,
+});
+
+export type AnimeWatchlistDeleteType = z.infer<typeof AnimeWatchlistDelete>;
