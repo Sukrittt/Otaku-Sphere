@@ -1,7 +1,6 @@
 import { create } from "zustand";
 
 import { DragItemType } from "@/types/item-type";
-import { toast } from "@/hooks/use-toast";
 
 interface FinishedWatchingStore {
   board: DragItemType[];
@@ -17,10 +16,6 @@ const useFinishedWatching = create<FinishedWatchingStore>((set) => ({
       const updatedBoard = [item, ...state.board];
 
       return { ...state, board: updatedBoard };
-    });
-
-    toast({
-      description: "Added to finished animes",
     });
   },
   removeItemFromBoard: (id) => {

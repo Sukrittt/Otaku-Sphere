@@ -29,7 +29,14 @@ const DragContainer: FC<DragContainerProps> = ({
     setNotStarted(notStartedAnimes);
     setCurrentlyWatching(currentlyWatchingAnimes);
     setFinishedWatching(finishedWatchingAnimes);
-  }, []);
+  }, [
+    notStartedAnimes,
+    currentlyWatchingAnimes,
+    finishedWatchingAnimes,
+    setNotStarted,
+    setCurrentlyWatching,
+    setFinishedWatching,
+  ]);
 
   return (
     <ScrollArea>

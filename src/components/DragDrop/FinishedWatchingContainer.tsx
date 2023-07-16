@@ -1,4 +1,7 @@
 import { DropTargetMonitor, useDrop } from "react-dnd";
+import { useMutation } from "@tanstack/react-query";
+import axios, { AxiosError } from "axios";
+import { useRouter } from "next/navigation";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/ui/Card";
 import { cn } from "@/lib/utils";
@@ -8,13 +11,12 @@ import useFinishedWatching from "@/hooks/watchlist/useFinishedWatching";
 import useCurrentlyWatching from "@/hooks/watchlist/useCurrentlyWatching";
 import useNotStarted from "@/hooks/watchlist/useNotStartedModal";
 import { useAuthToast } from "@/hooks/useAuthToast";
-import { useMutation } from "@tanstack/react-query";
 import { AnimeWatchlistUpdateType } from "@/lib/validators/anime";
-import axios, { AxiosError } from "axios";
 import { toast } from "@/hooks/use-toast";
 
 const FinishedWatchingContainer = () => {
   const { endErrorToast, loginToast } = useAuthToast();
+  const router = useRouter();
 
   const { board, addImageToBoard, removeItemFromBoard } = useFinishedWatching();
   const { removeItemFromBoard: removeNotStarted } = useNotStarted();
@@ -56,6 +58,9 @@ const FinishedWatchingContainer = () => {
       monitor: DropTargetMonitor;
     }) => {
       onDrop(item, monitor);
+    },
+    onSuccess: () => {
+      router.refresh();
     },
   });
 
