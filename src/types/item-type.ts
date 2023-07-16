@@ -33,6 +33,7 @@ export type ZodCategoryType = "pending" | "watching" | "finished";
 export type DragItemType = {
   id: string;
   name: string;
+  animeId: string;
   category: ZodCategoryType;
 };
 

@@ -7,12 +7,57 @@ import { DragItem } from "./DragItem";
 import useFinishedWatching from "@/hooks/watchlist/useFinishedWatching";
 import useCurrentlyWatching from "@/hooks/watchlist/useCurrentlyWatching";
 import useNotStarted from "@/hooks/watchlist/useNotStartedModal";
+import { useAuthToast } from "@/hooks/useAuthToast";
+import { useMutation } from "@tanstack/react-query";
+import { AnimeWatchlistUpdateType } from "@/lib/validators/anime";
+import axios, { AxiosError } from "axios";
+import { toast } from "@/hooks/use-toast";
 
 const FinishedWatchingContainer = () => {
+  const { endErrorToast, loginToast } = useAuthToast();
+
   const { board, addImageToBoard, removeItemFromBoard } = useFinishedWatching();
   const { removeItemFromBoard: removeNotStarted } = useNotStarted();
   const { removeItemFromBoard: removedCurrentlyWatching } =
     useCurrentlyWatching();
+
+  const { mutate: changeAnimeStatusForUser } = useMutation({
+    mutationFn: async ({ item }) => {
+      const payload: AnimeWatchlistUpdateType = {
+        animeId: item.animeId,
+        category: item.category,
+        dropTo: "finished",
+      };
+
+      const { data } = await axios.patch("/api/anime/watchlist", payload);
+
+      return data;
+    },
+    onError: (error) => {
+      if (error instanceof AxiosError) {
+        const statusCode = error.response?.status;
+        if (statusCode === 401) {
+          return loginToast();
+        }
+        if (statusCode === 404) {
+          return toast({
+            description: "Anime not found in the watchlist.",
+          });
+        }
+      }
+
+      endErrorToast();
+    },
+    onMutate: ({
+      item,
+      monitor,
+    }: {
+      item: DragItemType;
+      monitor: DropTargetMonitor;
+    }) => {
+      onDrop(item, monitor);
+    },
+  });
 
   const onDrop = (item: DragItemType, monitor: DropTargetMonitor) => {
     const dropAreaType = monitor.getItemType();
@@ -35,7 +80,7 @@ const FinishedWatchingContainer = () => {
   const [{ isOver }, drop] = useDrop(() => ({
     accept: "image",
     drop: (item: DragItemType, monitor: DropTargetMonitor) =>
-      onDrop(item, monitor),
+      changeAnimeStatusForUser({ item, monitor }),
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
     }),
@@ -55,6 +100,7 @@ const FinishedWatchingContainer = () => {
         const structuredItem: DragItemType = {
           id: item.id,
           name: item.name,
+          animeId: item.animeId,
           category: "finished",
         };
         return (

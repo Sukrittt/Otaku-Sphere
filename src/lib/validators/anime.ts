@@ -56,3 +56,11 @@ export const AnimeWatchlistServer = z.object({
 });
 
 export type AnimeWatchlistServerType = z.infer<typeof AnimeWatchlistServer>;
+
+export const AnimeWatchlistUpdate = z.object({
+  animeId: z.string().min(3),
+  category: ZodCategoryType,
+  dropTo: ZodCategoryType,
+});
+
+export type AnimeWatchlistUpdateType = z.infer<typeof AnimeWatchlistUpdate>;

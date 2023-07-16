@@ -19,6 +19,9 @@ const WatchlistPage = async () => {
       where: {
         userId: session.user.id,
       },
+      orderBy: {
+        createdAt: "desc",
+      },
       include: {
         anime: true,
       },
@@ -27,6 +30,9 @@ const WatchlistPage = async () => {
       where: {
         userId: session.user.id,
       },
+      orderBy: {
+        createdAt: "desc",
+      },
       include: {
         anime: true,
       },
@@ -34,6 +40,9 @@ const WatchlistPage = async () => {
     db.finishedWatching.findMany({
       where: {
         userId: session.user.id,
+      },
+      orderBy: {
+        createdAt: "desc",
       },
       include: {
         anime: true,
@@ -47,12 +56,14 @@ const WatchlistPage = async () => {
   const pendingAnimes: DragItemType[] = NotStartedAnimes.map((watchlist) => ({
     id: watchlist.id,
     name: watchlist.anime.name,
+    animeId: watchlist.animeId,
     category: "pending",
   }));
   const currentlyWatching: DragItemType[] = CurrentlyWatchingAnimes.map(
     (watchlist) => ({
       id: watchlist.id,
       name: watchlist.anime.name,
+      animeId: watchlist.animeId,
       category: "watching",
     })
   );
@@ -60,6 +71,7 @@ const WatchlistPage = async () => {
     (watchlist) => ({
       id: watchlist.id,
       name: watchlist.anime.name,
+      animeId: watchlist.animeId,
       category: "finished",
     })
   );

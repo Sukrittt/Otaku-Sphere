@@ -78,7 +78,7 @@ model Anime {
 
   releaseYear String
   director    String
-  description String @db.VarChar(1200)
+  description String @db.VarChar(1500)
   trailerLink String
   coverImage  String
 
@@ -123,6 +123,8 @@ model FinishedWatching {
   animeId String
   anime   Anime  @relation(fields: [animeId], references: [id], onDelete: Cascade)
 
+  createdAt DateTime @default(now())
+
   @@index([userId])
   @@index([animeId])
 }
@@ -136,6 +138,8 @@ model CurrentlyWatching {
   animeId String
   anime   Anime  @relation(fields: [animeId], references: [id], onDelete: Cascade)
 
+  createdAt DateTime @default(now())
+
   @@index([userId])
   @@index([animeId])
 }
@@ -148,6 +152,8 @@ model NotStartedWatching {
 
   animeId String
   anime   Anime  @relation(fields: [animeId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
 
   @@index([userId])
   @@index([animeId])
