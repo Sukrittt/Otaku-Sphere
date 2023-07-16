@@ -106,7 +106,6 @@ const AddAnimeForm = () => {
 
   async function uploadByFile(file: File) {
     // upload to uploadthing
-
     const [res] = await uploadFiles({
       endpoint: "imageUploader",
       files: [file],
@@ -134,7 +133,11 @@ const AddAnimeForm = () => {
             <FormItem>
               <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input placeholder="Type anime name here." {...field} />
+                <Input
+                  placeholder="Type anime name here."
+                  {...field}
+                  autoFocus
+                />
               </FormControl>
               <FormMessage />
             </FormItem>

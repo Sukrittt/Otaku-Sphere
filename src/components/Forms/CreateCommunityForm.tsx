@@ -99,7 +99,11 @@ const CreateCommunityForm: FC<CreateCommunityFormProps> = ({}) => {
             <FormItem>
               <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input placeholder="Type community name here." {...field} />
+                <Input
+                  placeholder="Type community name here."
+                  {...field}
+                  autoFocus
+                />
               </FormControl>
               <FormMessage />
             </FormItem>

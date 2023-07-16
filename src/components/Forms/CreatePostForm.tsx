@@ -102,7 +102,11 @@ const CreatePostForm: FC<CreatePostFormProps> = ({ category, communityId }) => {
             <FormItem>
               <FormLabel>Title</FormLabel>
               <FormControl>
-                <Input placeholder="Type your title to here." {...field} />
+                <Input
+                  placeholder="Type your title to here."
+                  {...field}
+                  autoFocus
+                />
               </FormControl>
               <FormMessage />
             </FormItem>

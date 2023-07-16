@@ -94,7 +94,11 @@ const AddCommentForm = ({ postId }: { postId: string }) => {
             <FormItem>
               <FormLabel>Your comment</FormLabel>
               <FormControl>
-                <Textarea placeholder="Type your comment here." {...field} />
+                <Textarea
+                  placeholder="Type your comment here."
+                  {...field}
+                  autoFocus
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
