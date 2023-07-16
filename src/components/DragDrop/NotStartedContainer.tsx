@@ -95,26 +95,28 @@ const NotStartedContainer = () => {
   return (
     <Card
       className={cn("flex flex-col gap-y-2 items-center", {
-        "border-red-500": isOver,
+        "border-blue-600": isOver,
       })}
       ref={drop}
     >
       <CardHeader>
-        <CardTitle className="text-center">Want to watch</CardTitle>
+        <CardTitle className="text-center">To-Watch List</CardTitle>
       </CardHeader>
-      {board.map((item) => {
-        const structuredItem: DragItemType = {
-          id: item.id,
-          name: item.name,
-          animeId: item.animeId,
-          category: "pending",
-        };
-        return (
-          <CardContent className="w-full" key={item.id}>
-            <DragItem item={structuredItem} />
-          </CardContent>
-        );
-      })}
+      <div className="flex flex-col w-full">
+        {board.map((item) => {
+          const structuredItem: DragItemType = {
+            id: item.id,
+            name: item.name,
+            animeId: item.animeId,
+            category: "pending",
+          };
+          return (
+            <CardContent className="w-full" key={item.id}>
+              <DragItem item={structuredItem} />
+            </CardContent>
+          );
+        })}
+      </div>
     </Card>
   );
 };

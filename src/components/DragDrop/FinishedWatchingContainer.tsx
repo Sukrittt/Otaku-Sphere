@@ -94,26 +94,28 @@ const FinishedWatchingContainer = () => {
   return (
     <Card
       className={cn("flex flex-col gap-y-2 items-center", {
-        "border-red-500": isOver,
+        "border-blue-600": isOver,
       })}
       ref={drop}
     >
       <CardHeader>
-        <CardTitle className="text-center">Finished Watching</CardTitle>
+        <CardTitle className="text-center">Completed</CardTitle>
       </CardHeader>
-      {board.map((item) => {
-        const structuredItem: DragItemType = {
-          id: item.id,
-          name: item.name,
-          animeId: item.animeId,
-          category: "finished",
-        };
-        return (
-          <CardContent className="w-full" key={item.id}>
-            <DragItem item={structuredItem} />
-          </CardContent>
-        );
-      })}
+      <div className="flex flex-col w-full">
+        {board.map((item) => {
+          const structuredItem: DragItemType = {
+            id: item.id,
+            name: item.name,
+            animeId: item.animeId,
+            category: "finished",
+          };
+          return (
+            <CardContent className="w-full" key={item.id}>
+              <DragItem item={structuredItem} />
+            </CardContent>
+          );
+        })}
+      </div>
     </Card>
   );
 };

@@ -81,12 +81,14 @@ const WatchlistPage = async () => {
       <h1 className="text-4xl text-center font-bold leading-tight tracking-tighter md:text-6xl lg:text-7xl lg:leading-[1.1]">
         Your Watchlist
       </h1>
-      <CustomSheet>Add anime</CustomSheet>
-      <DragContainer
-        notStartedAnimes={pendingAnimes}
-        currentlyWatchingAnimes={currentlyWatching}
-        finishedWatchingAnimes={finishedWatching}
-      />
+      <div className="space-y-4">
+        <CustomSheet>Add anime</CustomSheet>
+        <DragContainer
+          notStartedAnimes={pendingAnimes}
+          currentlyWatchingAnimes={currentlyWatching}
+          finishedWatchingAnimes={finishedWatching}
+        />
+      </div>
     </Shell>
   );
 };
