@@ -1,23 +1,20 @@
-import { FC } from "react";
 import { DropTargetMonitor, useDrop } from "react-dnd";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/ui/Card";
 import { cn } from "@/lib/utils";
-import { DummyType } from "@/types/item-type";
+import { DragItemType } from "@/types/item-type";
 import { DragItem } from "./DragItem";
 import useFinishedWatching from "@/hooks/watchlist/useFinishedWatching";
 import useCurrentlyWatching from "@/hooks/watchlist/useCurrentlyWatching";
 import useNotStarted from "@/hooks/watchlist/useNotStartedModal";
 
-interface FinishedWatchingContainerProps {}
-
-const FinishedWatchingContainer: FC<FinishedWatchingContainerProps> = ({}) => {
+const FinishedWatchingContainer = () => {
   const { board, addImageToBoard, removeItemFromBoard } = useFinishedWatching();
   const { removeItemFromBoard: removeNotStarted } = useNotStarted();
   const { removeItemFromBoard: removedCurrentlyWatching } =
     useCurrentlyWatching();
 
-  const onDrop = (item: DummyType, monitor: DropTargetMonitor) => {
+  const onDrop = (item: DragItemType, monitor: DropTargetMonitor) => {
     const dropAreaType = monitor.getItemType();
 
     if (dropAreaType !== "currentDropArea") {
@@ -26,18 +23,18 @@ const FinishedWatchingContainer: FC<FinishedWatchingContainerProps> = ({}) => {
 
     const sourceBoard = item.category;
 
-    if (sourceBoard === "notStarted") {
+    if (sourceBoard === "pending") {
       removeNotStarted(item.id);
-    } else if (sourceBoard === "currentlyWatching") {
+    } else if (sourceBoard === "watching") {
       removedCurrentlyWatching(item.id);
     }
 
-    addImageToBoard(item.id, "finishedWatching");
+    addImageToBoard(item);
   };
 
   const [{ isOver }, drop] = useDrop(() => ({
     accept: "image",
-    drop: (item: DummyType, monitor: DropTargetMonitor) =>
+    drop: (item: DragItemType, monitor: DropTargetMonitor) =>
       onDrop(item, monitor),
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
@@ -54,11 +51,18 @@ const FinishedWatchingContainer: FC<FinishedWatchingContainerProps> = ({}) => {
       <CardHeader>
         <CardTitle className="text-center">Finished Watching</CardTitle>
       </CardHeader>
-      {board.map((item) => (
-        <CardContent className="w-full" key={item.id}>
-          <DragItem item={item} />
-        </CardContent>
-      ))}
+      {board.map((item) => {
+        const structuredItem: DragItemType = {
+          id: item.id,
+          name: item.name,
+          category: "finished",
+        };
+        return (
+          <CardContent className="w-full" key={item.id}>
+            <DragItem item={structuredItem} />
+          </CardContent>
+        );
+      })}
     </Card>
   );
 };

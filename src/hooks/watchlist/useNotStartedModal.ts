@@ -1,32 +1,28 @@
 import { create } from "zustand";
 
-import { dummyData } from "@/data";
-import { CategoryType, DummyType } from "@/types/item-type";
+import { DragItemType } from "@/types/item-type";
 import { toast } from "@/hooks/use-toast";
 
 interface NotStartedStore {
-  board: DummyType[];
-  addImageToBoard: (id: number, category: CategoryType) => void;
-  removeItemFromBoard: (id: number) => void;
+  board: DragItemType[];
+  addImageToBoard: (item: DragItemType) => void;
+  removeItemFromBoard: (id: string) => void;
+  setBoard: (board: DragItemType[]) => void;
 }
 
 const useNotStarted = create<NotStartedStore>((set) => ({
-  board: dummyData,
-  addImageToBoard: (id, category) => {
+  board: [],
+  addImageToBoard: (item) => {
     set((state) => {
-      const boardItem = dummyData.find((item) => item.id === id);
+      console.log("state.board", state.board);
 
-      if (!boardItem) return state;
-
-      const updatedBoardItem = { ...boardItem, category };
-
-      const updatedBoard = [updatedBoardItem, ...state.board];
+      const updatedBoard = [item, ...state.board];
 
       return { ...state, board: updatedBoard };
     });
 
     toast({
-      description: "Added to ongoing animes",
+      description: "Added to pending animes",
     });
   },
   removeItemFromBoard: (id) => {
@@ -35,6 +31,7 @@ const useNotStarted = create<NotStartedStore>((set) => ({
       return { ...state, board: updatedBoard };
     });
   },
+  setBoard: (board) => set({ board }),
 }));
 
 export default useNotStarted;

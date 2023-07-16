@@ -1,10 +1,11 @@
 import { useDrag } from "react-dnd";
+import { Anime } from "@prisma/client";
 
 import { Card, CardHeader } from "@/ui/Card";
 import { cn } from "@/lib/utils";
-import { DummyType } from "@/types/item-type";
+import { DragItemType, DummyType } from "@/types/item-type";
 
-export const DragItem = ({ item }: { item: DummyType }) => {
+export const DragItem = ({ item }: { item: DragItemType }) => {
   const [{ isDragging }, drag] = useDrag(() => ({
     type: "image",
     item: { id: item.id, name: item.name, category: item.category },

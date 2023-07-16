@@ -1,34 +1,26 @@
 import { create } from "zustand";
 
-import { dummyData } from "@/data";
-import { CategoryType, DummyType } from "@/types/item-type";
+import { DragItemType } from "@/types/item-type";
 import { toast } from "@/hooks/use-toast";
 
 interface FinishedWatchingStore {
-  id: string;
-  board: DummyType[];
-  addImageToBoard: (id: number, category: CategoryType) => void;
-  removeItemFromBoard: (id: number) => void;
+  board: DragItemType[];
+  addImageToBoard: (item: DragItemType) => void;
+  removeItemFromBoard: (id: string) => void;
+  setBoard: (board: DragItemType[]) => void;
 }
 
 const useFinishedWatching = create<FinishedWatchingStore>((set) => ({
-  id: "finishedWatching",
   board: [],
-  addImageToBoard: (id, category) => {
+  addImageToBoard: (item) => {
     set((state) => {
-      const boardItem = dummyData.find((item) => item.id === id);
-
-      if (!boardItem) return state;
-
-      const updatedBoardItem = { ...boardItem, category };
-
-      const updatedBoard = [updatedBoardItem, ...state.board];
+      const updatedBoard = [item, ...state.board];
 
       return { ...state, board: updatedBoard };
     });
 
     toast({
-      description: "Added to ongoing animes",
+      description: "Added to finished animes",
     });
   },
   removeItemFromBoard: (id) => {
@@ -37,6 +29,7 @@ const useFinishedWatching = create<FinishedWatchingStore>((set) => ({
       return { ...state, board: updatedBoard };
     });
   },
+  setBoard: (board) => set({ board }),
 }));
 
 export default useFinishedWatching;

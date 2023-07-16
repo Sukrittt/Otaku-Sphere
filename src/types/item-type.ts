@@ -28,6 +28,14 @@ export type AnimeRanking = {
   votes: string;
 };
 
+export type ZodCategoryType = "pending" | "watching" | "finished";
+
+export type DragItemType = {
+  id: string;
+  name: string;
+  category: ZodCategoryType;
+};
+
 // REMOVE THIS!!!
 export type CategoryType =
   | "notStarted"
@@ -39,5 +47,3 @@ export type DummyType = {
   name: string;
   category: CategoryType;
 };
-
-export type ZodCategoryType = "pending" | "watching" | "finished";

@@ -1,26 +1,20 @@
 import { create } from "zustand";
 
-import { CategoryType, DummyType } from "@/types/item-type";
+import { DragItemType } from "@/types/item-type";
 import { toast } from "@/hooks/use-toast";
-import { dummyData } from "@/data";
 
 interface CurrentlyWatchingStore {
-  board: DummyType[];
-  addImageToBoard: (id: number, category: CategoryType) => void;
-  removeItemFromBoard: (id: number) => void;
+  board: DragItemType[];
+  addImageToBoard: (item: DragItemType) => void;
+  removeItemFromBoard: (id: string) => void;
+  setBoard: (board: DragItemType[]) => void;
 }
 
 const useCurrentlyWatching = create<CurrentlyWatchingStore>((set) => ({
   board: [],
-  addImageToBoard: (id, category) => {
+  addImageToBoard: (item) => {
     set((state) => {
-      const boardItem = dummyData.find((item) => item.id === id);
-
-      if (!boardItem) return state;
-
-      const updatedBoardItem = { ...boardItem, category };
-
-      const updatedBoard = [updatedBoardItem, ...state.board];
+      const updatedBoard = [item, ...state.board];
 
       return { ...state, board: updatedBoard };
     });
@@ -35,6 +29,7 @@ const useCurrentlyWatching = create<CurrentlyWatchingStore>((set) => ({
       return { ...state, board: updatedBoard };
     });
   },
+  setBoard: (board) => set({ board }),
 }));
 
 export default useCurrentlyWatching;
