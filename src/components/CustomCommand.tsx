@@ -62,6 +62,7 @@ const CustomCommand: FC<CustomCommandProps> = ({ setAnimeData }) => {
         placeholder="Type a command or search..."
         value={query}
         onValueChange={setQuery}
+        autoFocus
       />
       <CommandList>
         {isPending && (
