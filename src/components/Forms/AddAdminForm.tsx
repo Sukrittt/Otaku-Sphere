@@ -20,9 +20,10 @@ import {
   AddAdminUserPayloadType,
 } from "@/lib/validators/user";
 import { Input } from "@/ui/Input";
-import { Button } from "@/ui/Button";
+import { Button, buttonVariants } from "@/ui/Button";
 import { Icons } from "@/components/Icons";
-import CustomAlertBox from "../Custom-UI/CustomAlertBox";
+import CustomAlertBox from "@/components/Custom-UI/CustomAlertBox";
+import { cn } from "@/lib/utils";
 
 const AddAdminForm = () => {
   const router = useRouter();
@@ -199,12 +200,14 @@ const AddAdminForm = () => {
             description="This action cannot be undone. This will make the user loose all it's admin powers."
             onClick={() => removeAdmin()}
           >
-            <Button
-              className="w-fit"
-              disabled={removeLoader}
-              variant="destructive"
-              size="sm"
-              type="button"
+            <span
+              className={cn(
+                buttonVariants({ variant: "destructive", size: "sm" }),
+                "w-fit ",
+                {
+                  "pointer-events-none opacity-50": removeLoader,
+                }
+              )}
             >
               {removeLoader && (
                 <Icons.spinner
@@ -214,7 +217,7 @@ const AddAdminForm = () => {
               )}
               {removeLoader ? "Removing" : "Remove"}
               <span className="sr-only">Remove admin</span>
-            </Button>
+            </span>
           </CustomAlertBox>
         </div>
       </form>

@@ -9,7 +9,7 @@ import { Anime } from "@prisma/client";
 
 import { genres } from "@/data/anime";
 import { toast } from "@/hooks/use-toast";
-import { Button } from "@/ui/Button";
+import { Button, buttonVariants } from "@/ui/Button";
 import { Input } from "@/ui/Input";
 import { Textarea } from "@/ui/Textarea";
 import { Icons } from "@/components/Icons";
@@ -30,6 +30,7 @@ import { Combobox } from "@/ui/ComboBox";
 import { uploadFiles } from "@/lib/uploadthing";
 import { useAuthToast } from "@/hooks/useAuthToast";
 import CustomAlertBox from "@/components/Custom-UI/CustomAlertBox";
+import { cn } from "@/lib/utils";
 
 interface UpdateAnimeFormProps {
   anime: Anime;
@@ -307,11 +308,14 @@ const UpdateAnimeForm: FC<UpdateAnimeFormProps> = ({ anime }) => {
             description="This action cannot be undone. This will permanently delete this anime from our servers."
             onClick={() => deleteAnime()}
           >
-            <Button
-              className="w-fit"
-              disabled={deleteLoader}
-              variant="destructive"
-              type="button"
+            <span
+              className={cn(
+                buttonVariants({ variant: "destructive", size: "sm" }),
+                "w-fit ",
+                {
+                  "pointer-events-none opacity-50": deleteLoader,
+                }
+              )}
             >
               {deleteLoader && (
                 <Icons.spinner
@@ -321,7 +325,7 @@ const UpdateAnimeForm: FC<UpdateAnimeFormProps> = ({ anime }) => {
               )}
               {deleteLoader ? "Deleting" : "Delete Anime"}
               <span className="sr-only">Delete Anime</span>
-            </Button>
+            </span>
           </CustomAlertBox>
         </div>
       </form>

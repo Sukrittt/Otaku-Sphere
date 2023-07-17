@@ -8,7 +8,7 @@ import { useMutation } from "@tanstack/react-query";
 import { Community } from "@prisma/client";
 
 import { toast } from "@/hooks/use-toast";
-import { Button } from "@/ui/Button";
+import { Button, buttonVariants } from "@/ui/Button";
 import { Input } from "@/ui/Input";
 import { Textarea } from "@/ui/Textarea";
 import { Icons } from "@/components/Icons";
@@ -30,6 +30,7 @@ import {
 import { categories } from "@/data/community";
 import { IdAnimeSchemaType } from "@/lib/validators/anime";
 import CustomAlertBox from "@/components/Custom-UI/CustomAlertBox";
+import { cn } from "@/lib/utils";
 
 interface UpdateCommunityFormProps {
   community: Community;
@@ -241,11 +242,14 @@ const UpdateCommunityForm: FC<UpdateCommunityFormProps> = ({ community }) => {
             description="This action cannot be undone. This will permanently delete this community from our servers."
             onClick={() => deleteAnime()}
           >
-            <Button
-              className="w-fit"
-              disabled={deleteLoader}
-              variant="destructive"
-              type="button"
+            <span
+              className={cn(
+                buttonVariants({ variant: "destructive", size: "sm" }),
+                "w-fit ",
+                {
+                  "pointer-events-none opacity-50": deleteLoader,
+                }
+              )}
             >
               {deleteLoader && (
                 <Icons.spinner
@@ -255,7 +259,7 @@ const UpdateCommunityForm: FC<UpdateCommunityFormProps> = ({ community }) => {
               )}
               {deleteLoader ? "Deleting" : "Delete"}
               <span className="sr-only">Delete Community</span>
-            </Button>
+            </span>
           </CustomAlertBox>
         </div>
       </form>
