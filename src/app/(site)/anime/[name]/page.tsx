@@ -22,6 +22,11 @@ import { Balancer } from "react-wrap-balancer";
 import UserAvatar from "@/components/User/UserAvatar";
 import LikeReview from "@/components/LikeReview";
 import ReviewDropdown from "@/components/Dropdown/ReviewDropdown";
+import MoreLikeThis from "@/components/ServerComponents/MoreLikeThis";
+import AnimeStatus from "@/components/ServerComponents/AnimeStatus";
+
+export const dynamic = "force-dynamic";
+export const fetchCache = "force-no-store";
 
 interface AnimePageProps {
   params: {
@@ -115,7 +120,6 @@ const AnimePage = async ({ params }: AnimePageProps) => {
             </h1>
             <div className="space-x-2 text-xl text-zinc-400 font-medium">
               <span>{anime.releaseYear}</span>
-              <span>·</span>
               <Suspense fallback={<p>Loading...</p>}>
                 <TopTenAnimeCheck name={name} />
               </Suspense>
@@ -142,6 +146,11 @@ const AnimePage = async ({ params }: AnimePageProps) => {
               </CustomReviewSheet>
             )}
           </div>
+          {session && (
+            <Suspense fallback={<p>Loading...</p>}>
+              <AnimeStatus animeId={anime.id} session={session} />
+            </Suspense>
+          )}
         </div>
       </div>
       <div className="space-y-4">
@@ -202,6 +211,14 @@ const AnimePage = async ({ params }: AnimePageProps) => {
           </div>
         )}
       </div>
+      <Suspense fallback={<p className="text-4xl">Loading....</p>}>
+        <MoreLikeThis
+          anime={{
+            genre: anime.genre,
+            name: anime.name,
+          }}
+        />
+      </Suspense>
     </Shell>
   );
 };

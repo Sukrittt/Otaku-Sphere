@@ -1,6 +1,7 @@
 import { FC, ReactNode } from "react";
 import { useMutation } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
+import { useRouter } from "next/navigation";
 
 import {
   ContextMenu,
@@ -27,6 +28,7 @@ const CustomContextMenu: FC<CustomContextMenuProps> = ({
   data: watchlistData,
 }) => {
   const { loginToast, endErrorToast } = useAuthToast();
+  const router = useRouter();
 
   const {
     addImageToBoard: addNotStarted,
@@ -78,8 +80,9 @@ const CustomContextMenu: FC<CustomContextMenuProps> = ({
       endErrorToast();
     },
     onSuccess: () => {
+      router.refresh();
       toast({
-        description: "Anime deleted from watchlist.",
+        description: "Anime deleted from your watchlist.",
       });
     },
     onMutate: () => {
