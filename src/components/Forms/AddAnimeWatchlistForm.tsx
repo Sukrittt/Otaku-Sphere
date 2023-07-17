@@ -26,6 +26,7 @@ import { useAuthToast } from "@/hooks/useAuthToast";
 import CustomCommand from "@/components/Custom-UI/CustomCommand";
 import { Input } from "@/ui/Input";
 import { ZodCategoryType } from "@/types/item-type";
+import { cn } from "@/lib/utils";
 
 const AddAnimeWatchlistForm = () => {
   const router = useRouter();
@@ -125,7 +126,9 @@ const AddAnimeWatchlistForm = () => {
                 <Input
                   value={animeData.name}
                   readOnly
-                  className="cursor-not-allowed"
+                  className={cn("cursor-not-allowed", {
+                    "border-zinc-500": animeData.name,
+                  })}
                   placeholder="Selected anime will show up here."
                   tabIndex={-1}
                 />
