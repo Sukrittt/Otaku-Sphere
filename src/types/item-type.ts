@@ -28,6 +28,13 @@ export type AnimeRanking = {
   votes: string;
 };
 
+export type AdminDisplay = {
+  name: string | null;
+  email: string | null;
+  createdAt: string;
+  animeAdded: number;
+};
+
 export type ZodCategoryType = "pending" | "watching" | "finished";
 
 export type DragItemType = {

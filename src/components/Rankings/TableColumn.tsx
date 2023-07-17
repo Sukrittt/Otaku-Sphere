@@ -1,7 +1,7 @@
 "use client";
 import { ColumnDef } from "@tanstack/react-table";
 
-import { AnimeRanking } from "@/types/item-type";
+import { AdminDisplay, AnimeRanking } from "@/types/item-type";
 import { Button } from "@/ui/Button";
 import { Icons } from "@/components/Icons";
 
@@ -77,5 +77,57 @@ export const columns: ColumnDef<AnimeRanking>[] = [
     cell: ({ row }) => {
       return <div className="text-center">{row.getValue("votes")}</div>;
     },
+  },
+];
+
+export const adminColumns: ColumnDef<AdminDisplay>[] = [
+  {
+    accessorKey: "name",
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      >
+        Name <Icons.upDown className="ml-2 h-4 w-4" />
+      </Button>
+    ),
+  },
+  {
+    accessorKey: "email",
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      >
+        Email <Icons.upDown className="ml-2 h-4 w-4" />
+      </Button>
+    ),
+  },
+  {
+    accessorKey: "animeAdded",
+    header: ({ column }) => (
+      <div className="flex justify-center">
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Anime Added <Icons.upDown className="ml-2 h-4 w-4" />
+        </Button>
+      </div>
+    ),
+    cell: ({ row }) => {
+      return <div className="text-center">{row.getValue("animeAdded")}</div>;
+    },
+  },
+  {
+    accessorKey: "createdAt",
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      >
+        Joined At <Icons.upDown className="ml-2 h-4 w-4" />
+      </Button>
+    ),
   },
 ];
