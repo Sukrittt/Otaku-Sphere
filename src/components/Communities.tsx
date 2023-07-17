@@ -86,7 +86,7 @@ const Communities: FC<CommunitiesProps> = ({ initialCommunites, category }) => {
           onChange={(e) => setQuery(e.target.value)}
           disabled={isFetching}
           onKeyDown={(e) => {
-            if (e.key === "Enter") {
+            if (e.key === "Enter" && query.length > 0) {
               refetch();
             }
           }}

@@ -81,7 +81,7 @@ const Animes: FC<AnimesProps> = ({ initialAnimes }) => {
           placeholder="Type a anime name here."
           onChange={(e) => setQuery(e.target.value)}
           onKeyDown={(e) => {
-            if (e.key === "Enter") {
+            if (e.key === "Enter" && query.length > 0) {
               refetch();
             }
           }}
