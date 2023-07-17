@@ -5,6 +5,7 @@ import { adminColumns } from "@/components/Rankings/TableColumn";
 import { AdminDisplay } from "@/types/item-type";
 import { format } from "date-fns";
 import { Header } from "@/components/Header";
+import CustomAdminSheet from "@/components/Custom-UI/CustomAdminSheet";
 
 const AdminPage = async () => {
   const adminUsers = await db.user.findMany({
@@ -30,7 +31,10 @@ const AdminPage = async () => {
         description="Details of all the admins on the site."
         size="sm"
       />
-      <UserDataTable columns={adminColumns} data={structuredRankingData} />
+      <div className="space-y-4">
+        <CustomAdminSheet>Add admin</CustomAdminSheet>
+        <UserDataTable columns={adminColumns} data={structuredRankingData} />
+      </div>
     </Shell>
   );
 };
