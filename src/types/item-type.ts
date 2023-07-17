@@ -36,15 +36,3 @@ export type DragItemType = {
   animeId: string;
   category: ZodCategoryType;
 };
-
-// REMOVE THIS!!!
-export type CategoryType =
-  | "notStarted"
-  | "currentlyWatching"
-  | "finishedWatching";
-
-export type DummyType = {
-  id: number;
-  name: string;
-  category: CategoryType;
-};
