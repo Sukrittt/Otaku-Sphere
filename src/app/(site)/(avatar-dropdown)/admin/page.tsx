@@ -32,7 +32,7 @@ const AdminPage = async () => {
         size="sm"
       />
       <div className="space-y-4">
-        <CustomAdminSheet>Add admin</CustomAdminSheet>
+        <CustomAdminSheet>Manage admin</CustomAdminSheet>
         <UserDataTable columns={adminColumns} data={structuredRankingData} />
       </div>
     </Shell>

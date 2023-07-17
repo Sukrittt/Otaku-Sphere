@@ -22,6 +22,7 @@ import {
 import { Input } from "@/ui/Input";
 import { Button } from "@/ui/Button";
 import { Icons } from "@/components/Icons";
+import CustomAlertBox from "../Custom-UI/CustomAlertBox";
 
 const AddAdminForm = () => {
   const router = useRouter();
@@ -60,7 +61,7 @@ const AddAdminForm = () => {
         }
         if (statusCode === 403) {
           return toast({
-            title: "You are not permiitted to do this action.",
+            title: "You are not permitted to do this action.",
             description: "Only admins can make other users admin.",
             variant: "destructive",
           });
@@ -86,6 +87,58 @@ const AddAdminForm = () => {
     onMutate: () => {
       toast({
         description: "Please wait while we are making the user admin.",
+      });
+    },
+  });
+
+  const { mutate: removeAdmin, isLoading: removeLoader } = useMutation({
+    mutationFn: async () => {
+      const payload: AddAdminUserPayloadType = { email: form.watch("email") };
+
+      const { data } = await axios.patch("/api/user/admin", payload);
+      return data;
+    },
+    onSuccess: () => {
+      router.refresh();
+      form.reset();
+
+      toast({
+        description: "This user is no longer an admin.",
+      });
+    },
+    onError: (error) => {
+      if (error instanceof AxiosError) {
+        const statusCode = error.response?.status;
+        if (statusCode === 401) {
+          return loginToast();
+        }
+        if (statusCode === 404) {
+          return toast({
+            description: "User not found.",
+            variant: "destructive",
+          });
+        }
+        if (statusCode === 409) {
+          return toast({
+            description: "This user is not an admin.",
+            variant: "destructive",
+          });
+        }
+        if (statusCode === 403) {
+          return toast({
+            title: "You are not permitted to do this action.",
+            description: "Only admins are allowed to remove admins.",
+            variant: "destructive",
+          });
+        }
+      }
+
+      endErrorToast();
+    },
+    onMutate: () => {
+      toast({
+        description:
+          "Please wait while we are removing this user from admin role.",
       });
     },
   });
@@ -119,8 +172,13 @@ const AddAdminForm = () => {
             </FormItem>
           )}
         />
-        <div className="w-full flex justify-end">
-          <Button className="w-fit" disabled={isLoading} size="sm">
+        <div className="w-full flex justify-end gap-x-3">
+          <Button
+            className="w-fit"
+            disabled={isLoading}
+            size="sm"
+            type="submit"
+          >
             {isLoading && (
               <Icons.spinner
                 className="mr-2 h-4 w-4 animate-spin"
@@ -130,6 +188,27 @@ const AddAdminForm = () => {
             Make admin
             <span className="sr-only">Make admin</span>
           </Button>
+          <CustomAlertBox
+            description="This action cannot be undone. This will make the user loose all it's admin powers."
+            onClick={() => removeAdmin()}
+          >
+            <Button
+              className="w-fit"
+              disabled={removeLoader}
+              variant="destructive"
+              size="sm"
+              type="button"
+            >
+              {removeLoader && (
+                <Icons.spinner
+                  className="mr-2 h-4 w-4 animate-spin"
+                  aria-hidden="true"
+                />
+              )}
+              {removeLoader ? "Removing" : "Remove"}
+              <span className="sr-only">Remove admin</span>
+            </Button>
+          </CustomAlertBox>
         </div>
       </form>
     </Form>

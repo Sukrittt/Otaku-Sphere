@@ -25,7 +25,7 @@ const CustomAdminSheet: FC<CustomAdminSheetProps> = ({ children }) => {
       </SheetTrigger>
       <SheetContent>
         <SheetHeader>
-          <SheetTitle>Make other users admin</SheetTitle>
+          <SheetTitle>Manage admin</SheetTitle>
           <SheetDescription>
             Making other users admin will give them access to the admin panel.
           </SheetDescription>
