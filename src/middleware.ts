@@ -27,7 +27,6 @@ export const config = {
   matcher: [
     "/community/:path*",
     "/settings",
-    "/dashboard",
     "/watchlist",
     "/admin/:path*",
     "/sign-in",

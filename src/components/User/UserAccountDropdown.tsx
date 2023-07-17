@@ -22,12 +22,6 @@ interface UserAccountDropdownProps {
 const dropdownItem: dropdownItemType[] = [
   {
     id: 1,
-    label: "Dashboard",
-    Icon: Icons.dashboard,
-    href: "/dashboard",
-  },
-  {
-    id: 2,
     label: "Settings",
     Icon: Icons.settings,
     href: "/settings",
@@ -42,7 +36,7 @@ const UserAccountDropdown: FC<UserAccountDropdownProps> = ({ session }) => {
     !dropdownItem.find((item) => item.href === "/admin/users")
   ) {
     dropdownItem.push({
-      id: 3,
+      id: 2,
       label: "Admin Panel",
       Icon: Icons.admin,
       href: "/admin/users",
