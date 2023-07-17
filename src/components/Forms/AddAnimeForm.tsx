@@ -137,6 +137,7 @@ const AddAnimeForm = () => {
                   placeholder="Type anime name here."
                   {...field}
                   autoFocus
+                  disabled={isLoading}
                 />
               </FormControl>
               <FormMessage />
@@ -152,6 +153,7 @@ const AddAnimeForm = () => {
               <FormControl>
                 <Textarea
                   placeholder="Type anime description here."
+                  disabled={isLoading}
                   {...field}
                 />
               </FormControl>
@@ -166,7 +168,11 @@ const AddAnimeForm = () => {
             <FormItem>
               <FormLabel>Director</FormLabel>
               <FormControl>
-                <Input placeholder="Type anime director here." {...field} />
+                <Input
+                  placeholder="Type anime director here."
+                  {...field}
+                  disabled={isLoading}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -183,6 +189,7 @@ const AddAnimeForm = () => {
                   data={genres}
                   placeholder="Select genre..."
                   setState={setGenre}
+                  disabled={isLoading}
                 />
               </FormControl>
               <FormMessage />
@@ -198,6 +205,7 @@ const AddAnimeForm = () => {
               <FormControl>
                 <Input
                   placeholder="Type release year of anime here."
+                  disabled={isLoading}
                   {...field}
                 />
               </FormControl>
@@ -212,7 +220,11 @@ const AddAnimeForm = () => {
             <FormItem>
               <FormLabel>Trailor Link</FormLabel>
               <FormControl>
-                <Input placeholder="Enter a trailer link." {...field} />
+                <Input
+                  placeholder="Enter a trailer link."
+                  {...field}
+                  disabled={isLoading}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -228,6 +240,7 @@ const AddAnimeForm = () => {
                 <FileInput
                   setFile={setFile}
                   placeholder="Enter a trailer link."
+                  disabled={isLoading}
                   {...field}
                 />
               </FormControl>
@@ -255,14 +268,17 @@ export default AddAnimeForm;
 const FileInput = ({
   setFile,
   placeholder,
+  disabled,
 }: {
   setFile: (file: File | null) => void;
   placeholder: string;
+  disabled?: boolean;
 }) => {
   return (
     <input
       type="file"
       placeholder={placeholder}
+      disabled={disabled}
       onChange={(e) => {
         const selectedFile = e.target.files?.[0];
         if (selectedFile) {

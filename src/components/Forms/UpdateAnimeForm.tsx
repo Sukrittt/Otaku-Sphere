@@ -179,6 +179,7 @@ const UpdateAnimeForm: FC<UpdateAnimeFormProps> = ({ anime }) => {
                 <Input
                   placeholder="Type anime name here."
                   {...field}
+                  disabled={isLoading}
                   autoFocus
                 />
               </FormControl>
@@ -195,6 +196,7 @@ const UpdateAnimeForm: FC<UpdateAnimeFormProps> = ({ anime }) => {
               <FormControl>
                 <Textarea
                   placeholder="Type anime description here."
+                  disabled={isLoading}
                   {...field}
                 />
               </FormControl>
@@ -209,7 +211,11 @@ const UpdateAnimeForm: FC<UpdateAnimeFormProps> = ({ anime }) => {
             <FormItem>
               <FormLabel>Director</FormLabel>
               <FormControl>
-                <Input placeholder="Type anime director here." {...field} />
+                <Input
+                  placeholder="Type anime director here."
+                  {...field}
+                  disabled={isLoading}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -227,6 +233,7 @@ const UpdateAnimeForm: FC<UpdateAnimeFormProps> = ({ anime }) => {
                   placeholder="Select genre..."
                   selectedOption={genre}
                   setState={setGenre}
+                  disabled={isLoading}
                 />
               </FormControl>
               <FormMessage />
@@ -242,6 +249,7 @@ const UpdateAnimeForm: FC<UpdateAnimeFormProps> = ({ anime }) => {
               <FormControl>
                 <Input
                   placeholder="Type release year of anime here."
+                  disabled={isLoading}
                   {...field}
                 />
               </FormControl>
@@ -256,7 +264,11 @@ const UpdateAnimeForm: FC<UpdateAnimeFormProps> = ({ anime }) => {
             <FormItem>
               <FormLabel>Trailor Link</FormLabel>
               <FormControl>
-                <Input placeholder="Enter a trailer link." {...field} />
+                <Input
+                  placeholder="Enter a trailer link."
+                  {...field}
+                  disabled={isLoading}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -272,6 +284,7 @@ const UpdateAnimeForm: FC<UpdateAnimeFormProps> = ({ anime }) => {
                 <FileInput
                   setFile={setFile}
                   placeholder="Enter a trailer link."
+                  disabled={isLoading}
                   {...field}
                 />
               </FormControl>
@@ -321,14 +334,17 @@ export default UpdateAnimeForm;
 const FileInput = ({
   setFile,
   placeholder,
+  disabled,
 }: {
   setFile: (file: File | null) => void;
   placeholder: string;
+  disabled?: boolean;
 }) => {
   return (
     <input
       type="file"
       placeholder={placeholder}
+      disabled={disabled}
       onChange={(e) => {
         const selectedFile = e.target.files?.[0];
         if (selectedFile) {

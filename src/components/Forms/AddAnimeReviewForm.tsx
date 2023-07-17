@@ -105,7 +105,11 @@ const AddAnimeReviewForm: FC<AddAnimeReviewFormProps> = ({ animeId }) => {
             <FormItem>
               <FormLabel>Your review title</FormLabel>
               <FormControl>
-                <Input placeholder="Type your review title here." {...field} />
+                <Input
+                  placeholder="Type your review title here."
+                  {...field}
+                  disabled={isLoading}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -121,6 +125,7 @@ const AddAnimeReviewForm: FC<AddAnimeReviewFormProps> = ({ animeId }) => {
                 <Textarea
                   placeholder="Type your review here."
                   large
+                  disabled={isLoading}
                   {...field}
                 />
               </FormControl>

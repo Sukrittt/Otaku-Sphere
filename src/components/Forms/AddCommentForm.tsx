@@ -62,6 +62,7 @@ const AddCommentForm = ({ postId }: { postId: string }) => {
         }
         if (statusCode === 404) {
           return toast({
+            title: "Try again later.",
             description: "Post does not exist.",
             variant: "destructive",
           });
@@ -72,7 +73,7 @@ const AddCommentForm = ({ postId }: { postId: string }) => {
     },
     onMutate: () => {
       toast({
-        description: "Please wait while we add your comment.",
+        description: "Please wait while we are adding your comment.",
       });
     },
   });
@@ -96,6 +97,7 @@ const AddCommentForm = ({ postId }: { postId: string }) => {
               <FormControl>
                 <Textarea
                   placeholder="Type your comment here."
+                  disabled={isLoading}
                   {...field}
                   autoFocus
                 />

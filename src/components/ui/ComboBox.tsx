@@ -18,67 +18,77 @@ interface ComboboxProps extends React.HTMLAttributes<HTMLInputElement> {
   data: ComboBoxItemType[];
   setState: (genre: ZodCategoryType) => void;
   selectedOption?: string;
+  disabled?: boolean;
 }
 
 export const Combobox: FC<ComboboxProps> = forwardRef<
   HTMLInputElement,
   ComboboxProps
->(({ data, placeholder, setState, selectedOption, ...props }, ref) => {
-  const [open, setOpen] = useState(false);
+>(
+  (
+    { data, placeholder, setState, selectedOption, disabled, ...props },
+    ref
+  ) => {
+    const [open, setOpen] = useState(false);
 
-  const selectedGenre = data.find((item) => item.label === selectedOption);
+    const selectedGenre = data.find((item) => item.label === selectedOption);
 
-  const [value, setValue] = useState(selectedGenre?.value ?? "");
+    const [value, setValue] = useState(selectedGenre?.value ?? "");
 
-  useEffect(() => {
-    if (value) {
-      const findIndex = data.findIndex((item) => item.value === value);
+    useEffect(() => {
+      if (value) {
+        const findIndex = data.findIndex((item) => item.value === value);
 
-      setState(data[findIndex].value as ZodCategoryType);
-    }
-  }, [value, setState, data]);
+        setState(data[findIndex].value as ZodCategoryType);
+      }
+    }, [value, setState, data]);
 
-  return (
-    <Popover open={open} onOpenChange={setOpen} {...props}>
-      <PopoverTrigger asChild>
-        <Button
-          variant="outline"
-          role="combobox"
-          aria-expanded={open}
-          className="w-[200px] justify-between"
-        >
-          {value
-            ? data.find((item) => item.value === value)?.label
-            : placeholder}
-          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0">
-        <Command>
-          <CommandInput placeholder={placeholder} ref={ref} />
-          <CommandEmpty>Search not found.</CommandEmpty>
-          <CommandGroup>
-            {data.map((item) => (
-              <CommandItem
-                key={item.value}
-                onSelect={(currentValue) => {
-                  setValue(currentValue === value ? "" : currentValue);
-                  setOpen(false);
-                }}
-              >
-                <Check
-                  className={cn(
-                    "mr-2 h-4 w-4",
-                    value === item.value ? "opacity-100" : "opacity-0"
-                  )}
-                />
-                {item.label}
-              </CommandItem>
-            ))}
-          </CommandGroup>
-        </Command>
-      </PopoverContent>
-    </Popover>
-  );
-});
+    return (
+      <Popover open={open} onOpenChange={setOpen} {...props}>
+        <PopoverTrigger asChild>
+          <Button
+            variant="outline"
+            role="combobox"
+            aria-expanded={open}
+            className="w-[200px] justify-between"
+          >
+            {value
+              ? data.find((item) => item.value === value)?.label
+              : placeholder}
+            <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-[200px] p-0">
+          <Command>
+            <CommandInput
+              placeholder={placeholder}
+              ref={ref}
+              disabled={disabled}
+            />
+            <CommandEmpty>Search not found.</CommandEmpty>
+            <CommandGroup>
+              {data.map((item) => (
+                <CommandItem
+                  key={item.value}
+                  onSelect={(currentValue) => {
+                    setValue(currentValue === value ? "" : currentValue);
+                    setOpen(false);
+                  }}
+                >
+                  <Check
+                    className={cn(
+                      "mr-2 h-4 w-4",
+                      value === item.value ? "opacity-100" : "opacity-0"
+                    )}
+                  />
+                  {item.label}
+                </CommandItem>
+              ))}
+            </CommandGroup>
+          </Command>
+        </PopoverContent>
+      </Popover>
+    );
+  }
+);
 Combobox.displayName = "Combobox";

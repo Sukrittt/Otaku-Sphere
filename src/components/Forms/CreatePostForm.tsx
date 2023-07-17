@@ -105,6 +105,7 @@ const CreatePostForm: FC<CreatePostFormProps> = ({ category, communityId }) => {
                 <Input
                   placeholder="Type your title to here."
                   {...field}
+                  disabled={isLoading}
                   autoFocus
                 />
               </FormControl>
@@ -121,6 +122,7 @@ const CreatePostForm: FC<CreatePostFormProps> = ({ category, communityId }) => {
               <FormControl>
                 <Textarea
                   placeholder="Type your message to everyone."
+                  disabled={isLoading}
                   {...field}
                 />
               </FormControl>

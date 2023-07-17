@@ -102,6 +102,7 @@ const CreateCommunityForm: FC<CreateCommunityFormProps> = ({}) => {
                 <Input
                   placeholder="Type community name here."
                   {...field}
+                  disabled={isLoading}
                   autoFocus
                 />
               </FormControl>
@@ -118,6 +119,7 @@ const CreateCommunityForm: FC<CreateCommunityFormProps> = ({}) => {
               <FormControl>
                 <Textarea
                   placeholder="Little bit about this community."
+                  disabled={isLoading}
                   {...field}
                 />
               </FormControl>
@@ -137,6 +139,7 @@ const CreateCommunityForm: FC<CreateCommunityFormProps> = ({}) => {
                   placeholder="Select category..."
                   setState={setCategory}
                   selectedOption={category}
+                  disabled={isLoading}
                 />
               </FormControl>
               <FormMessage />
