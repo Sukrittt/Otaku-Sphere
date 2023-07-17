@@ -35,6 +35,15 @@ export type AdminDisplay = {
   animeAdded: number;
 };
 
+export type UserDisplay = {
+  name: string | null;
+  email: string | null;
+  createdAt: string;
+  rating: number;
+  communitiesCreated: number;
+  postsCreated: number;
+};
+
 export type ZodCategoryType = "pending" | "watching" | "finished";
 
 export type DragItemType = {

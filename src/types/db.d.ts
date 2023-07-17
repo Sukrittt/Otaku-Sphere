@@ -27,3 +27,10 @@ export type ExtendedComment = Comment & {
 export type ExtendedAnime = Anime & {
   rating: Rating[];
 };
+
+export type ExtendedUser = User & {
+  anime: Anime[];
+  community: Community[];
+  post: Post[];
+  rating: Rating[];
+};

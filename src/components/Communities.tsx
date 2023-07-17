@@ -84,6 +84,7 @@ const Communities: FC<CommunitiesProps> = ({ initialCommunites, category }) => {
         <Input
           placeholder="Type a community name here."
           onChange={(e) => setQuery(e.target.value)}
+          disabled={isFetching}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
               refetch();
