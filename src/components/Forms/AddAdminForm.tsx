@@ -131,6 +131,13 @@ const AddAdminForm = () => {
             variant: "destructive",
           });
         }
+        if (statusCode === 405) {
+          return toast({
+            title: "You are not permitted to do this action.",
+            description: "The main owner cannot be removed.",
+            variant: "destructive",
+          });
+        }
       }
 
       endErrorToast();

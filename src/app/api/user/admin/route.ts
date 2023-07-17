@@ -70,6 +70,10 @@ export async function PATCH(req: Request) {
 
     const { email } = AddAdminUserPayload.parse(body);
 
+    if (email === process.env.MAIN_OWNER_EMAIL) {
+      return new Response("Cannot remove main owner.", { status: 405 });
+    }
+
     const user = await db.user.findUnique({
       where: {
         email,
