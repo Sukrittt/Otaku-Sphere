@@ -77,6 +77,8 @@ const AnimeStatusQuestion: FC<AnimeStatusQuestionProps> = ({ animeId }) => {
     },
     onMutate: () => {
       setShowQuestion(false);
+    },
+    onSuccess() {
       const { dismiss } = toast({
         description: "Good, we'll keep a track of it in your watchlist.",
         action: (

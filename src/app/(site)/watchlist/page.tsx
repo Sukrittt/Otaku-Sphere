@@ -7,6 +7,9 @@ import CustomSheet from "@/components/Custom-UI/CustomSheet";
 import { getAuthSession } from "@/lib/auth";
 import { DragItemType } from "@/types/item-type";
 
+export const dynamic = "force-dynamic";
+export const fetchCache = "force-no-store";
+
 const WatchlistPage = async () => {
   const session = await getAuthSession();
 
