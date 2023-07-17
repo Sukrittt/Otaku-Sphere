@@ -1,5 +1,5 @@
 "use client";
-import { FC, useEffect, useState, useTransition } from "react";
+import { FC, useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
@@ -23,9 +23,12 @@ const CustomCommand: FC<CustomCommandProps> = ({ setAnimeData }) => {
   const [data, setData] = useState<{ id: string; name: string }[]>([]);
 
   const debouncedQuery = useDebounce(query, 300);
-  const [isPending, startTransition] = useTransition();
 
-  const { data: queryResults, refetch } = useQuery({
+  const {
+    data: queryResults,
+    refetch,
+    isFetching,
+  } = useQuery({
     queryFn: async () => {
       if (!query) return [];
 
@@ -50,9 +53,7 @@ const CustomCommand: FC<CustomCommandProps> = ({ setAnimeData }) => {
 
   useEffect(() => {
     if (debouncedQuery.length > 0) {
-      startTransition(() => {
-        refetch();
-      });
+      refetch();
     }
   }, [debouncedQuery, refetch]);
 
@@ -65,19 +66,18 @@ const CustomCommand: FC<CustomCommandProps> = ({ setAnimeData }) => {
         autoFocus
       />
       <CommandList>
-        {isPending && (
+        {isFetching && (
           <div className="space-y-1 overflow-hidden px-1 py-2">
             <Skeleton className="h-4 w-10 rounded" />
             <Skeleton className="h-8 rounded-sm" />
             <Skeleton className="h-8 rounded-sm" />
           </div>
         )}
-        {!data && !isPending ? (
+        {data.length == 0 && !isFetching && query.length > 0 ? (
           <CommandEmpty>No results found.</CommandEmpty>
         ) : (
           <CommandGroup className="mt-1">
-            {data &&
-              data.length > 0 &&
+            {data.length > 0 &&
               data.map((queryItem) => {
                 return (
                   <CommandItem
