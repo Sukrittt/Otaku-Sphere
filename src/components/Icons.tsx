@@ -28,6 +28,7 @@ import {
   AlertTriangle,
   ArrowUpDown,
   Plus,
+  Menu,
 } from "lucide-react";
 
 export type Icon = LucideIcon;
@@ -102,4 +103,5 @@ export const Icons = {
   warning: AlertTriangle,
   upDown: ArrowUpDown,
   plus: Plus,
+  menu: Menu,
 };

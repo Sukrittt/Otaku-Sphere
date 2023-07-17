@@ -14,6 +14,12 @@ export type SidebarNavType = {
   Icon: Icon;
 };
 
+export type navItemType = {
+  id: number;
+  label: string;
+  href: string;
+};
+
 export type ComboBoxItemType = {
   value: string;
   label: string;

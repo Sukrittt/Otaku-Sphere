@@ -7,17 +7,13 @@ import { Button, buttonVariants } from "@/ui/Button";
 import Searchbar from "@/components/Navbar/Searchbar";
 import UserAccountDropdown from "@/components/User/UserAccountDropdown";
 import { Icons } from "@/components/Icons";
+import { MobileNav } from "./MobileNav";
+import { navItemType } from "@/types/item-type";
 
 interface NavbarProps {}
 
 const Navbar: FC<NavbarProps> = async () => {
   const session = await getAuthSession();
-
-  type navItemType = {
-    id: number;
-    label: string;
-    href: string;
-  };
 
   const navItems: navItemType[] = [
     {
@@ -38,8 +34,9 @@ const Navbar: FC<NavbarProps> = async () => {
   ];
 
   return (
-    <div className="sticky top-0 z-40 w-full bg-background flex space-around items-center py-3 border-b px-16">
-      <div className="w-full flex gap-x-8 items-center">
+    <div className="sticky top-0 z-40 w-full bg-background flex justify-between lg:space-around items-center py-3 border-b px-16">
+      <MobileNav mainNavItems={navItems} session={session} />
+      <div className="w-full lg:flex hidden gap-x-8 items-center">
         <div className="relative z-20 flex items-center">
           <Link
             href="/"
