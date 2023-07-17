@@ -34,7 +34,7 @@ const Navbar: FC<NavbarProps> = async () => {
   ];
 
   return (
-    <div className="sticky top-0 z-40 w-full bg-background flex justify-between lg:space-around items-center py-3 border-b px-16">
+    <div className="sticky top-0 z-40 w-full bg-background flex justify-between lg:space-around items-center py-3 border-b px-8 lg:px-16">
       <MobileNav mainNavItems={navItems} session={session} />
       <div className="w-full lg:flex hidden gap-x-8 items-center">
         <div className="relative z-20 flex items-center">
