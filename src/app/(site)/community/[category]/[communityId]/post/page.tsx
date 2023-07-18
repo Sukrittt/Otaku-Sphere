@@ -43,7 +43,7 @@ const CreatePostPage = async ({ params }: CreatePostPageProps) => {
     <Shell layout="dashboard">
       <Card className="flex h-full flex-col">
         <CardHeader className="flex-1">
-          <CardTitle className="line-clamp-1">Create a new post</CardTitle>
+          <CardTitle>Create a new post</CardTitle>
           <CardDescription className="line-clamp-2">
             This post will be displayed in the{" "}
             <span className="font-semibold">#{formattedHastag}</span> community.

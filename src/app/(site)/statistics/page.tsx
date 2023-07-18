@@ -49,7 +49,7 @@ const StatisticsPage = async () => {
       <h1 className="text-4xl text-center font-bold leading-tight tracking-tighter md:text-6xl lg:text-7xl lg:leading-[1.1]">
         Leaderboard
       </h1>
-      <ScrollArea className="rounded-md border w-full" orientation="horizontal">
+      <ScrollArea className="w-full" orientation="horizontal">
         <DataTable
           columns={columns}
           data={structuredRankingData}

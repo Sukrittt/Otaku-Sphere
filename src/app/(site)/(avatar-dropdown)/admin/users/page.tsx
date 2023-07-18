@@ -5,6 +5,7 @@ import { Header } from "@/components/Header";
 import { Shell } from "@/components/Shell";
 import SearchUsersByName from "@/components/SearchUsersByName";
 import { UserDisplay } from "@/types/item-type";
+import { ScrollArea } from "@/ui/ScrollArea";
 
 const UsersPage = async () => {
   const recentFiveUsers = await db.user.findMany({
@@ -36,7 +37,9 @@ const UsersPage = async () => {
         description="Details of the users on the site."
         size="sm"
       />
-      <SearchUsersByName initialUsers={structuredUserData} />
+      <ScrollArea className="w-full" orientation="horizontal">
+        <SearchUsersByName initialUsers={structuredUserData} />
+      </ScrollArea>
     </Shell>
   );
 };

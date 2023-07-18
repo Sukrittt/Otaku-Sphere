@@ -6,6 +6,7 @@ import { AdminDisplay } from "@/types/item-type";
 import { format } from "date-fns";
 import { Header } from "@/components/Header";
 import CustomAdminSheet from "@/components/Custom-UI/CustomAdminSheet";
+import { ScrollArea } from "@/ui/ScrollArea";
 
 const AdminPage = async () => {
   const adminUsers = await db.user.findMany({
@@ -31,9 +32,11 @@ const AdminPage = async () => {
         description="Details of all the admins on the site."
         size="sm"
       />
-      <div className="space-y-4">
+      <div className="space-y-4 overflow-y-scroll">
         <CustomAdminSheet>Manage admin</CustomAdminSheet>
-        <UserDataTable columns={adminColumns} data={structuredRankingData} />
+        <ScrollArea className="w-full" orientation="horizontal">
+          <UserDataTable columns={adminColumns} data={structuredRankingData} />
+        </ScrollArea>
       </div>
     </Shell>
   );

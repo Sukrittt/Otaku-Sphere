@@ -10,10 +10,10 @@ import {
 
 const page = () => {
   return (
-    <Shell>
+    <Shell layout="dashboard">
       <Card className="flex h-full flex-col">
         <CardHeader className="flex-1">
-          <CardTitle className="line-clamp-1">Create a community</CardTitle>
+          <CardTitle>Create a community</CardTitle>
           <CardDescription className="line-clamp-2">
             Create a community for your interests.
           </CardDescription>

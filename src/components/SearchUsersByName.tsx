@@ -9,7 +9,6 @@ import { Button } from "@/ui/Button";
 import { UserDataTable } from "@/components/User/UserDataTable";
 import { userColumns } from "@/components/Rankings/TableColumn";
 import { UserDisplay } from "@/types/item-type";
-import { ScrollArea } from "@/ui/ScrollArea";
 import { ExtendedUser } from "@/types/db";
 import { Icons } from "@/components/Icons";
 
@@ -54,7 +53,7 @@ const SearchUsersByName: FC<SearchUsersByNameProps> = ({ initialUsers }) => {
 
   return (
     <div className="space-y-4">
-      <div className="flex gap-x-2 items-center px-2">
+      <div className="flex gap-2 flex-col lg:flex-row lg:items-center p-2">
         <Input
           placeholder="Type user name here."
           value={query}
@@ -69,6 +68,7 @@ const SearchUsersByName: FC<SearchUsersByNameProps> = ({ initialUsers }) => {
         />
         <Button
           onClick={() => refetch()}
+          className="w-fit lg:w-auto"
           disabled={query.length === 0 || isFetching}
         >
           {isFetching ? (
@@ -82,9 +82,7 @@ const SearchUsersByName: FC<SearchUsersByNameProps> = ({ initialUsers }) => {
         </Button>
       </div>
 
-      <ScrollArea>
-        <UserDataTable columns={userColumns} data={users} />
-      </ScrollArea>
+      <UserDataTable columns={userColumns} data={users} />
     </div>
   );
 };
