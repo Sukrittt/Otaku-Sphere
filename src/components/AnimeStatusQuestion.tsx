@@ -3,6 +3,7 @@ import { FC, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 import { Button, buttonVariants } from "@/ui/Button";
 import { ZodCategoryType } from "@/types/item-type";
@@ -39,6 +40,8 @@ const status: StatusType[] = [
 ];
 
 const AnimeStatusQuestion: FC<AnimeStatusQuestionProps> = ({ animeId }) => {
+  const router = useRouter();
+
   const [showQuestion, setShowQuestion] = useState(true);
   const { loginToast, endErrorToast } = useAuthToast();
 
@@ -91,6 +94,7 @@ const AnimeStatusQuestion: FC<AnimeStatusQuestionProps> = ({ animeId }) => {
           </Link>
         ),
       });
+      router.refresh();
     },
   });
 
