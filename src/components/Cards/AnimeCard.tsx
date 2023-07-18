@@ -25,7 +25,7 @@ export function AnimeCard({ anime, className, ...props }: AnimeCardProps) {
       {...props}
     >
       <CardHeader className="border-b p-0">
-        <AspectRatio ratio={3 / 4} className="overflow-hidden">
+        <AspectRatio ratio={4 / 5} className="overflow-hidden">
           {anime?.coverImage?.length ? (
             <Image
               src={anime.coverImage ?? "/images/anime-placeholder.png"}

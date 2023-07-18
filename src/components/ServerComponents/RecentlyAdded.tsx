@@ -21,7 +21,7 @@ const RecentlyAdded = async () => {
         Stay tuned with the latest anime.
       </p>
 
-      <div className="grid gap-4 sm:grid-cols-3 md:grid-cols-5">
+      <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-5">
         {animes.map((anime) => {
           const formattedHref = `/anime/${formatUrl(anime.name)}`;
 

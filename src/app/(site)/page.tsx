@@ -148,7 +148,7 @@ export default async function Home() {
         <UserDesigned />
       </Suspense>
 
-      <div className="flex justify-center text-sm mt-8">
+      <div className="flex justify-center text-sm mt-8 flex-wrap">
         {categories.map((category) => {
           const href = `/community/${category.value}`;
 

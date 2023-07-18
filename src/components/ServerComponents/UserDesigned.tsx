@@ -40,7 +40,7 @@ const UserDesigned = async () => {
       <h2 className="text-2xl font-semibold tracking-tight">Made for you</h2>
       <p className="text-sm text-muted-foreground">Based on what you like</p>
 
-      <div className="grid gap-4 sm:grid-cols-3 md:grid-cols-5">
+      <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-5">
         {animes.map((anime) => {
           const formattedHref = `/anime/${formatUrl(anime.name)}`;
 
