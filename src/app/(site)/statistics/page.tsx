@@ -5,6 +5,7 @@ import { AnimeRanking } from "@/types/item-type";
 import { convertToSingleDecimalPlace, formatUrl } from "@/lib/utils";
 import { DataTable } from "@/components/Rankings/DataTable";
 import { columns } from "@/components/Rankings/TableColumn";
+import { ScrollArea } from "@/ui/ScrollArea";
 
 const StatisticsPage = async () => {
   const animes = await db.anime.findMany({
@@ -48,11 +49,13 @@ const StatisticsPage = async () => {
       <h1 className="text-4xl text-center font-bold leading-tight tracking-tighter md:text-6xl lg:text-7xl lg:leading-[1.1]">
         Leaderboard
       </h1>
-      <DataTable
-        columns={columns}
-        data={structuredRankingData}
-        animeHrefs={animeHrefs}
-      />
+      <ScrollArea className="rounded-md border w-full" orientation="horizontal">
+        <DataTable
+          columns={columns}
+          data={structuredRankingData}
+          animeHrefs={animeHrefs}
+        />
+      </ScrollArea>
     </Shell>
   );
 };
