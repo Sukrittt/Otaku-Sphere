@@ -83,8 +83,8 @@ const AnimePage = async ({ params }: AnimePageProps) => {
 
   return (
     <Shell>
-      <div className="grid grid-cols-3">
-        <div className="flex flex-col gap-y-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3">
+        <div className="flex flex-col sm:flex-row lg:flex-col gap-8">
           <div className="h-96 w-72 relative">
             <Image
               src={anime.coverImage ?? "/images/anime-placeholder.png"}
@@ -94,7 +94,7 @@ const AnimePage = async ({ params }: AnimePageProps) => {
               className="object-cover rounded-sm"
             />
           </div>
-          <div className="space-y-4">
+          <div className="flex flex-col gap-y-4 justify-end">
             <div className="font-medium text-muted-foreground">
               <span className="text-4xl font-bold text-zinc-800 dark:text-zinc-300">
                 {calculatedRating()}
@@ -114,7 +114,7 @@ const AnimePage = async ({ params }: AnimePageProps) => {
             </div>
           </div>
         </div>
-        <div className="flex flex-col gap-y-4 col-span-2 md:mt-8">
+        <div className="flex flex-col gap-y-4 col-span-2 mt-8">
           <div className="flex items-end gap-x-3">
             <h1 className="text-4xl font-bold leading-tight tracking-tighter lg:text-5xl lg:leading[1.1]">
               {anime.name}
@@ -168,7 +168,7 @@ const AnimePage = async ({ params }: AnimePageProps) => {
               );
 
               return (
-                <Card key={review.id} className="md:max-w-[66%]">
+                <Card key={review.id} className="lg:max-w-[66%]">
                   <CardContent className="p-6 space-y-4">
                     <CardTitle>{review.title}</CardTitle>
                     <Balancer className="text-muted-foreground">
