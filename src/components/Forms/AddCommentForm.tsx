@@ -99,7 +99,6 @@ const AddCommentForm = ({ postId }: { postId: string }) => {
                   placeholder="Type your comment here."
                   disabled={isLoading}
                   {...field}
-                  autoFocus
                 />
               </FormControl>
               <FormMessage />

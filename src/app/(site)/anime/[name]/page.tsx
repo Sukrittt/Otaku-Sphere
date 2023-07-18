@@ -85,14 +85,16 @@ const AnimePage = async ({ params }: AnimePageProps) => {
     <Shell>
       <div className="grid grid-cols-1 lg:grid-cols-3">
         <div className="flex flex-col sm:flex-row lg:flex-col gap-8">
-          <div className="h-96 w-72 relative">
-            <Image
-              src={anime.coverImage ?? "/images/anime-placeholder.png"}
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              fill
-              alt={`${anime.name}'s cover image`}
-              className="object-cover rounded-sm"
-            />
+          <div className="flex justify-center sm:justify-start w-full sm:w-auto">
+            <div className="h-96 w-72 relative">
+              <Image
+                src={anime.coverImage ?? "/images/anime-placeholder.png"}
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                fill
+                alt={`${anime.name}'s cover image`}
+                className="object-cover rounded-sm"
+              />
+            </div>
           </div>
           <div className="flex flex-col gap-y-4 justify-end">
             <div className="font-medium text-muted-foreground">
