@@ -30,17 +30,17 @@ const dropdownItem: dropdownItemType[] = [
 
 const UserAccountDropdown: FC<UserAccountDropdownProps> = ({ session }) => {
   const { user } = session;
+  const AdminItem = dropdownItem.find((item) => item.href === "/admin/users");
 
-  if (
-    user.role === "ADMIN" &&
-    !dropdownItem.find((item) => item.href === "/admin/users")
-  ) {
+  if (user.role === "ADMIN" && !AdminItem) {
     dropdownItem.push({
       id: 2,
       label: "Admin Panel",
       Icon: Icons.admin,
       href: "/admin/users",
     });
+  } else if (user.role !== "ADMIN" && AdminItem) {
+    dropdownItem.splice(1, 1);
   }
 
   return (
