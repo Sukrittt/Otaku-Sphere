@@ -94,7 +94,7 @@ const FinishedWatchingContainer = () => {
 
   return (
     <Card
-      className={cn("flex flex-col gap-y-2 items-center", {
+      className={cn("flex flex-col gap-y-2 items-center min-h-[200px]", {
         "border-blue-600": isOver,
       })}
       ref={drop}
