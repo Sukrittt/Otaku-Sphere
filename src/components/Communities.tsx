@@ -80,7 +80,7 @@ const Communities: FC<CommunitiesProps> = ({ initialCommunites, category }) => {
 
   return (
     <div className="flex flex-col gap-y-4">
-      <div className="flex gap-x-2 items-center">
+      <div className="flex gap-x-2 items-center px-2">
         <Input
           placeholder="Type a community name here."
           onChange={(e) => setQuery(e.target.value)}
@@ -95,7 +95,14 @@ const Communities: FC<CommunitiesProps> = ({ initialCommunites, category }) => {
           onClick={() => refetch()}
           disabled={query.length === 0 || isFetching}
         >
-          {isFetching ? "Searching" : "Search"}
+          {isFetching ? (
+            <Icons.spinner
+              className="h-4 w-4 animate-spin"
+              aria-hidden="true"
+            />
+          ) : (
+            "Search"
+          )}
         </Button>
       </div>
 

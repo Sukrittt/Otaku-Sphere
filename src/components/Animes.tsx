@@ -76,7 +76,7 @@ const Animes: FC<AnimesProps> = ({ initialAnimes }) => {
 
   return (
     <>
-      <div className="flex gap-x-2 items-center px-1">
+      <div className="flex gap-x-2 items-center px-2">
         <Input
           placeholder="Type a anime name here."
           onChange={(e) => setQuery(e.target.value)}
@@ -90,7 +90,14 @@ const Animes: FC<AnimesProps> = ({ initialAnimes }) => {
           onClick={() => refetch()}
           disabled={query.length === 0 || isFetching}
         >
-          {isFetching ? "Searching" : "Search"}
+          {isFetching ? (
+            <Icons.spinner
+              className="h-4 w-4 animate-spin"
+              aria-hidden="true"
+            />
+          ) : (
+            "Search"
+          )}
         </Button>
       </div>
       <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
