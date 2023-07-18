@@ -98,7 +98,7 @@ const IndividualPostPage = async ({ params }: IndividualPostPageProps) => {
                 Posted by {`u/${formattedName}`} ·{" "}
                 {formatTimeToNow(new Date(post.createdAt))}
               </span>
-              <h1 className="line-clamp-1 text-3xl font-bold tracking-tight py-1 md:text-4xl">
+              <h1 className="text-3xl font-bold tracking-tight py-1 md:text-4xl">
                 {post.title}
               </h1>
             </div>

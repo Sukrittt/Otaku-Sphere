@@ -19,19 +19,21 @@ const PostCard: FC<PostCardProps> = ({ post }) => {
 
   return (
     <Link href={href}>
-      <Card className="flex h-full flex-col">
-        <CardHeader className="flex gap-x-2 flex-row">
+      <Card className="flex h-full flex-col relative">
+        <CardHeader className="flex gap-x-2 flex-row pb-8">
           <UserAvatar className="h-6 w-6 mt-2" user={post.creator} />
           <div className="flex-1 space-y-1">
-            <CardTitle className="line-clamp-1 pb-1">{post.title}</CardTitle>
+            <CardTitle className="pb-1">{post.title}</CardTitle>
             <CardDescription className="line-clamp-2">
               {trimmedMessage}
             </CardDescription>
-            <div className="flex items-center gap-x-1 mt-4 w-full justify-end ">
-              <Icons.feedback className="h-3.5 w-3.5" />
-              <span className="text-sm text-muted-foreground">
-                {post.comment.length}
-              </span>
+            <div className="absolute bottom-2 right-5">
+              <div className="flex items-center gap-x-1 mt-8 w-full justify-end ">
+                <Icons.feedback className="h-3 w-3" />
+                <span className="text-xs text-muted-foreground">
+                  {post.comment.length}
+                </span>
+              </div>
             </div>
           </div>
         </CardHeader>

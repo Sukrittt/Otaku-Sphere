@@ -23,7 +23,7 @@ const CommunityPage = async () => {
 
   return (
     <Shell layout="dashboard">
-      <h1 className="text-3xl font-bold leading-tight tracking-tighter md:text-5xl lg:text-6xl lg:leading-[1.1]">
+      <h1 className="text-4xl font-bold leading-tight tracking-tighter md:text-5xl lg:text-6xl lg:leading-[1.1]">
         Otaku Communities
       </h1>
       <Link href="/community/create" className={cn(buttonVariants(), "w-fit")}>
