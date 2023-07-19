@@ -35,12 +35,12 @@ const MoreLikeThis: FC<MoreLikeThisProps> = async ({ anime }) => {
 
       <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-5">
         {sameGenreAnimes.map((anime) => {
-          const formattedHref = `/anime/${formatUrl(anime.name)}`;
+          // const formattedHref = `/anime/${formatUrl(anime.name)}`;
 
           return (
-            <a key={anime.id} href={formattedHref}>
-              <AnimeCard anime={anime} />
-            </a>
+            // <a key={anime.id} href={formattedHref}>
+            <AnimeCard key={anime.id} anime={anime} />
+            // </a>
           );
         })}
       </div>
