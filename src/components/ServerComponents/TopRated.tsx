@@ -26,9 +26,9 @@ const TopRated = async () => {
           const formattedHref = `/anime/${formatUrl(anime.name)}`;
 
           return (
-            <Link key={anime.id} href={formattedHref}>
+            <a key={anime.id} href={formattedHref}>
               <AnimeCard anime={anime} />
-            </Link>
+            </a>
           );
         })}
       </div>
