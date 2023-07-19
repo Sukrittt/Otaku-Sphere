@@ -23,7 +23,7 @@ export function AnimeCard({ anime, className, ...props }: AnimeCardProps) {
   const formattedHref = `/anime/${formatUrl(anime.name)}`;
 
   return (
-    <Link href={formattedHref}>
+    <Link href={formattedHref} passHref>
       <Card
         className={cn("h-full overflow-hidden rounded-sm group", className)}
         {...props}
