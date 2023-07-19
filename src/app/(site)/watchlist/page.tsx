@@ -6,6 +6,7 @@ import DragContainer from "@/components/DragDrop/DragContainer";
 import CustomSheet from "@/components/Custom-UI/CustomSheet";
 import { getAuthSession } from "@/lib/auth";
 import { DragItemType } from "@/types/item-type";
+import DragDropProvider from "@/components/DragDropProvider";
 
 export const dynamic = "force-dynamic";
 export const fetchCache = "force-no-store";
@@ -80,19 +81,21 @@ const WatchlistPage = async () => {
   );
 
   return (
-    <Shell>
-      <h1 className="text-4xl text-center font-bold leading-tight tracking-tighter md:text-6xl lg:text-7xl lg:leading-[1.1]">
-        Your Watchlist
-      </h1>
-      <div className="space-y-4">
-        <CustomSheet>Add anime</CustomSheet>
-        <DragContainer
-          notStartedAnimes={pendingAnimes}
-          currentlyWatchingAnimes={currentlyWatching}
-          finishedWatchingAnimes={finishedWatching}
-        />
-      </div>
-    </Shell>
+    <DragDropProvider>
+      <Shell>
+        <h1 className="text-4xl text-center font-bold leading-tight tracking-tighter md:text-6xl lg:text-7xl lg:leading-[1.1]">
+          Your Watchlist
+        </h1>
+        <div className="space-y-4">
+          <CustomSheet>Add anime</CustomSheet>
+          <DragContainer
+            notStartedAnimes={pendingAnimes}
+            currentlyWatchingAnimes={currentlyWatching}
+            finishedWatchingAnimes={finishedWatching}
+          />
+        </div>
+      </Shell>
+    </DragDropProvider>
   );
 };
 

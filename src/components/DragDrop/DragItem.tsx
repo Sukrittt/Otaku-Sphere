@@ -5,21 +5,18 @@ import { Card, CardHeader } from "@/ui/Card";
 import { DragItemType } from "@/types/item-type";
 
 export const DragItem = ({ item }: { item: DragItemType }) => {
-  const [{ isDragging }, drag] = useDrag(
-    () => ({
-      type: "image",
-      item: {
-        id: item.id,
-        name: item.name,
-        category: item.category,
-        animeId: item.animeId,
-      },
-      collect: (monitor) => ({
-        isDragging: !!monitor.isDragging(),
-      }),
+  const [{ isDragging }, drag] = useDrag(() => ({
+    type: "image",
+    item: {
+      id: item.id,
+      name: item.name,
+      category: item.category,
+      animeId: item.animeId,
+    },
+    collect: (monitor) => ({
+      isDragging: !!monitor.isDragging(),
     }),
-    [item]
-  );
+  }));
 
   return (
     <Card
