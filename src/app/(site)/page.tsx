@@ -12,6 +12,7 @@ import RecentlyAdded from "@/components/ServerComponents/RecentlyAdded";
 import { categories } from "@/data/community";
 import { buttonVariants } from "@/ui/Button";
 import UserDesigned from "@/components/ServerComponents/UserDesigned";
+import AnimeCardSkeleton from "@/components/SkeletonLoaders/AnimeCardSkeleton";
 
 export const dynamic = "force-dynamic";
 export const fetchCache = "force-no-store";
@@ -138,15 +139,36 @@ export default async function Home() {
           </Suspense>
         </Card>
       </div>
-      <Suspense fallback={<p className="text-4xl">Loading....</p>}>
-        <TopRated />
-      </Suspense>
-      <Suspense fallback={<p className="text-4xl">Loading....</p>}>
-        <RecentlyAdded />
-      </Suspense>
-      <Suspense fallback={<p className="text-4xl">Loading....</p>}>
-        <UserDesigned />
-      </Suspense>
+      <div className="flex flex-col gap-y-2">
+        <h2 className="text-2xl font-semibold tracking-tight">Top Rated</h2>
+        <p className="text-sm text-muted-foreground">
+          Top picks for you. Updated daily.
+        </p>
+        <Suspense fallback={<AnimeCardSkeleton />}>
+          <TopRated />
+        </Suspense>
+      </div>
+      <div className="flex flex-col gap-y-2">
+        <h2 className="text-2xl font-semibold tracking-tight">
+          Recently Added
+        </h2>
+        <p className="text-sm text-muted-foreground">
+          Stay tuned with the latest anime.
+        </p>
+
+        <Suspense fallback={<AnimeCardSkeleton />}>
+          <RecentlyAdded />
+        </Suspense>
+      </div>
+
+      <div className="flex flex-col gap-y-2">
+        <h2 className="text-2xl font-semibold tracking-tight">Made for you</h2>
+        <p className="text-sm text-muted-foreground">Based on what you like</p>
+
+        <Suspense fallback={<AnimeCardSkeleton />}>
+          <UserDesigned />
+        </Suspense>
+      </div>
 
       <div className="flex justify-center text-sm mt-8 flex-wrap">
         {categories.map((category) => {

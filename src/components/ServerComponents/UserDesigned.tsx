@@ -33,15 +33,10 @@ const UserDesigned = async () => {
   if (animes.length === 0 || !session) return;
 
   return (
-    <div className="flex flex-col gap-y-2">
-      <h2 className="text-2xl font-semibold tracking-tight">Made for you</h2>
-      <p className="text-sm text-muted-foreground">Based on what you like</p>
-
-      <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-5">
-        {animes.map((anime) => {
-          return <AnimeCard key={anime.id} anime={anime} />;
-        })}
-      </div>
+    <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-5">
+      {animes.map((anime) => {
+        return <AnimeCard key={anime.id} anime={anime} />;
+      })}
     </div>
   );
 };

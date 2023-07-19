@@ -6,7 +6,7 @@ import DragContainer from "@/components/DragDrop/DragContainer";
 import CustomSheet from "@/components/Custom-UI/CustomSheet";
 import { getAuthSession } from "@/lib/auth";
 import { DragItemType } from "@/types/item-type";
-import DragDropProvider from "@/components/DragDropProvider";
+import DragDropProvider from "@/components/DragDrop/DragDropProvider";
 
 export const dynamic = "force-dynamic";
 export const fetchCache = "force-no-store";
