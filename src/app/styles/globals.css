@@ -74,10 +74,6 @@
     -webkit-tap-highlight-color: transparent;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground h-full;
   }
-}
-
-html{
-  height: auto;
 }
