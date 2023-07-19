@@ -73,10 +73,7 @@
     @apply border-border;
     -webkit-tap-highlight-color: transparent;
   }
-  html{
-    overflow-x: auto;
-  }
   body {
-    @apply bg-background text-foreground h-full;
+    @apply bg-background text-foreground;
   }
 }
