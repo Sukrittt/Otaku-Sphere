@@ -1,10 +1,10 @@
 "use client";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
-import { HTML5Backend } from "react-dnd-html5-backend";
 import { SessionProvider } from "next-auth/react";
-
-import { ThemeProvider } from "./ThemeProvider";
+import { TouchBackend } from "react-dnd-touch-backend";
 import { DndProvider } from "react-dnd";
+
+import { ThemeProvider } from "@/components/ThemeProvider";
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
   const queryClient = new QueryClient();
@@ -13,7 +13,7 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
     <QueryClientProvider client={queryClient}>
       <SessionProvider>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <DndProvider backend={HTML5Backend}>{children}</DndProvider>
+          <DndProvider backend={TouchBackend}>{children}</DndProvider>
         </ThemeProvider>
       </SessionProvider>
     </QueryClientProvider>
