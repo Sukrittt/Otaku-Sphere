@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { Anime } from "@prisma/client";
+import Link from "next/link";
 
 import { cn, formatDescription, formatUrl } from "@/lib/utils";
 import { AspectRatio } from "@/ui/AspectRatio";
@@ -22,7 +23,7 @@ export function AnimeCard({ anime, className, ...props }: AnimeCardProps) {
   const formattedHref = `/anime/${formatUrl(anime.name)}`;
 
   return (
-    <a href={formattedHref}>
+    <Link href={formattedHref}>
       <Card
         className={cn("h-full overflow-hidden rounded-sm group", className)}
         {...props}
@@ -60,6 +61,6 @@ export function AnimeCard({ anime, className, ...props }: AnimeCardProps) {
           </CardDescription>
         </CardContent>
       </Card>
-    </a>
+    </Link>
   );
 }
