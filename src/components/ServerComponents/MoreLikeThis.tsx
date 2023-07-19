@@ -1,9 +1,7 @@
 import { FC } from "react";
-import Link from "next/link";
 import { Anime } from "@prisma/client";
 
 import { db } from "@/lib/db";
-import { formatUrl } from "@/lib/utils";
 import { AnimeCard } from "@/components/Cards/AnimeCard";
 
 interface MoreLikeThisProps {
@@ -35,13 +33,7 @@ const MoreLikeThis: FC<MoreLikeThisProps> = async ({ anime }) => {
 
       <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-5">
         {sameGenreAnimes.map((anime) => {
-          // const formattedHref = `/anime/${formatUrl(anime.name)}`;
-
-          return (
-            // <a key={anime.id} href={formattedHref}>
-            <AnimeCard key={anime.id} anime={anime} />
-            // </a>
-          );
+          return <AnimeCard key={anime.id} anime={anime} />;
         })}
       </div>
     </div>

@@ -1,8 +1,5 @@
-import Link from "next/link";
-
 import { db } from "@/lib/db";
 import { AnimeCard } from "@/components/Cards/AnimeCard";
-import { formatUrl } from "@/lib/utils";
 
 const RecentlyAdded = async () => {
   const animes = await db.anime.findMany({
@@ -23,13 +20,7 @@ const RecentlyAdded = async () => {
 
       <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-5">
         {animes.map((anime) => {
-          // const formattedHref = `/anime/${formatUrl(anime.name)}`;
-
-          return (
-            // <a key={anime.id} href={formattedHref}>
-            <AnimeCard key={anime.id} anime={anime} />
-            // </a>
-          );
+          return <AnimeCard key={anime.id} anime={anime} />;
         })}
       </div>
     </div>
