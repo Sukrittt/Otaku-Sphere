@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
 
 import { cn, formatUrl } from "@/lib/utils";
 import { Button } from "@/ui/Button";
@@ -19,8 +18,6 @@ import {
 import { Icons } from "@/components/Icons";
 
 const Searchbar = () => {
-  const router = useRouter();
-
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState("");
 
@@ -111,16 +108,9 @@ const Searchbar = () => {
                   const formattedHref = `/anime/${formatUrl(queryItem.name)}`;
 
                   return (
-                    <CommandItem
-                      key={queryItem.id}
-                      onSelect={() => {
-                        setIsOpen(false);
-                        setQuery("");
-                        router.push(formattedHref);
-                      }}
-                    >
-                      {queryItem.name}
-                    </CommandItem>
+                    <a href={formattedHref} key={queryItem.id}>
+                      <CommandItem>{queryItem.name}</CommandItem>
+                    </a>
                   );
                 })}
               </CommandGroup>
