@@ -76,7 +76,8 @@
   body {
     @apply bg-background text-foreground;
   }
-  html{
-    height: auto;
-  }
+}
+
+html{
+  height: auto;
 }
