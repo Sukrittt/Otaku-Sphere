@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 
 import { cn, formatUrl } from "@/lib/utils";
@@ -21,6 +22,7 @@ const Searchbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState("");
 
+  const router = useRouter();
   const debouncedQuery = useDebounce(query, 300);
 
   const [data, setData] = useState<{ id: string; name: string }[]>([]);
@@ -109,7 +111,15 @@ const Searchbar = () => {
 
                   return (
                     <a href={formattedHref} key={queryItem.id}>
-                      <CommandItem>{queryItem.name}</CommandItem>
+                      <CommandItem
+                        onSelect={() => {
+                          setIsOpen(false);
+                          setQuery("");
+                          router.push(formattedHref);
+                        }}
+                      >
+                        {queryItem.name}
+                      </CommandItem>
                     </a>
                   );
                 })}
