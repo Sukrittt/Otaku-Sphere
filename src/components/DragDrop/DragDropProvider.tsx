@@ -5,6 +5,8 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { TouchBackend } from "react-dnd-touch-backend";
 
+import WatchlistLoading from "@/app/(site)/watchlist/loading";
+
 interface DragDropProviderProps {
   children: React.ReactNode;
 }
@@ -30,7 +32,7 @@ const DragDropProvider: FC<DragDropProviderProps> = ({ children }) => {
     setLoading(false);
   }, []);
 
-  if (loading) return <p>Loading watchlist animes...</p>;
+  if (loading) return <WatchlistLoading />;
 
   return <DndProvider backend={backend}>{children}</DndProvider>;
 };

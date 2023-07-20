@@ -12,6 +12,7 @@ export const dynamic = "force-dynamic";
 export const fetchCache = "force-no-store";
 
 const WatchlistPage = async () => {
+  await new Promise((resolve) => setTimeout(resolve, 10000));
   const session = await getAuthSession();
 
   if (!session) {
@@ -63,6 +64,7 @@ const WatchlistPage = async () => {
     animeId: watchlist.animeId,
     category: "pending",
   }));
+
   const currentlyWatching: DragItemType[] = CurrentlyWatchingAnimes.map(
     (watchlist) => ({
       id: watchlist.id,
@@ -71,6 +73,7 @@ const WatchlistPage = async () => {
       category: "watching",
     })
   );
+
   const finishedWatching: DragItemType[] = FinishedWatchingAnimes.map(
     (watchlist) => ({
       id: watchlist.id,
