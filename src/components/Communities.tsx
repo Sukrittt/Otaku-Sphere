@@ -27,8 +27,12 @@ const Communities: FC<CommunitiesProps> = ({ initialCommunites, category }) => {
     threshold: 1,
   });
 
+  const infiniteQueryKey = category
+    ? [`community-infinite-${category}`]
+    : [`community-infinite`];
+
   const { data, fetchNextPage, isFetchingNextPage } = useInfiniteQuery(
-    ["communities-infinite-query"],
+    infiniteQueryKey,
     async ({ pageParam = 1 }) => {
       const queryUrl =
         `/api/community?limit=${INFINITE_SCROLLING_PAGINATION_RESULTS}&page=${pageParam}` +
