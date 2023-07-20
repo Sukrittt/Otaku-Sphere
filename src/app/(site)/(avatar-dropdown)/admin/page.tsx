@@ -1,9 +1,10 @@
+import { format } from "date-fns";
+
 import { db } from "@/lib/db";
 import { Shell } from "@/components/Shell";
 import { UserDataTable } from "@/components/User/UserDataTable";
 import { adminColumns } from "@/components/Rankings/TableColumn";
 import { AdminDisplay } from "@/types/item-type";
-import { format } from "date-fns";
 import { Header } from "@/components/Header";
 import CustomAdminSheet from "@/components/Custom-UI/CustomAdminSheet";
 import { ScrollArea } from "@/ui/ScrollArea";
@@ -32,7 +33,7 @@ const AdminPage = async () => {
         description="Details of all the admins on the site."
         size="sm"
       />
-      <div className="space-y-4 overflow-y-scroll">
+      <div className="space-y-4 overflow-y-auto">
         <CustomAdminSheet>Manage admin</CustomAdminSheet>
         <ScrollArea className="w-full" orientation="horizontal">
           <UserDataTable columns={adminColumns} data={structuredRankingData} />

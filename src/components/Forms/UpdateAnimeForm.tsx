@@ -1,5 +1,5 @@
 "use client";
-import { FC, useState } from "react";
+import { FC, forwardRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios, { AxiosError } from "axios";
@@ -335,15 +335,14 @@ const UpdateAnimeForm: FC<UpdateAnimeFormProps> = ({ anime }) => {
 
 export default UpdateAnimeForm;
 
-const FileInput = ({
-  setFile,
-  placeholder,
-  disabled,
-}: {
-  setFile: (file: File | null) => void;
-  placeholder: string;
-  disabled?: boolean;
-}) => {
+const FileInput = forwardRef<
+  HTMLInputElement,
+  {
+    setFile: (file: File | null) => void;
+    placeholder: string;
+    disabled?: boolean;
+  }
+>(({ setFile, placeholder, disabled }, ref) => {
   return (
     <input
       type="file"
@@ -357,6 +356,9 @@ const FileInput = ({
       }}
       className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
       accept="image/*"
+      ref={ref}
     />
   );
-};
+});
+
+FileInput.displayName = "FileInput";

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Suspense } from "react";
 
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/ui/Button";
@@ -11,18 +12,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/ui/Card";
-import { db } from "@/lib/db";
-import Animes from "@/components/Animes";
-import { INFINITE_SCROLLING_PAGINATION_ANIME } from "@/config";
+import AdminAnimes from "@/components/ServerComponents/AdminAnimes";
+import AdminAnimeSkeleton from "@/components/SkeletonLoaders/AdminAnimeSkeleton";
 
-const AnimePage = async () => {
-  const allAnime = await db.anime.findMany({
-    orderBy: {
-      createdAt: "desc",
-    },
-    take: INFINITE_SCROLLING_PAGINATION_ANIME,
-  });
-
+const AnimePage = () => {
   return (
     <Shell layout="dashboard">
       <Header
@@ -56,7 +49,9 @@ const AnimePage = async () => {
         </Card>
       </div>
 
-      <Animes initialAnimes={allAnime} />
+      <Suspense fallback={<AdminAnimeSkeleton />}>
+        <AdminAnimes />
+      </Suspense>
     </Shell>
   );
 };
