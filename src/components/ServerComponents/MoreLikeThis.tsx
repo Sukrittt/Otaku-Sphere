@@ -22,7 +22,13 @@ const MoreLikeThis: FC<MoreLikeThisProps> = async ({ anime }) => {
     take: 5,
   });
 
-  if (sameGenreAnimes.length === 0) return;
+  if (sameGenreAnimes.length === 0) {
+    return (
+      <p className="font-medium text-muted-foreground">
+        More anime of this genre are yet to be added.
+      </p>
+    );
+  }
 
   return (
     <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-5">
