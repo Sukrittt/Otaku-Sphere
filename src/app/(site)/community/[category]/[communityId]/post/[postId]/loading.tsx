@@ -1,5 +1,5 @@
 const loading = () => {
-  return <div>communities loading....</div>;
+  return <div>individual post loading....</div>;
 };
 
 export default loading;
