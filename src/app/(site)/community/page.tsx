@@ -8,6 +8,8 @@ import Communities from "@/components/Communities";
 import { INFINITE_SCROLLING_PAGINATION_RESULTS } from "@/config";
 
 const CommunityPage = async () => {
+  await new Promise((resolve) => setTimeout(resolve, 10000));
+
   const initialCommunities = await db.community.findMany({
     take: INFINITE_SCROLLING_PAGINATION_RESULTS,
     orderBy: {
