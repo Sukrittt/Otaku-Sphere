@@ -8,6 +8,8 @@ import { columns } from "@/components/Rankings/TableColumn";
 import { ScrollArea } from "@/ui/ScrollArea";
 
 const StatisticsPage = async () => {
+  await new Promise((resolve) => setTimeout(resolve, 10000));
+
   const animes = await db.anime.findMany({
     take: 10,
     orderBy: {
