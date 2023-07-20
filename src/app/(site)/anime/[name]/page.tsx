@@ -9,21 +9,14 @@ import AnimeRating from "@/components/AnimeRating";
 import { getAuthSession } from "@/lib/auth";
 import { buttonVariants } from "@/ui/Button";
 import { Icons } from "@/components/Icons";
-import {
-  cn,
-  convertToSingleDecimalPlace,
-  formatTimeToNow,
-  formatUrl,
-} from "@/lib/utils";
+import { cn, convertToSingleDecimalPlace, formatUrl } from "@/lib/utils";
 import TopTenAnimeCheck from "@/components/ServerComponents/TopTenAnimeCheck";
-import { Card, CardContent, CardFooter, CardTitle } from "@/ui/Card";
 import CustomReviewSheet from "@/components/Custom-UI/CustomReviewSheet";
-import { Balancer } from "react-wrap-balancer";
-import UserAvatar from "@/components/User/UserAvatar";
-import LikeReview from "@/components/LikeReview";
-import ReviewDropdown from "@/components/Dropdown/ReviewDropdown";
 import MoreLikeThis from "@/components/ServerComponents/MoreLikeThis";
 import AnimeStatus from "@/components/ServerComponents/AnimeStatus";
+import Reviews from "@/components/ServerComponents/Reviews";
+import ReviewSkeleton from "@/components/SkeletonLoaders/ReviewSkeleton";
+import AnimeCardSkeleton from "@/components/SkeletonLoaders/AnimeCardSkeleton";
 
 export const dynamic = "force-dynamic";
 export const fetchCache = "force-no-store";
@@ -47,18 +40,6 @@ const AnimePage = async ({ params }: AnimePageProps) => {
     },
     include: {
       rating: true,
-      reviews: {
-        include: {
-          user: true,
-          reviewLikes: true,
-        },
-        take: 3,
-        orderBy: {
-          reviewLikes: {
-            _count: "desc",
-          },
-        },
-      },
     },
   });
 
@@ -123,7 +104,7 @@ const AnimePage = async ({ params }: AnimePageProps) => {
             </h1>
             <div className="space-x-2 text-xl text-zinc-400 font-medium">
               <span>{anime.releaseYear}</span>
-              <Suspense fallback={<p>Loading...</p>}>
+              <Suspense>
                 <TopTenAnimeCheck name={name} />
               </Suspense>
             </div>
@@ -150,7 +131,7 @@ const AnimePage = async ({ params }: AnimePageProps) => {
             )}
           </div>
           {session && (
-            <Suspense fallback={<p>Loading...</p>}>
+            <Suspense>
               <AnimeStatus animeId={anime.id} session={session} />
             </Suspense>
           )}
@@ -160,68 +141,26 @@ const AnimePage = async ({ params }: AnimePageProps) => {
         <h1 className="text-4xl font-bold leading-tight tracking-tighter lg:text-5xl lg:leading[1.1]">
           Reviews
         </h1>
-        {anime.reviews.length === 0 ? (
-          <p className="text-muted-foreground text-sm">No reviews yet.</p>
-        ) : (
-          <div className="flex flex-col gap-y-3">
-            {anime.reviews.map((review) => {
-              const initialLike = !!review.reviewLikes.find(
-                (like) => like.userId === session?.user.id
-              );
-
-              return (
-                <Card key={review.id} className="lg:max-w-[66%]">
-                  <CardContent className="p-6 space-y-4">
-                    <CardTitle>{review.title}</CardTitle>
-                    <Balancer className="text-muted-foreground">
-                      {review.text}
-                    </Balancer>
-                  </CardContent>
-                  <CardFooter className="flex justify-between">
-                    <div className="flex gap-x-1.5 items-center text-muted-foreground text-sm">
-                      <UserAvatar user={review.user} className="h-7 w-7" />
-                      <span>·</span>
-                      <span>{`u/${review.user.name
-                        ?.split(" ")[0]
-                        .toLowerCase()}`}</span>
-                      <span>·</span>
-                      <span>{formatTimeToNow(new Date(review.createdAt))}</span>
-                      <span>·</span>
-                      <LikeReview
-                        initialLike={initialLike}
-                        likes={review.reviewLikes.length}
-                        reviewId={review.id}
-                      />
-                    </div>
-                    <div>
-                      {review.user.id === session?.user.id && (
-                        <ReviewDropdown reviewId={review.id}>
-                          <div
-                            className={buttonVariants({
-                              variant: "ghost",
-                              size: "icon",
-                            })}
-                          >
-                            <Icons.options className="h-4 w-4" />
-                          </div>
-                        </ReviewDropdown>
-                      )}
-                    </div>
-                  </CardFooter>
-                </Card>
-              );
-            })}
-          </div>
-        )}
+        <Suspense fallback={<ReviewSkeleton />}>
+          <Reviews animeId={anime.id} />
+        </Suspense>
       </div>
-      <Suspense fallback={<p className="text-4xl">Loading....</p>}>
-        <MoreLikeThis
-          anime={{
-            genre: anime.genre,
-            name: anime.name,
-          }}
-        />
-      </Suspense>
+      <div className="flex flex-col gap-y-2">
+        <h2 className="text-2xl font-semibold tracking-tight">
+          More like this
+        </h2>
+        <p className="text-sm text-muted-foreground">
+          {`Explore more ${anime.genre.toLowerCase()} animes`}
+        </p>
+        <Suspense fallback={<AnimeCardSkeleton />}>
+          <MoreLikeThis
+            anime={{
+              genre: anime.genre,
+              name: anime.name,
+            }}
+          />
+        </Suspense>
+      </div>
     </Shell>
   );
 };
