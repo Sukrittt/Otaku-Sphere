@@ -1,5 +1,5 @@
-const loading = () => {
-  return <div>loading...</div>;
+const AdminsLoading = () => {
+  return <div>AdminsLoading...</div>;
 };
 
-export default loading;
+export default AdminsLoading;

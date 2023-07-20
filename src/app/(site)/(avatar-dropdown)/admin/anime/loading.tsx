@@ -1,5 +1,5 @@
-const loading = () => {
-  return <div>loading....</div>;
+const AllAnimeLoading = () => {
+  return <div>AllAnimeLoading....</div>;
 };
 
-export default loading;
+export default AllAnimeLoading;
