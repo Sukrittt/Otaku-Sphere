@@ -12,7 +12,6 @@ export const dynamic = "force-dynamic";
 export const fetchCache = "force-no-store";
 
 const WatchlistPage = async () => {
-  await new Promise((resolve) => setTimeout(resolve, 10000));
   const session = await getAuthSession();
 
   if (!session) {
