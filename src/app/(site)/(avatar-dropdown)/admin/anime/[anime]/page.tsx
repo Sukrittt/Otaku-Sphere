@@ -20,8 +20,6 @@ interface AnimeUpdatePageProps {
 }
 
 const AnimeUpdatePage = async ({ params }: AnimeUpdatePageProps) => {
-  await new Promise((resolve) => setTimeout(resolve, 10000));
-
   const { anime: animeId } = params;
   const session = await getAuthSession();
 
