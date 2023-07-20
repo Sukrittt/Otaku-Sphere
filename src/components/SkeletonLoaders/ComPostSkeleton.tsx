@@ -11,8 +11,8 @@ const ComPostSkeleton = ({ length = 5 }: { length?: number }) => {
               <div className="flex gap-2.5">
                 <Skeleton className="h-8 w-8 rounded-full" />
                 <div className="space-y-2.5 w-full">
-                  <Skeleton className="h-8 w-1/3" />
-                  <Skeleton className="h-4 w-1/2" />
+                  <Skeleton className="h-4 w-1/2 md:w-1/3" />
+                  <Skeleton className="h-4 w-full md:w-1/2" />
                 </div>
               </div>
             </CardTitle>

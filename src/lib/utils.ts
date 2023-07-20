@@ -9,7 +9,8 @@ export function cn(...inputs: ClassValue[]) {
 
 export function formatDescription(description: string, trim: number) {
   if (description.length > trim) {
-    return description.slice(0, trim) + "...";
+    const trimmedDescription = description.slice(0, trim).trimEnd();
+    return trimmedDescription + "...";
   }
 
   return description;

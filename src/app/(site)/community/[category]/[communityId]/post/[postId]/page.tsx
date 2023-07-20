@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
+import { Suspense } from "react";
 
 import { db } from "@/lib/db";
 import { Shell } from "@/components/Shell";
-import { Card, CardContent, CardFooter, CardHeader } from "@/ui/Card";
+import { Card, CardContent, CardHeader } from "@/ui/Card";
 import LikePost from "@/components/LikePost";
 import { getAuthSession } from "@/lib/auth";
 import { Icons } from "@/components/Icons";
@@ -11,7 +12,8 @@ import AddCommentForm from "@/components/Forms/AddCommentForm";
 import { buttonVariants } from "@/ui/Button";
 import { cn, formatTimeToNow } from "@/lib/utils";
 import PostDropdown from "@/components/Dropdown/PostDropdown";
-import CommentCard from "@/components/Cards/CommentCard";
+import Comments from "@/components/ServerComponents/Comments";
+import CommentSkeleton from "@/components/SkeletonLoaders/CommentSkeleton";
 
 interface IndividualPostPageProps {
   params: {
@@ -37,15 +39,6 @@ const IndividualPostPage = async ({ params }: IndividualPostPageProps) => {
       like: true,
       creator: true,
       community: true,
-      comment: {
-        include: {
-          author: true,
-        },
-        orderBy: {
-          createdAt: "desc",
-        },
-        take: 10,
-      },
     },
   });
 
@@ -121,15 +114,9 @@ const IndividualPostPage = async ({ params }: IndividualPostPageProps) => {
         <CardContent className="w-full flex flex-col gap-y-4 py-5">
           <AddCommentForm postId={post.id} />
         </CardContent>
-        {post.comment.length > 0 && (
-          <CardFooter className="border-t py-3">
-            <div className="flex flex-col gap-y-6 w-full">
-              {post.comment.map((comment) => (
-                <CommentCard key={comment.id} comment={comment} />
-              ))}
-            </div>
-          </CardFooter>
-        )}
+        <Suspense fallback={<CommentSkeleton />}>
+          <Comments postId={post.id} />
+        </Suspense>
       </Card>
     </Shell>
   );

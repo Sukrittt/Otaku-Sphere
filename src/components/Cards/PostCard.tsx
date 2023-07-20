@@ -20,14 +20,12 @@ const PostCard: FC<PostCardProps> = ({ post }) => {
   return (
     <Link href={href}>
       <Card className="flex h-full flex-col relative">
-        <CardHeader className="flex gap-x-2 flex-row pb-8">
-          <UserAvatar className="h-6 w-6 mt-2" user={post.creator} />
-          <div className="flex-1 space-y-1">
-            <CardTitle className="pb-1">{post.title}</CardTitle>
-            <CardDescription className="line-clamp-2">
-              {trimmedMessage}
-            </CardDescription>
-            <div className="absolute bottom-2 right-5">
+        <CardHeader className="flex gap-x-2 flex-row py-5">
+          <UserAvatar className="h-8 w-8 mt-2" user={post.creator} />
+          <div className="flex-1 space-y-2">
+            <CardTitle>{post.title}</CardTitle>
+            <CardDescription>{trimmedMessage}</CardDescription>
+            <div className="absolute bottom-1 md:bottom-2 right-5">
               <div className="flex items-center gap-x-1 mt-8 w-full justify-end ">
                 <Icons.feedback className="h-3 w-3" />
                 <span className="text-xs text-muted-foreground">
