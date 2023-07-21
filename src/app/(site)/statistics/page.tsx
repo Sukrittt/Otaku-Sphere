@@ -8,8 +8,10 @@ import { convertToSingleDecimalPlace, formatUrl } from "@/lib/utils";
 import { DataTable } from "@/components/Rankings/DataTable";
 import { columns } from "@/components/Rankings/TableColumn";
 import { ScrollArea } from "@/ui/ScrollArea";
+import { env } from "@/env.mjs";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
   title: "Anime Statistics",
   description: "Displaying the top 10 anime based on the number of ratings.",
 };

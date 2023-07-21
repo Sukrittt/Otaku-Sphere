@@ -5,8 +5,10 @@ import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/Button";
 import { UserAuthForm } from "@/components/Forms/AuthForm";
 import { Icons } from "@/components/Icons";
+import { env } from "@/env.mjs";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
   title: "Sign In",
   description: "Sign in to your account",
 };

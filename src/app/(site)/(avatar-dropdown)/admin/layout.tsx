@@ -4,12 +4,14 @@ import { Metadata } from "next";
 import { ScrollArea } from "@/ui/ScrollArea";
 import { getAuthSession } from "@/lib/auth";
 import SidebarNav from "@/components/Navbar/SidebarNav";
+import { env } from "@/env.mjs";
 
 interface AdminLayoutProps {
   children: React.ReactNode;
 }
 
 export const metadata: Metadata = {
+  metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
   title: "Admin Panel",
   description: "Admins are allowed to access this page and manage the site.",
 };

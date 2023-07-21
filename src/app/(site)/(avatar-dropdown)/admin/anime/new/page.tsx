@@ -12,8 +12,10 @@ import {
   CardTitle,
 } from "@/ui/Card";
 import AddAnimeForm from "@/components/Forms/AddAnimeForm";
+import { env } from "@/env.mjs";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
   title: "New Anime",
   description: "Add a new anime",
 };

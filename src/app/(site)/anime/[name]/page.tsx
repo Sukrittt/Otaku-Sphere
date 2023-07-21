@@ -18,12 +18,14 @@ import AnimeStatus from "@/components/ServerComponents/AnimeStatus";
 import Reviews from "@/components/ServerComponents/Reviews";
 import ReviewSkeleton from "@/components/SkeletonLoaders/ReviewSkeleton";
 import AnimeCardSkeleton from "@/components/SkeletonLoaders/AnimeCardSkeleton";
+import { env } from "@/env.mjs";
 
 export const dynamic = "force-dynamic";
 export const fetchCache = "force-no-store";
 export const revalidate = 0;
 
 export const metadata: Metadata = {
+  metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
   title: "Anime Reviews",
   description: "Read reviews and ratings of your favourite animes.",
 };

@@ -8,11 +8,13 @@ import CustomSheet from "@/components/Custom-UI/CustomSheet";
 import { getAuthSession } from "@/lib/auth";
 import { DragItemType } from "@/types/item-type";
 import DragDropProvider from "@/components/DragDrop/DragDropProvider";
+import { env } from "@/env.mjs";
 
 export const dynamic = "force-dynamic";
 export const fetchCache = "force-no-store";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
   title: "Anime Watchlist",
   description: "Drag and drop your anime to manage your watchlist.",
 };
