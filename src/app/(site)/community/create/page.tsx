@@ -1,3 +1,5 @@
+import { Metadata } from "next";
+
 import CreateCommunityForm from "@/components/Forms/CreateCommunityForm";
 import { Shell } from "@/components/Shell";
 import {
@@ -7,6 +9,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/ui/Card";
+import { env } from "@/env.mjs";
+
+export const metadata: Metadata = {
+  metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
+  title: "Create a community",
+  description: "Create a community for your interests.",
+};
 
 const page = () => {
   return (

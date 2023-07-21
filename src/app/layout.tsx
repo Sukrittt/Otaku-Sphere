@@ -23,14 +23,18 @@ export const metadata: Metadata = {
   keywords: [
     "Next.js",
     "Tailwind CSS",
+    "NextAuth.js",
+    "TypeScript",
+    "Prisma",
     "shadcn/ui",
     "Server Components",
     "Anime",
     "Watchlist",
-    "Community",
-    "Anime Reviews",
-    "Anime Rating",
-    "Statistics",
+    "Otaku Communities",
+    "Comment",
+    "Reviews",
+    "Ratings",
+    "Anime Statistics",
   ],
   authors: [
     {
