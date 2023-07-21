@@ -56,7 +56,7 @@ const Navbar: FC<NavbarProps> = async () => {
               key={item.id}
               className={cn(
                 buttonVariants({ variant: "link" }),
-                "text-sm font-normal"
+                "text-sm font-medium"
               )}
             >
               {item.label}

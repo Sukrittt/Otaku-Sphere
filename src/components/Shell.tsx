@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 interface ShellProps extends React.HTMLAttributes<HTMLDivElement> {
   as?: React.ElementType;
   children: React.ReactNode;
-  layout?: "default" | "dashboard" | "auth" | "centered";
+  layout?: "default" | "dashboard" | "auth" | "centered" | "markdown";
 }
 
 export function Shell({
@@ -22,6 +22,7 @@ export function Shell({
         layout === "default" && "container",
         layout === "auth" && "container max-w-lg",
         layout === "centered" && "mt-20 justify-center",
+        layout === "markdown" && "container max-w-3xl py-8 md:py-10 lg:py-10",
         className
       )}
       {...props}
