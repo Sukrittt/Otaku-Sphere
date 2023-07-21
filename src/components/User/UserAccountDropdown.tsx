@@ -22,9 +22,9 @@ interface UserAccountDropdownProps {
 const dropdownItem: dropdownItemType[] = [
   {
     id: 1,
-    label: "Settings",
-    Icon: Icons.settings,
-    href: "/settings",
+    label: "About",
+    Icon: Icons.info,
+    href: "/about",
   },
 ];
 

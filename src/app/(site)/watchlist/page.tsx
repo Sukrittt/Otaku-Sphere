@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { Metadata } from "next";
 
 import { db } from "@/lib/db";
 import { Shell } from "@/components/Shell";
@@ -10,6 +11,11 @@ import DragDropProvider from "@/components/DragDrop/DragDropProvider";
 
 export const dynamic = "force-dynamic";
 export const fetchCache = "force-no-store";
+
+export const metadata: Metadata = {
+  title: "Anime Watchlist",
+  description: "Drag and drop your anime to manage your watchlist.",
+};
 
 const WatchlistPage = async () => {
   const session = await getAuthSession();

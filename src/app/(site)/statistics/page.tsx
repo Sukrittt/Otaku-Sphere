@@ -1,3 +1,5 @@
+import { Metadata } from "next";
+
 import { db } from "@/lib/db";
 import { Shell } from "@/components/Shell";
 import { ExtendedAnime } from "@/types/db";
@@ -6,6 +8,11 @@ import { convertToSingleDecimalPlace, formatUrl } from "@/lib/utils";
 import { DataTable } from "@/components/Rankings/DataTable";
 import { columns } from "@/components/Rankings/TableColumn";
 import { ScrollArea } from "@/ui/ScrollArea";
+
+export const metadata: Metadata = {
+  title: "Anime Statistics",
+  description: "Displaying the top 10 anime based on the number of ratings.",
+};
 
 const StatisticsPage = async () => {
   const animes = await db.anime.findMany({

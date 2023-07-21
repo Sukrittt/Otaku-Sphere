@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import { Metadata } from "next";
 
 import { db } from "@/lib/db";
 import { Shell } from "@/components/Shell";
@@ -21,6 +22,11 @@ import AnimeCardSkeleton from "@/components/SkeletonLoaders/AnimeCardSkeleton";
 export const dynamic = "force-dynamic";
 export const fetchCache = "force-no-store";
 export const revalidate = 0;
+
+export const metadata: Metadata = {
+  title: "Anime Reviews",
+  description: "Read reviews and ratings of your favourite animes.",
+};
 
 interface AnimePageProps {
   params: {

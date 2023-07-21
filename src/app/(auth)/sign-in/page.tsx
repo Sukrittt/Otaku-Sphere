@@ -1,9 +1,15 @@
 import Link from "next/link";
+import { Metadata } from "next";
 
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/Button";
 import { UserAuthForm } from "@/components/Forms/AuthForm";
 import { Icons } from "@/components/Icons";
+
+export const metadata: Metadata = {
+  title: "Sign In",
+  description: "Sign in to your account",
+};
 
 const AuthenticationPage = () => {
   return (

@@ -1,8 +1,14 @@
 import { redirect } from "next/navigation";
+import { Metadata } from "next";
 
 import { ScrollArea } from "@/ui/ScrollArea";
 import { getAuthSession } from "@/lib/auth";
 import CommunitySidebar from "@/components/Navbar/CommunitySidebar";
+
+export const metadata: Metadata = {
+  title: "Otaku Communities",
+  description: "Connect with other anime fans and share your thoughts.",
+};
 
 interface CommunityLayoutProps {
   children: React.ReactNode;

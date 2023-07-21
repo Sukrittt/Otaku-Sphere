@@ -4,13 +4,13 @@ import "./styles/globals.css";
 
 import { Toaster } from "@/ui/Toaster";
 import Providers from "@/components/Providers";
+import { siteConfig } from "@/config";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Otaku Sphere",
-  description:
-    "An open source all-in-one Anime Platform build with everything in Next.js 13.",
+  title: siteConfig.name,
+  description: siteConfig.description,
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "white" },
     { media: "(prefers-color-scheme: dark)", color: "black" },
@@ -27,6 +27,27 @@ export const metadata: Metadata = {
     "Anime rating",
     "Statistics",
   ],
+  authors: [
+    {
+      name: "Sukrit Saha",
+      url: "https://github.com/Sukrittt",
+    },
+  ],
+  creator: "Sukrittt",
+  openGraph: {
+    type: "website",
+    locale: "en_IN",
+    url: siteConfig.url,
+    title: siteConfig.name,
+    description: siteConfig.description,
+    siteName: siteConfig.name,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteConfig.name,
+    description: siteConfig.description,
+    creator: "@SukritSaha11",
+  },
 };
 
 export default function RootLayout({

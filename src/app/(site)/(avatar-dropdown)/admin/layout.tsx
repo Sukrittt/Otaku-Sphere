@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { Metadata } from "next";
 
 import { ScrollArea } from "@/ui/ScrollArea";
 import { getAuthSession } from "@/lib/auth";
@@ -7,6 +8,11 @@ import SidebarNav from "@/components/Navbar/SidebarNav";
 interface AdminLayoutProps {
   children: React.ReactNode;
 }
+
+export const metadata: Metadata = {
+  title: "Admin Panel",
+  description: "Admins are allowed to access this page and manage the site.",
+};
 
 export default async function AdminLayout({ children }: AdminLayoutProps) {
   const session = await getAuthSession();
