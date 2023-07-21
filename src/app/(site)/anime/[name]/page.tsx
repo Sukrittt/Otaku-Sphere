@@ -66,7 +66,7 @@ const AnimePage = async ({ params }: AnimePageProps) => {
     <Shell>
       <div className="grid grid-cols-1 lg:grid-cols-3">
         <div className="flex flex-col sm:flex-row lg:flex-col gap-8">
-          <div className="flex justify-center sm:justify-start w-full sm:w-auto">
+          <div className="flex w-full sm:w-auto">
             <div className="h-96 w-72 relative">
               <Image
                 src={anime.coverImage ?? "/images/anime-placeholder.png"}
