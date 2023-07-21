@@ -65,6 +65,9 @@ const FinishedWatchingContainer = () => {
     }) => {
       onDrop(item, monitor);
     },
+    onSuccess: () => {
+      setChangedValue((prev) => !prev); //for debounce
+    },
   });
 
   useEffect(() => {
@@ -72,8 +75,6 @@ const FinishedWatchingContainer = () => {
   }, [debouncedValue, router]);
 
   const onDrop = (item: DragItemType, monitor: DropTargetMonitor) => {
-    setChangedValue((prev) => !prev); //for debounce
-
     const dropAreaType = monitor.getItemType();
 
     if (dropAreaType !== "currentDropArea") {
