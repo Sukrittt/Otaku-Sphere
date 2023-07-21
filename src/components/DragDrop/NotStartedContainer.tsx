@@ -2,7 +2,6 @@ import { DropTargetMonitor, useDrop } from "react-dnd";
 import axios, { AxiosError } from "axios";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/ui/Card";
 import { cn } from "@/lib/utils";
@@ -15,7 +14,6 @@ import { useAuthToast } from "@/hooks/useAuthToast";
 import { AnimeWatchlistUpdateType } from "@/lib/validators/anime";
 import { toast } from "@/hooks/use-toast";
 import CustomContextMenu from "@/components/Custom-UI/CustomContextMenu";
-import { useDebounce } from "@/hooks/use-debounce";
 
 const NotStartedContainer = () => {
   const { loginToast, endErrorToast } = useAuthToast();
@@ -25,9 +23,6 @@ const NotStartedContainer = () => {
   const { removeItemFromBoard: removeCurrentlyWatching } =
     useCurrentlyWatching();
   const { removeItemFromBoard: removeFinishedWatching } = useFinishedWatching();
-
-  const [changedValue, setChangedValue] = useState(false);
-  const debouncedValue = useDebounce(changedValue, 3000);
 
   const { mutate: changeAnimeStatusForUser } = useMutation({
     mutationFn: async ({ item }) => {
@@ -67,13 +62,9 @@ const NotStartedContainer = () => {
       onDrop(item, monitor);
     },
     onSuccess: () => {
-      setChangedValue((prev) => !prev); //for debounce
+      router.refresh();
     },
   });
-
-  useEffect(() => {
-    router.refresh();
-  }, [debouncedValue, router]);
 
   const onDrop = (item: DragItemType, monitor: DropTargetMonitor) => {
     const dropAreaType = monitor.getItemType();
