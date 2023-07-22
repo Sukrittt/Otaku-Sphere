@@ -101,7 +101,7 @@ const NotStartedContainer = () => {
       ref={drop}
     >
       <CardHeader className="pb-3">
-        <CardTitle className="text-center">To-Watch List</CardTitle>
+        <CardTitle className="text-center">Pending</CardTitle>
       </CardHeader>
       <div className="flex flex-col w-full pb-2">
         {board.length === 0 && (
