@@ -15,6 +15,7 @@ import { ExtendedPost } from "@/types/db";
 import { DeletePostValidatorType } from "@/lib/validators/community";
 import { toast } from "@/hooks/use-toast";
 import { useAuthToast } from "@/hooks/useAuthToast";
+import { siteConfig } from "@/config";
 
 interface PostDropdownProps {
   children: React.ReactNode;
@@ -76,7 +77,7 @@ const PostDropdown: FC<PostDropdownProps> = ({ children, post }) => {
 
   const handleShare = async () => {
     try {
-      await navigator.clipboard.writeText(`http://localhost:3000${pathname}`);
+      await navigator.clipboard.writeText(`${siteConfig.url}${pathname}`);
 
       toast({
         description: "Link copied to clipboard.",

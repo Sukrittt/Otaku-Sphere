@@ -179,7 +179,7 @@ const PrivacyPage = () => {
             <Link
               href="/terms"
               className="font-semibold underline underline-offset-4"
-            >{`${siteConfig.url}terms`}</Link>
+            >{`${siteConfig.url}/terms`}</Link>
             .
           </p>
         </div>
@@ -223,7 +223,7 @@ const PrivacyPage = () => {
           <Link
             href="/terms"
             className="font-semibold underline underline-offset-4 text-sm"
-          >{`${siteConfig.url}contact`}</Link>
+          >{`${siteConfig.url}/contact`}</Link>
         </div>
       </div>
 
