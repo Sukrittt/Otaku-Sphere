@@ -12,7 +12,7 @@ import { env } from "@/env.mjs";
 
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
-  title: "Anime Statistics",
+  title: "Statistics",
   description: "Displaying the top 10 anime based on the number of ratings.",
 };
 
