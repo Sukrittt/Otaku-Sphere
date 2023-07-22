@@ -106,7 +106,7 @@ const AnimePage = async ({ params }: AnimePageProps) => {
           </div>
         </div>
         <div className="flex flex-col gap-y-4 col-span-2 mt-8">
-          <div className="flex items-end gap-x-3">
+          <div className="flex flex-col gap-x-3 gap-y-1">
             <h1 className="text-4xl font-bold leading-tight tracking-tighter lg:text-5xl lg:leading[1.1]">
               {anime.name}
             </h1>
