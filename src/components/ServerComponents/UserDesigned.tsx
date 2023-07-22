@@ -1,25 +1,17 @@
+import { Anime, Rating } from "@prisma/client";
+
 import { db } from "@/lib/db";
 import { AnimeCard } from "@/components/Cards/AnimeCard";
-import { getAuthSession } from "@/lib/auth";
 
-const UserDesigned = async () => {
-  const session = await getAuthSession();
+type ExtendedRating = Rating & {
+  anime: Anime;
+};
 
-  const userHighestRatedAnime = await db.rating.findFirst({
-    where: {
-      userId: session?.user?.id,
-    },
-    take: 1,
-    orderBy: {
-      rating: "desc",
-    },
-    include: {
-      anime: true,
-    },
-  });
-
-  if (!userHighestRatedAnime) return;
-
+const UserDesigned = async ({
+  userHighestRatedAnime,
+}: {
+  userHighestRatedAnime: ExtendedRating;
+}) => {
   const animes = await db.anime.findMany({
     take: 5,
     where: {
@@ -30,7 +22,7 @@ const UserDesigned = async () => {
     },
   });
 
-  if (animes.length === 0 || !session) return;
+  if (animes.length === 0) return;
 
   return (
     <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-5">

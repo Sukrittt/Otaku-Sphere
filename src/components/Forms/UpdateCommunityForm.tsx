@@ -228,7 +228,12 @@ const UpdateCommunityForm: FC<UpdateCommunityFormProps> = ({ community }) => {
           )}
         />
         <div className="flex gap-x-3 items-center">
-          <Button className="w-fit" disabled={isLoading} type="submit">
+          <Button
+            className="w-fit"
+            disabled={isLoading}
+            type="submit"
+            size="sm"
+          >
             {isLoading && (
               <Icons.spinner
                 className="mr-2 h-4 w-4 animate-spin"

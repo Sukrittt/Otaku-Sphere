@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { Metadata } from "next";
 
 import { db } from "@/lib/db";
 import CreatePostForm from "@/components/Forms/CreatePostForm";
@@ -10,6 +11,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/ui/Card";
+import { env } from "@/env.mjs";
+
+export const metadata: Metadata = {
+  metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
+  title: "Create a post",
+  description: "Create a post to share with the community.",
+};
 
 interface CreatePostPageProps {
   params: {

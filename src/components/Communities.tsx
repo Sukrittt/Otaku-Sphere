@@ -82,6 +82,14 @@ const Communities: FC<CommunitiesProps> = ({ initialCommunites, category }) => {
     }
   }, [entry, fetchNextPage]);
 
+  if (communities.length === 0) {
+    return (
+      <p className="text-muted-foreground text-sm text-center">
+        No communities created yet.
+      </p>
+    );
+  }
+
   return (
     <div className="flex flex-col gap-y-4">
       <div className="flex gap-x-2 items-center px-2">

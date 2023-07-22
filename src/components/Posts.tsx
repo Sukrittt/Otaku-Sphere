@@ -11,9 +11,10 @@ import PostCard from "@/components/Cards/PostCard";
 
 interface PostsProps {
   initialPosts: ExtendedPost[];
+  communityId: string;
 }
 
-const Posts: FC<PostsProps> = ({ initialPosts }) => {
+const Posts: FC<PostsProps> = ({ initialPosts, communityId }) => {
   const lastPostRef = useRef<HTMLElement>(null);
   const [posts, setPosts] = useState<ExtendedPost[]>(initialPosts);
 
@@ -25,9 +26,9 @@ const Posts: FC<PostsProps> = ({ initialPosts }) => {
   const { data, fetchNextPage, isFetchingNextPage } = useInfiniteQuery<
     ExtendedPost[]
   >(
-    [`posts-infinite-query-${initialPosts[0].communityId}`],
+    [`posts-infinite-query-${communityId}`],
     async ({ pageParam = 1 }) => {
-      const queryUrl = `/api/post?limit=${INFINITE_SCROLLING_PAGINATION_RESULTS}&page=${pageParam}&communityId=${initialPosts[0].communityId}`;
+      const queryUrl = `/api/post?limit=${INFINITE_SCROLLING_PAGINATION_RESULTS}&page=${pageParam}&communityId=${communityId}`;
 
       const { data } = await axios(queryUrl);
 
@@ -50,6 +51,14 @@ const Posts: FC<PostsProps> = ({ initialPosts }) => {
       fetchNextPage();
     }
   }, [entry, fetchNextPage]);
+
+  if (posts.length === 0) {
+    return (
+      <p className="text-muted-foreground text-sm text-center">
+        No posts created yet.
+      </p>
+    );
+  }
 
   return (
     <div className="flex flex-col gap-y-4">

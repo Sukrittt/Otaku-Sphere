@@ -77,7 +77,7 @@ const CommunityCategoryPage = async ({
           </Link>
         )}
       </div>
-      <Posts initialPosts={community.post} />
+      <Posts initialPosts={community.post} communityId={communityId} />
     </Shell>
   );
 };
