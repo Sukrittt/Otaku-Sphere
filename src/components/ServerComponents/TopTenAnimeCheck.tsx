@@ -15,12 +15,10 @@ const TopTenAnimeCheck = async ({ name }: { name: string }) => {
   if (inTopTen < 0) return null;
 
   return (
-    <>
-      <span>·</span>
-      <Link href="/statistics" className="hover:underline">{`Rank ${
-        inTopTen + 1
-      }`}</Link>
-    </>
+    <Link
+      href="/statistics"
+      className="hover:underline underline-offset-4"
+    >{`Rank ${inTopTen + 1}`}</Link>
   );
 };
 

@@ -106,16 +106,15 @@ const AnimePage = async ({ params }: AnimePageProps) => {
           </div>
         </div>
         <div className="flex flex-col gap-y-4 col-span-2 mt-8">
-          <div className="flex flex-col gap-x-3 gap-y-1">
-            <h1 className="text-4xl font-bold leading-tight tracking-tighter lg:text-5xl lg:leading[1.1]">
-              {anime.name}
-            </h1>
-            <div className="space-x-2 text-xl text-zinc-400 font-medium">
-              <span>{anime.releaseYear}</span>
+          <div className="flex flex-col">
+            <div className="text-md text-muted-foreground font-semibold">
               <Suspense>
                 <TopTenAnimeCheck name={name} />
               </Suspense>
             </div>
+            <h1 className="text-4xl font-bold leading-tight tracking-tighter lg:text-5xl lg:leading[1.1]">
+              {anime.name}
+            </h1>
           </div>
           <div className="flex gap-x-3 items-center text-xs font-bold">
             <span>{anime.director}</span>
