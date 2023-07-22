@@ -29,7 +29,7 @@ An open source all-in-one Anime Platform build with everything in Next.js 13.
 1. Clone the repository
 
 ```bash
-git clone https://github.com/sadmann7/skateshop.git
+git clone https://github.com/Sukrittt/Otaku-Sphere.git
 ```
 
 2. Install dependencies using pnpm
