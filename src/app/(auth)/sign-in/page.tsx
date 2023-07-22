@@ -6,6 +6,7 @@ import { buttonVariants } from "@/components/ui/Button";
 import { UserAuthForm } from "@/components/Forms/AuthForm";
 import { Icons } from "@/components/Icons";
 import { env } from "@/env.mjs";
+import { dialogue } from "@/data";
 
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
@@ -14,6 +15,8 @@ export const metadata: Metadata = {
 };
 
 const AuthenticationPage = () => {
+  const randomDialogue = dialogue[Math.floor(Math.random() * dialogue.length)];
+
   return (
     <div className="container relative min-h-screen flex-col items-center justify-center grid lg:max-w-none lg:grid-cols-2 lg:px-0">
       <div className="relative hidden h-full flex-col bg-muted p-10 text-white dark:border-r lg:flex">
@@ -33,12 +36,8 @@ const AuthenticationPage = () => {
         </div>
         <div className="relative z-20 mt-auto text-zinc-800 dark:text-white">
           <blockquote className="space-y-2">
-            <p className="text-lg">
-              &ldquo;This library has saved me countless hours of work and
-              helped me deliver stunning designs to my clients faster than ever
-              before.&rdquo;
-            </p>
-            <footer className="text-sm">Sofia Davis</footer>
+            <p className="text-lg">&ldquo;{randomDialogue.message}&rdquo;</p>
+            <footer className="text-sm">{randomDialogue.character}</footer>
           </blockquote>
         </div>
       </div>
