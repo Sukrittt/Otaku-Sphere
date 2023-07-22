@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
   title: {
     default: siteConfig.name,
-    template: `%s | ${siteConfig.name}`,
+    template: `%s - ${siteConfig.name}`,
   },
   description: siteConfig.description,
   themeColor: [
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     "Server Components",
     "Anime",
     "Watchlist",
-    "Otaku Communities",
+    "Communities",
     "Comment",
     "Reviews",
     "Ratings",

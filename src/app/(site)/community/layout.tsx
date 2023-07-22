@@ -8,7 +8,7 @@ import { env } from "@/env.mjs";
 
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
-  title: "Otaku Communities",
+  title: "Communities",
   description: "Connect with other anime fans and share your thoughts.",
 };
 
