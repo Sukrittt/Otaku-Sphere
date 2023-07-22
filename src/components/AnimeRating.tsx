@@ -38,7 +38,7 @@ const AnimeRating: FC<AnimeRatingProps> = ({
     setRating(index);
   };
 
-  const { mutate: rate } = useMutation({
+  const { mutate: rate, isLoading } = useMutation({
     mutationFn: async (index: number) => {
       const payload: RateAnimeSchemaType = { id: animeId, rating: index };
 
@@ -65,18 +65,25 @@ const AnimeRating: FC<AnimeRatingProps> = ({
     },
     onSuccess: () => {
       router.refresh();
+      toast({
+        description: "Your rating was recorded successfully.",
+      });
     },
     onMutate: (index: number) => {
-      handleRatingClick(index);
       if (session) {
-        toast({
-          description: "Your rating was recorded successfully.",
-        });
+        handleRatingClick(index);
       }
     },
   });
 
   const handleRateAnime = (index: number) => {
+    if (isLoading) {
+      toast({
+        description: "Please wait for the previous request to finish.",
+      });
+      return;
+    }
+
     rate(index);
   };
 
