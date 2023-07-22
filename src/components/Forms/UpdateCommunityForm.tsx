@@ -117,7 +117,7 @@ const UpdateCommunityForm: FC<UpdateCommunityFormProps> = ({ community }) => {
     },
   });
 
-  const { mutate: deleteAnime, isLoading: deleteLoader } = useMutation({
+  const { mutate: deleteCommunity, isLoading: deleteLoader } = useMutation({
     mutationFn: async () => {
       const payload: IdAnimeSchemaType = { id: community.id };
 
@@ -245,7 +245,7 @@ const UpdateCommunityForm: FC<UpdateCommunityFormProps> = ({ community }) => {
           </Button>
           <CustomAlertBox
             description="This action cannot be undone. This will permanently delete this community from our servers."
-            onClick={() => deleteAnime()}
+            onClick={() => deleteCommunity()}
           >
             <span
               className={cn(

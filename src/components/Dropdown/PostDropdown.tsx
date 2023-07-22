@@ -65,6 +65,7 @@ const PostDropdown: FC<PostDropdownProps> = ({ children, post, sessionId }) => {
     },
     onSuccess: () => {
       router.push(`/community/${post.community.category}/${post.community.id}`);
+      router.refresh();
       toast({
         description: "Post deleted successfully.",
       });
