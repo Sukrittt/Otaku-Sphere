@@ -51,6 +51,33 @@ const AboutPage = () => {
       </div>
 
       <div>
+        <h1 className="text-xl font-semibold tracking-tight">Credits</h1>
+        <Separator className="my-2" />
+        <ul className="space-y-2 mx-5 mt-2 list-disc">
+          <li>
+            <Link
+              href="https://ui.shadcn.com/"
+              target="_blank"
+              className="underline font-medium tracking-tight underline-offset-4"
+            >
+              shadcn/ui
+            </Link>{" "}
+            - For the awesome reusable components library
+          </li>
+          <li>
+            <Link
+              href="https://aniwatch.to/home"
+              target="_blank"
+              className="underline font-medium tracking-tight underline-offset-4"
+            >
+              aniwatch.to
+            </Link>{" "}
+            - For anime data
+          </li>
+        </ul>
+      </div>
+
+      <div>
         <h1 className="text-xl font-semibold tracking-tight">Key features</h1>
         <Separator className="my-2" />
         <ul className="space-y-2 mx-5 mt-2">
