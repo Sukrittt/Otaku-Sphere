@@ -20,9 +20,10 @@ import { siteConfig } from "@/config";
 interface PostDropdownProps {
   children: React.ReactNode;
   post: Pick<ExtendedPost, "id" | "creator" | "community">;
+  sessionId: string;
 }
 
-const PostDropdown: FC<PostDropdownProps> = ({ children, post }) => {
+const PostDropdown: FC<PostDropdownProps> = ({ children, post, sessionId }) => {
   const router = useRouter();
   const pathname = usePathname();
 
@@ -100,12 +101,14 @@ const PostDropdown: FC<PostDropdownProps> = ({ children, post }) => {
             Share
           </div>
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => deletePost()}>
-          <div className="flex items-center gap-x-2">
-            <Icons.delete className="h-4 w-4" />
-            Delete
-          </div>
-        </DropdownMenuItem>
+        {post.creator.id === sessionId && (
+          <DropdownMenuItem onClick={() => deletePost()}>
+            <div className="flex items-center gap-x-2">
+              <Icons.delete className="h-4 w-4" />
+              Delete
+            </div>
+          </DropdownMenuItem>
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
   );

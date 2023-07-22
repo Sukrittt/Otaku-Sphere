@@ -73,18 +73,16 @@ const IndividualPostPage = async ({ params }: IndividualPostPageProps) => {
               >
                 Go back
               </Link>
-              {post.creator.id === session.user.id && (
-                <PostDropdown post={post}>
-                  <div
-                    className={buttonVariants({
-                      variant: "ghost",
-                      size: "icon",
-                    })}
-                  >
-                    <Icons.options className="h-4 w-4" />
-                  </div>
-                </PostDropdown>
-              )}
+              <PostDropdown post={post} sessionId={session.user.id}>
+                <div
+                  className={buttonVariants({
+                    variant: "ghost",
+                    size: "icon",
+                  })}
+                >
+                  <Icons.options className="h-4 w-4" />
+                </div>
+              </PostDropdown>
             </div>
             <div>
               <span className="text-sm font-medium text-muted-foreground">
