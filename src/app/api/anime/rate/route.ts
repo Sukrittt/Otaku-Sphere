@@ -40,6 +40,8 @@ export async function POST(req: Request) {
         await db.rating.delete({
           where: {
             id: alreadyRated.id,
+            userId: session.user.id,
+            animeId: id,
           },
         });
 
@@ -48,6 +50,8 @@ export async function POST(req: Request) {
         await db.rating.update({
           where: {
             id: alreadyRated.id,
+            userId: session.user.id,
+            animeId: id,
           },
           data: {
             rating,
