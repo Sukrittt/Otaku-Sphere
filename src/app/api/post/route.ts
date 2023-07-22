@@ -71,9 +71,7 @@ export async function GET(req: Request) {
         communityId,
       },
       orderBy: {
-        comment: {
-          _count: "desc",
-        },
+        createdAt: "desc",
       },
       include: {
         comment: true,

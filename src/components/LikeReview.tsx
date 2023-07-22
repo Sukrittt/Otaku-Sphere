@@ -25,7 +25,7 @@ const LikeReview: FC<LikeReviewProps> = ({ initialLike, likes, reviewId }) => {
   const [numberOfLikes, setNumberOfLikes] = useState(likes);
   const previousNumberOfLikes = usePrevious(numberOfLikes);
 
-  const { mutate: likeReview } = useMutation({
+  const { mutate: likeReview, isLoading } = useMutation({
     mutationFn: async () => {
       const payload: ReviewLikeValidatorType = { reviewId };
 
@@ -62,13 +62,24 @@ const LikeReview: FC<LikeReviewProps> = ({ initialLike, likes, reviewId }) => {
     },
   });
 
+  const handleReviewAnime = () => {
+    if (isLoading) {
+      toast({
+        description: "Please wait for the previous request to finish.",
+      });
+      return;
+    }
+
+    likeReview();
+  };
+
   return (
     <div className="flex items-center gap-x-1.5">
       <Icons.like
         className={cn("h-3.5 w-3.5 cursor-pointer", {
           "text-red-600": isLiked,
         })}
-        onClick={() => likeReview()}
+        onClick={handleReviewAnime}
       />
       <span className="text-sm text-muted-foreground">{numberOfLikes}</span>
     </div>

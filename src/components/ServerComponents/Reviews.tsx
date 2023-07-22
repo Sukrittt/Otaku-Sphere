@@ -25,11 +25,9 @@ const Reviews = async ({ animeId }: ReviewsProps) => {
       user: true,
       reviewLikes: true,
     },
-    take: 3,
+    take: 5,
     orderBy: {
-      reviewLikes: {
-        _count: "desc",
-      },
+      createdAt: "desc",
     },
   });
 

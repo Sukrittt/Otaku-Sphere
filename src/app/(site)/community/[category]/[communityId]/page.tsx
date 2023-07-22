@@ -28,9 +28,7 @@ const CommunityCategoryPage = async ({
       creator: true,
       post: {
         orderBy: {
-          comment: {
-            _count: "desc",
-          },
+          createdAt: "desc",
         },
         take: INFINITE_SCROLLING_PAGINATION_RESULTS,
         include: {
