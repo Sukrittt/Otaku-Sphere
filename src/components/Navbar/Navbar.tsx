@@ -28,8 +28,8 @@ const Navbar: FC<NavbarProps> = async () => {
     },
     {
       id: 3,
-      label: "Statistics",
-      href: "/statistics",
+      label: "Leaderboard",
+      href: "/leaderboard",
     },
   ];
 

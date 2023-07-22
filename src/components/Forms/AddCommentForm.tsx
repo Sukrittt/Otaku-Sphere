@@ -36,7 +36,7 @@ const AddCommentForm = ({ postId }: { postId: string }) => {
     },
   });
 
-  const { mutate: createCommunity, isLoading } = useMutation({
+  const { mutate: addComment, isLoading } = useMutation({
     mutationFn: async (content: CommentValidatorType) => {
       const payload: ServerCommentValidatorType = {
         text: content.text,
@@ -67,6 +67,12 @@ const AddCommentForm = ({ postId }: { postId: string }) => {
             variant: "destructive",
           });
         }
+        if (statusCode === 422) {
+          return toast({
+            description: "Comment cannot be empty.",
+            variant: "destructive",
+          });
+        }
       }
 
       endErrorToast();
@@ -79,7 +85,7 @@ const AddCommentForm = ({ postId }: { postId: string }) => {
   });
 
   function onSubmit(content: CommentValidatorType) {
-    createCommunity(content);
+    addComment(content);
   }
 
   return (
@@ -96,6 +102,12 @@ const AddCommentForm = ({ postId }: { postId: string }) => {
               <FormLabel>Your comment</FormLabel>
               <FormControl>
                 <Textarea
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" && !e.shiftKey && !isLoading) {
+                      e.preventDefault();
+                      addComment(form.getValues());
+                    }
+                  }}
                   placeholder="Type your comment here."
                   disabled={isLoading}
                   {...field}

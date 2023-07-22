@@ -201,6 +201,12 @@ const UpdateCommunityForm: FC<UpdateCommunityFormProps> = ({ community }) => {
                 <Textarea
                   placeholder="Type community description here."
                   disabled={isLoading}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" && !e.shiftKey && !isLoading) {
+                      e.preventDefault();
+                      updateCommunity(form.getValues());
+                    }
+                  }}
                   {...field}
                 />
               </FormControl>

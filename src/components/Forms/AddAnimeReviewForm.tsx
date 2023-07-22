@@ -44,7 +44,7 @@ const AddAnimeReviewForm: FC<AddAnimeReviewFormProps> = ({ animeId }) => {
     },
   });
 
-  const { mutate: createCommunity, isLoading } = useMutation({
+  const { mutate: addReview, isLoading } = useMutation({
     mutationFn: async (content: AnimeReviewSchemaType) => {
       const payload: AnimeReviewServerSchemaType = {
         animeId,
@@ -88,7 +88,7 @@ const AddAnimeReviewForm: FC<AddAnimeReviewFormProps> = ({ animeId }) => {
   });
 
   function onSubmit(content: AnimeReviewSchemaType) {
-    createCommunity(content);
+    addReview(content);
   }
 
   return (
@@ -126,6 +126,12 @@ const AddAnimeReviewForm: FC<AddAnimeReviewFormProps> = ({ animeId }) => {
                   placeholder="Type your review here."
                   large
                   disabled={isLoading}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" && !e.shiftKey && !isLoading) {
+                      e.preventDefault();
+                      addReview(form.getValues());
+                    }
+                  }}
                   {...field}
                 />
               </FormControl>

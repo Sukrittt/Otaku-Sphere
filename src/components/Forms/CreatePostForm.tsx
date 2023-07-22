@@ -43,7 +43,7 @@ const CreatePostForm: FC<CreatePostFormProps> = ({ category, communityId }) => {
     },
   });
 
-  const { mutate: createCommunity, isLoading } = useMutation({
+  const { mutate: createPost, isLoading } = useMutation({
     mutationFn: async (content: CreatePostValidatorType) => {
       const payload: CreatePostValidatorType = {
         title: content.title,
@@ -74,6 +74,12 @@ const CreatePostForm: FC<CreatePostFormProps> = ({ category, communityId }) => {
         if (statusCode === 401) {
           return loginToast();
         }
+        if (statusCode === 422) {
+          return toast({
+            description: "Title and message cannot be empty.",
+            variant: "destructive",
+          });
+        }
       }
 
       endErrorToast();
@@ -86,7 +92,7 @@ const CreatePostForm: FC<CreatePostFormProps> = ({ category, communityId }) => {
   });
 
   function onSubmit(content: CreatePostValidatorType) {
-    createCommunity(content);
+    createPost(content);
   }
 
   return (
@@ -123,6 +129,12 @@ const CreatePostForm: FC<CreatePostFormProps> = ({ category, communityId }) => {
                 <Textarea
                   placeholder="Type your message to everyone."
                   disabled={isLoading}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" && !e.shiftKey && !isLoading) {
+                      e.preventDefault();
+                      createPost(form.getValues());
+                    }
+                  }}
                   {...field}
                 />
               </FormControl>

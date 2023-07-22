@@ -25,7 +25,7 @@ const LikePost: FC<LikePostProps> = ({ initialLike, likes, postId }) => {
   const [numberOfLikes, setNumberOfLikes] = useState(likes);
   const previousNumberOfLikes = usePrevious(numberOfLikes);
 
-  const { mutate: likePost } = useMutation({
+  const { mutate: likePost, isLoading } = useMutation({
     mutationFn: async () => {
       const payload: LikeValidatorType = { postId };
 
@@ -68,7 +68,15 @@ const LikePost: FC<LikePostProps> = ({ initialLike, likes, postId }) => {
         className={cn("h-3.5 w-3.5 cursor-pointer", {
           "text-red-600": isLiked,
         })}
-        onClick={() => likePost()}
+        onClick={() => {
+          if (isLoading) {
+            toast({
+              description: "Please wait for the previous request to finish.",
+            });
+            return;
+          }
+          likePost();
+        }}
       />
       <span className="text-sm text-muted-foreground">{numberOfLikes}</span>
     </div>

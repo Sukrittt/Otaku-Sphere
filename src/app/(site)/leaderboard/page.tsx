@@ -12,7 +12,7 @@ import { env } from "@/env.mjs";
 
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
-  title: "Statistics",
+  title: "Leaderboard",
   description: "Displaying the top 10 anime based on the number of ratings.",
 };
 
@@ -38,16 +38,44 @@ const StatisticsPage = async () => {
     return convertToSingleDecimalPlace(rawRating, 2);
   };
 
-  const structuredRankingData: AnimeRanking[] = animes.flatMap(
-    (anime, index) => ({
-      anime: anime.name,
-      director: anime.director,
-      genre: anime.genre,
-      rating: calculatedRating(anime),
-      rank: index + 1,
-      votes: anime.rating.length.toLocaleString(),
-    })
-  );
+  const structuredRankingData: AnimeRanking[] = [];
+
+  animes.forEach((anime, index, array) => {
+    if (index === 0) {
+      structuredRankingData.push({
+        anime: anime.name,
+        director: anime.director,
+        genre: anime.genre,
+        rating: calculatedRating(anime),
+        rank: 1,
+        votes: anime.rating.length.toLocaleString(),
+      });
+    } else {
+      const previousAnime = array[index - 1];
+      const currentRating = calculatedRating(anime);
+      const previousRating = calculatedRating(previousAnime);
+
+      if (currentRating === previousRating) {
+        structuredRankingData.push({
+          anime: anime.name,
+          director: anime.director,
+          genre: anime.genre,
+          rating: currentRating,
+          rank: structuredRankingData[index - 1].rank,
+          votes: anime.rating.length.toLocaleString(),
+        });
+      } else {
+        structuredRankingData.push({
+          anime: anime.name,
+          director: anime.director,
+          genre: anime.genre,
+          rating: currentRating,
+          rank: index + 1,
+          votes: anime.rating.length.toLocaleString(),
+        });
+      }
+    }
+  });
 
   const animeHrefs: string[] = animes.flatMap(
     (anime) => `/anime/${formatUrl(anime.name)}`

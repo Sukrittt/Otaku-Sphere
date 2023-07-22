@@ -63,7 +63,7 @@ const UserAccountDropdown: FC<UserAccountDropdownProps> = ({ session }) => {
         <DropdownMenuSeparator />
 
         {dropdownItem.map((item) => (
-          <DropdownMenuItem key={item.id} asChild>
+          <DropdownMenuItem key={item.id} asChild className="cursor-pointer">
             <Link href={item.href}>
               <div className="flex items-center gap-x-2">
                 <item.Icon className="h-4 w-4" />

@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     "comment",
     "reviews",
     "Ratings",
-    "Statistics",
+    "Leaderboard",
   ],
   authors: [
     {

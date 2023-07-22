@@ -1,5 +1,5 @@
 "use client";
-import { FC, useState } from "react";
+import { useState } from "react";
 import axios, { AxiosError } from "axios";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
@@ -27,9 +27,7 @@ import { Combobox } from "@/ui/ComboBox";
 import { categories } from "@/data/community";
 import { Textarea } from "@/ui/Textarea";
 
-interface CreateCommunityFormProps {}
-
-const CreateCommunityForm: FC<CreateCommunityFormProps> = ({}) => {
+const CreateCommunityForm = () => {
   const router = useRouter();
   const { loginToast, endErrorToast } = useAuthToast();
 
@@ -71,13 +69,19 @@ const CreateCommunityForm: FC<CreateCommunityFormProps> = ({}) => {
         if (statusCode === 401) {
           return loginToast();
         }
+        if (statusCode === 422) {
+          return toast({
+            description: "Community name and description cannot be empty.",
+            variant: "destructive",
+          });
+        }
       }
 
       endErrorToast();
     },
     onMutate: () => {
       toast({
-        description: "Please wait while we are creating this community.",
+        description: "Please wait while we are creating your community.",
       });
     },
   });
@@ -120,6 +124,12 @@ const CreateCommunityForm: FC<CreateCommunityFormProps> = ({}) => {
                 <Textarea
                   placeholder="Little bit about this community."
                   disabled={isLoading}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" && !e.shiftKey && !isLoading) {
+                      e.preventDefault();
+                      createCommunity(form.getValues());
+                    }
+                  }}
                   {...field}
                 />
               </FormControl>

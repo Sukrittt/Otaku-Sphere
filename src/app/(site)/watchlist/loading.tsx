@@ -5,15 +5,15 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/ui/Card";
 const WatchlistContainers = [
   {
     id: 1,
-    title: "To-Watch List",
+    title: "Pending",
   },
   {
     id: 2,
-    title: "Currently Watching",
+    title: "In Progress",
   },
   {
     id: 3,
-    title: "Finished Watching",
+    title: "Completed",
   },
 ];
 

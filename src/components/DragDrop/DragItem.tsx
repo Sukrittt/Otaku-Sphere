@@ -1,6 +1,6 @@
 import { useDrag } from "react-dnd";
 
-import { cn } from "@/lib/utils";
+import { cn, formatUrl } from "@/lib/utils";
 import { Card, CardHeader } from "@/ui/Card";
 import { DragItemType } from "@/types/item-type";
 
@@ -19,13 +19,15 @@ export const DragItem = ({ item }: { item: DragItemType }) => {
   }));
 
   return (
-    <Card
-      ref={drag}
-      className={cn({
-        "opacity-50": isDragging,
-      })}
-    >
-      <CardHeader className="py-4">{item.name}</CardHeader>
-    </Card>
+    <a href={`/anime/${formatUrl(item.name)}`}>
+      <Card
+        ref={drag}
+        className={cn({
+          "opacity-50": isDragging,
+        })}
+      >
+        <CardHeader className="py-4">{item.name}</CardHeader>
+      </Card>
+    </a>
   );
 };
