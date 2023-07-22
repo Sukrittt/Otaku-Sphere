@@ -14,6 +14,9 @@ export const metadata: Metadata = {
   description: "Sign in to your account",
 };
 
+export const dynamic = "force-dynamic";
+export const fetchCache = "force-no-store";
+
 const AuthenticationPage = () => {
   const randomDialogue = dialogue[Math.floor(Math.random() * dialogue.length)];
 
