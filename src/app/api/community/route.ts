@@ -75,7 +75,7 @@ export async function GET(req: Request) {
     if (!limit && !page && query) {
       whereClause = {
         name: {
-          startsWith: query,
+          contains: query,
         },
       };
     } else if (limit && page) {

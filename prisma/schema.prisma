@@ -99,8 +99,8 @@ model Anime {
 
   createdAt DateTime @default(now())
 
-  @@index([creatorId])
   @@index([name])
+  @@index([creatorId])
 }
 
 model Reviews {

@@ -35,7 +35,9 @@ const Searchbar = () => {
     queryFn: async () => {
       if (!query) return [];
 
-      const { data } = await axios(`/api/anime/search?q=${query}`);
+      const trimmedQuery = query.trimEnd();
+
+      const { data } = await axios(`/api/anime/search?q=${trimmedQuery}`);
 
       return data as { id: string; name: string }[];
     },
