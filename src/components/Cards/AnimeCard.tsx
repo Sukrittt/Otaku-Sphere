@@ -54,9 +54,7 @@ export function AnimeCard({ anime, className, ...props }: AnimeCardProps) {
           </AspectRatio>
         </CardHeader>
         <CardContent className="grid gap-[2px] p-4">
-          <CardTitle className="line-clamp-1 py-[3px] leading-[1.1]">
-            {anime.name}
-          </CardTitle>
+          <CardTitle className="truncate py-[2px]">{anime.name}</CardTitle>
           <CardDescription className="line-clamp-2">
             {formatDescription(anime.description, 100)}
           </CardDescription>
