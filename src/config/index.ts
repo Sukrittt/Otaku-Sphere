@@ -5,10 +5,11 @@ export const siteConfig = {
   url: "https://otaku-sphere.vercel.app", //change this url
 };
 
-export const INFINITE_SCROLLING_PAGINATION_RESULTS = 5;
-export const INFINITE_SCROLLING_PAGINATION_ANIME = 3;
-
 // url: "https://otakusphere.io",
+
+export const INFINITE_SCROLLING_PAGINATION_ANIME = 3;
+export const INFINITE_SCROLLING_PAGINATION_RESULTS = 5;
+export const INFINITE_SCROLLING_PAGINATION_LEADERBOARD = 10;
 
 export const techStack = [
   {
