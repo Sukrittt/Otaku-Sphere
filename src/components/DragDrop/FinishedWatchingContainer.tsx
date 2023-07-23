@@ -44,7 +44,9 @@ const FinishedWatchingContainer = () => {
         }
         if (statusCode === 404) {
           return toast({
+            title: "Please refresh the page.",
             description: "Anime not found in the watchlist.",
+            variant: "destructive",
           });
         }
       }
