@@ -27,6 +27,7 @@ const AnimeRating: FC<AnimeRatingProps> = ({
   const router = useRouter();
 
   const [rating, setRating] = useState(userRating ?? 0);
+  const [hoveredRating, setHoveredRating] = useState(rating ?? 0);
   const previousRating = usePrevious(rating);
 
   const handleRatingClick = (index: number) => {
@@ -36,6 +37,7 @@ const AnimeRating: FC<AnimeRatingProps> = ({
     }
 
     setRating(index);
+    setHoveredRating(index);
   };
 
   const { mutate: rate, isLoading } = useMutation({
@@ -94,7 +96,8 @@ const AnimeRating: FC<AnimeRatingProps> = ({
       </span>
       <div className="flex gap-x-3 w-full text-zinc-600 dark:text-muted">
         {Array.from({ length: 10 }, (_, i) => i + 1).map((index) => {
-          const isFilled = index <= rating ? true : false;
+          const isFilled = index <= (hoveredRating || rating) ? true : false;
+
           return (
             <Icons.star
               key={index}
@@ -102,6 +105,8 @@ const AnimeRating: FC<AnimeRatingProps> = ({
                 "text-yellow-700": isFilled,
               })}
               onClick={() => handleRateAnime(index)}
+              onMouseEnter={() => setHoveredRating(index)}
+              onMouseLeave={() => setHoveredRating(rating ?? 0)}
             />
           );
         })}
