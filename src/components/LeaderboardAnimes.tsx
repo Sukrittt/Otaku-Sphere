@@ -115,6 +115,7 @@ const LeaderboardAnimes: FC<LeaderboardAnimesProps> = ({
         <Button
           onClick={() => fetchNextPage()}
           size="sm"
+          variant="outline"
           disabled={isFetchingNextPage}
         >
           {isFetchingNextPage && (
