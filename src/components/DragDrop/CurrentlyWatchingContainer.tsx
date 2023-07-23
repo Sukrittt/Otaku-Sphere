@@ -100,7 +100,7 @@ const CurrentlyWatchingContainer = () => {
       ref={drop}
     >
       <CardHeader className="pb-3">
-        <CardTitle className="text-center">In Progress</CardTitle>
+        <CardTitle className="text-center">Watching</CardTitle>
       </CardHeader>
       <div className="flex flex-col w-full pb-2">
         {board.length === 0 && (

@@ -9,7 +9,7 @@ const WatchlistContainers = [
   },
   {
     id: 2,
-    title: "In Progress",
+    title: "Watching",
   },
   {
     id: 3,
