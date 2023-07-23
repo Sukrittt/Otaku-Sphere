@@ -8,10 +8,10 @@ import { AnimeRanking } from "@/types/item-type";
 import { convertToSingleDecimalPlace, formatUrl } from "@/lib/utils";
 import { DataTable } from "@/components/Rankings/DataTable";
 import { columns } from "@/components/Rankings/TableColumn";
-import { ScrollArea } from "@/ui/ScrollArea";
 import { INFINITE_SCROLLING_PAGINATION_LEADERBOARD } from "@/config";
 import { Button } from "./ui/Button";
 import { Icons } from "./Icons";
+import { ScrollArea } from "./ui/ScrollArea";
 
 interface LeaderboardAnimesProps {
   initialLeaderBoardAnimes: ExtendedAnime[];
@@ -101,15 +101,17 @@ const LeaderboardAnimes: FC<LeaderboardAnimesProps> = ({
   }, [data, initialLeaderBoardAnimes]);
 
   return (
-    <div className="space-y-4">
+    <>
       <ScrollArea className="w-full" orientation="horizontal">
-        <DataTable
-          columns={columns}
-          data={structuredRankingData}
-          animeHrefs={animeHrefs}
-        />
+        <div className="w-full">
+          <DataTable
+            columns={columns}
+            data={structuredRankingData}
+            animeHrefs={animeHrefs}
+          />
+        </div>
       </ScrollArea>
-      <div className="w-full flex justify-end">
+      <div className="w-full flex justify-end -mt-2">
         <Button
           onClick={() => fetchNextPage()}
           size="sm"
@@ -121,7 +123,7 @@ const LeaderboardAnimes: FC<LeaderboardAnimesProps> = ({
           Show more
         </Button>
       </div>
-    </div>
+    </>
   );
 };
 

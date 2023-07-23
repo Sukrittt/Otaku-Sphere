@@ -11,6 +11,7 @@ import { userColumns } from "@/components/Rankings/TableColumn";
 import { UserDisplay } from "@/types/item-type";
 import { ExtendedUser } from "@/types/db";
 import { Icons } from "@/components/Icons";
+import { ScrollArea } from "./ui/ScrollArea";
 
 interface SearchUsersByNameProps {
   initialUsers: UserDisplay[];
@@ -52,8 +53,8 @@ const SearchUsersByName: FC<SearchUsersByNameProps> = ({ initialUsers }) => {
   }, [queryResults]);
 
   return (
-    <div className="space-y-4">
-      <div className="flex gap-2 flex-col lg:flex-row lg:items-center p-2">
+    <>
+      <div className="flex gap-2 p-2">
         <Input
           placeholder="Type user name here."
           value={query}
@@ -68,7 +69,7 @@ const SearchUsersByName: FC<SearchUsersByNameProps> = ({ initialUsers }) => {
         />
         <Button
           onClick={() => refetch()}
-          className="w-fit lg:w-auto"
+          className=""
           disabled={query.length === 0 || isFetching}
         >
           {isFetching ? (
@@ -81,9 +82,10 @@ const SearchUsersByName: FC<SearchUsersByNameProps> = ({ initialUsers }) => {
           )}
         </Button>
       </div>
-
-      <UserDataTable columns={userColumns} data={users} />
-    </div>
+      <ScrollArea className="w-full" orientation="horizontal">
+        <UserDataTable columns={userColumns} data={users} />
+      </ScrollArea>
+    </>
   );
 };
 
