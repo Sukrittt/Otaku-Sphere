@@ -58,3 +58,8 @@ export type DragItemType = {
   animeId: string;
   category: ZodCategoryType;
 };
+
+export type AddWatchlistAnimeType = {
+  id: string;
+  name: string;
+};

@@ -13,14 +13,17 @@ import {
 } from "@/ui/Command";
 import { useDebounce } from "@/hooks/use-debounce";
 import { Skeleton } from "@/ui/Skeleton";
+import { AddWatchlistAnimeType } from "@/types/item-type";
+import { toast } from "@/hooks/use-toast";
 
 interface CustomCommandProps {
-  setAnimeData: (anime: { id: string; name: string }) => void;
+  animeData: AddWatchlistAnimeType[];
+  setAnimeData: (anime: AddWatchlistAnimeType[]) => void;
 }
 
-const CustomCommand: FC<CustomCommandProps> = ({ setAnimeData }) => {
+const CustomCommand: FC<CustomCommandProps> = ({ animeData, setAnimeData }) => {
   const [query, setQuery] = useState("");
-  const [data, setData] = useState<{ id: string; name: string }[]>([]);
+  const [data, setData] = useState<AddWatchlistAnimeType[]>([]);
 
   const debouncedQuery = useDebounce(query, 300);
 
@@ -34,7 +37,7 @@ const CustomCommand: FC<CustomCommandProps> = ({ setAnimeData }) => {
 
       const { data } = await axios(`/api/anime/search?q=${query}`);
 
-      return data as { id: string; name: string }[];
+      return data as AddWatchlistAnimeType[];
     },
     queryKey: ["anime-watchlist-search-query"],
     enabled: false, //by default it will not fetch
@@ -56,6 +59,19 @@ const CustomCommand: FC<CustomCommandProps> = ({ setAnimeData }) => {
       refetch();
     }
   }, [debouncedQuery, refetch]);
+
+  const handleSetAnimeData = (queryItem: AddWatchlistAnimeType) => {
+    const animeExists = animeData.find((anime) => anime.id === queryItem.id);
+
+    if (animeExists) {
+      return toast({
+        description: "Anime already exists in the list.",
+        variant: "destructive",
+      });
+    }
+
+    setAnimeData([...animeData, queryItem]);
+  };
 
   return (
     <Command>
@@ -83,7 +99,7 @@ const CustomCommand: FC<CustomCommandProps> = ({ setAnimeData }) => {
                   <CommandItem
                     key={queryItem.id}
                     onSelect={() => {
-                      setAnimeData(queryItem);
+                      handleSetAnimeData(queryItem);
                       setData([]);
                       setQuery("");
                     }}
