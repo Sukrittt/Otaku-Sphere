@@ -22,7 +22,7 @@ export async function GET(req: Request) {
       take: 5,
     });
 
-    return new Response(JSON.stringify(results));
+    return new Response(JSON.stringify(results.reverse()));
   } catch (error) {
     return new Response("Something went wrong", { status: 500 });
   }
