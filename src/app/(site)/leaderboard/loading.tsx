@@ -1,14 +1,6 @@
-import { Skeleton } from "@/ui/Skeleton";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/ui/Table";
 import { Shell } from "@/components/Shell";
 import { ScrollArea } from "@/ui/ScrollArea";
+import TableSkeleton from "@/components/SkeletonLoaders/TableSkeleton";
 
 const TableColumns = ["Rank", "Anime", "Director", "Genre", "Rating", "Votes"];
 
@@ -19,28 +11,7 @@ const StatisticsLoading = () => {
         Leaderboard
       </h1>
       <ScrollArea className="w-full" orientation="horizontal">
-        <div className="rounded-md border">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                {TableColumns.map((column, index) => (
-                  <TableHead key={index}>{column}</TableHead>
-                ))}
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {Array.from({ length: 10 }).map((_, index) => (
-                <TableRow key={index}>
-                  {Array.from({ length: 6 }).map((_, index) => (
-                    <TableCell key={index}>
-                      <Skeleton className="h-4 w-20" />
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
+        <TableSkeleton columns={TableColumns} />
       </ScrollArea>
     </Shell>
   );

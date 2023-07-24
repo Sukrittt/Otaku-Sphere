@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   description: "Displaying ranking of anime based on its ratings.",
 };
 
-const StatisticsPage = async () => {
+const LeaderboardPage = async () => {
   const initialLeaderBoardAnimes = await db.anime.findMany({
     take: INFINITE_SCROLLING_PAGINATION_LEADERBOARD,
     orderBy: {
@@ -33,4 +33,4 @@ const StatisticsPage = async () => {
   );
 };
 
-export default StatisticsPage;
+export default LeaderboardPage;

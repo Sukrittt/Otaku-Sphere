@@ -16,21 +16,37 @@ export async function GET(req: Request) {
       return new Response("Unauthorized", { status: 403 });
     }
 
-    const { query } = z
+    const { query, limit, page } = z
       .object({
-        query: z.string(),
+        query: z.string().nullish().optional(),
+        limit: z.string().nullish().optional(),
+        page: z.string().nullish().optional(),
       })
       .parse({
+        limit: url.searchParams.get("limit"),
+        page: url.searchParams.get("page"),
         query: url.searchParams.get("q"),
       });
 
-    const users = await db.user.findMany({
-      take: 10,
-      where: {
+    let whereClause = {};
+    let takeClause = undefined;
+    let skipClause = undefined;
+
+    if (query) {
+      whereClause = {
         name: {
-          startsWith: query,
+          contains: query,
         },
-      },
+      };
+    } else if (limit && page) {
+      takeClause = parseInt(limit);
+      skipClause = (parseInt(page) - 1) * parseInt(limit);
+    }
+
+    const users = await db.user.findMany({
+      take: takeClause,
+      skip: skipClause,
+      where: whereClause,
       include: {
         anime: true,
         community: true,

@@ -3,7 +3,7 @@ import { format } from "date-fns";
 import { db } from "@/lib/db";
 import { Header } from "@/components/Header";
 import { Shell } from "@/components/Shell";
-import SearchUsersByName from "@/components/SearchUsersByName";
+import Users from "@/components/InfiniteQuery/Users";
 import { UserDisplay } from "@/types/item-type";
 
 const UsersPage = async () => {
@@ -36,7 +36,10 @@ const UsersPage = async () => {
         description="Details of the users on the site."
         size="sm"
       />
-      <SearchUsersByName initialUsers={structuredUserData} />
+      <Users
+        initialUsers={structuredUserData}
+        initialFetchedUsers={recentFiveUsers}
+      />
     </Shell>
   );
 };
