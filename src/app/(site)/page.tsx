@@ -12,28 +12,11 @@ import UserDesigned from "@/components/ServerComponents/UserDesigned";
 import AnimeCardSkeleton from "@/components/SkeletonLoaders/AnimeCardSkeleton";
 import Overview from "@/components/ServerComponents/Overview";
 import OverviewSkeleton from "@/components/SkeletonLoaders/OverviewSkeleton";
-import { getAuthSession } from "@/lib/auth";
-import { db } from "@/lib/db";
 
 export const dynamic = "force-dynamic";
 export const fetchCache = "force-no-store";
 
-export default async function Home() {
-  const session = await getAuthSession();
-
-  const userHighestRatedAnime = await db.rating.findFirst({
-    where: {
-      userId: session?.user.id,
-    },
-    take: 1,
-    orderBy: {
-      rating: "desc",
-    },
-    include: {
-      anime: true,
-    },
-  });
-
+export default function Home() {
   return (
     <Shell>
       <section
@@ -74,20 +57,9 @@ export default async function Home() {
         </Suspense>
       </div>
 
-      {session && userHighestRatedAnime && (
-        <div className="flex flex-col gap-y-2">
-          <h2 className="text-2xl font-semibold tracking-tight">
-            Made for you
-          </h2>
-          <p className="text-sm text-muted-foreground">
-            Based on what you like
-          </p>
-
-          <Suspense fallback={<AnimeCardSkeleton />}>
-            <UserDesigned userHighestRatedAnime={userHighestRatedAnime} />
-          </Suspense>
-        </div>
-      )}
+      <Suspense fallback={<CustomUserDesignedAnimeSkeleton />}>
+        <UserDesigned />
+      </Suspense>
 
       <div className="flex justify-center text-sm mt-8 flex-wrap">
         {categories.map((category) => {
@@ -108,3 +80,14 @@ export default async function Home() {
     </Shell>
   );
 }
+
+const CustomUserDesignedAnimeSkeleton = () => {
+  return (
+    <div className="flex flex-col gap-y-2">
+      <h2 className="text-2xl font-semibold tracking-tight">Made for you</h2>
+      <p className="text-sm text-muted-foreground">Based on what you like.</p>
+
+      <AnimeCardSkeleton />
+    </div>
+  );
+};
