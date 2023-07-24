@@ -26,7 +26,7 @@ export type ComboBoxItemType = {
 };
 
 export type AnimeRanking = {
-  rank: number;
+  rank: string;
   anime: string;
   director: string;
   genre: string;

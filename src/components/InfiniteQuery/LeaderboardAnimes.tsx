@@ -9,9 +9,9 @@ import { convertToSingleDecimalPlace, formatUrl } from "@/lib/utils";
 import { DataTable } from "@/components/Rankings/DataTable";
 import { columns } from "@/components/Rankings/TableColumn";
 import { INFINITE_SCROLLING_PAGINATION_LEADERBOARD } from "@/config";
-import { Button } from "../ui/Button";
-import { Icons } from "../Icons";
-import { ScrollArea } from "../ui/ScrollArea";
+import { Button } from "@/ui/Button";
+import { Icons } from "@/components/Icons";
+import { ScrollArea } from "@/ui/ScrollArea";
 
 interface LeaderboardAnimesProps {
   initialLeaderBoardAnimes: ExtendedAnime[];
@@ -60,7 +60,7 @@ const LeaderboardAnimes: FC<LeaderboardAnimesProps> = ({
         director: anime.director,
         genre: anime.genre,
         rating: calculatedRating(anime),
-        rank: 1,
+        rank: "1",
         votes: anime.rating.length.toLocaleString(),
       });
     } else {
@@ -83,10 +83,33 @@ const LeaderboardAnimes: FC<LeaderboardAnimesProps> = ({
           director: anime.director,
           genre: anime.genre,
           rating: currentRating,
-          rank: index + 1,
+          rank: `${index + 1}`,
           votes: anime.rating.length.toLocaleString(),
         });
       }
+    }
+  });
+
+  let updatedEqualsRankingData: AnimeRanking[] = [];
+
+  structuredRankingData.forEach((anime, index) => {
+    if (index === structuredRankingData.length - 1) return;
+
+    if (anime.rank === structuredRankingData[index + 1].rank) {
+      if (!updatedEqualsRankingData[index]?.rank.endsWith("=")) {
+        updatedEqualsRankingData.push({
+          ...anime,
+          rank: `${anime.rank} =`,
+        });
+      }
+
+      updatedEqualsRankingData.push({
+        ...structuredRankingData[index + 1],
+        rank: `${structuredRankingData[index].rank} =`,
+      });
+    } else if (updatedEqualsRankingData[index]?.rank.endsWith("=")) return;
+    else {
+      updatedEqualsRankingData.push(anime);
     }
   });
 
@@ -106,7 +129,7 @@ const LeaderboardAnimes: FC<LeaderboardAnimesProps> = ({
         <div className="w-full">
           <DataTable
             columns={columns}
-            data={structuredRankingData}
+            data={updatedEqualsRankingData}
             animeHrefs={animeHrefs}
           />
         </div>
