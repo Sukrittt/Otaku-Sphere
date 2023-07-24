@@ -8,7 +8,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const animeLists = await db.anime.findMany({
     take: 10,
     orderBy: {
-      createdAt: "desc",
+      rating: {
+        _count: "desc",
+      },
     },
   });
 
