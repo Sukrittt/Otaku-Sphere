@@ -1,6 +1,6 @@
 import { db } from "@/lib/db";
 import { INFINITE_SCROLLING_PAGINATION_ANIME } from "@/config";
-import Animes from "@/components/Animes";
+import Animes from "@/components/InfiniteQuery/Animes";
 
 const AdminAnimes = async () => {
   const allAnime = await db.anime.findMany({

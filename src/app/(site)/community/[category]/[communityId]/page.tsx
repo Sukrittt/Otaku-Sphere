@@ -7,7 +7,7 @@ import { getAuthSession } from "@/lib/auth";
 import { buttonVariants } from "@/ui/Button";
 import { cn } from "@/lib/utils";
 import { INFINITE_SCROLLING_PAGINATION_RESULTS } from "@/config";
-import Posts from "@/components/Posts";
+import Posts from "@/components/InfiniteQuery/Posts";
 import { Header } from "@/components/Header";
 
 interface CommunityCategoryPageProps {

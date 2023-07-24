@@ -4,7 +4,7 @@ import { db } from "@/lib/db";
 import { cn } from "@/lib/utils";
 import { Shell } from "@/components/Shell";
 import { buttonVariants } from "@/ui/Button";
-import Communities from "@/components/Communities";
+import Communities from "@/components/InfiniteQuery/Communities";
 import { INFINITE_SCROLLING_PAGINATION_RESULTS } from "@/config";
 
 const CommunityPage = async () => {

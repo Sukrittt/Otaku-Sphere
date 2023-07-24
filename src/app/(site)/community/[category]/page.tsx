@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { db } from "@/lib/db";
 import { cn } from "@/lib/utils";
 import { Shell } from "@/components/Shell";
-import Communities from "@/components/Communities";
+import Communities from "@/components/InfiniteQuery/Communities";
 import { buttonVariants } from "@/components/ui/Button";
 import { INFINITE_SCROLLING_PAGINATION_RESULTS } from "@/config";
 import { categories } from "@/data/community";

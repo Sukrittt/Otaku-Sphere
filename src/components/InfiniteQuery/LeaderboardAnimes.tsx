@@ -9,9 +9,9 @@ import { convertToSingleDecimalPlace, formatUrl } from "@/lib/utils";
 import { DataTable } from "@/components/Rankings/DataTable";
 import { columns } from "@/components/Rankings/TableColumn";
 import { INFINITE_SCROLLING_PAGINATION_LEADERBOARD } from "@/config";
-import { Button } from "./ui/Button";
-import { Icons } from "./Icons";
-import { ScrollArea } from "./ui/ScrollArea";
+import { Button } from "../ui/Button";
+import { Icons } from "../Icons";
+import { ScrollArea } from "../ui/ScrollArea";
 
 interface LeaderboardAnimesProps {
   initialLeaderBoardAnimes: ExtendedAnime[];

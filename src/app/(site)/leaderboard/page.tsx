@@ -4,7 +4,7 @@ import { db } from "@/lib/db";
 import { Shell } from "@/components/Shell";
 import { env } from "@/env.mjs";
 import { INFINITE_SCROLLING_PAGINATION_LEADERBOARD } from "@/config";
-import LeaderboardAnimes from "@/components/LeaderboardAnimes";
+import LeaderboardAnimes from "@/components/InfiniteQuery/LeaderboardAnimes";
 
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
