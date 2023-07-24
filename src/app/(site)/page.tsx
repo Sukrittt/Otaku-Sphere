@@ -1,20 +1,21 @@
 import { Suspense } from "react";
 import { Balancer } from "react-wrap-balancer";
-import Link from "next/link";
+import dynamic from "next/dynamic";
 
 import { Shell } from "@/components/Shell";
-import { cn } from "@/lib/utils";
 import TopRated from "@/components/ServerComponents/TopRated";
 import RecentlyAdded from "@/components/ServerComponents/RecentlyAdded";
-import { categories } from "@/data/community";
-import { buttonVariants } from "@/ui/Button";
 import UserDesigned from "@/components/ServerComponents/UserDesigned";
 import AnimeCardSkeleton from "@/components/SkeletonLoaders/AnimeCardSkeleton";
 import Overview from "@/components/ServerComponents/Overview";
 import OverviewSkeleton from "@/components/SkeletonLoaders/OverviewSkeleton";
 
-export const dynamic = "force-dynamic";
 export const fetchCache = "force-no-store";
+export const revalidate = 0;
+
+const CommunityCategories = dynamic(
+  () => import("@/components/Footer/CommunityCategories")
+);
 
 export default function Home() {
   return (
@@ -61,22 +62,7 @@ export default function Home() {
         <UserDesigned />
       </Suspense>
 
-      <div className="flex justify-center text-sm mt-8 flex-wrap">
-        {categories.map((category) => {
-          const href = `/community/${category.value}`;
-
-          return (
-            <Link
-              key={category.label}
-              href={href}
-              className={cn(
-                buttonVariants({ variant: "link" }),
-                "text-muted-foreground "
-              )}
-            >{`#${category.value}`}</Link>
-          );
-        })}
-      </div>
+      <CommunityCategories />
     </Shell>
   );
 }

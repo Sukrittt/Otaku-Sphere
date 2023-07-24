@@ -24,7 +24,7 @@ interface MobileNavProps {
   session: Session | null;
 }
 
-export function MobileNav({ mainNavItems, session }: MobileNavProps) {
+export default function MobileNav({ mainNavItems, session }: MobileNavProps) {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
 

@@ -1,5 +1,5 @@
-import { FC } from "react";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 
 import { getAuthSession } from "@/lib/auth";
 import { cn } from "@/lib/utils";
@@ -7,12 +7,11 @@ import { Button, buttonVariants } from "@/ui/Button";
 import Searchbar from "@/components/Navbar/Searchbar";
 import UserAccountDropdown from "@/components/User/UserAccountDropdown";
 import { Icons } from "@/components/Icons";
-import { MobileNav } from "./MobileNav";
 import { navItemType } from "@/types/item-type";
 
-interface NavbarProps {}
+const MobileNav = dynamic(() => import("./MobileNav"));
 
-const Navbar: FC<NavbarProps> = async () => {
+const Navbar = async () => {
   const session = await getAuthSession();
 
   const navItems: navItemType[] = [
