@@ -19,7 +19,7 @@ export async function POST(req: Request) {
     const body = await req.json();
     const payloads = body;
 
-    await Promise.all(
+    const results = await Promise.all(
       payloads.map(async (payload: AnimeWatchlistServerType) => {
         const { animeId, category } = AnimeWatchlistServer.parse(payload);
 
@@ -91,6 +91,15 @@ export async function POST(req: Request) {
         };
       })
     );
+
+    const hasError = results.some(
+      (result) => result instanceof Response && result.status === 409
+    );
+    if (hasError) {
+      return new Response("One or more anime already in watchlist", {
+        status: 409,
+      });
+    }
 
     return new Response("OK");
   } catch (error) {

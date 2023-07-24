@@ -82,11 +82,16 @@ const AddAnimeWatchlistForm = () => {
           });
         }
         if (statusCode === 409) {
-          return toast({
+          toast({
+            title: "Anime(s) already in watchlist.",
             description:
-              "One of the anime selected already exists in your watchlist.",
+              "Remaining anime successfully added to your watchlist.",
             variant: "destructive",
           });
+          router.refresh();
+          form.reset();
+          setAnimeData([]);
+          return;
         }
       }
 
@@ -95,7 +100,7 @@ const AddAnimeWatchlistForm = () => {
     onMutate: () => {
       toast({
         description:
-          "Please wait while we are adding this anime in your watchlist.",
+          "Please wait while we are adding these anime in your watchlist.",
       });
     },
   });
