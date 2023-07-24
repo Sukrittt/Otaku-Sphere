@@ -86,7 +86,6 @@ const AddAnimeWatchlistForm = () => {
             title: "Anime(s) already in watchlist.",
             description:
               "Remaining anime successfully added to your watchlist.",
-            variant: "destructive",
           });
           router.refresh();
           form.reset();
