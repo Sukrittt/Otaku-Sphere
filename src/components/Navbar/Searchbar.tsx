@@ -114,6 +114,7 @@ const Searchbar = () => {
                   return (
                     <a href={formattedHref} key={queryItem.id}>
                       <CommandItem
+                        className="cursor-pointer"
                         onSelect={() => {
                           setIsOpen(false);
                           setQuery("");

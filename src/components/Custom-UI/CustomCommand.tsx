@@ -98,6 +98,7 @@ const CustomCommand: FC<CustomCommandProps> = ({ animeData, setAnimeData }) => {
                 return (
                   <CommandItem
                     key={queryItem.id}
+                    className="cursor-pointer"
                     onSelect={() => {
                       handleSetAnimeData(queryItem);
                       setData([]);
