@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/ui/Card";
 const WatchlistContainers = [
   {
     id: 1,
-    title: "Pending",
+    title: "Planning",
   },
   {
     id: 2,

@@ -70,6 +70,7 @@ export const Combobox: FC<ComboboxProps> = forwardRef<
               {data.map((item) => (
                 <CommandItem
                   key={item.value}
+                  className="cursor-pointer"
                   onSelect={(currentValue) => {
                     setValue(currentValue === value ? "" : currentValue);
                     setOpen(false);

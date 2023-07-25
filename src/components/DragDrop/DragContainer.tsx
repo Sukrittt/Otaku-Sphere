@@ -16,7 +16,7 @@ interface DragContainerProps {
 
 const NotStartedContainer = dynamic(() => import("./NotStartedContainer"), {
   ssr: false,
-  loading: () => <DragContainerSkeleton title="Pending" />,
+  loading: () => <DragContainerSkeleton title="Planning" />,
 });
 
 const CurrentlyWatchingContainer = dynamic(

@@ -23,6 +23,8 @@ import AnimeStatus from "@/components/ServerComponents/AnimeStatus";
 import Reviews from "@/components/ServerComponents/Reviews";
 import ReviewSkeleton from "@/components/SkeletonLoaders/ReviewSkeleton";
 import AnimeCardSkeleton from "@/components/SkeletonLoaders/AnimeCardSkeleton";
+import AnimeWatchers from "@/components/AnimeWatchers";
+import { Skeleton } from "@/ui/Skeleton";
 import { env } from "@/env.mjs";
 
 export const dynamic = "force-dynamic";
@@ -108,6 +110,9 @@ const AnimePage = async ({ params }: AnimePageProps) => {
                 session={session}
               />
             </div>
+            <Suspense fallback={<Skeleton className="h-4 w-1/2" />}>
+              <AnimeWatchers animeId={anime.id} />
+            </Suspense>
           </div>
         </div>
         <div className="flex flex-col gap-y-4 col-span-2 mt-8">
