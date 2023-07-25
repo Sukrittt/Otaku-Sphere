@@ -5,7 +5,7 @@ import axios from "axios";
 
 import { ExtendedAnime } from "@/types/db";
 import { AnimeRanking } from "@/types/item-type";
-import { convertToSingleDecimalPlace, formatUrl } from "@/lib/utils";
+import { formatUrl } from "@/lib/utils";
 import { DataTable } from "@/components/Rankings/DataTable";
 import { columns } from "@/components/Rankings/TableColumn";
 import { INFINITE_SCROLLING_PAGINATION_LEADERBOARD } from "@/config";
@@ -40,17 +40,6 @@ const LeaderboardAnimes: FC<LeaderboardAnimesProps> = ({
     }
   );
 
-  const calculatedRating = (anime: ExtendedAnime) => {
-    const totalRatings = anime.totalRatings;
-    const ratingLength = anime.rating.length * 10;
-
-    if (ratingLength === 0) return 0;
-
-    const rawRating = (totalRatings / ratingLength) * 10;
-
-    return convertToSingleDecimalPlace(rawRating, 2);
-  };
-
   const structuredRankingData: AnimeRanking[] = [];
 
   leaderboardAnimes.forEach((anime, index, array) => {
@@ -59,21 +48,21 @@ const LeaderboardAnimes: FC<LeaderboardAnimesProps> = ({
         anime: anime.name,
         director: anime.director,
         genre: anime.genre,
-        rating: calculatedRating(anime),
+        stars: anime.totalRatings,
         rank: "1",
         votes: anime.rating.length.toLocaleString(),
       });
     } else {
       const previousAnime = array[index - 1];
-      const currentRating = calculatedRating(anime);
-      const previousRating = calculatedRating(previousAnime);
+      const currentRating = anime.totalRatings;
+      const previousRating = previousAnime.totalRatings;
 
       if (currentRating === previousRating) {
         structuredRankingData.push({
           anime: anime.name,
           director: anime.director,
           genre: anime.genre,
-          rating: currentRating,
+          stars: currentRating,
           rank: structuredRankingData[index - 1].rank,
           votes: anime.rating.length.toLocaleString(),
         });
@@ -82,7 +71,7 @@ const LeaderboardAnimes: FC<LeaderboardAnimesProps> = ({
           anime: anime.name,
           director: anime.director,
           genre: anime.genre,
-          rating: currentRating,
+          stars: currentRating,
           rank: `${index + 1}`,
           votes: anime.rating.length.toLocaleString(),
         });

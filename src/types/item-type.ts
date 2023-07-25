@@ -30,7 +30,7 @@ export type AnimeRanking = {
   anime: string;
   director: string;
   genre: string;
-  rating: number;
+  stars: number;
   votes: string;
 };
 

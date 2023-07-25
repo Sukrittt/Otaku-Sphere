@@ -47,19 +47,19 @@ export const columns: ColumnDef<AnimeRanking>[] = [
     },
   },
   {
-    accessorKey: "rating",
+    accessorKey: "stars",
     header: ({ column }) => (
       <div className="flex justify-center">
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Rating <Icons.upDown className="ml-2 h-4 w-4" />
+          Stars <Icons.upDown className="ml-2 h-4 w-4" />
         </Button>
       </div>
     ),
     cell: ({ row }) => {
-      return <div className="text-center">{row.getValue("rating")}</div>;
+      return <div className="text-center">{row.getValue("stars")}</div>;
     },
   },
   {
