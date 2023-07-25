@@ -10,7 +10,12 @@ import AnimeRating from "@/components/AnimeRating";
 import { getAuthSession } from "@/lib/auth";
 import { buttonVariants } from "@/ui/Button";
 import { Icons } from "@/components/Icons";
-import { cn, convertToSingleDecimalPlace, formatUrl } from "@/lib/utils";
+import {
+  capitalizeFirstCharacter,
+  cn,
+  convertToSingleDecimalPlace,
+  formatUrl,
+} from "@/lib/utils";
 import TopTenAnimeCheck from "@/components/ServerComponents/TopTenAnimeCheck";
 import CustomReviewSheet from "@/components/Custom-UI/CustomReviewSheet";
 import MoreLikeThis from "@/components/ServerComponents/MoreLikeThis";
@@ -118,7 +123,7 @@ const AnimePage = async ({ params }: AnimePageProps) => {
           </div>
           <div className="flex gap-x-3 items-center text-xs font-bold">
             <span>{anime.director}</span>
-            <span>{anime.genre}</span>
+            <span>{capitalizeFirstCharacter(anime.genre)}</span>
             <span>{anime.releaseYear}</span>
           </div>
           <p className="text-muted-foreground">{anime.description}</p>

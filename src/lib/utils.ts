@@ -48,6 +48,10 @@ export function calculateIncreasePercentage(
   );
 }
 
+export function capitalizeFirstCharacter(text: string) {
+  return text.charAt(0).toUpperCase() + text.slice(1);
+}
+
 const formatDistanceLocale = {
   lessThanXSeconds: "just now",
   xSeconds: "just now",

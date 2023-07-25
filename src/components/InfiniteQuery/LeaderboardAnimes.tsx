@@ -5,7 +5,7 @@ import axios from "axios";
 
 import { ExtendedAnime } from "@/types/db";
 import { AnimeRanking } from "@/types/item-type";
-import { formatUrl } from "@/lib/utils";
+import { capitalizeFirstCharacter, formatUrl } from "@/lib/utils";
 import { DataTable } from "@/components/Rankings/DataTable";
 import { columns } from "@/components/Rankings/TableColumn";
 import { INFINITE_SCROLLING_PAGINATION_LEADERBOARD } from "@/config";
@@ -70,7 +70,7 @@ const LeaderboardAnimes: FC<LeaderboardAnimesProps> = ({
         structuredRankingData.push({
           anime: anime.name,
           director: anime.director,
-          genre: anime.genre,
+          genre: capitalizeFirstCharacter(anime.genre),
           stars: currentRating,
           rank: `${index + 1}`,
           votes: anime.rating.length.toLocaleString(),
