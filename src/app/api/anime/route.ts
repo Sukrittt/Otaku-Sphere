@@ -195,7 +195,9 @@ export async function GET(req: Request) {
           startsWith: query,
         },
       };
-    } else if (genre && year) {
+    }
+
+    if (genre && year) {
       whereClause = {
         genre,
         releaseYear: year,
@@ -212,6 +214,8 @@ export async function GET(req: Request) {
         releaseYear: year,
       };
       takeClause = INFINITE_SCROLLING_PAGINATION_BROWSE + 10;
+    } else {
+      takeClause = INFINITE_SCROLLING_PAGINATION_BROWSE + 10;
     }
 
     if (orderBy) {
@@ -223,11 +227,6 @@ export async function GET(req: Request) {
         createdAt: "desc",
       };
     }
-
-    // console.log("whereClause", whereClause);
-    // console.log("orderByClause", orderByClause);
-    // console.log("takeClause", takeClause);
-    // console.log("skipClause", skipClause);
 
     const animes = await db.anime.findMany({
       take: takeClause,

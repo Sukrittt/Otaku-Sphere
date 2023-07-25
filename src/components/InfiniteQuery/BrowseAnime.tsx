@@ -25,6 +25,7 @@ const BrowseAnime: FC<BrowseAnimeProps> = ({ initialAnimes }) => {
   const [genre, setGenre] = useState("");
   const [year, setYear] = useState("");
   const [reset, setReset] = useState(false);
+  const [disableInfiniteScroll, setDisableInfiniteScroll] = useState(false);
 
   const { ref, entry } = useIntersection({
     root: lastPostRef.current,
@@ -74,14 +75,15 @@ const BrowseAnime: FC<BrowseAnimeProps> = ({ initialAnimes }) => {
   }, [data, initialAnimes, queryResults]);
 
   useEffect(() => {
-    if (entry?.isIntersecting && !genre && !year) {
+    if (entry?.isIntersecting && !disableInfiniteScroll) {
       fetchNextPage();
     }
-  }, [entry, fetchNextPage, genre, year]);
+  }, [entry, fetchNextPage, disableInfiniteScroll]);
 
   useEffect(() => {
     refetch();
     setReset(false);
+    setDisableInfiniteScroll(true);
   }, [genre, year, refetch]);
 
   return (
