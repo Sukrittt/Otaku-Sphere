@@ -47,7 +47,7 @@ const LeaderboardAnimes: FC<LeaderboardAnimesProps> = ({
       structuredRankingData.push({
         anime: anime.name,
         director: anime.director,
-        genre: anime.genre,
+        genre: capitalizeFirstCharacter(anime.genre),
         stars: anime.totalRatings,
         rank: "1",
         votes: anime.rating.length.toLocaleString(),
@@ -61,7 +61,7 @@ const LeaderboardAnimes: FC<LeaderboardAnimesProps> = ({
         structuredRankingData.push({
           anime: anime.name,
           director: anime.director,
-          genre: anime.genre,
+          genre: capitalizeFirstCharacter(anime.genre),
           stars: currentRating,
           rank: structuredRankingData[index - 1].rank,
           votes: anime.rating.length.toLocaleString(),
