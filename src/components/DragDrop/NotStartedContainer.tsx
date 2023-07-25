@@ -24,7 +24,7 @@ const NotStartedContainer = () => {
     useCurrentlyWatching();
   const { removeItemFromBoard: removeFinishedWatching } = useFinishedWatching();
 
-  const { mutate: changeAnimeStatusForUser } = useMutation({
+  const { mutate: changeAnimeStatusForUser, isLoading } = useMutation({
     mutationFn: async ({ item }) => {
       const payload: AnimeWatchlistUpdateType = {
         animeId: item.animeId,
@@ -67,6 +67,22 @@ const NotStartedContainer = () => {
     },
   });
 
+  const dropWrapperFunction = ({
+    item,
+    monitor,
+  }: {
+    item: DragItemType;
+    monitor: DropTargetMonitor;
+  }) => {
+    if (isLoading) {
+      return toast({
+        description: "Please wait for the previous action to complete.",
+      });
+    }
+
+    changeAnimeStatusForUser({ item, monitor });
+  };
+
   const onDrop = (item: DragItemType, monitor: DropTargetMonitor) => {
     const dropAreaType = monitor.getItemType();
 
@@ -88,7 +104,7 @@ const NotStartedContainer = () => {
   const [{ isOver }, drop] = useDrop(() => ({
     accept: "image",
     drop: (item: DragItemType, monitor: DropTargetMonitor) =>
-      changeAnimeStatusForUser({ item, monitor }),
+      dropWrapperFunction({ item, monitor }),
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
     }),
