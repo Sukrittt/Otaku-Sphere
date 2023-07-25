@@ -37,7 +37,7 @@ const WatchlistLoading = () => {
 
 export default WatchlistLoading;
 
-const DragContainerSkeleton = ({ title }: { title: string }) => {
+export const DragContainerSkeleton = ({ title }: { title: string }) => {
   return (
     <Card className="flex flex-col gap-y-2 items-center min-h-[200px]">
       <CardHeader className="pb-3">

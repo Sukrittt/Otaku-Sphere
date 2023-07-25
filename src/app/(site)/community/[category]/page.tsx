@@ -15,6 +15,14 @@ interface CommunityCategoryPageProps {
   };
 }
 
+export async function generateStaticParams() {
+  const categories = ["general", "anime", "manga", "question", "feedback"];
+
+  return categories.map((category) => ({
+    category,
+  }));
+}
+
 const CommunityCategoryPage = async ({
   params,
 }: CommunityCategoryPageProps) => {

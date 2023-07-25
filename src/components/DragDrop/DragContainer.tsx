@@ -1,19 +1,39 @@
 "use client";
 import { FC, useEffect } from "react";
+import dynamic from "next/dynamic";
 
-import NotStartedContainer from "./NotStartedContainer";
-import CurrentlyWatchingContainer from "./CurrentlyWatchingContainer";
-import FinishedWatchingContainer from "./FinishedWatchingContainer";
 import useNotStarted from "@/hooks/watchlist/useNotStartedModal";
 import useCurrentlyWatching from "@/hooks/watchlist/useCurrentlyWatching";
 import useFinishedWatching from "@/hooks/watchlist/useFinishedWatching";
 import { DragItemType } from "@/types/item-type";
+import { DragContainerSkeleton } from "@/app/(site)/watchlist/loading";
 
 interface DragContainerProps {
   notStartedAnimes: DragItemType[];
   currentlyWatchingAnimes: DragItemType[];
   finishedWatchingAnimes: DragItemType[];
 }
+
+const NotStartedContainer = dynamic(() => import("./NotStartedContainer"), {
+  ssr: false,
+  loading: () => <DragContainerSkeleton title="Pending" />,
+});
+
+const CurrentlyWatchingContainer = dynamic(
+  () => import("./CurrentlyWatchingContainer"),
+  {
+    ssr: false,
+    loading: () => <DragContainerSkeleton title="Watching" />,
+  }
+);
+
+const FinishedWatchingContainer = dynamic(
+  () => import("./FinishedWatchingContainer"),
+  {
+    ssr: false,
+    loading: () => <DragContainerSkeleton title="Completed" />,
+  }
+);
 
 const DragContainer: FC<DragContainerProps> = ({
   currentlyWatchingAnimes,
