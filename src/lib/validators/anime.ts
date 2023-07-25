@@ -50,6 +50,13 @@ export const ZodCategoryType = z.union([
   z.literal("finished"),
 ]);
 
+export const AnimeWatchlistClient = z.object({
+  animeId: z.string(),
+  category: z.string(),
+});
+
+export type AnimeWatchlistClientType = z.infer<typeof AnimeWatchlistClient>;
+
 export const AnimeWatchlistServer = z.object({
   animeId: z.string(),
   category: ZodCategoryType,

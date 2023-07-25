@@ -11,14 +11,17 @@ import {
   CommandItem,
 } from "@/ui/Command";
 import { Popover, PopoverContent, PopoverTrigger } from "@/ui/Popover";
-import { ComboBoxItemType, ZodCategoryType } from "@/types/item-type";
+import { ComboBoxItemType } from "@/types/item-type";
+import { ScrollArea } from "@/ui/ScrollArea";
 
 interface ComboboxProps extends React.HTMLAttributes<HTMLInputElement> {
   placeholder: string;
   data: ComboBoxItemType[];
-  setState: (genre: ZodCategoryType) => void;
+  setState: (genre: string) => void;
   selectedOption?: string;
   disabled?: boolean;
+  reset?: boolean;
+  large?: boolean;
 }
 
 export const Combobox: FC<ComboboxProps> = forwardRef<
@@ -26,22 +29,36 @@ export const Combobox: FC<ComboboxProps> = forwardRef<
   ComboboxProps
 >(
   (
-    { data, placeholder, setState, selectedOption, disabled, ...props },
+    {
+      data,
+      placeholder,
+      setState,
+      selectedOption,
+      disabled,
+      reset,
+      large,
+      ...props
+    },
     ref
   ) => {
     const [open, setOpen] = useState(false);
 
     const selectedGenre = data.find((item) => item.label === selectedOption);
-
     const [value, setValue] = useState(selectedGenre?.value ?? "");
 
     useEffect(() => {
+      if (reset) {
+        return setValue("");
+      }
+
       if (value) {
         const findIndex = data.findIndex((item) => item.value === value);
 
-        setState(data[findIndex].value as ZodCategoryType);
+        setState(data[findIndex].value);
+      } else {
+        setState("");
       }
-    }, [value, setState, data]);
+    }, [value, setState, data, reset]);
 
     return (
       <Popover open={open} onOpenChange={setOpen} {...props}>
@@ -67,24 +84,30 @@ export const Combobox: FC<ComboboxProps> = forwardRef<
             />
             <CommandEmpty>Search not found.</CommandEmpty>
             <CommandGroup>
-              {data.map((item) => (
-                <CommandItem
-                  key={item.value}
-                  className="cursor-pointer"
-                  onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue);
-                    setOpen(false);
-                  }}
-                >
-                  <Check
-                    className={cn(
-                      "mr-2 h-4 w-4",
-                      value === item.value ? "opacity-100" : "opacity-0"
-                    )}
-                  />
-                  {item.label}
-                </CommandItem>
-              ))}
+              <ScrollArea
+                className={cn({
+                  "h-72": large,
+                })}
+              >
+                {data.map((item) => (
+                  <CommandItem
+                    key={item.value}
+                    className="cursor-pointer"
+                    onSelect={(currentValue) => {
+                      setValue(currentValue === value ? "" : currentValue);
+                      setOpen(false);
+                    }}
+                  >
+                    <Check
+                      className={cn(
+                        "mr-2 h-4 w-4",
+                        value === item.value ? "opacity-100" : "opacity-0"
+                      )}
+                    />
+                    {item.label}
+                  </CommandItem>
+                ))}
+              </ScrollArea>
             </CommandGroup>
           </Command>
         </PopoverContent>

@@ -3,6 +3,7 @@ import { z } from "zod";
 import { db } from "@/lib/db";
 import { getAuthSession } from "@/lib/auth";
 import { animeSchema } from "@/lib/validators/anime";
+import { INFINITE_SCROLLING_PAGINATION_BROWSE } from "@/config";
 
 export async function POST(req: Request) {
   try {
@@ -162,19 +163,26 @@ export async function GET(req: Request) {
       return new Response("Unauthorized", { status: 401 });
     }
 
-    const { limit, page, query } = z
+    const { limit, page, query, orderBy, genre, year } = z
       .object({
         limit: z.string().nullish().optional(),
         page: z.string().nullish().optional(),
         query: z.string().nullish().optional(),
+        genre: z.string().nullish().optional(),
+        year: z.string().nullish().optional(),
+        orderBy: z.string().nullish().optional(),
       })
       .parse({
         limit: url.searchParams.get("limit"),
         page: url.searchParams.get("page"),
         query: url.searchParams.get("q"),
+        genre: url.searchParams.get("genre"),
+        year: url.searchParams.get("year"),
+        orderBy: url.searchParams.get("orderBy"),
       });
 
     let whereClause = {};
+    let orderByClause = {};
     let takeClause = undefined;
     let skipClause = undefined;
 
@@ -187,15 +195,45 @@ export async function GET(req: Request) {
           startsWith: query,
         },
       };
+    } else if (genre && year) {
+      whereClause = {
+        genre,
+        releaseYear: year,
+      };
+
+      takeClause = INFINITE_SCROLLING_PAGINATION_BROWSE + 10;
+    } else if (genre) {
+      whereClause = {
+        genre,
+      };
+      takeClause = INFINITE_SCROLLING_PAGINATION_BROWSE + 10;
+    } else if (year) {
+      whereClause = {
+        releaseYear: year,
+      };
+      takeClause = INFINITE_SCROLLING_PAGINATION_BROWSE + 10;
     }
+
+    if (orderBy) {
+      orderByClause = {
+        [orderBy]: "desc",
+      };
+    } else {
+      orderByClause = {
+        createdAt: "desc",
+      };
+    }
+
+    // console.log("whereClause", whereClause);
+    // console.log("orderByClause", orderByClause);
+    // console.log("takeClause", takeClause);
+    // console.log("skipClause", skipClause);
 
     const animes = await db.anime.findMany({
       take: takeClause,
       skip: skipClause,
       where: whereClause,
-      orderBy: {
-        createdAt: "desc",
-      },
+      orderBy: orderByClause,
     });
 
     return new Response(JSON.stringify(animes));

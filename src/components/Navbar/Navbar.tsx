@@ -17,16 +17,21 @@ const Navbar = async () => {
   const navItems: navItemType[] = [
     {
       id: 1,
+      label: "Browse",
+      href: "/browse",
+    },
+    {
+      id: 2,
       label: "Community",
       href: "/community",
     },
     {
-      id: 2,
+      id: 3,
       label: "Watchlist",
       href: "/watchlist",
     },
     {
-      id: 3,
+      id: 4,
       label: "Leaderboard",
       href: "/leaderboard",
     },
@@ -63,7 +68,7 @@ const Navbar = async () => {
           ))}
         </div>
       </div>
-      <div className="flex gap-x-4">
+      <div className="flex gap-x-4 items-center">
         <Searchbar />
 
         {session ? (

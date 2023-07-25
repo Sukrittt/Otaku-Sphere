@@ -190,6 +190,7 @@ const AddAnimeForm = () => {
                   placeholder="Select genre..."
                   setState={setGenre}
                   disabled={isLoading}
+                  large
                 />
               </FormControl>
               <FormMessage />

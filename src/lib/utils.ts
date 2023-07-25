@@ -2,6 +2,7 @@ import { type ClassValue, clsx } from "clsx";
 import { formatDistanceToNowStrict } from "date-fns";
 import { twMerge } from "tailwind-merge";
 import locale from "date-fns/locale/en-IN";
+import { ComboBoxItemType } from "@/types/item-type";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -50,6 +51,20 @@ export function calculateIncreasePercentage(
 
 export function capitalizeFirstCharacter(text: string) {
   return text.charAt(0).toUpperCase() + text.slice(1);
+}
+
+export function getYearData() {
+  const currentYear = new Date().getFullYear();
+  const years: ComboBoxItemType[] = [];
+
+  for (let i = currentYear; i >= 1980; i--) {
+    years.push({
+      value: i.toString(),
+      label: i.toString(),
+    });
+  }
+
+  return years;
 }
 
 const formatDistanceLocale = {

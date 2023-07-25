@@ -11,7 +11,7 @@ import { toast } from "@/hooks/use-toast";
 import {
   AnimeWatchlistSchemaType,
   AnimeWatchlistSchema,
-  AnimeWatchlistServerType,
+  AnimeWatchlistClientType,
 } from "@/lib/validators/anime";
 import {
   Form,
@@ -24,7 +24,7 @@ import {
 import { Combobox } from "@/ui/ComboBox";
 import { useAuthToast } from "@/hooks/useAuthToast";
 import CustomCommand from "@/components/Custom-UI/CustomCommand";
-import { AddWatchlistAnimeType, ZodCategoryType } from "@/types/item-type";
+import { AddWatchlistAnimeType } from "@/types/item-type";
 import { Card, CardHeader } from "@/ui/Card";
 import { Icons } from "@/components/Icons";
 
@@ -32,7 +32,7 @@ const AddAnimeWatchlistForm = () => {
   const router = useRouter();
   const { loginToast, endErrorToast } = useAuthToast();
 
-  const [category, setCategory] = useState<ZodCategoryType>("pending");
+  const [category, setCategory] = useState("pending");
   const [animeData, setAnimeData] = useState<AddWatchlistAnimeType[]>([]);
 
   //react-hook-form initialization
@@ -45,7 +45,7 @@ const AddAnimeWatchlistForm = () => {
 
   const { mutate: addAnime } = useMutation({
     mutationFn: async () => {
-      const payload: AnimeWatchlistServerType[] = animeData.map((data) => ({
+      const payload: AnimeWatchlistClientType[] = animeData.map((data) => ({
         animeId: data.id,
         category,
       }));
