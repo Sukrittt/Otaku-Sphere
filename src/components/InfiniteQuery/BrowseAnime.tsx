@@ -11,7 +11,6 @@ import AnimeCardSkeleton from "@/components/SkeletonLoaders/AnimeCardSkeleton";
 import { Combobox } from "@/ui/ComboBox";
 import { genres } from "@/data/anime";
 import { getYearData } from "@/lib/utils";
-import { Button } from "../ui/Button";
 
 interface BrowseAnimeProps {
   initialAnimes: Anime[];
@@ -24,8 +23,7 @@ const BrowseAnime: FC<BrowseAnimeProps> = ({ initialAnimes }) => {
 
   const [genre, setGenre] = useState("");
   const [year, setYear] = useState("");
-  const [reset, setReset] = useState(false);
-  const [disableInfiniteScroll, setDisableInfiniteScroll] = useState(false);
+  const [noNewData, setNoNewData] = useState(false);
 
   const { ref, entry } = useIntersection({
     root: lastPostRef.current,
@@ -71,19 +69,24 @@ const BrowseAnime: FC<BrowseAnimeProps> = ({ initialAnimes }) => {
       return;
     }
 
+    if (data?.pages[data?.pages.length - 1].length === 0) {
+      setNoNewData(true);
+    }
+
     setAnimes(data?.pages.flatMap((page) => page) ?? initialAnimes);
   }, [data, initialAnimes, queryResults]);
 
   useEffect(() => {
-    if (entry?.isIntersecting && !disableInfiniteScroll) {
+    if (entry?.isIntersecting && !noNewData) {
       fetchNextPage();
     }
-  }, [entry, fetchNextPage, disableInfiniteScroll]);
+  }, [entry, fetchNextPage, noNewData]);
 
   useEffect(() => {
-    refetch();
-    setReset(false);
-    setDisableInfiniteScroll(true);
+    if (genre || year) {
+      refetch();
+      setNoNewData(true);
+    }
   }, [genre, year, refetch]);
 
   return (
@@ -94,7 +97,6 @@ const BrowseAnime: FC<BrowseAnimeProps> = ({ initialAnimes }) => {
           selectedOption={genre}
           setState={setGenre}
           placeholder="Select genre..."
-          reset={reset}
           large
         />
         <Combobox
@@ -102,19 +104,8 @@ const BrowseAnime: FC<BrowseAnimeProps> = ({ initialAnimes }) => {
           selectedOption={year}
           placeholder="Select year..."
           setState={setYear}
-          reset={reset}
           large
         />
-        <Button
-          size="sm"
-          onClick={() => {
-            setGenre("");
-            setYear("");
-            setReset(true);
-          }}
-        >
-          Reset filters
-        </Button>
       </div>
       {isFetching ? (
         <AnimeCardSkeleton length={5} />

@@ -195,9 +195,7 @@ export async function GET(req: Request) {
           startsWith: query,
         },
       };
-    }
-
-    if (genre && year) {
+    } else if (genre && year) {
       whereClause = {
         genre,
         releaseYear: year,
@@ -214,7 +212,7 @@ export async function GET(req: Request) {
         releaseYear: year,
       };
       takeClause = INFINITE_SCROLLING_PAGINATION_BROWSE + 10;
-    } else {
+    } else if (!genre && !year) {
       takeClause = INFINITE_SCROLLING_PAGINATION_BROWSE + 10;
     }
 

@@ -20,7 +20,6 @@ interface ComboboxProps extends React.HTMLAttributes<HTMLInputElement> {
   setState: (genre: string) => void;
   selectedOption?: string;
   disabled?: boolean;
-  reset?: boolean;
   large?: boolean;
 }
 
@@ -29,16 +28,7 @@ export const Combobox: FC<ComboboxProps> = forwardRef<
   ComboboxProps
 >(
   (
-    {
-      data,
-      placeholder,
-      setState,
-      selectedOption,
-      disabled,
-      reset,
-      large,
-      ...props
-    },
+    { data, placeholder, setState, selectedOption, disabled, large, ...props },
     ref
   ) => {
     const [open, setOpen] = useState(false);
@@ -47,10 +37,6 @@ export const Combobox: FC<ComboboxProps> = forwardRef<
     const [value, setValue] = useState(selectedGenre?.value ?? "");
 
     useEffect(() => {
-      if (reset) {
-        return setValue("");
-      }
-
       if (value) {
         const findIndex = data.findIndex((item) => item.value === value);
 
@@ -58,7 +44,7 @@ export const Combobox: FC<ComboboxProps> = forwardRef<
       } else {
         setState("");
       }
-    }, [value, setState, data, reset]);
+    }, [value, setState, data]);
 
     return (
       <Popover open={open} onOpenChange={setOpen} {...props}>
