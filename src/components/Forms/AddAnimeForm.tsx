@@ -154,6 +154,7 @@ const AddAnimeForm = () => {
                 <Textarea
                   placeholder="Type anime description here."
                   disabled={isLoading}
+                  large
                   {...field}
                 />
               </FormControl>
@@ -249,7 +250,7 @@ const AddAnimeForm = () => {
             </FormItem>
           )}
         />
-        <Button className="w-fit" disabled={isLoading}>
+        <Button className="w-fit" disabled={isLoading} size="sm">
           {isLoading && (
             <Icons.spinner
               className="mr-2 h-4 w-4 animate-spin"

@@ -2,12 +2,13 @@
 import dynamic from "next/dynamic";
 
 import { ExtendedPost } from "@/types/db";
+import { Skeleton } from "@/ui/Skeleton";
 
 const PostDropdown = dynamic(
   () => import("@/components/Dropdown/PostDropdown"),
   {
     ssr: false,
-    loading: () => <p>Loading...</p>,
+    loading: () => <Skeleton className="h-8 w-8" />,
   }
 );
 

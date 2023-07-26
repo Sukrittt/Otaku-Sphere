@@ -19,6 +19,10 @@ export async function POST(req: Request) {
     const body = await req.json();
     const payloads = body;
 
+    if (body.length === 0) {
+      return new Response("Nothing to add", { status: 422 });
+    }
+
     const results = await Promise.all(
       payloads.map(async (payload: AnimeWatchlistServerType) => {
         const { animeId, category } = AnimeWatchlistServer.parse(payload);

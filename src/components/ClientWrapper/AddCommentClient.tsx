@@ -1,11 +1,12 @@
 "use client";
 import dynamic from "next/dynamic";
+import { CommentBoxSkeleton } from "@/app/(site)/community/[category]/[communityId]/post/[postId]/loading";
 
 const AddCommentForm = dynamic(
   () => import("@/components/Forms/AddCommentForm"),
   {
     ssr: false,
-    loading: () => <p>Loading...</p>,
+    loading: () => <CommentBoxSkeleton />,
   }
 );
 

@@ -77,6 +77,7 @@ const AddAnimeWatchlistForm = () => {
         }
         if (statusCode === 422) {
           return toast({
+            title: "Nothing to add",
             description: "Please make sure you have selected an anime.",
             variant: "destructive",
           });
@@ -99,7 +100,7 @@ const AddAnimeWatchlistForm = () => {
     onMutate: () => {
       toast({
         description:
-          "Please wait while we are adding these anime in your watchlist.",
+          "Please wait while we are adding the selected anime in your watchlist.",
       });
     },
   });

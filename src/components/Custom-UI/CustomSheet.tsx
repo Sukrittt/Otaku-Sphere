@@ -14,12 +14,13 @@ import {
 } from "@/ui/Sheet";
 import { Button, buttonVariants } from "@/ui/Button";
 import { cn } from "@/lib/utils";
+import { Skeleton } from "@/ui/Skeleton";
 
 const AddAnimeWatchlistForm = dynamic(
   () => import("@/components/Forms/AddAnimeWatchlistForm"),
   {
     ssr: false,
-    loading: () => <p>Loading...</p>,
+    loading: () => <WatchlistFormSkeleton />,
   }
 );
 
@@ -30,7 +31,7 @@ interface CustomSheetProps {
 const CustomSheet: FC<CustomSheetProps> = ({ children }) => {
   return (
     <Sheet>
-      <SheetTrigger className={cn(buttonVariants(), "w-fit")}>
+      <SheetTrigger className={cn(buttonVariants({ size: "sm" }), "w-fit")}>
         {children}
       </SheetTrigger>
       <SheetContent className="flex flex-col justify-between">
@@ -45,7 +46,7 @@ const CustomSheet: FC<CustomSheetProps> = ({ children }) => {
           <AddAnimeWatchlistForm />
           <SheetFooter>
             <SheetClose asChild>
-              <Button form="anime-watchlist-form" type="submit">
+              <Button form="anime-watchlist-form" type="submit" size="sm">
                 Save changes
               </Button>
             </SheetClose>
@@ -63,3 +64,21 @@ const CustomSheet: FC<CustomSheetProps> = ({ children }) => {
 };
 
 export default CustomSheet;
+
+const WatchlistFormSkeleton = () => {
+  return (
+    <div className="grid gap-5 mt-6">
+      <div className="space-y-3">
+        <Skeleton className="h-4 w-20" />
+        <Skeleton className="h-10 w-full" />
+      </div>
+      <div className="space-y-3">
+        <Skeleton className="h-4 w-20" />
+        <Skeleton className="h-10 w-2/3 md:w-40" />
+      </div>
+      <SheetFooter className="flex w-full justify-end">
+        <Skeleton className="h-8 w-28" />
+      </SheetFooter>
+    </div>
+  );
+};

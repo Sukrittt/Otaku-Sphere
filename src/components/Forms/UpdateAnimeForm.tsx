@@ -198,6 +198,7 @@ const UpdateAnimeForm: FC<UpdateAnimeFormProps> = ({ anime }) => {
                 <Textarea
                   placeholder="Type anime description here."
                   disabled={isLoading}
+                  large
                   {...field}
                 />
               </FormControl>

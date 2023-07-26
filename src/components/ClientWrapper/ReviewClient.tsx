@@ -2,10 +2,11 @@
 import { Session } from "next-auth";
 import dynamic from "next/dynamic";
 import { ReviewLike, Reviews, User } from "@prisma/client";
+import ReviewSkeleton from "@/components/SkeletonLoaders/ReviewSkeleton";
 
 const ReviewInfiniteFetching = dynamic(() => import("@/components/Reviews"), {
   ssr: false,
-  loading: () => <p>Loading...</p>,
+  loading: () => <ReviewSkeleton />,
 });
 
 type ExtendedReview = Reviews & {

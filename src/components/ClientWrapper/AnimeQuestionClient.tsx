@@ -5,7 +5,6 @@ const AnimeStatusQuestion = dynamic(
   () => import("@/components/AnimeStatusQuestion"),
   {
     ssr: false,
-    loading: () => <p>Loading...</p>,
   }
 );
 

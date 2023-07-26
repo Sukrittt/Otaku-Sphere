@@ -72,9 +72,12 @@ const AnimeRating: FC<AnimeRatingProps> = ({
       });
     },
     onMutate: (index: number) => {
-      if (session) {
-        handleRatingClick(index);
-      }
+      if (!session) return;
+
+      handleRatingClick(index);
+      toast({
+        description: "Please wait while we record your rating.",
+      });
     },
   });
 

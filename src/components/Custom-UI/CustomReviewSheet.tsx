@@ -12,6 +12,7 @@ import {
 } from "@/ui/Sheet";
 import { buttonVariants } from "@/ui/Button";
 import { cn } from "@/lib/utils";
+import { Skeleton } from "@/ui/Skeleton";
 
 interface CustomReviewSheetProps {
   children: ReactNode;
@@ -22,9 +23,25 @@ const AddAnimeReviewForm = dynamic(
   () => import("@/components/Forms/AddAnimeReviewForm"),
   {
     ssr: false,
-    loading: () => <p>Loading...</p>,
+    loading: () => <PostReviewSkeleton />,
   }
 );
+
+const PostReviewSkeleton = () => {
+  return (
+    <div className="grid gap-5 mt-2">
+      <div className="space-y-3">
+        <Skeleton className="h-4 w-20" />
+        <Skeleton className="h-10 w-full" />
+      </div>
+      <div className="space-y-3">
+        <Skeleton className="h-4 w-20" />
+        <Skeleton className="h-[200px] w-full" />
+      </div>
+      <Skeleton className="h-8 w-20" />
+    </div>
+  );
+};
 
 const CustomReviewSheet: FC<CustomReviewSheetProps> = ({
   children,

@@ -12,6 +12,7 @@ const AnimeLoading = () => {
             <div className="space-y-2 w-full">
               <Skeleton className="h-4 w-20" />
               <Skeleton className="h-4 w-full md:w-3/4" />
+              <Skeleton className="h-4 w-full md:w-3/4" />
             </div>
           </div>
         </div>

@@ -2,10 +2,15 @@
 import dynamic from "next/dynamic";
 
 import { ExtendedPost } from "@/types/db";
+import ComPostSkeleton from "@/components/SkeletonLoaders/ComPostSkeleton";
 
 const Posts = dynamic(() => import("@/components/InfiniteQuery/Posts"), {
   ssr: false,
-  loading: () => <p>Loading...</p>,
+  loading: () => (
+    <div className="flex flex-col gap-y-4">
+      <ComPostSkeleton />
+    </div>
+  ),
 });
 
 interface PostsProps {
