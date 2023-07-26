@@ -224,7 +224,9 @@ const UpdateCommunityForm: FC<UpdateCommunityFormProps> = ({ community }) => {
                 <Combobox
                   data={categories}
                   placeholder="Select category..."
-                  selectedOption={category}
+                  selectedOption={
+                    category.charAt(0).toUpperCase() + category.slice(1)
+                  }
                   setState={setCategory}
                   disabled={isLoading}
                 />

@@ -62,14 +62,17 @@ const CommunityCategoryPage = async ({
       <div className="flex items-center gap-x-2">
         <Link
           href={`${baseLink}/${community.id}/post`}
-          className={cn(buttonVariants(), "w-fit")}
+          className={cn(buttonVariants({ size: "sm" }), "w-fit")}
         >
           Create a post
         </Link>
         {community.creator.id === session.user.id && (
           <Link
             href={`${baseLink}/${community.id}/edit`}
-            className={cn(buttonVariants({ variant: "outline" }), "w-fit")}
+            className={cn(
+              buttonVariants({ variant: "outline", size: "sm" }),
+              "w-fit"
+            )}
           >
             Edit details
           </Link>

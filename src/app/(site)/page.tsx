@@ -11,7 +11,7 @@ import OverviewSkeleton from "@/components/SkeletonLoaders/OverviewSkeleton";
 import CommunityCategories from "@/components/Footer/CommunityCategories";
 
 export const fetchCache = "force-no-store";
-export const revalidate = 0;
+export const dynamic = "force-dynamic";
 
 export default function Home() {
   return (
