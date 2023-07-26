@@ -12,6 +12,7 @@ import {
 } from "@/ui/Sheet";
 import { buttonVariants } from "@/ui/Button";
 import { cn } from "@/lib/utils";
+import { Skeleton } from "@/ui/Skeleton";
 
 interface CustomAdminSheetProps {
   children: ReactNode;
@@ -19,7 +20,7 @@ interface CustomAdminSheetProps {
 
 const AddAdminForm = dynamic(() => import("@/components/Forms/AddAdminForm"), {
   ssr: false,
-  loading: () => <p>Loading...</p>,
+  loading: () => <AddAdminFormSkeleton />,
 });
 
 const CustomAdminSheet: FC<CustomAdminSheetProps> = ({ children }) => {
@@ -42,3 +43,19 @@ const CustomAdminSheet: FC<CustomAdminSheetProps> = ({ children }) => {
 };
 
 export default CustomAdminSheet;
+
+const AddAdminFormSkeleton = () => {
+  return (
+    <div className="grid gap-5 mt-6">
+      <div className="space-y-3">
+        <Skeleton className="h-4 w-20" />
+        <Skeleton className="h-10 w-full" />
+      </div>
+
+      <div className="flex items-center justify-end gap-x-2">
+        <Skeleton className="h-8 w-20" />
+        <Skeleton className="h-8 w-14" />
+      </div>
+    </div>
+  );
+};

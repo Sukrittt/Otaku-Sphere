@@ -29,7 +29,7 @@ const AddAnimeReviewForm = dynamic(
 
 const PostReviewSkeleton = () => {
   return (
-    <div className="grid gap-5 mt-2">
+    <div className="grid gap-5 mt-6">
       <div className="space-y-3">
         <Skeleton className="h-4 w-20" />
         <Skeleton className="h-10 w-full" />
@@ -38,7 +38,9 @@ const PostReviewSkeleton = () => {
         <Skeleton className="h-4 w-20" />
         <Skeleton className="h-[200px] w-full" />
       </div>
-      <Skeleton className="h-8 w-20" />
+      <div className="flex justify-end">
+        <Skeleton className="h-8 w-20" />
+      </div>
     </div>
   );
 };
