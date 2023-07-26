@@ -3,8 +3,8 @@ import { format } from "date-fns";
 import { db } from "@/lib/db";
 import { Header } from "@/components/Header";
 import { Shell } from "@/components/Shell";
-import Users from "@/components/InfiniteQuery/Users";
 import { UserDisplay } from "@/types/item-type";
+import UserClient from "@/components/ClientWrapper/UserClient";
 
 const UsersPage = async () => {
   const recentFiveUsers = await db.user.findMany({
@@ -36,7 +36,7 @@ const UsersPage = async () => {
         description="Details of the users on the site."
         size="sm"
       />
-      <Users
+      <UserClient
         initialUsers={structuredUserData}
         initialFetchedUsers={recentFiveUsers}
       />

@@ -1,6 +1,6 @@
 import { db } from "@/lib/db";
 import { INFINITE_SCROLLING_PAGINATION_ANIME } from "@/config";
-import Animes from "@/components/InfiniteQuery/Animes";
+import AnimeClient from "@/components/ClientWrapper/AnimeClient";
 
 const AdminAnimes = async () => {
   const allAnime = await db.anime.findMany({
@@ -10,7 +10,7 @@ const AdminAnimes = async () => {
     take: INFINITE_SCROLLING_PAGINATION_ANIME,
   });
 
-  return <Animes initialAnimes={allAnime} />;
+  return <AnimeClient initialAnimes={allAnime} />;
 };
 
 export default AdminAnimes;
