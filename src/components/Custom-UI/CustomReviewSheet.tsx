@@ -1,5 +1,6 @@
 "use client";
 import { FC, ReactNode } from "react";
+import dynamic from "next/dynamic";
 
 import {
   Sheet,
@@ -11,12 +12,19 @@ import {
 } from "@/ui/Sheet";
 import { buttonVariants } from "@/ui/Button";
 import { cn } from "@/lib/utils";
-import AddAnimeReviewForm from "@/components/Forms/AddAnimeReviewForm";
 
 interface CustomReviewSheetProps {
   children: ReactNode;
   animeId: string;
 }
+
+const AddAnimeReviewForm = dynamic(
+  () => import("@/components/Forms/AddAnimeReviewForm"),
+  {
+    ssr: false,
+    loading: () => <p>Loading...</p>,
+  }
+);
 
 const CustomReviewSheet: FC<CustomReviewSheetProps> = ({
   children,
@@ -25,7 +33,10 @@ const CustomReviewSheet: FC<CustomReviewSheetProps> = ({
   return (
     <Sheet>
       <SheetTrigger
-        className={cn(buttonVariants({ variant: "outline" }), "w-fit")}
+        className={cn(
+          buttonVariants({ variant: "outline", size: "sm" }),
+          "w-fit"
+        )}
       >
         {children}
       </SheetTrigger>

@@ -1,5 +1,6 @@
 "use client";
 import { FC, ReactNode } from "react";
+import dynamic from "next/dynamic";
 
 import {
   Sheet,
@@ -11,9 +12,16 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/ui/Sheet";
-import AddAnimeWatchlistForm from "@/components/Forms/AddAnimeWatchlistForm";
 import { Button, buttonVariants } from "@/ui/Button";
 import { cn } from "@/lib/utils";
+
+const AddAnimeWatchlistForm = dynamic(
+  () => import("@/components/Forms/AddAnimeWatchlistForm"),
+  {
+    ssr: false,
+    loading: () => <p>Loading...</p>,
+  }
+);
 
 interface CustomSheetProps {
   children: ReactNode;

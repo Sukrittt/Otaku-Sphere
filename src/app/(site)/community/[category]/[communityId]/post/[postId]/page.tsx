@@ -5,15 +5,16 @@ import { Suspense } from "react";
 import { db } from "@/lib/db";
 import { Shell } from "@/components/Shell";
 import { Card, CardContent, CardHeader } from "@/ui/Card";
-import LikePost from "@/components/LikePost";
 import { getAuthSession } from "@/lib/auth";
 import { Icons } from "@/components/Icons";
-import AddCommentForm from "@/components/Forms/AddCommentForm";
 import { buttonVariants } from "@/ui/Button";
 import { cn, formatTimeToNow } from "@/lib/utils";
-import PostDropdown from "@/components/Dropdown/PostDropdown";
+
 import Comments from "@/components/ServerComponents/Comments";
 import CommentSkeleton from "@/components/SkeletonLoaders/CommentSkeleton";
+import AddCommentClient from "@/components/ClientWrapper/AddCommentClient";
+import LikePostClient from "@/components/ClientWrapper/LikePostClient";
+import PostDropdownClient from "@/components/ClientWrapper/PostDropdownClient";
 
 interface IndividualPostPageProps {
   params: {
@@ -73,7 +74,7 @@ const IndividualPostPage = async ({ params }: IndividualPostPageProps) => {
               >
                 Go back
               </Link>
-              <PostDropdown post={post} sessionId={session.user.id}>
+              <PostDropdownClient post={post} sessionId={session.user.id}>
                 <div
                   className={buttonVariants({
                     variant: "ghost",
@@ -82,7 +83,7 @@ const IndividualPostPage = async ({ params }: IndividualPostPageProps) => {
                 >
                   <Icons.options className="h-4 w-4" />
                 </div>
-              </PostDropdown>
+              </PostDropdownClient>
             </div>
             <div>
               <span className="text-sm font-medium text-muted-foreground">
@@ -102,7 +103,7 @@ const IndividualPostPage = async ({ params }: IndividualPostPageProps) => {
                 {commentCount.toLocaleString()}
               </span>
             </div>
-            <LikePost
+            <LikePostClient
               likes={post.like.length}
               initialLike={initialLike}
               postId={post.id}
@@ -110,7 +111,7 @@ const IndividualPostPage = async ({ params }: IndividualPostPageProps) => {
           </div>
         </CardHeader>
         <CardContent className="w-full flex flex-col gap-y-4 py-5">
-          <AddCommentForm postId={post.id} />
+          <AddCommentClient postId={post.id} />
         </CardContent>
         <Suspense fallback={<CommentSkeleton />}>
           <Comments postId={post.id} />

@@ -4,7 +4,7 @@ import { db } from "@/lib/db";
 import { Shell } from "@/components/Shell";
 import { env } from "@/env.mjs";
 import { INFINITE_SCROLLING_PAGINATION_LEADERBOARD } from "@/config";
-import LeaderboardAnimes from "@/components/InfiniteQuery/LeaderboardAnimes";
+import LeaderboardClient from "@/components/ClientWrapper/LeaderboardClient";
 
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
@@ -28,7 +28,7 @@ const LeaderboardPage = async () => {
       <h1 className="text-4xl text-center font-bold leading-tight tracking-tighter md:text-6xl lg:text-7xl lg:leading-[1.1]">
         Leaderboard
       </h1>
-      <LeaderboardAnimes initialLeaderBoardAnimes={initialLeaderBoardAnimes} />
+      <LeaderboardClient initialLeaderBoardAnimes={initialLeaderBoardAnimes} />
     </Shell>
   );
 };

@@ -11,7 +11,7 @@ import {
   CardTitle,
 } from "@/components/ui/Card";
 import { getAuthSession } from "@/lib/auth";
-import UpdateAnimeForm from "@/components/Forms/UpdateAnimeForm";
+import UpdateAnimeClient from "@/components/ClientWrapper/UpdateAnimeClient";
 
 interface AnimeUpdatePageProps {
   params: {
@@ -48,7 +48,7 @@ const AnimeUpdatePage = async ({ params }: AnimeUpdatePageProps) => {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <UpdateAnimeForm anime={anime} />
+          <UpdateAnimeClient anime={anime} />
         </CardContent>
       </Card>
     </Shell>

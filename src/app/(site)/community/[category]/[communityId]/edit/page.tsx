@@ -10,7 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/Card";
-import UpdateCommunityForm from "@/components/Forms/UpdateCommunityForm";
+import UpdateCommunityClient from "@/components/ClientWrapper/UpdateCommunityClient";
 
 interface CommunityEditPageProps {
   params: {
@@ -47,7 +47,7 @@ const CommunityEditPage = async ({ params }: CommunityEditPageProps) => {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <UpdateCommunityForm community={community} />
+          <UpdateCommunityClient community={community} />
         </CardContent>
       </Card>
     </Shell>

@@ -6,7 +6,7 @@ import { format } from "date-fns";
 
 import { Input } from "@/ui/Input";
 import { Button } from "@/ui/Button";
-import { UserDataTable } from "@/components/User/UserDataTable";
+import UserDataTable from "@/components/User/UserDataTable";
 import { userColumns } from "@/components/Rankings/TableColumn";
 import { UserDisplay } from "@/types/item-type";
 import { ExtendedUser } from "@/types/db";

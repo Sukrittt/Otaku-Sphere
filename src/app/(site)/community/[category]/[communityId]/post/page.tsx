@@ -2,7 +2,6 @@ import { notFound } from "next/navigation";
 import { Metadata } from "next";
 
 import { db } from "@/lib/db";
-import CreatePostForm from "@/components/Forms/CreatePostForm";
 import { Shell } from "@/components/Shell";
 import {
   Card,
@@ -12,6 +11,7 @@ import {
   CardTitle,
 } from "@/ui/Card";
 import { env } from "@/env.mjs";
+import CreatePostClient from "@/components/ClientWrapper/CreatePostClient";
 
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
@@ -58,7 +58,7 @@ const CreatePostPage = async ({ params }: CreatePostPageProps) => {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <CreatePostForm
+          <CreatePostClient
             category={formattedCategory}
             communityId={communityId}
           />

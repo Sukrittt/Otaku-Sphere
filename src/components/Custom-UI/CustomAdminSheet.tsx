@@ -1,5 +1,6 @@
 "use client";
 import { FC, ReactNode } from "react";
+import dynamic from "next/dynamic";
 
 import {
   Sheet,
@@ -11,16 +12,20 @@ import {
 } from "@/ui/Sheet";
 import { buttonVariants } from "@/ui/Button";
 import { cn } from "@/lib/utils";
-import AddAdminForm from "@/components/Forms/AddAdminForm";
 
 interface CustomAdminSheetProps {
   children: ReactNode;
 }
 
+const AddAdminForm = dynamic(() => import("@/components/Forms/AddAdminForm"), {
+  ssr: false,
+  loading: () => <p>Loading...</p>,
+});
+
 const CustomAdminSheet: FC<CustomAdminSheetProps> = ({ children }) => {
   return (
     <Sheet>
-      <SheetTrigger className={cn(buttonVariants(), "w-fit")}>
+      <SheetTrigger className={cn(buttonVariants({ size: "sm" }), "w-fit")}>
         {children}
       </SheetTrigger>
       <SheetContent>

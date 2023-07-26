@@ -11,8 +11,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/ui/Card";
-import AddAnimeForm from "@/components/Forms/AddAnimeForm";
 import { env } from "@/env.mjs";
+import CreateAnimeClient from "@/components/ClientWrapper/CreateAnimeClient";
 
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
@@ -45,7 +45,7 @@ const page = async () => {
           <CardDescription>Add a new anime for the users</CardDescription>
         </CardHeader>
         <CardContent>
-          <AddAnimeForm />
+          <CreateAnimeClient />
         </CardContent>
       </Card>
     </Shell>

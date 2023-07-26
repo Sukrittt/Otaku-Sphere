@@ -3,12 +3,12 @@ import { Metadata } from "next";
 
 import { db } from "@/lib/db";
 import { Shell } from "@/components/Shell";
-import DragContainer from "@/components/DragDrop/DragContainer";
 import CustomSheet from "@/components/Custom-UI/CustomSheet";
 import { getAuthSession } from "@/lib/auth";
 import { DragItemType } from "@/types/item-type";
 import DragDropProvider from "@/components/DragDrop/DragDropProvider";
 import { env } from "@/env.mjs";
+import DragContainerClient from "@/components/ClientWrapper/DragContainerClient";
 
 export const dynamic = "force-dynamic";
 export const fetchCache = "force-no-store";
@@ -98,7 +98,7 @@ const WatchlistPage = async () => {
         </h1>
         <div className="space-y-4">
           <CustomSheet>Add anime</CustomSheet>
-          <DragContainer
+          <DragContainerClient
             notStartedAnimes={pendingAnimes}
             currentlyWatchingAnimes={currentlyWatching}
             finishedWatchingAnimes={finishedWatching}

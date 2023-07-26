@@ -2,7 +2,7 @@ import { format } from "date-fns";
 
 import { db } from "@/lib/db";
 import { Shell } from "@/components/Shell";
-import { UserDataTable } from "@/components/User/UserDataTable";
+import UserDataTable from "@/components/User/UserDataTable";
 import { adminColumns } from "@/components/Rankings/TableColumn";
 import { AdminDisplay } from "@/types/item-type";
 import { Header } from "@/components/Header";

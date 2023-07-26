@@ -1,6 +1,5 @@
 import { Metadata } from "next";
 
-import CreateCommunityForm from "@/components/Forms/CreateCommunityForm";
 import { Shell } from "@/components/Shell";
 import {
   Card,
@@ -10,6 +9,7 @@ import {
   CardTitle,
 } from "@/ui/Card";
 import { env } from "@/env.mjs";
+import CreateCommunityClient from "@/components/ClientWrapper/CreateCommunityClient";
 
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
@@ -28,7 +28,7 @@ const page = () => {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <CreateCommunityForm />
+          <CreateCommunityClient />
         </CardContent>
       </Card>
     </Shell>
