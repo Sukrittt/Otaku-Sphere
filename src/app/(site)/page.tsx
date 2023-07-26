@@ -1,6 +1,5 @@
 import { Suspense } from "react";
 import { Balancer } from "react-wrap-balancer";
-import dynamic from "next/dynamic";
 
 import { Shell } from "@/components/Shell";
 import TopRated from "@/components/ServerComponents/TopRated";
@@ -9,13 +8,10 @@ import UserDesigned from "@/components/ServerComponents/UserDesigned";
 import AnimeCardSkeleton from "@/components/SkeletonLoaders/AnimeCardSkeleton";
 import Overview from "@/components/ServerComponents/Overview";
 import OverviewSkeleton from "@/components/SkeletonLoaders/OverviewSkeleton";
+import CommunityCategories from "@/components/Footer/CommunityCategories";
 
 export const fetchCache = "force-no-store";
 export const revalidate = 0;
-
-const CommunityCategories = dynamic(
-  () => import("@/components/Footer/CommunityCategories")
-);
 
 export default function Home() {
   return (

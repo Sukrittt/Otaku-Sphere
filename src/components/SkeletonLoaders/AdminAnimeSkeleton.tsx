@@ -23,7 +23,7 @@ const AdminAnimeSkeleton = () => {
 
 export default AdminAnimeSkeleton;
 
-const AnimeAdminSkeletonCard = () => {
+export const AnimeAdminSkeletonCard = () => {
   return (
     <Card className="h-full overflow-hidden rounded-sm">
       <CardHeader className="border-b p-0">
@@ -41,7 +41,7 @@ const AnimeAdminSkeletonCard = () => {
         <Skeleton className="h-4 w-full" />
       </CardContent>
       <CardFooter className="p-4">
-        <Skeleton className="h-10 w-full" />
+        <Skeleton className="h-8 w-full" />
       </CardFooter>
     </Card>
   );

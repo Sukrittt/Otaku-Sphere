@@ -10,6 +10,7 @@ import { ExtendedCommunity } from "@/types/db";
 import { Icons } from "@/components/Icons";
 import { Input } from "@/ui/Input";
 import { Button } from "@/ui/Button";
+import ComPostSkeleton from "@/components/SkeletonLoaders/ComPostSkeleton";
 
 interface CommunitiesProps {
   initialCommunites: ExtendedCommunity[];
@@ -19,6 +20,7 @@ interface CommunitiesProps {
 const Communities: FC<CommunitiesProps> = ({ initialCommunites, category }) => {
   const lastPostRef = useRef<HTMLElement>(null);
   const [communities, setCommunities] = useState(initialCommunites);
+  const [noNewData, setNoNewData] = useState(false);
 
   const [query, setQuery] = useState("");
 
@@ -73,14 +75,19 @@ const Communities: FC<CommunitiesProps> = ({ initialCommunites, category }) => {
       setCommunities(queryResults);
       return;
     }
+
+    if (data?.pages[data?.pages.length - 1].length === 0) {
+      setNoNewData(true);
+    }
+
     setCommunities(data?.pages.flatMap((page) => page) ?? initialCommunites);
   }, [data, queryResults, initialCommunites]);
 
   useEffect(() => {
-    if (entry?.isIntersecting) {
+    if (entry?.isIntersecting && !noNewData) {
       fetchNextPage();
     }
-  }, [entry, fetchNextPage]);
+  }, [entry, fetchNextPage, noNewData]);
 
   if (communities.length === 0) {
     return (
@@ -133,14 +140,7 @@ const Communities: FC<CommunitiesProps> = ({ initialCommunites, category }) => {
           );
         }
       })}
-      {isFetchingNextPage && (
-        <div className="w-full flex justify-center">
-          <Icons.spinner
-            className="mr-2 h-4 w-4 animate-spin"
-            aria-hidden="true"
-          />
-        </div>
-      )}
+      {isFetchingNextPage && <ComPostSkeleton length={3} />}
       {query.length > 0 && communities.length === 0 && (
         <p className="text-center text-sm text-muted-foreground">
           No results found.

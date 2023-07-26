@@ -6,8 +6,8 @@ import { useIntersection } from "@mantine/hooks";
 
 import { INFINITE_SCROLLING_PAGINATION_RESULTS } from "@/config";
 import { ExtendedPost } from "@/types/db";
-import { Icons } from "@/components/Icons";
 import PostCard from "@/components/Cards/PostCard";
+import ComPostSkeleton from "@/components/SkeletonLoaders/ComPostSkeleton";
 
 interface PostsProps {
   initialPosts: ExtendedPost[];
@@ -17,6 +17,7 @@ interface PostsProps {
 const Posts: FC<PostsProps> = ({ initialPosts, communityId }) => {
   const lastPostRef = useRef<HTMLElement>(null);
   const [posts, setPosts] = useState<ExtendedPost[]>(initialPosts);
+  const [noNewData, setNoNewData] = useState(false);
 
   const { ref, entry } = useIntersection({
     root: lastPostRef.current,
@@ -43,14 +44,18 @@ const Posts: FC<PostsProps> = ({ initialPosts, communityId }) => {
   );
 
   useEffect(() => {
+    if (data?.pages[data?.pages.length - 1].length === 0) {
+      setNoNewData(true);
+    }
+
     setPosts(data?.pages.flatMap((page) => page) ?? initialPosts);
   }, [data, initialPosts]);
 
   useEffect(() => {
-    if (entry?.isIntersecting) {
+    if (entry?.isIntersecting && !noNewData) {
       fetchNextPage();
     }
-  }, [entry, fetchNextPage]);
+  }, [entry, fetchNextPage, noNewData]);
 
   if (posts.length === 0) {
     return (
@@ -77,14 +82,7 @@ const Posts: FC<PostsProps> = ({ initialPosts, communityId }) => {
           );
         }
       })}
-      {isFetchingNextPage && (
-        <div className="w-full flex justify-center">
-          <Icons.spinner
-            className="mr-2 h-4 w-4 animate-spin"
-            aria-hidden="true"
-          />
-        </div>
-      )}
+      {isFetchingNextPage && <ComPostSkeleton length={3} />}
     </div>
   );
 };

@@ -10,6 +10,7 @@ import { Icons } from "@/components/Icons";
 import { AnimeAdminCard } from "@/components/Cards/AdminAnime";
 import { Input } from "@/ui/Input";
 import { Button } from "@/ui/Button";
+import { AnimeAdminSkeletonCard } from "@/components/SkeletonLoaders/AdminAnimeSkeleton";
 
 interface AnimesProps {
   initialAnimes: Anime[];
@@ -19,6 +20,7 @@ const Animes: FC<AnimesProps> = ({ initialAnimes }) => {
   const lastPostRef = useRef<HTMLElement>(null);
 
   const [animes, setAnimes] = useState(initialAnimes);
+  const [noNewData, setNoNewData] = useState(false);
 
   const [query, setQuery] = useState("");
 
@@ -65,14 +67,19 @@ const Animes: FC<AnimesProps> = ({ initialAnimes }) => {
       setAnimes(queryResults);
       return;
     }
+
+    if (data?.pages[data?.pages.length - 1].length === 0) {
+      setNoNewData(true);
+    }
+
     setAnimes(data?.pages.flatMap((page) => page) ?? initialAnimes);
   }, [data, queryResults, initialAnimes]);
 
   useEffect(() => {
-    if (entry?.isIntersecting) {
+    if (entry?.isIntersecting && !noNewData) {
       fetchNextPage();
     }
-  }, [entry, fetchNextPage]);
+  }, [entry, fetchNextPage, noNewData]);
 
   return (
     <>
@@ -123,11 +130,12 @@ const Animes: FC<AnimesProps> = ({ initialAnimes }) => {
         </p>
       )}
       {isFetchingNextPage && (
-        <div className="w-full flex justify-center">
-          <Icons.spinner
-            className="mr-2 h-4 w-4 animate-spin"
-            aria-hidden="true"
-          />
+        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+          {Array.from({ length: 3 }).map((_, index) => (
+            <div key={index}>
+              <AnimeAdminSkeletonCard />
+            </div>
+          ))}
         </div>
       )}
     </>
