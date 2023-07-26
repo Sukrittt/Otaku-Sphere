@@ -15,11 +15,11 @@ const HeaderSkeleton = ({
       {showBack && <Skeleton className="h-8 w-20" />}
       <div className="space-y-2">
         <Skeleton
-          className={cn("h-8 w-1/2 md:w-1/3", {
+          className={cn("h-8 w-1/2 md:w-40", {
             "h-10 md:h-16 w-3/4 md:w-1/2": large,
           })}
         />
-        {description && <Skeleton className="h-4 w-full md:w-1/2" />}
+        {description && <Skeleton className="h-6 w-full md:w-1/3" />}
       </div>
     </div>
   );

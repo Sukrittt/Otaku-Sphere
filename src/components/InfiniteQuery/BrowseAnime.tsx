@@ -91,7 +91,7 @@ const BrowseAnime: FC<BrowseAnimeProps> = ({ initialAnimes }) => {
 
   return (
     <>
-      <div className="flex gap-x-2 items-center">
+      <div className="flex flex-col sm:flex-row gap-2 sm:items-center">
         <Combobox
           data={genres}
           selectedOption={genre}
