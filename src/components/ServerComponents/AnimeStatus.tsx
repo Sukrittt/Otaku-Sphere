@@ -2,7 +2,7 @@ import { FC } from "react";
 import { Session } from "next-auth";
 
 import { db } from "@/lib/db";
-import AnimeStatusQuestion from "@/components/AnimeStatusQuestion";
+import AnimeQuestionClient from "@/components/ClientWrapper/AnimeQuestionClient";
 
 interface AnimeStatusProps {
   animeId: string;
@@ -37,7 +37,7 @@ const AnimeStatus: FC<AnimeStatusProps> = async ({ animeId, session }) => {
 
   if (pendingAnimes || watchingAnimes || finishedAnimes) return;
 
-  return <AnimeStatusQuestion animeId={animeId} />;
+  return <AnimeQuestionClient animeId={animeId} />;
 };
 
 export default AnimeStatus;
