@@ -4,8 +4,8 @@ import { db } from "@/lib/db";
 import { cn } from "@/lib/utils";
 import { Shell } from "@/components/Shell";
 import { buttonVariants } from "@/ui/Button";
-import Communities from "@/components/InfiniteQuery/Communities";
 import { INFINITE_SCROLLING_PAGINATION_RESULTS } from "@/config";
+import CommunityClient from "@/components/ClientWrapper/CommunityClient";
 
 const CommunityPage = async () => {
   const initialCommunities = await db.community.findMany({
@@ -29,7 +29,7 @@ const CommunityPage = async () => {
       <Link href="/community/create" className={cn(buttonVariants(), "w-fit")}>
         Create your own community
       </Link>
-      <Communities initialCommunites={initialCommunities} />
+      <CommunityClient initialCommunities={initialCommunities} />
     </Shell>
   );
 };

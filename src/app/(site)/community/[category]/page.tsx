@@ -4,10 +4,10 @@ import { notFound } from "next/navigation";
 import { db } from "@/lib/db";
 import { cn } from "@/lib/utils";
 import { Shell } from "@/components/Shell";
-import Communities from "@/components/InfiniteQuery/Communities";
 import { buttonVariants } from "@/components/ui/Button";
 import { INFINITE_SCROLLING_PAGINATION_RESULTS } from "@/config";
 import { categories } from "@/data/community";
+import CommunityClient from "@/components/ClientWrapper/CommunityClient";
 
 interface CommunityCategoryPageProps {
   params: {
@@ -61,8 +61,8 @@ const CommunityCategoryPage = async ({
       <Link href="/community/create" className={cn(buttonVariants(), "w-fit")}>
         Create your own community
       </Link>
-      <Communities
-        initialCommunites={initialCommunities}
+      <CommunityClient
+        initialCommunities={initialCommunities}
         category={formattedCategory}
       />
     </Shell>

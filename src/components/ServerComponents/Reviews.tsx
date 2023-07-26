@@ -1,7 +1,7 @@
 import { db } from "@/lib/db";
 import { getAuthSession } from "@/lib/auth";
-import ReviewInfiniteFetching from "@/components/Reviews";
 import { INFINITE_SCROLLING_PAGINATION_ANIME } from "@/config";
+import ReviewClient from "@/components/ClientWrapper/ReviewClient";
 
 interface ReviewsProps {
   animeId: string;
@@ -27,7 +27,7 @@ const Reviews = async ({ animeId }: ReviewsProps) => {
   });
 
   return (
-    <ReviewInfiniteFetching
+    <ReviewClient
       animeId={animeId}
       session={session}
       initialReviews={reviews}

@@ -13,13 +13,16 @@ import { Button } from "@/ui/Button";
 import ComPostSkeleton from "@/components/SkeletonLoaders/ComPostSkeleton";
 
 interface CommunitiesProps {
-  initialCommunites: ExtendedCommunity[];
+  initialCommunities: ExtendedCommunity[];
   category?: string;
 }
 
-const Communities: FC<CommunitiesProps> = ({ initialCommunites, category }) => {
+const Communities: FC<CommunitiesProps> = ({
+  initialCommunities,
+  category,
+}) => {
   const lastPostRef = useRef<HTMLElement>(null);
-  const [communities, setCommunities] = useState(initialCommunites);
+  const [communities, setCommunities] = useState(initialCommunities);
   const [noNewData, setNoNewData] = useState(false);
 
   const [query, setQuery] = useState("");
@@ -48,7 +51,7 @@ const Communities: FC<CommunitiesProps> = ({ initialCommunites, category }) => {
       getNextPageParam: (_, pages) => {
         return pages.length + 1;
       },
-      initialData: { pages: [initialCommunites], pageParams: [1] },
+      initialData: { pages: [initialCommunities], pageParams: [1] },
     }
   );
 
@@ -80,8 +83,8 @@ const Communities: FC<CommunitiesProps> = ({ initialCommunites, category }) => {
       setNoNewData(true);
     }
 
-    setCommunities(data?.pages.flatMap((page) => page) ?? initialCommunites);
-  }, [data, queryResults, initialCommunites]);
+    setCommunities(data?.pages.flatMap((page) => page) ?? initialCommunities);
+  }, [data, queryResults, initialCommunities]);
 
   useEffect(() => {
     if (entry?.isIntersecting && !noNewData) {

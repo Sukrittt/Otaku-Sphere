@@ -6,7 +6,6 @@ import { Metadata } from "next";
 
 import { db } from "@/lib/db";
 import { Shell } from "@/components/Shell";
-import AnimeRating from "@/components/AnimeRating";
 import { getAuthSession } from "@/lib/auth";
 import { buttonVariants } from "@/ui/Button";
 import { Icons } from "@/components/Icons";
@@ -25,6 +24,7 @@ import ReviewSkeleton from "@/components/SkeletonLoaders/ReviewSkeleton";
 import AnimeCardSkeleton from "@/components/SkeletonLoaders/AnimeCardSkeleton";
 import AnimeWatchers from "@/components/AnimeWatchers";
 import { Skeleton } from "@/ui/Skeleton";
+import AnimeRatingClient from "@/components/ClientWrapper/AnimeRatingClient";
 import { env } from "@/env.mjs";
 
 export const dynamic = "force-dynamic";
@@ -104,7 +104,7 @@ const AnimePage = async ({ params }: AnimePageProps) => {
               </span>
             </div>
             <div className="text-xs font-semibold text-muted-foreground">
-              <AnimeRating
+              <AnimeRatingClient
                 animeId={anime.id}
                 userRating={userRating}
                 session={session}

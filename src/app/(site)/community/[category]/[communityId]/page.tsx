@@ -7,8 +7,8 @@ import { getAuthSession } from "@/lib/auth";
 import { buttonVariants } from "@/ui/Button";
 import { cn } from "@/lib/utils";
 import { INFINITE_SCROLLING_PAGINATION_RESULTS } from "@/config";
-import Posts from "@/components/InfiniteQuery/Posts";
 import { Header } from "@/components/Header";
+import PostClient from "@/components/ClientWrapper/PostClient";
 
 interface CommunityCategoryPageProps {
   params: {
@@ -78,7 +78,7 @@ const CommunityCategoryPage = async ({
           </Link>
         )}
       </div>
-      <Posts initialPosts={community.post} communityId={communityId} />
+      <PostClient initialPosts={community.post} communityId={communityId} />
     </Shell>
   );
 };
