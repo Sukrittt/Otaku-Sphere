@@ -32,6 +32,7 @@ const BrowseAnime: FC<BrowseAnimeProps> = ({ initialAnimes }) => {
   const [genre, setGenre] = useState("");
   const [year, setYear] = useState("");
   const [noNewData, setNoNewData] = useState(false);
+  const [emptyData, setEmptyData] = useState(false);
 
   const { ref, entry } = useIntersection({
     root: lastPostRef.current,
@@ -72,15 +73,20 @@ const BrowseAnime: FC<BrowseAnimeProps> = ({ initialAnimes }) => {
   });
 
   useEffect(() => {
-    if (queryResults) {
+    if (!queryResults) return;
+
+    if (queryResults.length > 0) {
+      setEmptyData(false);
       setQueryResultData(queryResults);
+    } else if (genre || year) {
+      setEmptyData(true);
     }
-  }, [queryResults]);
+  }, [queryResults, genre, year]);
 
   useEffect(() => {
     if (queryResultData.length > 0) {
-      setAnimes(queryResultData);
-      return;
+      setEmptyData(false);
+      return setAnimes(queryResultData);
     }
 
     if (data?.pages[data?.pages.length - 1].length === 0) {
@@ -104,6 +110,7 @@ const BrowseAnime: FC<BrowseAnimeProps> = ({ initialAnimes }) => {
       setNoNewData(false);
       setQueryResultData([]);
       queryClient.resetQueries(["browse-anime-infinite-query"]);
+      setEmptyData(false);
     }
   }, [genre, year, refetch, queryClient]);
 
@@ -111,6 +118,7 @@ const BrowseAnime: FC<BrowseAnimeProps> = ({ initialAnimes }) => {
     queryClient.resetQueries(["browse-anime-infinite-query"]);
     setQueryResultData([]);
     setNoNewData(false);
+    setEmptyData(false);
   };
 
   return (
@@ -139,25 +147,27 @@ const BrowseAnime: FC<BrowseAnimeProps> = ({ initialAnimes }) => {
       {isFetching ? (
         <AnimeCardSkeleton length={5} />
       ) : (
-        <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-5">
-          {animes.map((anime, index) => {
-            if (index === animes.length - 1) {
-              return (
-                <div key={anime.id} ref={ref}>
-                  <AnimeCard anime={anime} />
-                </div>
-              );
-            } else {
-              return (
-                <div key={anime.id}>
-                  <AnimeCard anime={anime} />
-                </div>
-              );
-            }
-          })}
-        </div>
+        !emptyData && (
+          <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-5">
+            {animes.map((anime, index) => {
+              if (index === animes.length - 1) {
+                return (
+                  <div key={anime.id} ref={ref}>
+                    <AnimeCard anime={anime} />
+                  </div>
+                );
+              } else {
+                return (
+                  <div key={anime.id}>
+                    <AnimeCard anime={anime} />
+                  </div>
+                );
+              }
+            })}
+          </div>
+        )
       )}
-      {animes.length === 0 && (
+      {emptyData && (
         <p className="text-center text-sm text-muted-foreground">
           No results found.
         </p>
