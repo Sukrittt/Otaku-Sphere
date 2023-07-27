@@ -28,6 +28,7 @@ const Communities: FC<CommunitiesProps> = ({
   const lastPostRef = useRef<HTMLElement>(null);
   const [communities, setCommunities] = useState(initialCommunities);
   const [noNewData, setNoNewData] = useState(false);
+  const [emptyData, setEmptyData] = useState(false);
   const [queryResultData, setQueryResultData] = useState<ExtendedCommunity[]>(
     []
   );
@@ -82,15 +83,20 @@ const Communities: FC<CommunitiesProps> = ({
   });
 
   useEffect(() => {
-    if (queryResults) {
+    if (!queryResults) return;
+
+    if (queryResults.length > 0) {
+      setEmptyData(false);
       setQueryResultData(queryResults);
+    } else if (query) {
+      setEmptyData(true);
     }
-  }, [queryResults]);
+  }, [queryResults, query]);
 
   useEffect(() => {
     if (queryResultData.length > 0) {
-      setCommunities(queryResultData);
-      return;
+      setEmptyData(false);
+      return setCommunities(queryResultData);
     }
 
     if (data?.pages[data?.pages.length - 1].length === 0) {
@@ -117,6 +123,7 @@ const Communities: FC<CommunitiesProps> = ({
   const handleSearchCommunity = () => {
     if (query.length === 0) {
       setQueryResultData([]);
+      setEmptyData(false);
       return queryClient.resetQueries(infiniteQueryKey);
     }
 
@@ -148,23 +155,24 @@ const Communities: FC<CommunitiesProps> = ({
         </Button>
       </div>
 
-      {communities.map((community, index) => {
-        if (index === communities.length - 1) {
-          return (
-            <div key={community.id} ref={ref}>
-              <CommunityCard community={community} />
-            </div>
-          );
-        } else {
-          return (
-            <div key={community.id}>
-              <CommunityCard community={community} />
-            </div>
-          );
-        }
-      })}
+      {!emptyData &&
+        communities.map((community, index) => {
+          if (index === communities.length - 1) {
+            return (
+              <div key={community.id} ref={ref}>
+                <CommunityCard community={community} />
+              </div>
+            );
+          } else {
+            return (
+              <div key={community.id}>
+                <CommunityCard community={community} />
+              </div>
+            );
+          }
+        })}
       {isFetchingNextPage && <ComPostSkeleton length={3} />}
-      {query.length > 0 && communities.length === 0 && (
+      {emptyData && (
         <p className="text-center text-sm text-muted-foreground">
           No results found.
         </p>
