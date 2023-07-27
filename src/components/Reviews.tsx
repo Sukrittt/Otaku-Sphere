@@ -2,6 +2,8 @@
 import { FC, useEffect, useState } from "react";
 import { Balancer } from "react-wrap-balancer";
 import { ReviewLike, Reviews, User } from "@prisma/client";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { Session } from "next-auth";
 import axios from "axios";
 
 import { formatTimeToNow } from "@/lib/utils";
@@ -11,9 +13,7 @@ import LikeReview from "@/components/LikeReview";
 import ReviewDropdown from "@/components/Dropdown/ReviewDropdown";
 import { Button, buttonVariants } from "@/ui/Button";
 import { Icons } from "@/components/Icons";
-import { useInfiniteQuery } from "@tanstack/react-query";
 import { INFINITE_SCROLLING_PAGINATION_ANIME } from "@/config";
-import { Session } from "next-auth";
 
 type ExtendedReview = Reviews & {
   user: User;

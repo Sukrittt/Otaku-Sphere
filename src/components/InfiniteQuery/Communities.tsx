@@ -1,6 +1,10 @@
 "use client";
 import { FC, useEffect, useRef, useState } from "react";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import {
+  useInfiniteQuery,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import axios from "axios";
 import { useIntersection } from "@mantine/hooks";
 
@@ -24,7 +28,11 @@ const Communities: FC<CommunitiesProps> = ({
   const lastPostRef = useRef<HTMLElement>(null);
   const [communities, setCommunities] = useState(initialCommunities);
   const [noNewData, setNoNewData] = useState(false);
+  const [queryResultData, setQueryResultData] = useState<ExtendedCommunity[]>(
+    []
+  );
 
+  const queryClient = useQueryClient();
   const [query, setQuery] = useState("");
 
   const { ref, entry } = useIntersection({
@@ -75,7 +83,13 @@ const Communities: FC<CommunitiesProps> = ({
 
   useEffect(() => {
     if (queryResults) {
-      setCommunities(queryResults);
+      setQueryResultData(queryResults);
+    }
+  }, [queryResults]);
+
+  useEffect(() => {
+    if (queryResultData.length > 0) {
+      setCommunities(queryResultData);
       return;
     }
 
@@ -84,7 +98,7 @@ const Communities: FC<CommunitiesProps> = ({
     }
 
     setCommunities(data?.pages.flatMap((page) => page) ?? initialCommunities);
-  }, [data, queryResults, initialCommunities]);
+  }, [data, queryResultData, initialCommunities]);
 
   useEffect(() => {
     if (entry?.isIntersecting && !noNewData) {
@@ -100,23 +114,29 @@ const Communities: FC<CommunitiesProps> = ({
     );
   }
 
+  const handleSearchCommunity = () => {
+    if (query.length === 0) {
+      setQueryResultData([]);
+      return queryClient.resetQueries(infiniteQueryKey);
+    }
+
+    refetch();
+  };
+
   return (
     <div className="flex flex-col gap-y-4">
-      <div className="flex gap-x-2 items-center px-2">
+      <div className="flex gap-x-2 items-center px-1">
         <Input
           placeholder="Type a community name here."
           onChange={(e) => setQuery(e.target.value)}
           disabled={isFetching}
           onKeyDown={(e) => {
-            if (e.key === "Enter" && query.length > 0) {
-              refetch();
+            if (e.key === "Enter") {
+              handleSearchCommunity();
             }
           }}
         />
-        <Button
-          onClick={() => refetch()}
-          disabled={query.length === 0 || isFetching}
-        >
+        <Button onClick={handleSearchCommunity} disabled={isFetching}>
           {isFetching ? (
             <Icons.spinner
               className="h-4 w-4 animate-spin"
