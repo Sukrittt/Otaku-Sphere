@@ -90,7 +90,7 @@ const ReviewInfiniteFetching: FC<ReviewsProps> = ({
                   </div>
                   <div>
                     {review.user.id === session?.user.id && (
-                      <ReviewDropdown reviewId={review.id}>
+                      <ReviewDropdown reviewId={review.id} animeId={animeId}>
                         <div
                           className={buttonVariants({
                             variant: "ghost",

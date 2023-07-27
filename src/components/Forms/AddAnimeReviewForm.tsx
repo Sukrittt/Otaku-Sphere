@@ -2,9 +2,8 @@
 
 import { FC } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
-import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
 import { toast } from "@/hooks/use-toast";
@@ -32,8 +31,8 @@ interface AddAnimeReviewFormProps {
 }
 
 const AddAnimeReviewForm: FC<AddAnimeReviewFormProps> = ({ animeId }) => {
-  const router = useRouter();
   const { loginToast, endErrorToast } = useAuthToast();
+  const queryClient = useQueryClient();
 
   //react-hook-form initialization
   const form = useForm<AnimeReviewSchemaType>({
@@ -56,10 +55,13 @@ const AddAnimeReviewForm: FC<AddAnimeReviewFormProps> = ({ animeId }) => {
       return data;
     },
     onSuccess: () => {
-      router.refresh();
       form.reset();
 
+      const reviewInfiniteQueryKey = [`anime-review-infinite-query-${animeId}`];
+      queryClient.resetQueries(reviewInfiniteQueryKey);
+
       toast({
+        title: "Success!",
         description: "Review posted successfully.",
       });
     },

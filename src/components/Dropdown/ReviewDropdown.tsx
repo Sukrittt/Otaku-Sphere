@@ -1,8 +1,7 @@
 "use client";
 import { FC } from "react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
-import { useRouter } from "next/navigation";
 
 import {
   DropdownMenu,
@@ -18,10 +17,15 @@ import { AnimeReviewDeleteSchemaType } from "@/lib/validators/anime";
 interface ReviewDropdownProps {
   children: React.ReactNode;
   reviewId: string;
+  animeId: string;
 }
 
-const ReviewDropdown: FC<ReviewDropdownProps> = ({ children, reviewId }) => {
-  const router = useRouter();
+const ReviewDropdown: FC<ReviewDropdownProps> = ({
+  children,
+  reviewId,
+  animeId,
+}) => {
+  const queryClient = useQueryClient();
 
   const { endErrorToast, loginToast } = useAuthToast();
 
@@ -59,7 +63,9 @@ const ReviewDropdown: FC<ReviewDropdownProps> = ({ children, reviewId }) => {
       endErrorToast();
     },
     onSuccess: () => {
-      router.refresh();
+      const reviewInfiniteQueryKey = [`anime-review-infinite-query-${animeId}`];
+      queryClient.invalidateQueries(reviewInfiniteQueryKey);
+
       toast({
         description: "Review deleted successfully.",
       });
