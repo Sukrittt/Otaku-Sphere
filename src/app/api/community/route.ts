@@ -83,6 +83,15 @@ export async function GET(req: Request) {
       skipClause = (parseInt(page) - 1) * parseInt(limit);
     }
 
+    if (category && !limit && !page && query) {
+      whereClause = {
+        name: {
+          contains: query,
+        },
+        category: category,
+      };
+    }
+
     const communities = await db.community.findMany({
       take: takeClause,
       skip: skipClause,
