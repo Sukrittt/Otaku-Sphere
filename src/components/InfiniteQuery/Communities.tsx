@@ -45,6 +45,10 @@ const Communities: FC<CommunitiesProps> = ({
     ? [`community-infinite-${category}`]
     : [`community-infinite`];
 
+  const communitySearchQueryKey = category
+    ? [`community-search-query-${category}`]
+    : [`community-search-query`];
+
   const { data, fetchNextPage, isFetchingNextPage } = useInfiniteQuery(
     infiniteQueryKey,
     async ({ pageParam = 1 }) => {
@@ -78,7 +82,7 @@ const Communities: FC<CommunitiesProps> = ({
 
       return data as ExtendedCommunity[];
     },
-    queryKey: ["community-search-query"],
+    queryKey: communitySearchQueryKey,
     enabled: false, //by default it will not fetch
   });
 
