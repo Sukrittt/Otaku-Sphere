@@ -126,7 +126,7 @@ const BrowseAnime: FC<BrowseAnimeProps> = ({ initialAnimes }) => {
 
   return (
     <>
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col sm:flex-row gap-y-4 justify-between sm:items-center">
         <div className="flex flex-col sm:flex-row gap-2 sm:items-center">
           <Combobox
             data={genres}
@@ -145,7 +145,7 @@ const BrowseAnime: FC<BrowseAnimeProps> = ({ initialAnimes }) => {
             large
           />
         </div>
-        <Button size="sm" onClick={handleResetFilters}>
+        <Button size="sm" onClick={handleResetFilters} className="w-fit">
           Reset filters
         </Button>
       </div>

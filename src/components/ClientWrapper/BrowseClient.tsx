@@ -22,9 +22,12 @@ export default BrowseClient;
 const BrowseAnimeSkeleton = () => {
   return (
     <>
-      <div className="flex flex-col sm:flex-row gap-2 sm:items-center">
-        <Skeleton className="h-10 w-[180px]" />
-        <Skeleton className="h-10 w-[180px]" />
+      <div className="flex flex-col sm:flex-row gap-y-4 justify-between sm:items-center">
+        <div className="flex flex-col sm:flex-row gap-2 sm:items-center">
+          <Skeleton className="h-8 w-40" />
+          <Skeleton className="h-8 w-40" />
+        </div>
+        <Skeleton className="h-8 w-24" />
       </div>
       <AnimeCardSkeleton length={10} />
     </>
