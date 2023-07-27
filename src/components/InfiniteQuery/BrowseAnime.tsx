@@ -2,7 +2,11 @@
 import { FC, useEffect, useRef, useState } from "react";
 import { Anime } from "@prisma/client";
 import { useIntersection } from "@mantine/hooks";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import {
+  useInfiniteQuery,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import axios from "axios";
 
 import { AnimeCard } from "@/components/Cards/AnimeCard";
@@ -11,6 +15,7 @@ import AnimeCardSkeleton from "@/components/SkeletonLoaders/AnimeCardSkeleton";
 import { Combobox } from "@/ui/ComboBox";
 import { genres } from "@/data/anime";
 import { getYearData } from "@/lib/utils";
+import { Button } from "@/ui/Button";
 
 interface BrowseAnimeProps {
   initialAnimes: Anime[];
@@ -18,8 +23,11 @@ interface BrowseAnimeProps {
 
 const BrowseAnime: FC<BrowseAnimeProps> = ({ initialAnimes }) => {
   const yearData = getYearData();
+  const queryClient = useQueryClient();
+
   const lastPostRef = useRef<HTMLElement>(null);
   const [animes, setAnimes] = useState<Anime[]>(initialAnimes);
+  const [queryResultData, setQueryResultData] = useState<Anime[]>([]);
 
   const [genre, setGenre] = useState("");
   const [year, setYear] = useState("");
@@ -65,7 +73,13 @@ const BrowseAnime: FC<BrowseAnimeProps> = ({ initialAnimes }) => {
 
   useEffect(() => {
     if (queryResults) {
-      setAnimes(queryResults);
+      setQueryResultData(queryResults);
+    }
+  }, [queryResults]);
+
+  useEffect(() => {
+    if (queryResultData.length > 0) {
+      setAnimes(queryResultData);
       return;
     }
 
@@ -74,7 +88,7 @@ const BrowseAnime: FC<BrowseAnimeProps> = ({ initialAnimes }) => {
     }
 
     setAnimes(data?.pages.flatMap((page) => page) ?? initialAnimes);
-  }, [data, initialAnimes, queryResults]);
+  }, [data, initialAnimes, queryResultData]);
 
   useEffect(() => {
     if (entry?.isIntersecting && !noNewData) {
@@ -84,28 +98,43 @@ const BrowseAnime: FC<BrowseAnimeProps> = ({ initialAnimes }) => {
 
   useEffect(() => {
     if (genre || year) {
-      refetch();
       setNoNewData(true);
+      refetch();
+    } else {
+      setNoNewData(false);
+      setQueryResultData([]);
+      queryClient.resetQueries(["browse-anime-infinite-query"]);
     }
-  }, [genre, year, refetch]);
+  }, [genre, year, refetch, queryClient]);
+
+  const handleResetFilters = () => {
+    queryClient.resetQueries(["browse-anime-infinite-query"]);
+    setQueryResultData([]);
+    setNoNewData(false);
+  };
 
   return (
     <>
-      <div className="flex flex-col sm:flex-row gap-2 sm:items-center">
-        <Combobox
-          data={genres}
-          selectedOption={genre}
-          setState={setGenre}
-          placeholder="Select genre..."
-          large
-        />
-        <Combobox
-          data={yearData}
-          selectedOption={year}
-          placeholder="Select year..."
-          setState={setYear}
-          large
-        />
+      <div className="flex justify-between items-center">
+        <div className="flex flex-col sm:flex-row gap-2 sm:items-center">
+          <Combobox
+            data={genres}
+            selectedOption={genre}
+            setState={setGenre}
+            placeholder="Select genre..."
+            large
+          />
+          <Combobox
+            data={yearData}
+            selectedOption={year}
+            placeholder="Select year..."
+            setState={setYear}
+            large
+          />
+        </div>
+        <Button size="sm" onClick={handleResetFilters}>
+          Reset filters
+        </Button>
       </div>
       {isFetching ? (
         <AnimeCardSkeleton length={5} />
