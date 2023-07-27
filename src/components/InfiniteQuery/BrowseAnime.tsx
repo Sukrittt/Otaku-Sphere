@@ -33,6 +33,7 @@ const BrowseAnime: FC<BrowseAnimeProps> = ({ initialAnimes }) => {
   const [year, setYear] = useState("");
   const [noNewData, setNoNewData] = useState(false);
   const [emptyData, setEmptyData] = useState(false);
+  const [reset, setReset] = useState(false);
 
   const { ref, entry } = useIntersection({
     root: lastPostRef.current,
@@ -97,6 +98,7 @@ const BrowseAnime: FC<BrowseAnimeProps> = ({ initialAnimes }) => {
   }, [data, initialAnimes, queryResultData]);
 
   useEffect(() => {
+    setReset(false);
     if (entry?.isIntersecting && !noNewData) {
       fetchNextPage();
     }
@@ -119,6 +121,7 @@ const BrowseAnime: FC<BrowseAnimeProps> = ({ initialAnimes }) => {
     setQueryResultData([]);
     setNoNewData(false);
     setEmptyData(false);
+    setReset(true);
   };
 
   return (
@@ -130,6 +133,7 @@ const BrowseAnime: FC<BrowseAnimeProps> = ({ initialAnimes }) => {
             selectedOption={genre}
             setState={setGenre}
             placeholder="Select genre..."
+            reset={reset}
             large
           />
           <Combobox
@@ -137,6 +141,7 @@ const BrowseAnime: FC<BrowseAnimeProps> = ({ initialAnimes }) => {
             selectedOption={year}
             placeholder="Select year..."
             setState={setYear}
+            reset={reset}
             large
           />
         </div>

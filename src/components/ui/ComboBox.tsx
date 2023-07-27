@@ -21,6 +21,7 @@ interface ComboboxProps extends React.HTMLAttributes<HTMLInputElement> {
   selectedOption?: string;
   disabled?: boolean;
   large?: boolean;
+  reset?: boolean;
 }
 
 export const Combobox: FC<ComboboxProps> = forwardRef<
@@ -28,13 +29,28 @@ export const Combobox: FC<ComboboxProps> = forwardRef<
   ComboboxProps
 >(
   (
-    { data, placeholder, setState, selectedOption, disabled, large, ...props },
+    {
+      data,
+      placeholder,
+      setState,
+      selectedOption,
+      disabled,
+      large,
+      reset,
+      ...props
+    },
     ref
   ) => {
     const [open, setOpen] = useState(false);
 
     const selectedGenre = data.find((item) => item.label === selectedOption);
     const [value, setValue] = useState(selectedGenre?.value ?? "");
+
+    useEffect(() => {
+      if (reset) {
+        setValue("");
+      }
+    }, [reset]);
 
     useEffect(() => {
       if (value) {
