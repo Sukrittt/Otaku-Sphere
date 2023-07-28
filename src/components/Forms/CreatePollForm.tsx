@@ -19,7 +19,6 @@ import {
 } from "@/ui/Form";
 import { useAuthToast } from "@/hooks/useAuthToast";
 import { toast } from "@/hooks/use-toast";
-import { Textarea } from "@/ui/Textarea";
 import {
   CreatePollValidator,
   CreatePollValidatorServerType,
@@ -75,7 +74,8 @@ const CreatePollForm = () => {
         if (statusCode === 422) {
           return toast({
             title: "Error!",
-            description: "You have to set an expiry date.",
+            description:
+              "Either the expiry data was not provided or one of the option was too long.",
             variant: "destructive",
           });
         }
@@ -112,10 +112,10 @@ const CreatePollForm = () => {
   }
 
   const handleAddOption = () => {
-    if (text.length === 0 || text.length > 200) {
+    if (text.length === 0 || text.length > 80) {
       return toast({
         title: "Error!",
-        description: "Option must be between 1 and 200 characters.",
+        description: "Option must be between 1 and 80 characters.",
         variant: "destructive",
       });
     }
@@ -168,7 +168,7 @@ const CreatePollForm = () => {
             </div>
             <FormControl>
               <>
-                <Textarea
+                <Input
                   placeholder="Type poll option here."
                   disabled={isLoading}
                   value={text}
@@ -205,7 +205,7 @@ const CreatePollForm = () => {
                     <span className="text-sm">{option}</span>
                   </CardHeader>
                   <Icons.delete
-                    className="h-3.5 w-3.5 mr-3 hover:text-muted-foreground transition"
+                    className="h-3.5 w-3.5 mr-3 hover:text-muted-foreground transition cursor-pointer"
                     onClick={() =>
                       setOptions(options.filter((item) => item !== option))
                     }

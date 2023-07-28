@@ -3,6 +3,9 @@ import {
   Comment,
   Community,
   Like,
+  Poll,
+  PollOption,
+  PollVote,
   Post,
   Rating,
   User,
@@ -33,4 +36,9 @@ export type ExtendedUser = User & {
   community: Community[];
   post: Post[];
   rating: Rating[];
+};
+
+export type ExtendedPoll = Poll & {
+  creator: User;
+  option: Array<PollOption & { vote: PollVote[] }>;
 };

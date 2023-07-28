@@ -1,11 +1,40 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
-import { Header } from "@/components/Header";
-import { Shell } from "@/components/Shell";
+import { db } from "@/lib/db";
 import { cn } from "@/lib/utils";
-import { buttonVariants } from "@/components/ui/Button";
+import { Shell } from "@/components/Shell";
+import { Header } from "@/components/Header";
+import { buttonVariants } from "@/ui/Button";
+import { getAuthSession } from "@/lib/auth";
+import Polls from "@/components/InfiniteQuery/Polls";
+import { INFINITE_SCROLLING_PAGINATION_BROWSE } from "@/config";
 
-const PollPage = () => {
+const PollPage = async () => {
+  const session = await getAuthSession();
+
+  if (!session) {
+    redirect("/sign-in");
+  }
+
+  const initialPolls = await db.poll.findMany({
+    orderBy: { createdAt: "desc" },
+    include: {
+      option: {
+        include: {
+          vote: true,
+        },
+      },
+      creator: true,
+    },
+    take: INFINITE_SCROLLING_PAGINATION_BROWSE,
+    where: {
+      expiresAt: {
+        gt: new Date(), // only show polls that haven't expired yet
+      },
+    },
+  });
+
   return (
     <Shell layout="dashboard">
       <Header title="Anime Poll" description="Your voice, Your vote!" />
@@ -15,6 +44,11 @@ const PollPage = () => {
       >
         Create Poll
       </Link>
+      <Polls
+        initialPolls={initialPolls}
+        interaction
+        sessionId={session.user.id}
+      />
     </Shell>
   );
 };

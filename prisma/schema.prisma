@@ -276,7 +276,7 @@ model Poll {
 model PollOption {
   id String @id @default(cuid())
 
-  option String @db.VarChar(200)
+  option String @db.VarChar(80)
 
   pollId String
   poll   Poll   @relation(fields: [pollId], references: [id], onDelete: Cascade)
