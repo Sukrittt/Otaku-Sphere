@@ -24,8 +24,12 @@ const Polls: FC<PollsProps> = ({ initialPolls, interaction, sessionId }) => {
     threshold: 1,
   });
 
+  const pollInfiniteQueryKey = interaction
+    ? ["polls-infinite-query"]
+    : ["polls-infinite-query-results"];
+
   const { data, fetchNextPage, isFetchingNextPage } = useInfiniteQuery(
-    ["polls-infinite-query"],
+    pollInfiniteQueryKey,
     async ({ pageParam = 1 }) => {
       const expiresAt = interaction ? "gt" : "lt";
 

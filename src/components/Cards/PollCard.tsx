@@ -25,6 +25,9 @@ interface PollCardProps {
 
 const PollCard: FC<PollCardProps> = ({ poll, sessionId, interaction }) => {
   const queryClient = useQueryClient();
+  const pollInfiniteQueryKey = interaction
+    ? ["polls-infinite-query"]
+    : ["polls-infinite-query-results"];
   const { endErrorToast, loginToast } = useAuthToast();
 
   const [hasVoted, setHasVoted] = useState(
@@ -101,7 +104,7 @@ const PollCard: FC<PollCardProps> = ({ poll, sessionId, interaction }) => {
         description: "Your vote was cast.",
       });
       setHasVoted(true);
-      queryClient.resetQueries(["polls-infinite-query"]);
+      queryClient.resetQueries(pollInfiniteQueryKey);
     },
   });
 
@@ -159,7 +162,7 @@ const PollCard: FC<PollCardProps> = ({ poll, sessionId, interaction }) => {
         description: "Your vote was removed",
       });
       setHasVoted(false);
-      queryClient.resetQueries(["polls-infinite-query"]);
+      queryClient.resetQueries(pollInfiniteQueryKey);
     },
   });
 
