@@ -2,9 +2,9 @@ import { Suspense } from "react";
 import { Balancer } from "react-wrap-balancer";
 
 import { Shell } from "@/components/Shell";
-// import TopRated from "@/components/ServerComponents/TopRated";
-// import RecentlyAdded from "@/components/ServerComponents/RecentlyAdded";
-// import UserDesigned from "@/components/ServerComponents/UserDesigned";
+import TopRated from "@/components/ServerComponents/TopRated";
+import RecentlyAdded from "@/components/ServerComponents/RecentlyAdded";
+import UserDesigned from "@/components/ServerComponents/UserDesigned";
 import AnimeCardSkeleton from "@/components/SkeletonLoaders/AnimeCardSkeleton";
 import Overview from "@/components/ServerComponents/Overview";
 import OverviewSkeleton from "@/components/SkeletonLoaders/OverviewSkeleton";
@@ -32,7 +32,7 @@ export default function Home() {
       <Suspense fallback={<OverviewSkeleton />}>
         <Overview />
       </Suspense>
-      {/* <div className="flex flex-col gap-y-2">
+      <div className="flex flex-col gap-y-2">
         <h2 className="text-2xl font-semibold tracking-tight">Top Rated</h2>
         <p className="text-sm text-muted-foreground">
           Top picks for you. Updated daily.
@@ -56,7 +56,7 @@ export default function Home() {
 
       <Suspense fallback={<CustomUserDesignedAnimeSkeleton />}>
         <UserDesigned />
-      </Suspense> */}
+      </Suspense>
 
       <CommunityCategories />
     </Shell>
