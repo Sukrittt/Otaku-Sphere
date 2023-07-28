@@ -71,6 +71,9 @@ model User {
 
   like Like[]
 
+  pollVote PollVote[]
+  poll     Poll[]
+
   createdAt DateTime @default(now())
 }
 
@@ -253,4 +256,44 @@ model Like {
   post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
 
   @@id([userId, postId])
+}
+
+//----------------------------------------
+model Poll {
+  id String @id @default(cuid())
+
+  question String @db.VarChar(150)
+
+  creatorId String
+  creator   User   @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+
+  option PollOption[]
+
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}
+
+model PollOption {
+  id String @id @default(cuid())
+
+  option String @db.VarChar(200)
+
+  pollId String
+  poll   Poll   @relation(fields: [pollId], references: [id], onDelete: Cascade)
+
+  vote PollVote[]
+
+  createdAt DateTime @default(now())
+}
+
+model PollVote {
+  id String @id @default(cuid())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  pollOptionId String
+  pollOption   PollOption @relation(fields: [pollOptionId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
 }

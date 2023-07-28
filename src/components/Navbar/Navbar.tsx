@@ -35,6 +35,11 @@ const Navbar = async () => {
       label: "Leaderboard",
       href: "/leaderboard",
     },
+    {
+      id: 5,
+      label: "Poll",
+      href: "/poll",
+    },
   ];
 
   return (

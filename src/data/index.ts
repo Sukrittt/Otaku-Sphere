@@ -61,6 +61,21 @@ export const communitySidebarNavItems: SidebarNavType[] = [
   },
 ];
 
+export const pollSidebarNavItems: SidebarNavType[] = [
+  {
+    id: 1,
+    label: "Polls",
+    Icon: Icons.activity,
+    href: "/poll",
+  },
+  {
+    id: 2,
+    label: "Results",
+    Icon: Icons.info,
+    href: "/poll/results",
+  },
+];
+
 export const dialogue = [
   {
     id: 1,

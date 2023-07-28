@@ -31,6 +31,7 @@ import {
   Menu,
   ChevronRight,
   ChevronLeft,
+  Activity,
 } from "lucide-react";
 
 export type Icon = LucideIcon;
@@ -108,4 +109,5 @@ export const Icons = {
   left: ChevronLeft,
   plus: Plus,
   menu: Menu,
+  activity: Activity,
 };
