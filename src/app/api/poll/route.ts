@@ -31,6 +31,9 @@ export async function POST(req: Request) {
     const existingQuestion = await db.poll.findFirst({
       where: {
         question,
+        expiresAt: {
+          gt: new Date(),
+        },
       },
     });
 
@@ -48,13 +51,13 @@ export async function POST(req: Request) {
       },
     });
 
-    options.map(async (payload: string) => {
-      await db.pollOption.create({
-        data: {
-          pollId: poll.id,
-          option: payload,
-        },
-      });
+    const pollOptionsData = options.map((payload) => ({
+      pollId: poll.id,
+      option: payload,
+    }));
+
+    await db.pollOption.createMany({
+      data: pollOptionsData,
     });
 
     return new Response("OK");
