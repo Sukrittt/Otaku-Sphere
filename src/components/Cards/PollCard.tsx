@@ -167,7 +167,7 @@ const PollCard: FC<PollCardProps> = ({ poll, sessionId, interaction }) => {
   });
 
   const handleVotePollOption = (optionId: string) => {
-    if (hasVoted) return;
+    if (!interaction || hasVoted) return;
 
     if (voteLoading) {
       return toast({
@@ -180,7 +180,7 @@ const PollCard: FC<PollCardProps> = ({ poll, sessionId, interaction }) => {
   };
 
   const handleUndoVotePoll = () => {
-    if (!hasVoted || !votedOption) return;
+    if (!interaction || !hasVoted || !votedOption) return;
 
     if (unvoteLoading) {
       return toast({
@@ -215,25 +215,26 @@ const PollCard: FC<PollCardProps> = ({ poll, sessionId, interaction }) => {
             return (
               <Card
                 key={opt.id}
-                className={cn(
-                  "relative md:hover:bg-primary-foreground transition",
-                  {
-                    "cursor-pointer": !hasVoted,
-                  }
-                )}
+                className={cn("relative transition", {
+                  "cursor-pointer": interaction && !hasVoted,
+                  "dark:hover:border-neutral-900 hover:border-neutral-100":
+                    interaction,
+                })}
                 onClick={() => handleVotePollOption(opt.id)}
               >
                 <div
-                  className="absolute h-full z-0 bg-primary-foreground rounded-md"
+                  className={cn(
+                    "absolute h-full z-0 bg-primary-foreground rounded-md"
+                  )}
                   style={{
-                    width: `${hasVoted ? votePercentage : 0}%`,
+                    width: `${!interaction || hasVoted ? votePercentage : 0}%`,
                   }}
                 />
                 <CardHeader className="p-3">
                   <div className="flex justify-between z-10">
                     <CardDescription>{opt.option}</CardDescription>
                     <CardDescription>
-                      {hasVoted &&
+                      {(!interaction || hasVoted) &&
                         `${convertToSingleDecimalPlace(votePercentage, 1)}%`}
                     </CardDescription>
                   </div>
@@ -247,7 +248,11 @@ const PollCard: FC<PollCardProps> = ({ poll, sessionId, interaction }) => {
         <span>Created by {`u/${formattedName}`}</span>
         <UserAvatar user={poll.creator} className="h-3 w-3" />·
         <span>{totalVotes.toLocaleString()} votes ·</span>
-        <span>{formatTimeLeft(new Date(poll.expiresAt))} left</span>
+        <span>
+          {!interaction && "Expired "}
+          {formatTimeLeft(new Date(poll.expiresAt))}{" "}
+          {interaction ? "left" : "ago"}
+        </span>
         {hasVoted && votedOption && (
           <div className="space-x-1">
             <span>·</span>
