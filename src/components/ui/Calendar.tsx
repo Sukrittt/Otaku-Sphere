@@ -16,7 +16,7 @@ function Calendar({
   fixedWeeks = true,
   ...props
 }: CalendarProps) {
-  const disabledDays = [{ before: new Date() }];
+  const disabledDays = [{ before: new Date() }, new Date()];
 
   return (
     <DayPicker
