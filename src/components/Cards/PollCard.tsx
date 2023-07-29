@@ -60,8 +60,6 @@ const PollCard: FC<PollCardProps> = ({ poll, sessionId, interaction }) => {
       return data;
     },
     onError: (error) => {
-      setHasVoted(false);
-
       if (error instanceof AxiosError) {
         const statusCode = error.response?.status;
         if (statusCode === 401) {
@@ -103,7 +101,6 @@ const PollCard: FC<PollCardProps> = ({ poll, sessionId, interaction }) => {
         title: "Success!",
         description: "Your vote was cast.",
       });
-      setHasVoted(true);
       queryClient.resetQueries(pollInfiniteQueryKey);
     },
   });
@@ -118,8 +115,6 @@ const PollCard: FC<PollCardProps> = ({ poll, sessionId, interaction }) => {
       return data;
     },
     onError: (error) => {
-      setHasVoted(false);
-
       if (error instanceof AxiosError) {
         const statusCode = error.response?.status;
         if (statusCode === 401) {
