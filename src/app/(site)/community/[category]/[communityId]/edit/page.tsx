@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 
 import { db } from "@/lib/db";
 import { Shell } from "@/components/Shell";
-import { Header } from "@/components/Header";
+import { ShowBack } from "@/components/Header";
 import {
   Card,
   CardContent,
@@ -33,14 +33,13 @@ const CommunityEditPage = async ({ params }: CommunityEditPageProps) => {
 
   return (
     <Shell layout="dashboard">
-      <Header
-        title={community.name}
-        goBackLink={`/community/${community.category.toLowerCase()}/${
-          community.id
-        }`}
-      />
       <Card>
         <CardHeader className="space-y-1">
+          <ShowBack
+            href={`/community/${community.category.toLowerCase()}/${
+              community.id
+            }`}
+          />
           <CardTitle className="text-2xl">Update community</CardTitle>
           <CardDescription>
             Update the content of this community.
