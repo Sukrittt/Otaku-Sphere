@@ -12,7 +12,7 @@ import {
   CardTitle,
 } from "@/ui/Card";
 import UserAvatar from "@/components/User/UserAvatar";
-import { cn, formatTimeLeft } from "@/lib/utils";
+import { cn, convertToSingleDecimalPlace, formatTimeLeft } from "@/lib/utils";
 import { useAuthToast } from "@/hooks/useAuthToast";
 import { toast } from "@/hooks/use-toast";
 import { VotePollValidatorType } from "@/lib/validators/poll";
@@ -218,7 +218,8 @@ const PollCard: FC<PollCardProps> = ({ poll, sessionId, interaction }) => {
                   <div className="flex justify-between z-10">
                     <CardDescription>{opt.option}</CardDescription>
                     <CardDescription>
-                      {hasVoted && `${votePercentage}%`}
+                      {hasVoted &&
+                        `${convertToSingleDecimalPlace(votePercentage, 1)}%`}
                     </CardDescription>
                   </div>
                 </CardHeader>
