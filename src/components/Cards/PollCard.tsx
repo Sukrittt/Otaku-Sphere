@@ -196,10 +196,7 @@ const PollCard: FC<PollCardProps> = ({ poll, sessionId, interaction }) => {
     <Card>
       <CardHeader className="space-y-4 pb-2">
         <div className="flex items-center justify-between">
-          <div className="flex gap-x-2.5 items-center">
-            <UserAvatar user={poll.creator} className="h-7 w-7" />
-            <CardTitle>{`Q: ${poll.question}`}</CardTitle>
-          </div>
+          <CardTitle>{`Q: ${poll.question}`}</CardTitle>
 
           <PollDropdown
             poll={poll}
@@ -247,8 +244,10 @@ const PollCard: FC<PollCardProps> = ({ poll, sessionId, interaction }) => {
         </div>
       </CardHeader>
       <CardFooter className="text-xs text-muted-foreground py-3">
-        Created by {`u/${formattedName}`} · {totalVotes.toLocaleString()} votes
-        · {formatTimeLeft(new Date(poll.expiresAt))} left{" "}
+        Created by {`u/${formattedName}`}{" "}
+        <UserAvatar user={poll.creator} className="h-3 w-3 mx-1" />·{" "}
+        {totalVotes.toLocaleString()} votes ·{" "}
+        {formatTimeLeft(new Date(poll.expiresAt))} left{" "}
         {hasVoted && votedOption && (
           <div className="ml-1 space-x-1">
             <span>·</span>
