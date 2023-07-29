@@ -1,5 +1,5 @@
 "use client";
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 
@@ -24,39 +24,26 @@ interface PollCardProps {
 }
 
 const PollCard: FC<PollCardProps> = ({ poll, sessionId, interaction }) => {
-  const queryClient = useQueryClient();
   const pollInfiniteQueryKey = interaction
     ? ["polls-infinite-query"]
     : ["polls-infinite-query-results"];
+
+  const queryClient = useQueryClient();
   const { endErrorToast, loginToast } = useAuthToast();
 
-  const [hasVoted, setHasVoted] = useState(
+  const hasVoted =
     !!interaction &&
-      poll.option.some((option) =>
-        option.vote.some((vote) => vote.userId === sessionId)
-      )
-  );
-
-  useEffect(() => {
-    setHasVoted(
-      !!interaction &&
-        poll.option.some((option) =>
-          option.vote.some((vote) => vote.userId === sessionId)
-        )
+    poll.option.some((option) =>
+      option.vote.some((vote) => vote.userId === sessionId)
     );
-  }, [poll, interaction, sessionId]);
 
   const votedOption = poll.option.find((option) =>
     option.vote.some((vote) => vote.userId === sessionId)
   );
+
   const votedIndex = poll.option.findIndex((option) =>
     option.vote.some((vote) => vote.userId === sessionId)
   );
-
-  console.log("question", poll.question);
-  console.log("votedOption", votedOption);
-  console.log("hasVoted", hasVoted);
-  console.log("-------------");
 
   const formattedName = poll.creator.name?.split(" ")[0].toLowerCase();
   const totalVotes = poll.option.reduce(
@@ -116,7 +103,6 @@ const PollCard: FC<PollCardProps> = ({ poll, sessionId, interaction }) => {
         description: "Your vote was cast.",
       });
 
-      console.log("resetting");
       queryClient.resetQueries(pollInfiniteQueryKey);
     },
   });
@@ -173,9 +159,7 @@ const PollCard: FC<PollCardProps> = ({ poll, sessionId, interaction }) => {
         description: "Your vote was removed",
       });
 
-      console.log("resetting");
       queryClient.resetQueries(pollInfiniteQueryKey);
-      setHasVoted(false);
     },
   });
 

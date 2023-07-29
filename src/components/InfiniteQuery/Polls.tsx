@@ -28,39 +28,35 @@ const Polls: FC<PollsProps> = ({ initialPolls, interaction, sessionId }) => {
     ? ["polls-infinite-query"]
     : ["polls-infinite-query-results"];
 
-  const { data, fetchNextPage, isFetchingNextPage } = useInfiniteQuery(
-    pollInfiniteQueryKey,
-    async ({ pageParam = 1 }) => {
-      const expiresAt = interaction ? "gt" : "lt";
+  const { data, fetchNextPage, isFetchingNextPage, isFetching } =
+    useInfiniteQuery(
+      pollInfiniteQueryKey,
+      async ({ pageParam = 1 }) => {
+        const expiresAt = interaction ? "gt" : "lt";
 
-      console.log("%c refetching", "color:red;");
-      console.log("pageParam", pageParam);
+        const queryUrl = `/api/poll?limit=${INFINITE_SCROLLING_PAGINATION_BROWSE}&page=${pageParam}&expiresAt=${expiresAt}`;
 
-      const queryUrl = `/api/poll?limit=${INFINITE_SCROLLING_PAGINATION_BROWSE}&page=${pageParam}&expiresAt=${expiresAt}`;
+        const { data } = await axios(queryUrl);
 
-      const { data } = await axios(queryUrl);
-
-      return data as ExtendedPoll[];
-    },
-    {
-      getNextPageParam: (_, pages) => {
-        return pages.length + 1;
+        return data as ExtendedPoll[];
       },
-      initialData: { pages: [initialPolls], pageParams: [1] },
-    }
-  );
+      {
+        getNextPageParam: (_, pages) => {
+          return pages.length + 1;
+        },
+        initialData: { pages: [initialPolls], pageParams: [1] },
+      }
+    );
 
   useEffect(() => {
     if (data?.pages[data?.pages.length - 1].length === 0) {
       setNoNewData(true);
     }
 
-    console.log("data?.pages", data?.pages);
+    if (isFetching) return;
 
     setPolls(data?.pages.flatMap((page) => page) ?? initialPolls);
-  }, [data, initialPolls]);
-
-  console.log("poll", polls[0]);
+  }, [data, initialPolls, isFetching]);
 
   useEffect(() => {
     if (entry?.isIntersecting && !noNewData) {
