@@ -17,7 +17,11 @@ import { ScrollArea } from "@/ui/ScrollArea";
 import { Sheet, SheetContent, SheetTrigger } from "@/ui/Sheet";
 import { Icons } from "@/components/Icons";
 import { navItemType } from "@/types/item-type";
-import { adminSidebarNavItems, communitySidebarNavItems } from "@/data";
+import {
+  adminSidebarNavItems,
+  communitySidebarNavItems,
+  pollSidebarNavItems,
+} from "@/data";
 
 interface MobileNavProps {
   mainNavItems: navItemType[];
@@ -89,6 +93,36 @@ export default function MobileNav({ mainNavItems, session }: MobileNavProps) {
                 <AccordionContent>
                   <div className="flex flex-col space-y-2">
                     {communitySidebarNavItems?.map((item) =>
+                      item.href ? (
+                        <MobileLink
+                          key={item.id}
+                          href={String(item.href)}
+                          pathname={pathname}
+                          setIsOpen={setIsOpen}
+                        >
+                          <div className="flex gap-x-2 items-center">
+                            <item.Icon className="h-4 w-4" />
+                            {item.label}
+                          </div>
+                        </MobileLink>
+                      ) : (
+                        <div
+                          key={item.id}
+                          className="text-foreground/70 transition-colors"
+                        >
+                          {item.label}
+                        </div>
+                      )
+                    )}
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="poll">
+                <AccordionTrigger className="text-sm">Poll</AccordionTrigger>
+                <AccordionContent>
+                  <div className="flex flex-col space-y-2">
+                    {pollSidebarNavItems?.map((item) =>
                       item.href ? (
                         <MobileLink
                           key={item.id}

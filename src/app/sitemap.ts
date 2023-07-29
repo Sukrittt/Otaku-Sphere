@@ -32,9 +32,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/community/manga",
     "/community/question",
     "/community/feedback",
+    "/community/create",
     "/watchlist",
     "/leaderboard",
     "/browse",
+    "/poll",
+    "/poll/create",
+    "/poll/results",
     "/anime",
   ].map((route) => ({
     url: `${siteConfig.url}${route}`,

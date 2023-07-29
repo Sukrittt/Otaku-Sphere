@@ -26,8 +26,8 @@ export async function middleware(req: NextRequest) {
 export const config = {
   matcher: [
     "/community/:path*",
-    "/settings",
     "/watchlist",
+    "/poll/:path*",
     "/admin/:path*",
     "/sign-in",
   ],

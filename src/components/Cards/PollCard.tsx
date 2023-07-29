@@ -216,7 +216,7 @@ const PollCard: FC<PollCardProps> = ({ poll, sessionId, interaction }) => {
               <Card
                 key={opt.id}
                 className={cn(
-                  "relative hover:bg-primary-foreground transition",
+                  "relative md:hover:bg-primary-foreground transition",
                   {
                     "cursor-pointer": !hasVoted,
                   }
@@ -243,13 +243,13 @@ const PollCard: FC<PollCardProps> = ({ poll, sessionId, interaction }) => {
           })}
         </div>
       </CardHeader>
-      <CardFooter className="text-xs text-muted-foreground py-3">
-        Created by {`u/${formattedName}`}{" "}
-        <UserAvatar user={poll.creator} className="h-3 w-3 mx-1" />·{" "}
-        {totalVotes.toLocaleString()} votes ·{" "}
-        {formatTimeLeft(new Date(poll.expiresAt))} left{" "}
+      <CardFooter className="text-xs text-muted-foreground py-3 flex flex-wrap gap-1">
+        <span>Created by {`u/${formattedName}`}</span>
+        <UserAvatar user={poll.creator} className="h-3 w-3" />·
+        <span>{totalVotes.toLocaleString()} votes ·</span>
+        <span>{formatTimeLeft(new Date(poll.expiresAt))} left</span>
         {hasVoted && votedOption && (
-          <div className="ml-1 space-x-1">
+          <div className="space-x-1">
             <span>·</span>
             <span>{`You selected option ${votedIndex + 1}`}</span>
             <span>·</span>
