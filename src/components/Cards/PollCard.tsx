@@ -1,5 +1,5 @@
 "use client";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 
@@ -37,6 +37,15 @@ const PollCard: FC<PollCardProps> = ({ poll, sessionId, interaction }) => {
       )
   );
 
+  useEffect(() => {
+    setHasVoted(
+      !!interaction &&
+        poll.option.some((option) =>
+          option.vote.some((vote) => vote.userId === sessionId)
+        )
+    );
+  }, [poll, interaction, sessionId]);
+
   const votedOption = poll.option.find((option) =>
     option.vote.some((vote) => vote.userId === sessionId)
   );
@@ -44,13 +53,18 @@ const PollCard: FC<PollCardProps> = ({ poll, sessionId, interaction }) => {
     option.vote.some((vote) => vote.userId === sessionId)
   );
 
+  console.log("question", poll.question);
+  console.log("votedOption", votedOption);
+  console.log("hasVoted", hasVoted);
+  console.log("-------------");
+
   const formattedName = poll.creator.name?.split(" ")[0].toLowerCase();
   const totalVotes = poll.option.reduce(
     (sum, option) => sum + option.vote.length,
     0
   );
 
-  const { mutate: votePoll } = useMutation({
+  const { mutate: votePoll, isLoading: voteLoading } = useMutation({
     mutationFn: async ({ optionId }: VotePollValidatorType) => {
       const payload: VotePollValidatorType = {
         optionId,
@@ -101,11 +115,13 @@ const PollCard: FC<PollCardProps> = ({ poll, sessionId, interaction }) => {
         title: "Success!",
         description: "Your vote was cast.",
       });
+
+      console.log("resetting");
       queryClient.resetQueries(pollInfiniteQueryKey);
     },
   });
 
-  const { mutate: undoVotePoll } = useMutation({
+  const { mutate: undoVotePoll, isLoading: unvoteLoading } = useMutation({
     mutationFn: async ({ optionId }: VotePollValidatorType) => {
       const payload: VotePollValidatorType = {
         optionId,
@@ -156,19 +172,35 @@ const PollCard: FC<PollCardProps> = ({ poll, sessionId, interaction }) => {
         title: "Success!",
         description: "Your vote was removed",
       });
-      setHasVoted(false);
+
+      console.log("resetting");
       queryClient.resetQueries(pollInfiniteQueryKey);
+      setHasVoted(false);
     },
   });
 
   const handleVotePollOption = (optionId: string) => {
     if (hasVoted) return;
 
+    if (voteLoading) {
+      return toast({
+        title: "Please wait",
+        description: "We are casting your vote.",
+      });
+    }
+
     votePoll({ optionId });
   };
 
   const handleUndoVotePoll = () => {
     if (!hasVoted || !votedOption) return;
+
+    if (unvoteLoading) {
+      return toast({
+        title: "Please wait",
+        description: "We are casting your vote.",
+      });
+    }
 
     undoVotePoll({ optionId: votedOption.id });
   };
@@ -212,8 +244,8 @@ const PollCard: FC<PollCardProps> = ({ poll, sessionId, interaction }) => {
         </div>
       </CardHeader>
       <CardFooter className="text-xs text-muted-foreground py-3">
-        Created by {`u/${formattedName}`} · {totalVotes} votes ·{" "}
-        {formatTimeLeft(new Date(poll.expiresAt))} left{" "}
+        Created by {`u/${formattedName}`} · {totalVotes.toLocaleString()} votes
+        · {formatTimeLeft(new Date(poll.expiresAt))} left{" "}
         {hasVoted && votedOption && (
           <div className="ml-1 space-x-1">
             <span>·</span>

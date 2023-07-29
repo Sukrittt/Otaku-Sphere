@@ -33,6 +33,9 @@ const Polls: FC<PollsProps> = ({ initialPolls, interaction, sessionId }) => {
     async ({ pageParam = 1 }) => {
       const expiresAt = interaction ? "gt" : "lt";
 
+      console.log("%c refetching", "color:red;");
+      console.log("pageParam", pageParam);
+
       const queryUrl = `/api/poll?limit=${INFINITE_SCROLLING_PAGINATION_BROWSE}&page=${pageParam}&expiresAt=${expiresAt}`;
 
       const { data } = await axios(queryUrl);
@@ -52,8 +55,12 @@ const Polls: FC<PollsProps> = ({ initialPolls, interaction, sessionId }) => {
       setNoNewData(true);
     }
 
+    console.log("data?.pages", data?.pages);
+
     setPolls(data?.pages.flatMap((page) => page) ?? initialPolls);
   }, [data, initialPolls]);
+
+  console.log("poll", polls[0]);
 
   useEffect(() => {
     if (entry?.isIntersecting && !noNewData) {
