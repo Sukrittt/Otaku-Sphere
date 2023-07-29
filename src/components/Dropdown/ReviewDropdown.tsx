@@ -81,7 +81,10 @@ const ReviewDropdown: FC<ReviewDropdownProps> = ({
     <DropdownMenu>
       <DropdownMenuTrigger>{children}</DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuItem onClick={() => deleteReview()}>
+        <DropdownMenuItem
+          onClick={() => deleteReview()}
+          className="cursor-pointer"
+        >
           <div className="flex items-center gap-x-2 pl-2 text-sm">
             <Icons.delete className="h-3.5 w-3.5" />
             Delete

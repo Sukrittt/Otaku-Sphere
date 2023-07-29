@@ -19,3 +19,9 @@ export const VotePollValidator = z.object({
 });
 
 export type VotePollValidatorType = z.infer<typeof VotePollValidator>;
+
+export const DeletePollValidator = z.object({
+  pollId: z.string(),
+});
+
+export type DeletePollValidatorType = z.infer<typeof DeletePollValidator>;

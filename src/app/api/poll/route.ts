@@ -28,6 +28,18 @@ export async function POST(req: Request) {
       });
     }
 
+    const existingQuestion = await db.poll.findFirst({
+      where: {
+        question,
+      },
+    });
+
+    if (existingQuestion) {
+      return new Response("Poll already exists", {
+        status: 409,
+      });
+    }
+
     const poll = await db.poll.create({
       data: {
         question,

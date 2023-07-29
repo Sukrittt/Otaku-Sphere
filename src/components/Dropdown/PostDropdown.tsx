@@ -96,14 +96,17 @@ const PostDropdown: FC<PostDropdownProps> = ({ children, post, sessionId }) => {
     <DropdownMenu>
       <DropdownMenuTrigger>{children}</DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuItem onClick={handleShare}>
+        <DropdownMenuItem onClick={handleShare} className="cursor-pointer">
           <div className="flex items-center gap-x-2">
             <Icons.share className="h-4 w-4" />
             Share
           </div>
         </DropdownMenuItem>
         {post.creator.id === sessionId && (
-          <DropdownMenuItem onClick={() => deletePost()}>
+          <DropdownMenuItem
+            onClick={() => deletePost()}
+            className="cursor-pointer"
+          >
             <div className="flex items-center gap-x-2">
               <Icons.delete className="h-4 w-4" />
               Delete

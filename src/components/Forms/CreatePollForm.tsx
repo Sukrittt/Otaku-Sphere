@@ -71,6 +71,13 @@ const CreatePollForm = () => {
         if (statusCode === 401) {
           return loginToast();
         }
+        if (statusCode === 409) {
+          return toast({
+            title: "Error!",
+            description: "This poll already exists. Try changing the question.",
+            variant: "destructive",
+          });
+        }
         if (statusCode === 422) {
           return toast({
             title: "Error!",

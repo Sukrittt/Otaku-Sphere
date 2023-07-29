@@ -16,6 +16,9 @@ import { cn, convertToSingleDecimalPlace, formatTimeLeft } from "@/lib/utils";
 import { useAuthToast } from "@/hooks/useAuthToast";
 import { toast } from "@/hooks/use-toast";
 import { VotePollValidatorType } from "@/lib/validators/poll";
+import PollDropdown from "@/components/Dropdown/PollDropdown";
+import { Button } from "@/ui/Button";
+import { Icons } from "@/components/Icons";
 
 interface PollCardProps {
   poll: ExtendedPoll;
@@ -192,9 +195,21 @@ const PollCard: FC<PollCardProps> = ({ poll, sessionId, interaction }) => {
   return (
     <Card>
       <CardHeader className="space-y-4 pb-2">
-        <div className="flex gap-x-2.5 items-center">
-          <UserAvatar user={poll.creator} className="h-7 w-7" />
-          <CardTitle>{poll.question}</CardTitle>
+        <div className="flex items-center justify-between">
+          <div className="flex gap-x-2.5 items-center">
+            <UserAvatar user={poll.creator} className="h-7 w-7" />
+            <CardTitle>{`Q: ${poll.question}`}</CardTitle>
+          </div>
+
+          <PollDropdown
+            poll={poll}
+            sessionId={sessionId}
+            pollInfiniteQueryKey={pollInfiniteQueryKey}
+          >
+            <Button variant="ghost" size="icon">
+              <Icons.options className="h-4 w-4" />
+            </Button>
+          </PollDropdown>
         </div>
         <div className="space-y-2">
           {poll.option.map((opt) => {
@@ -203,9 +218,12 @@ const PollCard: FC<PollCardProps> = ({ poll, sessionId, interaction }) => {
             return (
               <Card
                 key={opt.id}
-                className={cn("relative", {
-                  "cursor-pointer": !hasVoted,
-                })}
+                className={cn(
+                  "relative hover:bg-primary-foreground transition",
+                  {
+                    "cursor-pointer": !hasVoted,
+                  }
+                )}
                 onClick={() => handleVotePollOption(opt.id)}
               >
                 <div
