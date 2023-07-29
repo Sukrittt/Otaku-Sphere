@@ -7,6 +7,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { ExtendedPoll } from "@/types/db";
 import { INFINITE_SCROLLING_PAGINATION_BROWSE } from "@/config";
 import PollCard from "@/components/Cards/PollCard";
+import PollCardsSkeleton from "@/components/SkeletonLoaders/PollCardsSkeleton";
 
 interface PollsProps {
   initialPolls: ExtendedPoll[];
@@ -32,7 +33,7 @@ const Polls: FC<PollsProps> = ({ initialPolls, interaction, sessionId }) => {
     useInfiniteQuery(
       pollInfiniteQueryKey,
       async ({ pageParam = 1 }) => {
-        const expiresAt = interaction ? "gt" : "lt";
+        const expiresAt = interaction ? "gt" : "lte";
 
         const queryUrl = `/api/poll?limit=${INFINITE_SCROLLING_PAGINATION_BROWSE}&page=${pageParam}&expiresAt=${expiresAt}`;
 
@@ -89,7 +90,7 @@ const Polls: FC<PollsProps> = ({ initialPolls, interaction, sessionId }) => {
           );
         }
       })}
-      {isFetchingNextPage && <p>Loading...</p>}
+      {isFetchingNextPage && <PollCardsSkeleton length={5} />}
       {polls.length === 0 && (
         <p className="text-center text-muted-foreground text-sm">
           No polls found.

@@ -27,7 +27,7 @@ const PollResultsPage = async () => {
     take: INFINITE_SCROLLING_PAGINATION_BROWSE,
     where: {
       expiresAt: {
-        lt: new Date(), // only show polls that have expired
+        lte: new Date(), // only show polls that have expired
       },
     },
   });
