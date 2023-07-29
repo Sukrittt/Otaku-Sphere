@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
 
-import { Header } from "@/components/Header";
+import { ShowBack } from "@/components/Header";
 import { Shell } from "@/components/Shell";
 import { getAuthSession } from "@/lib/auth";
 import {
@@ -33,14 +33,9 @@ const page = async () => {
 
   return (
     <Shell layout="dashboard">
-      <Header
-        title="New Anime"
-        description="New anime for this application"
-        size="sm"
-        goBackLink="/admin/anime"
-      />
       <Card>
         <CardHeader className="space-y-1">
+          <ShowBack href="/admin/anime" />
           <CardTitle className="text-2xl">Add anime</CardTitle>
           <CardDescription>Add a new anime for the users</CardDescription>
         </CardHeader>

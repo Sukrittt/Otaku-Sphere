@@ -10,6 +10,7 @@ import {
 } from "@/ui/Card";
 import { env } from "@/env.mjs";
 import CreateCommunityClient from "@/components/ClientWrapper/CreateCommunityClient";
+import { ShowBack } from "@/components/Header";
 
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
@@ -22,6 +23,7 @@ const page = () => {
     <Shell layout="dashboard">
       <Card className="flex h-full flex-col">
         <CardHeader className="flex-1">
+          <ShowBack href="/community" />
           <CardTitle>Create a community</CardTitle>
           <CardDescription className="line-clamp-2">
             Create a community for your interests.
