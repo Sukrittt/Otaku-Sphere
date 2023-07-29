@@ -48,16 +48,14 @@ export async function POST(req: Request) {
       },
     });
 
-    await Promise.all(
-      options.map(async (payload: string) => {
-        await db.pollOption.create({
-          data: {
-            pollId: poll.id,
-            option: payload,
-          },
-        });
-      })
-    );
+    options.map(async (payload: string) => {
+      await db.pollOption.create({
+        data: {
+          pollId: poll.id,
+          option: payload,
+        },
+      });
+    });
 
     return new Response("OK");
   } catch (error) {
