@@ -71,6 +71,7 @@ const CustomContextMenu: FC<CustomContextMenuProps> = ({
         }
         if (statusCode === 404) {
           return toast({
+            title: "Error!",
             description: "Anime not found in the watchlist.",
             variant: "destructive",
           });
@@ -82,6 +83,7 @@ const CustomContextMenu: FC<CustomContextMenuProps> = ({
     onSuccess: () => {
       router.refresh();
       toast({
+        title: "Success!",
         description: "Anime deleted from your watchlist.",
       });
     },

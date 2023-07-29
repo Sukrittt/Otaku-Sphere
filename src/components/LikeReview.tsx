@@ -43,7 +43,8 @@ const LikeReview: FC<LikeReviewProps> = ({ initialLike, likes, reviewId }) => {
         }
         if (statusCode === 404) {
           return toast({
-            description: "The review you are trying to like does not exist.",
+            title: "Error!",
+            description: "Review does not exist.",
             variant: "destructive",
           });
         }
@@ -65,7 +66,8 @@ const LikeReview: FC<LikeReviewProps> = ({ initialLike, likes, reviewId }) => {
   const handleReviewAnime = () => {
     if (isLoading) {
       toast({
-        description: "Please wait for the previous request to finish.",
+        title: "Please wait",
+        description: "We are processing your request.",
       });
       return;
     }

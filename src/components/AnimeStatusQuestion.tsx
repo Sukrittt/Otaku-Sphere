@@ -63,13 +63,14 @@ const AnimeStatusQuestion: FC<AnimeStatusQuestionProps> = ({ animeId }) => {
         }
         if (statusCode === 404) {
           return toast({
-            title: "Anime not found",
-            description: "Try another one.",
+            title: "Sorry!",
+            description: "We couldn't find this anime.",
             variant: "destructive",
           });
         }
         if (statusCode === 409) {
           return toast({
+            title: "Error!",
             description: "Anime already exists in your watchlist.",
             variant: "destructive",
           });
@@ -83,7 +84,8 @@ const AnimeStatusQuestion: FC<AnimeStatusQuestionProps> = ({ animeId }) => {
     },
     onSuccess() {
       const { dismiss } = toast({
-        description: "Good, we'll keep a track of it in your watchlist.",
+        title: "Good!",
+        description: "We'll keep a track of it in your watchlist.",
         action: (
           <Link
             href="/watchlist"

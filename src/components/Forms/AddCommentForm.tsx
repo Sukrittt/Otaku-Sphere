@@ -51,6 +51,7 @@ const AddCommentForm = ({ postId }: { postId: string }) => {
       form.reset();
 
       toast({
+        title: "Success!",
         description: "Comment added successfully.",
       });
     },
@@ -62,13 +63,14 @@ const AddCommentForm = ({ postId }: { postId: string }) => {
         }
         if (statusCode === 404) {
           return toast({
-            title: "Try again later.",
+            title: "Error!",
             description: "Post does not exist.",
             variant: "destructive",
           });
         }
         if (statusCode === 422) {
           return toast({
+            title: "Error!",
             description: "Comment cannot be empty.",
             variant: "destructive",
           });
@@ -79,7 +81,8 @@ const AddCommentForm = ({ postId }: { postId: string }) => {
     },
     onMutate: () => {
       toast({
-        description: "Please wait while we are adding your comment.",
+        title: "Please wait",
+        description: "We are adding your comment.",
       });
     },
   });

@@ -71,8 +71,8 @@ const PollCard: FC<PollCardProps> = ({ poll, sessionId, interaction }) => {
         }
         if (statusCode === 404) {
           return toast({
-            title: "Poll does not exist.",
-            description: "Try again later.",
+            title: "Error!",
+            description: "Poll does not exist.",
             variant: "destructive",
           });
         }
@@ -127,8 +127,8 @@ const PollCard: FC<PollCardProps> = ({ poll, sessionId, interaction }) => {
         }
         if (statusCode === 404) {
           return toast({
-            title: "Poll does not exist.",
-            description: "Try again later.",
+            title: "Error!",
+            description: "Poll does not exist.",
             variant: "destructive",
           });
         }
@@ -185,7 +185,7 @@ const PollCard: FC<PollCardProps> = ({ poll, sessionId, interaction }) => {
     if (unvoteLoading) {
       return toast({
         title: "Please wait",
-        description: "We are casting your vote.",
+        description: "We are removing your vote.",
       });
     }
 

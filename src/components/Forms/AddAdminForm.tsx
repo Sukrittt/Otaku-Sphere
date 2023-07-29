@@ -51,6 +51,7 @@ const AddAdminForm = () => {
       form.reset();
 
       toast({
+        title: "Success!",
         description: "User has been made admin.",
       });
     },
@@ -62,7 +63,7 @@ const AddAdminForm = () => {
         }
         if (statusCode === 403) {
           return toast({
-            title: "You are not permitted to do this action.",
+            title: "Forbidden!",
             description: "Only admins can make other users admin.",
             variant: "destructive",
           });
@@ -76,7 +77,7 @@ const AddAdminForm = () => {
         }
         if (statusCode === 409) {
           return toast({
-            title: "There was a conflict",
+            title: "Conflict!",
             description: "This user is already an admin.",
             variant: "destructive",
           });
@@ -87,7 +88,8 @@ const AddAdminForm = () => {
     },
     onMutate: () => {
       toast({
-        description: "Please wait while we are making the user admin.",
+        title: "Please wait",
+        description: "We are making the user admin.",
       });
     },
   });
@@ -104,6 +106,7 @@ const AddAdminForm = () => {
       form.reset();
 
       toast({
+        title: "Success!",
         description: "This user is no longer an admin.",
       });
     },
@@ -115,26 +118,28 @@ const AddAdminForm = () => {
         }
         if (statusCode === 404) {
           return toast({
+            title: "Try again later.",
             description: "User not found.",
             variant: "destructive",
           });
         }
         if (statusCode === 409) {
           return toast({
+            title: "Conflict!",
             description: "This user is not an admin.",
             variant: "destructive",
           });
         }
         if (statusCode === 403) {
           return toast({
-            title: "You are not permitted to do this action.",
+            title: "Forbidden!",
             description: "Only admins are allowed to remove admins.",
             variant: "destructive",
           });
         }
         if (statusCode === 405) {
           return toast({
-            title: "You are not permitted to do this action.",
+            title: "Forbidden!",
             description: "The main owner cannot be removed.",
             variant: "destructive",
           });
@@ -145,8 +150,8 @@ const AddAdminForm = () => {
     },
     onMutate: () => {
       toast({
-        description:
-          "Please wait while we are removing this user from admin role.",
+        title: "Please wait",
+        description: "We are removing this user from admin role.",
       });
     },
   });

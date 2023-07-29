@@ -48,7 +48,8 @@ const PostDropdown: FC<PostDropdownProps> = ({ children, post, sessionId }) => {
         }
         if (statusCode === 404) {
           return toast({
-            description: "The post you are trying to delete does not exist.",
+            title: "Error!",
+            description: "Post does not exist.",
             variant: "destructive",
           });
         }
@@ -67,12 +68,14 @@ const PostDropdown: FC<PostDropdownProps> = ({ children, post, sessionId }) => {
       router.push(`/community/${post.community.category}/${post.community.id}`);
       router.refresh();
       toast({
+        title: "Success!",
         description: "Post deleted successfully.",
       });
     },
     onMutate: () => {
       toast({
-        description: "Please wait while we are deleting your post.",
+        title: "Please wait",
+        description: "We are deleting your post.",
       });
     },
   });
@@ -82,10 +85,12 @@ const PostDropdown: FC<PostDropdownProps> = ({ children, post, sessionId }) => {
       await navigator.clipboard.writeText(`${siteConfig.url}${pathname}`);
 
       toast({
+        title: "Success!",
         description: "Link copied to clipboard.",
       });
     } catch (error) {
       toast({
+        title: "Error!",
         description: "Could not copy to clipboard.",
         variant: "destructive",
       });

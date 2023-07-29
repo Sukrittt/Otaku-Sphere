@@ -59,6 +59,7 @@ const AddAnimeWatchlistForm = () => {
       setAnimeData([]);
 
       toast({
+        title: "Success!",
         description: "Anime added in your watchlist.",
       });
     },
@@ -70,7 +71,7 @@ const AddAnimeWatchlistForm = () => {
         }
         if (statusCode === 404) {
           return toast({
-            title: "Try again.",
+            title: "Error!",
             description: "One of the anime you selected was not found",
             variant: "destructive",
           });
@@ -99,8 +100,8 @@ const AddAnimeWatchlistForm = () => {
     },
     onMutate: () => {
       toast({
-        description:
-          "Please wait while we are adding the selected anime in your watchlist.",
+        title: "Please wait",
+        description: "We are adding the selected anime in your watchlist.",
       });
     },
   });

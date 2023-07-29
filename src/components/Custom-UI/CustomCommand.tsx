@@ -65,6 +65,7 @@ const CustomCommand: FC<CustomCommandProps> = ({ animeData, setAnimeData }) => {
 
     if (animeExists) {
       return toast({
+        title: "Error!",
         description: "Anime already exists in the list.",
         variant: "destructive",
       });

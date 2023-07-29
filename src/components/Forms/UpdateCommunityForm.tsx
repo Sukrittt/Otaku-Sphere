@@ -70,6 +70,7 @@ const UpdateCommunityForm: FC<UpdateCommunityFormProps> = ({ community }) => {
       form.reset();
 
       toast({
+        title: "Success!",
         description: "Community updated successfully.",
       });
     },
@@ -88,6 +89,7 @@ const UpdateCommunityForm: FC<UpdateCommunityFormProps> = ({ community }) => {
         }
         if (statusCode === 404) {
           return toast({
+            title: "Error!",
             description: "Community not found.",
             variant: "destructive",
           });
@@ -101,7 +103,7 @@ const UpdateCommunityForm: FC<UpdateCommunityFormProps> = ({ community }) => {
         }
         if (statusCode === 422) {
           return toast({
-            title: "Error",
+            title: "Error!",
             description: "Category is required.",
             variant: "destructive",
           });
@@ -112,7 +114,8 @@ const UpdateCommunityForm: FC<UpdateCommunityFormProps> = ({ community }) => {
     },
     onMutate: () => {
       toast({
-        description: "Please wait while we are updating this community.",
+        title: "Please wait",
+        description: "We are updating this community.",
       });
     },
   });
@@ -130,6 +133,7 @@ const UpdateCommunityForm: FC<UpdateCommunityFormProps> = ({ community }) => {
       form.reset();
 
       toast({
+        title: "Success!",
         description: "Community deleted successfully.",
       });
     },
@@ -141,6 +145,7 @@ const UpdateCommunityForm: FC<UpdateCommunityFormProps> = ({ community }) => {
         }
         if (statusCode === 404) {
           return toast({
+            title: "Error!",
             description: "Community not found.",
             variant: "destructive",
           });
@@ -158,7 +163,8 @@ const UpdateCommunityForm: FC<UpdateCommunityFormProps> = ({ community }) => {
     },
     onMutate: () => {
       toast({
-        description: "Please wait while we are deleting your community.",
+        title: "Please wait",
+        description: "We are deleting your community.",
       });
     },
   });

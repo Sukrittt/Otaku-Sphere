@@ -73,8 +73,8 @@ const AddAnimeReviewForm: FC<AddAnimeReviewFormProps> = ({ animeId }) => {
         }
         if (statusCode === 404) {
           return toast({
-            title: "Anime does not exist.",
-            description: "Please try again later.",
+            title: "Error!",
+            description: "Anime does not exist.",
             variant: "destructive",
           });
         }
@@ -84,7 +84,8 @@ const AddAnimeReviewForm: FC<AddAnimeReviewFormProps> = ({ animeId }) => {
     },
     onMutate: () => {
       toast({
-        description: "Please wait while we are adding your review.",
+        title: "Please wait",
+        description: "We are adding your review.",
       });
     },
   });

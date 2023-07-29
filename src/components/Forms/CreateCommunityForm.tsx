@@ -60,6 +60,7 @@ const CreateCommunityForm = () => {
       form.reset();
 
       toast({
+        title: "Success!",
         description: "Your communnity was created successfully.",
       });
     },
@@ -81,7 +82,8 @@ const CreateCommunityForm = () => {
     },
     onMutate: () => {
       toast({
-        description: "Please wait while we are creating your community.",
+        title: "Please wait",
+        description: "We are creating your community.",
       });
     },
   });

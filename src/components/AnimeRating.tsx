@@ -57,6 +57,7 @@ const AnimeRating: FC<AnimeRatingProps> = ({
         }
         if (statusCode === 404) {
           return toast({
+            title: "Error!",
             description: "Anime not found.",
             variant: "destructive",
           });
@@ -68,7 +69,8 @@ const AnimeRating: FC<AnimeRatingProps> = ({
     onSuccess: () => {
       router.refresh();
       toast({
-        description: "Your rating was recorded successfully.",
+        title: "Success!",
+        description: "Your rating was recorded.",
       });
     },
     onMutate: (index: number) => {
@@ -76,17 +78,18 @@ const AnimeRating: FC<AnimeRatingProps> = ({
 
       handleRatingClick(index);
       toast({
-        description: "Please wait while we record your rating.",
+        title: "Please wait!",
+        description: "We are recording your rating.",
       });
     },
   });
 
   const handleRateAnime = (index: number) => {
     if (isLoading) {
-      toast({
-        description: "Please wait for the previous request to finish.",
+      return toast({
+        title: "Please wait!",
+        description: "We are recording your rating.",
       });
-      return;
     }
 
     rate(index);

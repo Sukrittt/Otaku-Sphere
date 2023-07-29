@@ -65,6 +65,7 @@ const AddAnimeForm = () => {
       form.reset();
 
       toast({
+        title: "Success!",
         description: "Anime added successfully.",
       });
     },
@@ -76,19 +77,21 @@ const AddAnimeForm = () => {
         }
         if (statusCode === 403) {
           return toast({
+            title: "Forbidden!",
             description: "You are not authorized to add anime.",
             variant: "destructive",
           });
         }
         if (statusCode === 409) {
           return toast({
-            title: "Conflict",
+            title: "Conflict!",
             description: "Anime already exists.",
             variant: "destructive",
           });
         }
         if (statusCode === 400) {
           return toast({
+            title: "Error!",
             description: "Cover image is missing.",
             variant: "destructive",
           });
@@ -99,7 +102,8 @@ const AddAnimeForm = () => {
     },
     onMutate: () => {
       toast({
-        description: "Please wait while we are adding this anime.",
+        title: "Please wait",
+        description: "We are adding this anime.",
       });
     },
   });

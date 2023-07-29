@@ -47,7 +47,8 @@ const ReviewDropdown: FC<ReviewDropdownProps> = ({
         }
         if (statusCode === 404) {
           return toast({
-            description: "The review you are trying to delete does not exist.",
+            title: "Error!",
+            description: "Review does not exist.",
             variant: "destructive",
           });
         }
@@ -67,12 +68,14 @@ const ReviewDropdown: FC<ReviewDropdownProps> = ({
       queryClient.invalidateQueries(reviewInfiniteQueryKey);
 
       toast({
+        title: "Success!",
         description: "Review deleted successfully.",
       });
     },
     onMutate: () => {
       toast({
-        description: "Please wait while we are deleting your review.",
+        title: "Please wait",
+        description: "We are deleting your review.",
       });
     },
   });

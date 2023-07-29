@@ -65,6 +65,7 @@ const CreatePostForm: FC<CreatePostFormProps> = ({ category, communityId }) => {
       form.reset();
 
       toast({
+        title: "Success!",
         description: "Post created successfully.",
       });
     },
@@ -76,6 +77,7 @@ const CreatePostForm: FC<CreatePostFormProps> = ({ category, communityId }) => {
         }
         if (statusCode === 422) {
           return toast({
+            title: "Error!",
             description: "Title and message cannot be empty.",
             variant: "destructive",
           });
@@ -86,7 +88,8 @@ const CreatePostForm: FC<CreatePostFormProps> = ({ category, communityId }) => {
     },
     onMutate: () => {
       toast({
-        description: "Please wait while we are creating your post.",
+        title: "Please wait",
+        description: "We are creating your post.",
       });
     },
   });
