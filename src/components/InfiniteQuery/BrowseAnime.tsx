@@ -2,11 +2,7 @@
 import { FC, useEffect, useRef, useState } from "react";
 import { Anime } from "@prisma/client";
 import { useIntersection } from "@mantine/hooks";
-import {
-  useInfiniteQuery,
-  useQuery,
-  useQueryClient,
-} from "@tanstack/react-query";
+import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
 import { AnimeCard } from "@/components/Cards/AnimeCard";
@@ -27,12 +23,10 @@ const BrowseAnime: FC<BrowseAnimeProps> = ({ initialAnimes }) => {
 
   const lastPostRef = useRef<HTMLElement>(null);
   const [animes, setAnimes] = useState<Anime[]>(initialAnimes);
-  const [queryResultData, setQueryResultData] = useState<Anime[]>([]);
 
   const [genre, setGenre] = useState("");
   const [year, setYear] = useState("");
   const [noNewData, setNoNewData] = useState(false);
-  const [emptyData, setEmptyData] = useState(false);
   const [reset, setReset] = useState(false);
 
   const { ref, entry } = useIntersection({
@@ -40,111 +34,48 @@ const BrowseAnime: FC<BrowseAnimeProps> = ({ initialAnimes }) => {
     threshold: 1,
   });
 
-  console.log("%c outside genre", "color:yellow;", genre);
-  console.log("%c outside year", "color:yellow;", year);
+  const { data, fetchNextPage, isFetchingNextPage, isFetching } =
+    useInfiniteQuery(
+      ["browse-anime-infinite-query", genre, year],
+      async ({ pageParam = 1 }) => {
+        const queryUrl = `/api/anime?limit=${INFINITE_SCROLLING_PAGINATION_BROWSE}&page=${pageParam}&orderBy=totalRatings&genre=${genre}&year=${year}`;
 
-  const { data, fetchNextPage, isFetchingNextPage } = useInfiniteQuery(
-    ["browse-anime-infinite-query"],
-    async ({ pageParam = 1 }) => {
-      console.log("%c refetching", "color:green");
-      console.log("%c pageParam", "color:green", pageParam);
+        const { data } = await axios(queryUrl);
 
-      console.log("%c api entry genre", "color:red;", genre, genre.length);
-      console.log("%c api entry year", "color:red;", year, year.length);
-
-      const queryUrl = `/api/anime?limit=${INFINITE_SCROLLING_PAGINATION_BROWSE}&page=${pageParam}&orderBy=totalRatings&genre=${genre}&year=${year}`;
-
-      const { data } = await axios(queryUrl);
-
-      return data as Anime[];
-    },
-    {
-      getNextPageParam: (_, pages) => {
-        return pages.length + 1;
+        return data as Anime[];
       },
-      initialData: { pages: [initialAnimes], pageParams: [1] },
-    }
-  );
-
-  // const {
-  //   data: queryResults,
-  //   refetch,
-  //   isFetching,
-  // } = useQuery({
-  //   queryFn: async () => {
-  //     const queryUrl = `/api/anime?genre=${genre}&year=${year}&orderBy=totalRatings`;
-
-  //     const { data } = await axios(queryUrl);
-
-  //     return data as Anime[];
-  //   },
-  //   queryKey: ["browsing-anime-filter-query"],
-  //   enabled: false, //by default it will not fetch
-  // });
-
-  // useEffect(() => {
-  //   if (!queryResults) return;
-
-  //   if (queryResults.length > 0) {
-  //     setEmptyData(false);
-  //     queryClient.resetQueries(["browse-anime-infinite-query"]);
-  //     setQueryResultData(queryResults);
-  //   } else if (genre || year) {
-  //     // setEmptyData(true);
-  //   }
-  // }, [queryResults, genre, year, queryClient]);
+      {
+        getNextPageParam: (_, pages) => {
+          return pages.length + 1;
+        },
+        initialData: { pages: [initialAnimes], pageParams: [1] },
+      }
+    );
 
   useEffect(() => {
-    // if (queryResultData.length > 0) {
-    //   setEmptyData(false);
-    //   return setAnimes(queryResultData);
-    // }
-
     if (data?.pages[data?.pages.length - 1].length === 0) {
       setNoNewData(true);
     }
 
+    if (isFetching) return;
+
     setAnimes(data?.pages.flatMap((page) => page) ?? initialAnimes);
-  }, [data, initialAnimes]);
+  }, [data, initialAnimes, isFetching]);
 
   useEffect(() => {
-    // setReset(false);
     if (entry?.isIntersecting && !noNewData) {
-      console.log("%c fetching next page", "color:green;");
       fetchNextPage();
-
-      // if (!isFetching) {
-      //   queryClient.resetQueries(["browse-anime-infinite-query"]);
-      // }
     }
   }, [entry, fetchNextPage, noNewData]);
 
-  // useEffect(() => {
-  //   if (genre || year) {
-  //     setNoNewData(true);
-  //     refetch();
-  //   } else {
-  //     setNoNewData(false);
-  //     setQueryResultData([]);
-  //     queryClient.resetQueries(["browse-anime-infinite-query"]);
-  //     setEmptyData(false);
-  //   }
-  // }, [genre, year, refetch, queryClient]);
   useEffect(() => {
-    if (genre || year) {
-      console.log("%c genre length", "color:blue;", genre.length, genre);
-      console.log("%c year length", "color:blue;", year.length, year);
-
-      console.log("resetting");
-      queryClient.resetQueries(["browse-anime-infinite-query"]);
-    }
+    setNoNewData(false);
+    queryClient.resetQueries(["browse-anime-infinite-query"]);
   }, [genre, year, queryClient]);
 
   const handleResetFilters = () => {
     queryClient.resetQueries(["browse-anime-infinite-query"]);
-    setQueryResultData([]);
     setNoNewData(false);
-    setEmptyData(false);
     setReset(true);
   };
 
@@ -173,7 +104,9 @@ const BrowseAnime: FC<BrowseAnimeProps> = ({ initialAnimes }) => {
           Reset filters
         </Button>
       </div>
-      {!emptyData && (
+      {isFetching && !isFetchingNextPage ? (
+        <AnimeCardSkeleton length={5} />
+      ) : (
         <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-5">
           {animes.map((anime, index) => {
             if (index === animes.length - 1) {
@@ -192,7 +125,7 @@ const BrowseAnime: FC<BrowseAnimeProps> = ({ initialAnimes }) => {
           })}
         </div>
       )}
-      {emptyData && (
+      {animes.length === 0 && (
         <p className="text-center text-sm text-muted-foreground">
           No results found.
         </p>

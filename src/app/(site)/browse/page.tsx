@@ -16,9 +16,14 @@ export const metadata: Metadata = {
 
 const BrowsePage = async () => {
   const topTenAnimes = await db.anime.findMany({
-    orderBy: {
-      totalRatings: "desc",
-    },
+    orderBy: [
+      {
+        totalRatings: "desc",
+      },
+      {
+        createdAt: "desc",
+      },
+    ],
     take: INFINITE_SCROLLING_PAGINATION_BROWSE,
   });
 
