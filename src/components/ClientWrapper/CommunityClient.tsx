@@ -11,10 +11,7 @@ const Communities = dynamic(
     ssr: false,
     loading: () => (
       <div className="flex flex-col gap-y-4">
-        <div className="flex gap-x-2 items-center px-2">
-          <Skeleton className="h-10 w-full" />
-          <Skeleton className="h-10 w-20" />
-        </div>
+        <Skeleton className="h-10 w-full" />
         <ComPostSkeleton />
       </div>
     ),

@@ -7,10 +7,9 @@ import { useIntersection } from "@mantine/hooks";
 import { INFINITE_SCROLLING_PAGINATION_RESULTS } from "@/config";
 import CommunityCard from "@/components/Cards/CommunityCard";
 import { ExtendedCommunity } from "@/types/db";
-import { Icons } from "@/components/Icons";
 import { Input } from "@/ui/Input";
-import { Button } from "@/ui/Button";
 import ComPostSkeleton from "@/components/SkeletonLoaders/ComPostSkeleton";
+import { useDebounce } from "@/hooks/use-debounce";
 
 interface CommunitiesProps {
   initialCommunities: ExtendedCommunity[];
@@ -23,11 +22,12 @@ const Communities: FC<CommunitiesProps> = ({
 }) => {
   const lastPostRef = useRef<HTMLElement>(null);
   const [communities, setCommunities] = useState(initialCommunities);
-  const [searchClicked, setSearchClicked] = useState(false);
+  const [enableSearch, setEnableSearch] = useState(false);
   const [noNewData, setNoNewData] = useState(false);
 
   const queryClient = useQueryClient();
   const [query, setQuery] = useState("");
+  const debouncedQuery = useDebounce(query, 500);
 
   const { ref, entry } = useIntersection({
     root: lastPostRef.current,
@@ -35,8 +35,8 @@ const Communities: FC<CommunitiesProps> = ({
   });
 
   const infiniteQueryKey = category
-    ? [`community-infinite-${category}`, query]
-    : [`community-infinite`, query];
+    ? ["community-infinite", category, query]
+    : ["community-infinite", query];
 
   const { data, fetchNextPage, isFetchingNextPage, isFetching } =
     useInfiniteQuery(
@@ -56,7 +56,7 @@ const Communities: FC<CommunitiesProps> = ({
           return pages.length + 1;
         },
         initialData: { pages: [initialCommunities], pageParams: [1] },
-        enabled: searchClicked,
+        enabled: enableSearch,
       }
     );
 
@@ -68,25 +68,26 @@ const Communities: FC<CommunitiesProps> = ({
     if (isFetching) return;
 
     setCommunities(data?.pages.flatMap((page) => page) ?? initialCommunities);
-    setSearchClicked(false);
   }, [data, initialCommunities, isFetching]);
+
+  useEffect(() => {
+    setEnableSearch(false);
+
+    if (debouncedQuery) {
+      setEnableSearch(true);
+
+      const infiniteQueryKey = category
+        ? ["community-infinite", category, query]
+        : ["community-infinite", query];
+      queryClient.resetQueries(infiniteQueryKey);
+    }
+  }, [query, debouncedQuery, queryClient, category]);
 
   useEffect(() => {
     if (entry?.isIntersecting && !noNewData) {
       fetchNextPage();
     }
   }, [entry, fetchNextPage, noNewData]);
-
-  const handleSearchCommunity = () => {
-    setNoNewData(false);
-    setSearchClicked(true);
-
-    const searchInfiniteQueryKey = category
-      ? [...infiniteQueryKey]
-      : [`community-infinite`, query];
-
-    queryClient.resetQueries(searchInfiniteQueryKey);
-  };
 
   return (
     <div className="flex flex-col gap-y-4">
@@ -95,22 +96,7 @@ const Communities: FC<CommunitiesProps> = ({
           placeholder="Type a community name here."
           onChange={(e) => setQuery(e.target.value)}
           disabled={isFetching}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              handleSearchCommunity();
-            }
-          }}
         />
-        <Button onClick={handleSearchCommunity} disabled={isFetching}>
-          {isFetching && !isFetchingNextPage ? (
-            <Icons.spinner
-              className="h-4 w-4 animate-spin"
-              aria-hidden="true"
-            />
-          ) : (
-            "Search"
-          )}
-        </Button>
       </div>
 
       {communities.map((community, index) => {
