@@ -189,6 +189,24 @@ export async function GET(req: Request) {
     if (limit && page) {
       takeClause = parseInt(limit);
       skipClause = (parseInt(page) - 1) * parseInt(limit);
+
+      console.log("genre", genre);
+      console.log("year", year);
+
+      if (genre && year) {
+        whereClause = {
+          genre,
+          releaseYear: year,
+        };
+      } else if (genre) {
+        whereClause = {
+          genre,
+        };
+      } else if (year) {
+        whereClause = {
+          releaseYear: year,
+        };
+      }
     } else if (query && query.length > 0) {
       whereClause = {
         name: {
@@ -225,6 +243,8 @@ export async function GET(req: Request) {
         createdAt: "desc",
       };
     }
+
+    console.log("whereClause", whereClause);
 
     const animes = await db.anime.findMany({
       take: takeClause,
