@@ -76,7 +76,7 @@ const BrowseAnime: FC<BrowseAnimeProps> = ({ initialAnimes }) => {
   const handleResetFilters = () => {
     queryClient.resetQueries(["browse-anime-infinite-query"]);
     setNoNewData(false);
-    setReset(true);
+    setReset((prev) => !prev);
   };
 
   return (
