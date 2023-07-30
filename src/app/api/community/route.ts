@@ -50,8 +50,8 @@ export async function GET(req: Request) {
 
     const { limit, page, category, query } = z
       .object({
-        limit: z.string().nullish().optional(),
-        page: z.string().nullish().optional(),
+        limit: z.string(),
+        page: z.string(),
         category: z.string().nullish().optional(),
         query: z.string().nullish().optional(),
       })
@@ -63,38 +63,31 @@ export async function GET(req: Request) {
       });
 
     let whereClause = {};
-    let takeClause = undefined;
-    let skipClause = undefined;
 
     if (category) {
-      whereClause = {
-        category: category,
-      };
-    }
-
-    if (!limit && !page && query) {
-      whereClause = {
-        name: {
-          contains: query,
-        },
-      };
-    } else if (limit && page) {
-      takeClause = parseInt(limit);
-      skipClause = (parseInt(page) - 1) * parseInt(limit);
-    }
-
-    if (category && !limit && !page && query) {
+      if (query) {
+        whereClause = {
+          name: {
+            contains: query,
+          },
+          category,
+        };
+      } else {
+        whereClause = {
+          category,
+        };
+      }
+    } else if (query) {
       whereClause = {
         name: {
           contains: query,
         },
-        category: category,
       };
     }
 
     const communities = await db.community.findMany({
-      take: takeClause,
-      skip: skipClause,
+      take: parseInt(limit),
+      skip: (parseInt(page) - 1) * parseInt(limit),
       orderBy: {
         post: {
           _count: "desc",

@@ -1,10 +1,6 @@
 "use client";
 import { FC, useEffect, useRef, useState } from "react";
-import {
-  useInfiniteQuery,
-  useQuery,
-  useQueryClient,
-} from "@tanstack/react-query";
+import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { useIntersection } from "@mantine/hooks";
 
@@ -27,11 +23,8 @@ const Communities: FC<CommunitiesProps> = ({
 }) => {
   const lastPostRef = useRef<HTMLElement>(null);
   const [communities, setCommunities] = useState(initialCommunities);
+  const [searchClicked, setSearchClicked] = useState(false);
   const [noNewData, setNoNewData] = useState(false);
-  const [emptyData, setEmptyData] = useState(false);
-  const [queryResultData, setQueryResultData] = useState<ExtendedCommunity[]>(
-    []
-  );
 
   const queryClient = useQueryClient();
   const [query, setQuery] = useState("");
@@ -42,73 +35,41 @@ const Communities: FC<CommunitiesProps> = ({
   });
 
   const infiniteQueryKey = category
-    ? [`community-infinite-${category}`]
-    : [`community-infinite`];
+    ? [`community-infinite-${category}`, query]
+    : [`community-infinite`, query];
 
-  const communitySearchQueryKey = category
-    ? [`community-search-query-${category}`]
-    : [`community-search-query`];
+  const { data, fetchNextPage, isFetchingNextPage, isFetching } =
+    useInfiniteQuery(
+      infiniteQueryKey,
+      async ({ pageParam = 1 }) => {
+        const queryUrl =
+          `/api/community?limit=${INFINITE_SCROLLING_PAGINATION_RESULTS}&page=${pageParam}` +
+          (!!category ? `&category=${category}` : "") +
+          (!!query ? `&q=${query}` : "");
 
-  const { data, fetchNextPage, isFetchingNextPage } = useInfiniteQuery(
-    infiniteQueryKey,
-    async ({ pageParam = 1 }) => {
-      const queryUrl =
-        `/api/community?limit=${INFINITE_SCROLLING_PAGINATION_RESULTS}&page=${pageParam}` +
-        (!!category ? `&category=${category}` : "");
+        const { data } = await axios(queryUrl);
 
-      const { data } = await axios(queryUrl);
-
-      return data as ExtendedCommunity[];
-    },
-    {
-      getNextPageParam: (_, pages) => {
-        return pages.length + 1;
+        return data as ExtendedCommunity[];
       },
-      initialData: { pages: [initialCommunities], pageParams: [1] },
-    }
-  );
-
-  const {
-    data: queryResults,
-    refetch,
-    isFetching,
-  } = useQuery({
-    queryFn: async () => {
-      const queryUrl =
-        `/api/community?q=${query}` +
-        (!!category ? `&category=${category}` : "");
-
-      const { data } = await axios(queryUrl);
-
-      return data as ExtendedCommunity[];
-    },
-    queryKey: communitySearchQueryKey,
-    enabled: false, //by default it will not fetch
-  });
+      {
+        getNextPageParam: (_, pages) => {
+          return pages.length + 1;
+        },
+        initialData: { pages: [initialCommunities], pageParams: [1] },
+        enabled: searchClicked,
+      }
+    );
 
   useEffect(() => {
-    if (!queryResults) return;
-
-    if (queryResults.length > 0) {
-      setEmptyData(false);
-      setQueryResultData(queryResults);
-    } else if (query) {
-      setEmptyData(true);
-    }
-  }, [queryResults, query]);
-
-  useEffect(() => {
-    if (queryResultData.length > 0) {
-      setEmptyData(false);
-      return setCommunities(queryResultData);
-    }
-
     if (data?.pages[data?.pages.length - 1].length === 0) {
       setNoNewData(true);
     }
 
+    if (isFetching) return;
+
     setCommunities(data?.pages.flatMap((page) => page) ?? initialCommunities);
-  }, [data, queryResultData, initialCommunities]);
+    setSearchClicked(false);
+  }, [data, initialCommunities, isFetching]);
 
   useEffect(() => {
     if (entry?.isIntersecting && !noNewData) {
@@ -116,22 +77,15 @@ const Communities: FC<CommunitiesProps> = ({
     }
   }, [entry, fetchNextPage, noNewData]);
 
-  if (communities.length === 0) {
-    return (
-      <p className="text-muted-foreground text-sm text-center">
-        No communities created yet.
-      </p>
-    );
-  }
-
   const handleSearchCommunity = () => {
-    if (query.length === 0) {
-      setQueryResultData([]);
-      setEmptyData(false);
-      return queryClient.resetQueries(infiniteQueryKey);
-    }
+    setNoNewData(false);
+    setSearchClicked(true);
 
-    refetch();
+    const searchInfiniteQueryKey = category
+      ? [...infiniteQueryKey]
+      : [`community-infinite`, query];
+
+    queryClient.resetQueries(searchInfiniteQueryKey);
   };
 
   return (
@@ -148,7 +102,7 @@ const Communities: FC<CommunitiesProps> = ({
           }}
         />
         <Button onClick={handleSearchCommunity} disabled={isFetching}>
-          {isFetching ? (
+          {isFetching && !isFetchingNextPage ? (
             <Icons.spinner
               className="h-4 w-4 animate-spin"
               aria-hidden="true"
@@ -159,28 +113,27 @@ const Communities: FC<CommunitiesProps> = ({
         </Button>
       </div>
 
-      {!emptyData &&
-        communities.map((community, index) => {
-          if (index === communities.length - 1) {
-            return (
-              <div key={community.id} ref={ref}>
-                <CommunityCard community={community} />
-              </div>
-            );
-          } else {
-            return (
-              <div key={community.id}>
-                <CommunityCard community={community} />
-              </div>
-            );
-          }
-        })}
-      {isFetchingNextPage && <ComPostSkeleton length={3} />}
-      {emptyData && (
-        <p className="text-center text-sm text-muted-foreground">
-          No results found.
+      {communities.map((community, index) => {
+        if (index === communities.length - 1) {
+          return (
+            <div key={community.id} ref={ref}>
+              <CommunityCard community={community} />
+            </div>
+          );
+        } else {
+          return (
+            <div key={community.id}>
+              <CommunityCard community={community} />
+            </div>
+          );
+        }
+      })}
+      {communities.length === 0 && (
+        <p className="text-muted-foreground text-sm text-center">
+          No communities found.
         </p>
       )}
+      {isFetchingNextPage && <ComPostSkeleton length={3} />}
     </div>
   );
 };
