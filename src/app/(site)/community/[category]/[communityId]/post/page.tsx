@@ -12,6 +12,7 @@ import {
 } from "@/ui/Card";
 import { env } from "@/env.mjs";
 import CreatePostClient from "@/components/ClientWrapper/CreatePostClient";
+import { ShowBack } from "@/components/Header";
 
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
@@ -47,10 +48,13 @@ const CreatePostPage = async ({ params }: CreatePostPageProps) => {
   const formattedCategory =
     category.charAt(0).toUpperCase() + category.slice(1);
 
+  const formattedHref = `/community/${category}/${communityId}`;
+
   return (
     <Shell layout="dashboard">
       <Card className="flex h-full flex-col">
         <CardHeader className="flex-1">
+          <ShowBack href={formattedHref} />
           <CardTitle>Create a new post</CardTitle>
           <CardDescription className="line-clamp-2">
             This post will be displayed in the{" "}
