@@ -27,6 +27,7 @@ import CustomCommand from "@/components/Custom-UI/CustomCommand";
 import { AddWatchlistAnimeType } from "@/types/item-type";
 import { Card, CardHeader } from "@/ui/Card";
 import { Icons } from "@/components/Icons";
+import { capitalizeFirstCharacter } from "@/lib/utils";
 
 const AddAnimeWatchlistForm = () => {
   const router = useRouter();
@@ -168,7 +169,7 @@ const AddAnimeWatchlistForm = () => {
               <FormControl>
                 <Combobox
                   data={watchlists}
-                  selectedOption={category[0].toUpperCase() + category.slice(1)}
+                  selectedOption={capitalizeFirstCharacter(category)}
                   placeholder="Select category..."
                   setState={setCategory}
                 />

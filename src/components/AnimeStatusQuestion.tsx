@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 
 import { Button, buttonVariants } from "@/ui/Button";
 import { ZodCategoryType } from "@/types/item-type";
-import { AnimeWatchlistServerType } from "@/lib/validators/anime";
+import { AnimeWatchlistClientType } from "@/lib/validators/anime";
 import { toast } from "@/hooks/use-toast";
 import { useAuthToast } from "@/hooks/useAuthToast";
 
@@ -47,15 +47,19 @@ const AnimeStatusQuestion: FC<AnimeStatusQuestionProps> = ({ animeId }) => {
 
   const { mutate: addAnimeToWatchlist } = useMutation({
     mutationFn: async (category: ZodCategoryType) => {
-      const payload: AnimeWatchlistServerType = {
-        animeId: animeId,
-        category,
-      };
+      const payload: AnimeWatchlistClientType[] = [
+        {
+          animeId: animeId,
+          category,
+        },
+      ];
 
       const { data } = await axios.post("/api/anime/watchlist", payload);
       return data;
     },
     onError: (error) => {
+      setShowQuestion(true);
+
       if (error instanceof AxiosError) {
         const statusCode = error.response?.status;
         if (statusCode === 401) {

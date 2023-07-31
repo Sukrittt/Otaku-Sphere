@@ -102,7 +102,10 @@ const CustomContextMenu: FC<CustomContextMenuProps> = ({
     <ContextMenu>
       <ContextMenuTrigger>{children}</ContextMenuTrigger>
       <ContextMenuContent>
-        <ContextMenuItem onClick={() => deleteAnimeFromWatchlist()}>
+        <ContextMenuItem
+          onClick={() => deleteAnimeFromWatchlist()}
+          className="cursor-pointer"
+        >
           <Icons.delete className="h-4 w-4 mr-2" />
           Delete
         </ContextMenuItem>

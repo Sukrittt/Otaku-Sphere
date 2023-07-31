@@ -30,7 +30,7 @@ import { Combobox } from "@/ui/ComboBox";
 import { uploadFiles } from "@/lib/uploadthing";
 import { useAuthToast } from "@/hooks/useAuthToast";
 import CustomAlertBox from "@/components/Custom-UI/CustomAlertBox";
-import { cn } from "@/lib/utils";
+import { capitalizeFirstCharacter, cn } from "@/lib/utils";
 
 interface UpdateAnimeFormProps {
   anime: Anime;
@@ -240,7 +240,7 @@ const UpdateAnimeForm: FC<UpdateAnimeFormProps> = ({ anime }) => {
                 <Combobox
                   data={genres}
                   placeholder="Select genre..."
-                  selectedOption={genre}
+                  selectedOption={capitalizeFirstCharacter(genre)}
                   setState={setGenre}
                   disabled={isLoading}
                 />

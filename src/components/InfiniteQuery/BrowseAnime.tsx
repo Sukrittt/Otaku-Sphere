@@ -59,6 +59,7 @@ const BrowseAnime: FC<BrowseAnimeProps> = ({ initialAnimes }) => {
 
     if (isFetching) return;
 
+    setReset(false);
     setAnimes(data?.pages.flatMap((page) => page) ?? initialAnimes);
   }, [data, initialAnimes, isFetching]);
 
@@ -76,7 +77,7 @@ const BrowseAnime: FC<BrowseAnimeProps> = ({ initialAnimes }) => {
   const handleResetFilters = () => {
     queryClient.resetQueries(["browse-anime-infinite-query"]);
     setNoNewData(false);
-    setReset((prev) => !prev);
+    setReset(true);
   };
 
   return (

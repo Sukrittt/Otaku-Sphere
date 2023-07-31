@@ -44,9 +44,12 @@ export const Combobox: FC<ComboboxProps> = forwardRef<
     const [open, setOpen] = useState(false);
 
     const selectedGenre = data.find((item) => item.label === selectedOption);
+
     const [value, setValue] = useState(selectedGenre?.value ?? "");
 
     useEffect(() => {
+      if (!reset) return;
+
       setValue("");
     }, [reset]);
 

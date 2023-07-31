@@ -210,7 +210,8 @@ const PollCard: FC<PollCardProps> = ({ poll, sessionId, interaction }) => {
         </div>
         <div className="space-y-2">
           {poll.option.map((opt) => {
-            const votePercentage = (opt.vote.length / totalVotes) * 100;
+            const votePercentage =
+              totalVotes === 0 ? 0 : (opt.vote.length / totalVotes) * 100;
 
             return (
               <Card
