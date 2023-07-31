@@ -10,10 +10,10 @@ import { formatTimeToNow } from "@/lib/utils";
 import { Card, CardContent, CardFooter, CardTitle } from "@/ui/Card";
 import UserAvatar from "@/components/User/UserAvatar";
 import LikeReview from "@/components/LikeReview";
-import ReviewDropdown from "@/components/Dropdown/ReviewDropdown";
 import { Button, buttonVariants } from "@/ui/Button";
 import { Icons } from "@/components/Icons";
 import { INFINITE_SCROLLING_PAGINATION_ANIME } from "@/config";
+import ReviewDropdownClient from "@/components/ClientWrapper/ReviewDropdownClient";
 
 type ExtendedReview = Reviews & {
   user: User;
@@ -90,7 +90,10 @@ const ReviewInfiniteFetching: FC<ReviewsProps> = ({
                   </div>
                   <div>
                     {review.user.id === session?.user.id && (
-                      <ReviewDropdown reviewId={review.id} animeId={animeId}>
+                      <ReviewDropdownClient
+                        reviewId={review.id}
+                        animeId={animeId}
+                      >
                         <div
                           className={buttonVariants({
                             variant: "ghost",
@@ -99,7 +102,7 @@ const ReviewInfiniteFetching: FC<ReviewsProps> = ({
                         >
                           <Icons.options className="h-4 w-4" />
                         </div>
-                      </ReviewDropdown>
+                      </ReviewDropdownClient>
                     )}
                   </div>
                 </CardFooter>
