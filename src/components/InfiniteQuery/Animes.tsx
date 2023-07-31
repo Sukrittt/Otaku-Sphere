@@ -24,7 +24,6 @@ const Animes: FC<AnimesProps> = ({ initialAnimes }) => {
   const [noNewData, setNoNewData] = useState(false);
   const [enableSearch, setEnableSearch] = useState(false);
   const [debouncedQueryState, setDebouncedQueryState] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
 
   const [query, setQuery] = useState("");
   const debouncedQuery = useDebounce(query, 500);
@@ -63,7 +62,6 @@ const Animes: FC<AnimesProps> = ({ initialAnimes }) => {
 
     setAnimes(data?.pages.flatMap((page) => page) ?? initialAnimes);
     setEnableSearch(false);
-    inputRef.current?.focus();
   }, [data, initialAnimes, isFetching]);
 
   useEffect(() => {
@@ -97,8 +95,8 @@ const Animes: FC<AnimesProps> = ({ initialAnimes }) => {
         <Input
           placeholder="Type a anime name here."
           disabled={isFetching}
+          autoFocus
           onChange={(e) => setQuery(e.target.value)}
-          ref={inputRef}
         />
       </div>
       <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
