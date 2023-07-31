@@ -3,9 +3,9 @@ import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
 import { Header } from "@/components/Header";
 import { Shell } from "@/components/Shell";
-import Polls from "@/components/InfiniteQuery/Polls";
 import { INFINITE_SCROLLING_PAGINATION_BROWSE } from "@/config";
 import { getAuthSession } from "@/lib/auth";
+import PollClient from "@/components/ClientWrapper/PollClient";
 
 const PollResultsPage = async () => {
   const session = await getAuthSession();
@@ -35,7 +35,7 @@ const PollResultsPage = async () => {
   return (
     <Shell layout="dashboard">
       <Header title="Poll Results" description="The Verdict Is In!" />
-      <Polls initialPolls={initialPolls} sessionId={session.user.id} />
+      <PollClient initialPolls={initialPolls} sessionId={session.user.id} />
     </Shell>
   );
 };

@@ -3,34 +3,37 @@ import dynamic from "next/dynamic";
 
 import { Skeleton } from "@/ui/Skeleton";
 
-const CreateCommunityForm = dynamic(
-  () => import("@/components/Forms/CreateCommunityForm"),
+const CreatePollForm = dynamic(
+  () => import("@/components/Forms/CreatePollForm"),
   {
     ssr: false,
-    loading: () => <CommunityFormSkeleton />,
+    loading: () => <PollFormSkeleton />,
   }
 );
 
-const CreateCommunityClient = () => {
-  return <CreateCommunityForm />;
+const CreatePollClient = () => {
+  return <CreatePollForm />;
 };
 
-export default CreateCommunityClient;
+export default CreatePollClient;
 
-const CommunityFormSkeleton = () => {
+const PollFormSkeleton = () => {
   return (
-    <div className="grid gap-5 mt-2 max-w-xl">
+    <div className="grid gap-5 mt-2 max-w-lg">
       <div className="space-y-3">
         <Skeleton className="h-4 w-20" />
         <Skeleton className="h-10 w-full" />
       </div>
       <div className="space-y-3">
         <Skeleton className="h-4 w-20" />
-        <Skeleton className="h-24 w-full" />
+        <Skeleton className="h-10 w-full" />
+        <div className="flex justify-end">
+          <Skeleton className="h-8 w-20" />
+        </div>
       </div>
       <div className="space-y-3">
         <Skeleton className="h-4 w-20" />
-        <Skeleton className="h-10 w-full md:w-[200px]" />
+        <Skeleton className="h-10 max-w-[280px]" />
       </div>
       <Skeleton className="h-8 w-20" />
     </div>

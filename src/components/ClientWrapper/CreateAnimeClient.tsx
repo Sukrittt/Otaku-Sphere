@@ -16,18 +16,18 @@ export default CreateAnimeClient;
 
 const AnimeFormSkeleton = () => {
   return (
-    <div className="grid gap-5 mt-2">
+    <div className="grid gap-5 mt-2 max-w-xl">
       <div className="space-y-3">
         <Skeleton className="h-4 w-20" />
-        <Skeleton className="h-10 w-full md:w-1/2" />
+        <Skeleton className="h-10 w-full" />
       </div>
       <div className="space-y-3">
         <Skeleton className="h-4 w-20" />
-        <Skeleton className="h-[200px] w-full md:w-1/2" />
+        <Skeleton className="h-[200px] w-full" />
       </div>
       <div className="space-y-3">
         <Skeleton className="h-4 w-20" />
-        <Skeleton className="h-10 w-full md:w-1/2" />
+        <Skeleton className="h-10 w-full" />
       </div>
       <div className="space-y-3">
         <Skeleton className="h-4 w-20" />
@@ -35,11 +35,11 @@ const AnimeFormSkeleton = () => {
       </div>
       <div className="space-y-3">
         <Skeleton className="h-4 w-20" />
-        <Skeleton className="h-10 w-full md:w-1/2" />
+        <Skeleton className="h-10 w-full" />
       </div>
       <div className="space-y-3">
         <Skeleton className="h-4 w-20" />
-        <Skeleton className="h-10 w-full md:w-1/2" />
+        <Skeleton className="h-10 w-full" />
       </div>
       <Skeleton className="h-8 w-20" />
     </div>

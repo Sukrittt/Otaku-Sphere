@@ -7,8 +7,8 @@ import { Shell } from "@/components/Shell";
 import { Header } from "@/components/Header";
 import { buttonVariants } from "@/ui/Button";
 import { getAuthSession } from "@/lib/auth";
-import Polls from "@/components/InfiniteQuery/Polls";
 import { INFINITE_SCROLLING_PAGINATION_BROWSE } from "@/config";
+import PollClient from "@/components/ClientWrapper/PollClient";
 
 const PollPage = async () => {
   const session = await getAuthSession();
@@ -44,7 +44,7 @@ const PollPage = async () => {
       >
         Create Poll
       </Link>
-      <Polls
+      <PollClient
         initialPolls={initialPolls}
         interaction
         sessionId={session.user.id}

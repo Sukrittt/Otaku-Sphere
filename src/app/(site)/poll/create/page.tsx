@@ -9,8 +9,8 @@ import {
   CardTitle,
 } from "@/ui/Card";
 import { env } from "@/env.mjs";
-import CreatePollForm from "@/components/Forms/CreatePollForm";
 import { ShowBack } from "@/components/Header";
+import CreatePollClient from "@/components/ClientWrapper/CreatePollClient";
 
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
@@ -30,7 +30,7 @@ const CreatePollPage = () => {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <CreatePollForm />
+          <CreatePollClient />
         </CardContent>
       </Card>
     </Shell>
