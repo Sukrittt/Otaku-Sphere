@@ -43,15 +43,15 @@ const Communities: FC<CommunitiesProps> = ({
     useInfiniteQuery(
       infiniteQueryKey,
       async ({ pageParam = 1 }) => {
-        if (!debouncedQueryState) return [] as ExtendedCommunity[];
-
         const queryUrl =
           `/api/community?limit=${INFINITE_SCROLLING_PAGINATION_RESULTS}&page=${pageParam}` +
           (!!category ? `&category=${category}` : "") +
           (!!query ? `&q=${query}` : "");
 
         const { data } = await axios(queryUrl);
+
         setDebouncedQueryState(false);
+        setNoNewData(false);
 
         return data as ExtendedCommunity[];
       },
@@ -65,11 +65,11 @@ const Communities: FC<CommunitiesProps> = ({
     );
 
   useEffect(() => {
+    if (isFetching) return;
+
     if (data?.pages[data?.pages.length - 1].length === 0) {
       setNoNewData(true);
     }
-
-    if (isFetching) return;
 
     setCommunities(data?.pages.flatMap((page) => page) ?? initialCommunities);
     setEnableSearch(false);
@@ -88,14 +88,10 @@ const Communities: FC<CommunitiesProps> = ({
   }, [query, debouncedQueryState, queryClient, category]);
 
   useEffect(() => {
-    if (!debouncedQuery) return;
+    if (!debouncedQuery) return setNoNewData(false);
 
     setDebouncedQueryState(true);
   }, [debouncedQuery]);
-
-  useEffect(() => {
-    setNoNewData(false);
-  }, [query]);
 
   useEffect(() => {
     if (entry?.isIntersecting && !noNewData) {
