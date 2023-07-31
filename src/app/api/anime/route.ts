@@ -3,7 +3,6 @@ import { z } from "zod";
 import { db } from "@/lib/db";
 import { getAuthSession } from "@/lib/auth";
 import { animeSchema } from "@/lib/validators/anime";
-import { INFINITE_SCROLLING_PAGINATION_BROWSE } from "@/config";
 
 export async function POST(req: Request) {
   try {
@@ -165,8 +164,8 @@ export async function GET(req: Request) {
 
     const { limit, page, query, orderBy, genre, year } = z
       .object({
-        limit: z.string().nullish().optional(),
-        page: z.string().nullish().optional(),
+        limit: z.string(),
+        page: z.string(),
         query: z.string().nullish().optional(),
         genre: z.string().nullish().optional(),
         year: z.string().nullish().optional(),
@@ -183,52 +182,26 @@ export async function GET(req: Request) {
 
     let whereClause = {};
     let orderByClause = {};
-    let takeClause = undefined;
-    let skipClause = undefined;
 
-    if (limit && page) {
-      takeClause = parseInt(limit);
-      skipClause = (parseInt(page) - 1) * parseInt(limit);
-
-      if (genre && year) {
-        whereClause = {
-          genre,
-          releaseYear: year,
-        };
-      } else if (genre) {
-        whereClause = {
-          genre,
-        };
-      } else if (year) {
-        whereClause = {
-          releaseYear: year,
-        };
-      }
-    } else if (query && query.length > 0) {
-      whereClause = {
-        name: {
-          startsWith: query,
-        },
-      };
-    } else if (genre && year) {
+    if (genre && year) {
       whereClause = {
         genre,
         releaseYear: year,
       };
-
-      takeClause = INFINITE_SCROLLING_PAGINATION_BROWSE + 10;
     } else if (genre) {
       whereClause = {
         genre,
       };
-      takeClause = INFINITE_SCROLLING_PAGINATION_BROWSE + 10;
     } else if (year) {
       whereClause = {
         releaseYear: year,
       };
-      takeClause = INFINITE_SCROLLING_PAGINATION_BROWSE + 10;
-    } else if (!genre && !year) {
-      takeClause = INFINITE_SCROLLING_PAGINATION_BROWSE + 10;
+    } else if (query) {
+      whereClause = {
+        name: {
+          contains: query,
+        },
+      };
     }
 
     if (orderBy) {
@@ -247,8 +220,8 @@ export async function GET(req: Request) {
     }
 
     const animes = await db.anime.findMany({
-      take: takeClause,
-      skip: skipClause,
+      take: parseInt(limit),
+      skip: (parseInt(page) - 1) * parseInt(limit),
       where: whereClause,
       orderBy: orderByClause,
     });
