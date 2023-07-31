@@ -24,6 +24,7 @@ const Communities: FC<CommunitiesProps> = ({
   const [communities, setCommunities] = useState(initialCommunities);
   const [enableSearch, setEnableSearch] = useState(false);
   const [noNewData, setNoNewData] = useState(false);
+  const [debouncedQueryState, setDebouncedQueryState] = useState(false);
 
   const queryClient = useQueryClient();
   const [query, setQuery] = useState("");
@@ -68,20 +69,31 @@ const Communities: FC<CommunitiesProps> = ({
     if (isFetching) return;
 
     setCommunities(data?.pages.flatMap((page) => page) ?? initialCommunities);
+    setEnableSearch(false);
   }, [data, initialCommunities, isFetching]);
 
   useEffect(() => {
-    setEnableSearch(false);
+    if (!debouncedQueryState) return;
 
-    if (debouncedQuery) {
-      setEnableSearch(true);
+    setEnableSearch(true);
 
-      const infiniteQueryKey = category
-        ? ["community-infinite", category, query]
-        : ["community-infinite", query];
-      queryClient.resetQueries(infiniteQueryKey);
-    }
-  }, [query, debouncedQuery, queryClient, category]);
+    const infiniteQueryKey = category
+      ? ["community-infinite", category, query]
+      : ["community-infinite", query];
+
+    queryClient.resetQueries(infiniteQueryKey);
+    setDebouncedQueryState(false);
+  }, [query, debouncedQueryState, queryClient, category]);
+
+  useEffect(() => {
+    if (!debouncedQuery) return;
+
+    setDebouncedQueryState(true);
+  }, [debouncedQuery]);
+
+  useEffect(() => {
+    setNoNewData(false);
+  }, [query]);
 
   useEffect(() => {
     if (entry?.isIntersecting && !noNewData) {
