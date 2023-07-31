@@ -25,6 +25,7 @@ const Communities: FC<CommunitiesProps> = ({
   const [enableSearch, setEnableSearch] = useState(false);
   const [noNewData, setNoNewData] = useState(false);
   const [debouncedQueryState, setDebouncedQueryState] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const queryClient = useQueryClient();
   const [query, setQuery] = useState("");
@@ -70,6 +71,7 @@ const Communities: FC<CommunitiesProps> = ({
 
     setCommunities(data?.pages.flatMap((page) => page) ?? initialCommunities);
     setEnableSearch(false);
+    inputRef.current?.focus();
   }, [data, initialCommunities, isFetching]);
 
   useEffect(() => {
@@ -108,6 +110,7 @@ const Communities: FC<CommunitiesProps> = ({
           placeholder="Type a community name here."
           onChange={(e) => setQuery(e.target.value)}
           disabled={isFetching}
+          ref={inputRef}
         />
       </div>
 
