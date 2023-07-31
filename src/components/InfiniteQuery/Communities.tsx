@@ -36,19 +36,22 @@ const Communities: FC<CommunitiesProps> = ({
   });
 
   const infiniteQueryKey = category
-    ? ["community-infinite", category, query]
-    : ["community-infinite", query];
+    ? ["community-infinite", category, debouncedQuery]
+    : ["community-infinite", debouncedQuery];
 
   const { data, fetchNextPage, isFetchingNextPage, isFetching } =
     useInfiniteQuery(
       infiniteQueryKey,
       async ({ pageParam = 1 }) => {
+        if (!debouncedQueryState) return [] as ExtendedCommunity[];
+
         const queryUrl =
           `/api/community?limit=${INFINITE_SCROLLING_PAGINATION_RESULTS}&page=${pageParam}` +
           (!!category ? `&category=${category}` : "") +
           (!!query ? `&q=${query}` : "");
 
         const { data } = await axios(queryUrl);
+        setDebouncedQueryState(false);
 
         return data as ExtendedCommunity[];
       },
@@ -82,7 +85,6 @@ const Communities: FC<CommunitiesProps> = ({
       : ["community-infinite", query];
 
     queryClient.resetQueries(infiniteQueryKey);
-    setDebouncedQueryState(false);
   }, [query, debouncedQueryState, queryClient, category]);
 
   useEffect(() => {
