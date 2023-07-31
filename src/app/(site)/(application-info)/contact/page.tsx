@@ -1,12 +1,21 @@
 import Link from "next/link";
+import { Metadata } from "next";
 
 import { Header } from "@/components/Header";
 import { Shell } from "@/components/Shell";
 import { Separator } from "@/ui/Separator";
 import { contact } from "@/config";
 import { Icons } from "@/components/Icons";
-import { buttonVariants } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
+import { buttonVariants } from "@/components/ui/Button";
+import { env } from "@/env.mjs";
+
+export const metadata: Metadata = {
+  metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
+  title: "Contact",
+  description:
+    "Connect with the developer behind this project. Find contact details and reach out for inquiries, collaborations, or feedback. Let's stay in touch!",
+};
 
 const ContactPage = () => {
   return (

@@ -9,7 +9,8 @@ import PollSidebar from "@/components/Navbar/PollSidebar";
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
   title: "Polls",
-  description: "Fill this",
+  description:
+    "Empower the community by creating interactive polls with customized options and expiry dates. Vote on polls from fellow users and view the results once the poll expires.",
 };
 
 interface PollLayoutProps {

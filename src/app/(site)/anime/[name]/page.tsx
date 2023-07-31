@@ -34,7 +34,8 @@ export const revalidate = 0;
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
   title: "Anime Reviews",
-  description: "Read reviews and ratings of your favourite animes.",
+  description:
+    "Discover detailed reviews and ratings of your favorite animes. Rate an anime, write your own review, add it to your watchlist, and explore reviews from other users.",
 };
 
 interface AnimePageProps {

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Metadata } from "next";
 
 import { Header } from "@/components/Header";
 import { Shell } from "@/components/Shell";
@@ -6,6 +7,14 @@ import { Separator } from "@/ui/Separator";
 import { Icons } from "@/components/Icons";
 import { buttonVariants } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
+import { env } from "@/env.mjs";
+
+export const metadata: Metadata = {
+  metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
+  title: "Terms and Conditions",
+  description:
+    "Read and understand our terms and conditions that govern the usage of this platform. Familiarize yourself with the guidelines to ensure a smooth and compliant experience.",
+};
 
 const TermsPage = () => {
   return (

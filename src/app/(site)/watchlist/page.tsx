@@ -16,7 +16,8 @@ export const fetchCache = "force-no-store";
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
   title: "Watchlist",
-  description: "Drag and drop your anime to manage your watchlist.",
+  description:
+    "Create and customize your anime watchlist. Organize anime into pending, watching, and finished categories with easy drag and drop functionality.",
 };
 
 const WatchlistPage = async () => {

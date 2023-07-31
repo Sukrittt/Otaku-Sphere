@@ -9,7 +9,8 @@ import { env } from "@/env.mjs";
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
   title: "Communities",
-  description: "Connect with other anime fans and share your thoughts.",
+  description:
+    "Discover a diverse collection of anime fan communities, created by users like you. Join discussions, share your thoughts, and connect with fellow enthusiasts.",
 };
 
 interface CommunityLayoutProps {

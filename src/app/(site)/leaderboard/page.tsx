@@ -9,7 +9,8 @@ import LeaderboardClient from "@/components/ClientWrapper/LeaderboardClient";
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
   title: "Leaderboard",
-  description: "Displaying ranking of anime based on its ratings.",
+  description:
+    "Explore the top-ranked anime based on user ratings in our leaderboard. Find the best and most popular shows according to our community's votes.",
 };
 
 const LeaderboardPage = async () => {

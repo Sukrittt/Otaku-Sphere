@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Metadata } from "next";
 
 import { Header } from "@/components/Header";
 import { Shell } from "@/components/Shell";
@@ -7,6 +8,14 @@ import { Icons } from "@/components/Icons";
 import { buttonVariants } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 import { siteConfig } from "@/config";
+import { env } from "@/env.mjs";
+
+export const metadata: Metadata = {
+  metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
+  title: "Privacy",
+  description:
+    "Learn about our commitment to your privacy. Read our comprehensive privacy policy to understand how we collect, use, and safeguard your data to ensure a secure and trusted experience.",
+};
 
 const PrivacyPage = () => {
   return (

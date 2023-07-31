@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Metadata } from "next";
 
 import { Header } from "@/components/Header";
 import { Shell } from "@/components/Shell";
@@ -6,7 +7,15 @@ import { Separator } from "@/ui/Separator";
 import { features, socials, techStack } from "@/config";
 import { Icons } from "@/components/Icons";
 import { buttonVariants } from "@/ui/Button";
+import { env } from "@/env.mjs";
 import { cn } from "@/lib/utils";
+
+export const metadata: Metadata = {
+  metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
+  title: "About",
+  description:
+    "Learn more about our project and its key features. Discover the technology stack we used to create this platform and explore the exciting functionalities it offers.",
+};
 
 const AboutPage = () => {
   return (

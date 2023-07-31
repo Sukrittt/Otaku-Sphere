@@ -17,7 +17,8 @@ import { ShowBack } from "@/components/Header";
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
   title: "Create a post",
-  description: "Create a post to share with the community.",
+  description:
+    "Share your thoughts and ideas with the community by creating a post. Engage with other users through comments and likes on your posts and discover diverse perspectives.",
 };
 
 interface CreatePostPageProps {

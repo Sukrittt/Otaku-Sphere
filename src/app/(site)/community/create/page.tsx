@@ -15,7 +15,8 @@ import { ShowBack } from "@/components/Header";
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
   title: "Create a community",
-  description: "Create a community for your interests.",
+  description:
+    "Bring like-minded individuals together by creating a community with specific hashtags. Share and engage with others who share your interests.",
 };
 
 const page = () => {
