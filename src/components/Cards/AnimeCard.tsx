@@ -18,7 +18,11 @@ interface AnimeCardProps extends React.HTMLAttributes<HTMLDivElement> {
   anime: Anime;
 }
 
-export function AnimeCard({ anime, className, ...props }: AnimeCardProps) {
+export default function AnimeCard({
+  anime,
+  className,
+  ...props
+}: AnimeCardProps) {
   const formattedHref = `/anime/${formatUrl(anime.name)}`;
 
   return (

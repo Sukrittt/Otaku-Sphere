@@ -5,7 +5,7 @@ import { useIntersection } from "@mantine/hooks";
 import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
-import { AnimeCard } from "@/components/Cards/AnimeCard";
+import AnimeCard from "@/components/Cards/AnimeCard";
 import { INFINITE_SCROLLING_PAGINATION_BROWSE } from "@/config";
 import AnimeCardSkeleton from "@/components/SkeletonLoaders/AnimeCardSkeleton";
 import { Combobox } from "@/ui/ComboBox";
