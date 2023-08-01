@@ -1,4 +1,3 @@
-"use server";
 import { db } from "@/lib/db";
 import { Icons } from "@/components/Icons";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ui/Card";
