@@ -217,9 +217,8 @@ const PollCard: FC<PollCardProps> = ({ poll, sessionId, interaction }) => {
               <Card
                 key={opt.id}
                 className={cn("relative transition", {
-                  "cursor-pointer": interaction && !hasVoted,
-                  "dark:hover:border-neutral-900 hover:border-neutral-100":
-                    interaction,
+                  "cursor-pointer dark:hover:border-neutral-900 hover:border-neutral-100":
+                    interaction && !hasVoted,
                 })}
                 onClick={() => handleVotePollOption(opt.id)}
               >
