@@ -56,12 +56,6 @@ const Overview = async () => {
 
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 pb-24">
-      <p>userCount: {userCount}</p>
-      <p>animeCount: {animeCount}</p>
-      <p>communityCount: {communityCount}</p>
-      <p>previousMonthUserCount: {previousMonthUserCount}</p>
-      <p>previousMonthAnimeCount: {previousMonthAnimeCount}</p>
-      <p>previousMonthCommunityCount: {previousMonthCommunityCount}</p>
       <Card>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-medium">Total Users</CardTitle>
