@@ -1,7 +1,7 @@
 export const siteConfig = {
   name: "Otaku Sphere",
   description:
-    "An open source all-in-one Anime Platform build with everything in Next.js 13.",
+    "Discover the ultimate Anime Platform, built on Next.js 13. Explore anime, join communities, manage watchlist, view leaderboards, and engage in polls. An open-source all-in-one hub for anime enthusiasts. Join us now!",
   url: "https://otaku-sphere.vercel.app", //change this url
 };
 
