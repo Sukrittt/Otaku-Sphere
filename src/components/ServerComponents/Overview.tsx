@@ -14,9 +14,9 @@ const Overview = async () => {
   const lastDayOfPreviousMonth = new Date(firstDayOfCurrentMonth);
   lastDayOfPreviousMonth.setDate(0);
 
-  lastDayOfPreviousMonth.setHours(23);
-  lastDayOfPreviousMonth.setMinutes(59);
-  lastDayOfPreviousMonth.setSeconds(59);
+  lastDayOfPreviousMonth.setUTCHours(23);
+  lastDayOfPreviousMonth.setUTCMinutes(59);
+  lastDayOfPreviousMonth.setUTCSeconds(59);
 
   const promises = [
     db.user.count(),
