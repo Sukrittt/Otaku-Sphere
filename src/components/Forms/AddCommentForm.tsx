@@ -1,8 +1,7 @@
 "use client";
-import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 
 import { useAuthToast } from "@/hooks/useAuthToast";
@@ -25,8 +24,8 @@ import {
 import { Textarea } from "@/ui/Textarea";
 
 const AddCommentForm = ({ postId }: { postId: string }) => {
-  const router = useRouter();
   const { loginToast, endErrorToast } = useAuthToast();
+  const queryClient = useQueryClient();
 
   //react-hook-form initialization
   const form = useForm<CommentValidatorType>({
@@ -47,8 +46,9 @@ const AddCommentForm = ({ postId }: { postId: string }) => {
       return data;
     },
     onSuccess: () => {
-      router.refresh();
       form.reset();
+
+      queryClient.resetQueries([`posts-infinite-query-${postId}`]);
 
       toast({
         title: "Success!",

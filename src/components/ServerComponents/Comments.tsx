@@ -1,6 +1,7 @@
 import { db } from "@/lib/db";
 import { CardFooter } from "@/ui/Card";
-import CommentCard from "@/components/Cards/CommentCard";
+import { INFINITE_SCROLLING_PAGINATION_RESULTS } from "@/config";
+import CommentClient from "@/components/ClientWrapper/CommentClient";
 
 interface CommentsProps {
   postId: string;
@@ -17,18 +18,14 @@ const Comments = async ({ postId }: CommentsProps) => {
     orderBy: {
       createdAt: "desc",
     },
-    take: 10,
+    take: INFINITE_SCROLLING_PAGINATION_RESULTS,
   });
 
   if (comments.length === 0) return;
 
   return (
     <CardFooter className="py-3 border-t">
-      <div className="flex flex-col gap-y-6 w-full">
-        {comments.map((comment) => (
-          <CommentCard key={comment.id} comment={comment} />
-        ))}
-      </div>
+      <CommentClient initialComments={comments} postId={postId} />
     </CardFooter>
   );
 };

@@ -123,7 +123,7 @@ const LeaderboardAnimes: FC<LeaderboardAnimesProps> = ({
           />
         </div>
       </ScrollArea>
-      <div className="w-full flex justify-end -mt-2">
+      <div className="w-full flex justify-end -mt-4">
         <Button
           onClick={() => fetchNextPage()}
           size="sm"

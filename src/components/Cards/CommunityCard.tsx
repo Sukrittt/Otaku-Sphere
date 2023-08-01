@@ -15,7 +15,7 @@ const CommunityCard: FC<CommunityCardProps> = ({ community }) => {
     <Link
       href={`/community/${community.category.toLowerCase()}/${community.id}`}
     >
-      <Card className="flex h-full flex-col">
+      <Card className="flex h-full flex-col dark:hover:border-neutral-900 hover:border-neutral-100 transition">
         <CardHeader className="flex-1 py-5">
           <CardTitle className="line-clamp-1">
             <div className="flex gap-2.5">

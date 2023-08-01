@@ -125,7 +125,7 @@ const Users: FC<UsersProps> = ({ initialUsers, initialFetchedUsers }) => {
       <ScrollArea className="w-full" orientation="horizontal">
         <UserDataTable columns={userColumns} data={users} />
       </ScrollArea>
-      <div className="w-full flex justify-end -mt-2">
+      <div className="w-full flex justify-end -mt-4">
         <Button
           onClick={() => fetchNextPage()}
           size="sm"

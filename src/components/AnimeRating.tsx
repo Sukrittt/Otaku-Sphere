@@ -78,7 +78,7 @@ const AnimeRating: FC<AnimeRatingProps> = ({
 
       handleRatingClick(index);
       toast({
-        title: "Please wait!",
+        title: "Please wait",
         description: "We are recording your rating.",
       });
     },
@@ -87,7 +87,7 @@ const AnimeRating: FC<AnimeRatingProps> = ({
   const handleRateAnime = (index: number) => {
     if (isLoading) {
       return toast({
-        title: "Please wait!",
+        title: "Please wait",
         description: "We are recording your rating.",
       });
     }

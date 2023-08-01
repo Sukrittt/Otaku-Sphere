@@ -19,11 +19,15 @@ export async function POST(req: Request) {
     const { name, category, description } =
       createCommunityValidator.parse(body);
 
+    if (!category) {
+      return new Response("Category is required", { status: 403 });
+    }
+
     await db.community.create({
       data: {
         name,
         description,
-        category: category!,
+        category,
         creatorId: session.user.id,
       },
     });
