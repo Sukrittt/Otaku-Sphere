@@ -111,7 +111,7 @@ const AnimeStatusQuestion: FC<AnimeStatusQuestionProps> = ({ animeId }) => {
       <p className="text-muted-foreground text-sm">
         Tell us your current anime watching status.
       </p>
-      <div className="flex gap-x-2 items-center">
+      <div className="flex gap-2 items-center flex-wrap">
         {status.map((item) => (
           <Button
             variant="outline"
