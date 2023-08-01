@@ -2,7 +2,7 @@ import { FC } from "react";
 import { Anime } from "@prisma/client";
 
 import { db } from "@/lib/db";
-import { AnimeCard } from "@/components/Cards/AnimeCard";
+import AnimeCard from "@/components/Cards/AnimeCard";
 
 interface MoreLikeThisProps {
   anime: Pick<Anime, "genre" | "name">;

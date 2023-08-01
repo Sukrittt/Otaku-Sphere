@@ -1,5 +1,5 @@
 import { db } from "@/lib/db";
-import { AnimeCard } from "@/components/Cards/AnimeCard";
+import AnimeCardClient from "@/components/ClientWrapper/AnimeCardClient";
 
 const TopRated = async () => {
   const animes = await db.anime.findMany({
@@ -14,7 +14,7 @@ const TopRated = async () => {
   return (
     <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-5">
       {animes.map((anime) => {
-        return <AnimeCard key={anime.id} anime={anime} />;
+        return <AnimeCardClient key={anime.id} anime={anime} />;
       })}
     </div>
   );

@@ -1,9 +1,9 @@
 import { Suspense } from "react";
 
 import { db } from "@/lib/db";
-import { AnimeCard } from "@/components/Cards/AnimeCard";
 import { getAuthSession } from "@/lib/auth";
 import AnimeCardSkeleton from "@/components/SkeletonLoaders/AnimeCardSkeleton";
+import AnimeCardClient from "@/components/ClientWrapper/AnimeCardClient";
 
 const UserDesigned = async () => {
   const session = await getAuthSession();
@@ -42,7 +42,7 @@ const UserDesigned = async () => {
       <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-5">
         <Suspense fallback={<AnimeCardSkeleton />}>
           {animes.map((anime) => {
-            return <AnimeCard key={anime.id} anime={anime} />;
+            return <AnimeCardClient key={anime.id} anime={anime} />;
           })}
         </Suspense>
       </div>
