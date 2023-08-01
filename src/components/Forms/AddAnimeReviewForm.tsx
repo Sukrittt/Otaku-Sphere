@@ -78,6 +78,13 @@ const AddAnimeReviewForm: FC<AddAnimeReviewFormProps> = ({ animeId }) => {
             variant: "destructive",
           });
         }
+        if (statusCode === 422) {
+          return toast({
+            title: "Error!",
+            description: "Either the title or review is too short/long.",
+            variant: "destructive",
+          });
+        }
       }
 
       endErrorToast();

@@ -1,7 +1,8 @@
 import { db } from "@/lib/db";
-import { Icons } from "@/components/Icons";
-import { Card, CardContent, CardHeader, CardTitle } from "@/ui/Card";
-import { calculateIncreasePercentage } from "@/lib/utils";
+import OverviewClient from "@/components/ClientWrapper/OverviewClient";
+import { OverviewType } from "@/types/item-type";
+// import { Card, CardContent, CardHeader, CardTitle } from "@/ui/Card";
+// import { calculateIncreasePercentage } from "@/lib/utils";
 
 const Overview = async () => {
   const currentDate = new Date();
@@ -54,49 +55,28 @@ const Overview = async () => {
     previousMonthCommunityCount,
   ] = await Promise.all(promises);
 
-  const data = [
+  const data: OverviewType[] = [
     {
       title: "Total Users",
-      icon: Icons.users,
+      category: "user",
       count: userCount,
       previousMonthCount: previousMonthUserCount,
     },
     {
       title: "Total Animes",
-      icon: Icons.anime,
+      category: "anime",
       count: animeCount,
       previousMonthCount: previousMonthAnimeCount,
     },
     {
       title: "Total Communities",
-      icon: Icons.boxes,
+      category: "community",
       count: communityCount,
       previousMonthCount: previousMonthCommunityCount,
     },
   ];
 
-  return (
-    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 pb-24">
-      {data.map((item, index) => (
-        <Card key={index}>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">{item.title}</CardTitle>
-            <item.icon className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">
-              +{item.count.toLocaleString()}
-            </div>
-            <p className="text-xs text-muted-foreground">
-              +
-              {calculateIncreasePercentage(item.count, item.previousMonthCount)}
-              % from last month
-            </p>
-          </CardContent>
-        </Card>
-      ))}
-    </div>
-  );
+  return <OverviewClient data={data} />;
 };
 
 export default Overview;

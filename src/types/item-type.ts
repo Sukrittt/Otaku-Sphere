@@ -63,3 +63,12 @@ export type AddWatchlistAnimeType = {
   id: string;
   name: string;
 };
+
+export type OverviewType = {
+  title: string;
+  category: OverviewCategory;
+  count: number;
+  previousMonthCount: number;
+};
+
+type OverviewCategory = "anime" | "user" | "community";
