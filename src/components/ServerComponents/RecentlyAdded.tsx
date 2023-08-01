@@ -1,5 +1,5 @@
 import { db } from "@/lib/db";
-import { AnimeCard } from "@/components/Cards/AnimeCard";
+import AnimeCard from "@/components/Cards/AnimeCard";
 
 const RecentlyAdded = async () => {
   const animes = await db.anime.findMany({
