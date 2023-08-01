@@ -5,10 +5,18 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/ui/Card";
 
 const Overview = async () => {
   const currentDate = new Date();
-  const previousMonth = new Date(
+
+  const firstDayOfCurrentMonth = new Date(
     currentDate.getFullYear(),
-    currentDate.getMonth() - 1
+    currentDate.getMonth(),
+    1
   );
+  const lastDayOfPreviousMonth = new Date(firstDayOfCurrentMonth);
+  lastDayOfPreviousMonth.setDate(0);
+
+  lastDayOfPreviousMonth.setHours(23);
+  lastDayOfPreviousMonth.setMinutes(59);
+  lastDayOfPreviousMonth.setSeconds(59);
 
   const promises = [
     db.user.count(),
@@ -17,21 +25,21 @@ const Overview = async () => {
     db.user.count({
       where: {
         createdAt: {
-          lte: previousMonth,
+          lte: lastDayOfPreviousMonth,
         },
       },
     }),
     db.anime.count({
       where: {
         createdAt: {
-          lte: previousMonth,
+          lte: lastDayOfPreviousMonth,
         },
       },
     }),
     db.community.count({
       where: {
         createdAt: {
-          lte: previousMonth,
+          lte: lastDayOfPreviousMonth,
         },
       },
     }),
