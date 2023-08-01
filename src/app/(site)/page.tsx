@@ -2,13 +2,13 @@ import { Suspense } from "react";
 import { Balancer } from "react-wrap-balancer";
 
 import { Shell } from "@/components/Shell";
-// import TopRated from "@/components/ServerComponents/TopRated";
-// import RecentlyAdded from "@/components/ServerComponents/RecentlyAdded";
-// import UserDesigned from "@/components/ServerComponents/UserDesigned";
-// import AnimeCardSkeleton from "@/components/SkeletonLoaders/AnimeCardSkeleton";
+import TopRated from "@/components/ServerComponents/TopRated";
+import RecentlyAdded from "@/components/ServerComponents/RecentlyAdded";
+import UserDesigned from "@/components/ServerComponents/UserDesigned";
+import AnimeCardSkeleton from "@/components/SkeletonLoaders/AnimeCardSkeleton";
 import Overview from "@/components/ServerComponents/Overview";
 import OverviewSkeleton from "@/components/SkeletonLoaders/OverviewSkeleton";
-// import CommunityCategories from "@/components/Footer/CommunityCategories";
+import CommunityCategories from "@/components/Footer/CommunityCategories";
 
 export const fetchCache = "force-no-store";
 export const dynamic = "force-dynamic";
@@ -32,7 +32,7 @@ export default function Home() {
       <Suspense fallback={<OverviewSkeleton />}>
         <Overview />
       </Suspense>
-      {/*
+
       <div className="flex flex-col gap-y-2">
         <h2 className="text-2xl font-semibold tracking-tight">Top Rated</h2>
         <p className="text-sm text-muted-foreground">
@@ -59,18 +59,18 @@ export default function Home() {
         <UserDesigned />
       </Suspense>
 
-      <CommunityCategories /> */}
+      <CommunityCategories />
     </Shell>
   );
 }
 
-// const CustomUserDesignedAnimeSkeleton = () => {
-//   return (
-//     <div className="flex flex-col gap-y-2">
-//       <h2 className="text-2xl font-semibold tracking-tight">Made for you</h2>
-//       <p className="text-sm text-muted-foreground">Based on what you like.</p>
+const CustomUserDesignedAnimeSkeleton = () => {
+  return (
+    <div className="flex flex-col gap-y-2">
+      <h2 className="text-2xl font-semibold tracking-tight">Made for you</h2>
+      <p className="text-sm text-muted-foreground">Based on what you like.</p>
 
-//       <AnimeCardSkeleton />
-//     </div>
-//   );
-// };
+      <AnimeCardSkeleton />
+    </div>
+  );
+};

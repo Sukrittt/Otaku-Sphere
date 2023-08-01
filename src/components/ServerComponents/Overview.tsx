@@ -54,14 +54,6 @@ const Overview = async () => {
     previousMonthCommunityCount,
   ] = await Promise.all(promises);
 
-  console.log("userCount", userCount);
-  console.log("animeCount", animeCount);
-  console.log("communityCount", communityCount);
-  console.log("%c --------", "color:red");
-  console.log("previousMonthUserCount", previousMonthUserCount);
-  console.log("previousMonthAnimeCount", previousMonthAnimeCount);
-  console.log("previousMonthCommunityCount", previousMonthCommunityCount);
-
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 pb-24">
       <p>userCount: {userCount}</p>
