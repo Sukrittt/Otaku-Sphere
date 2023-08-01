@@ -1,4 +1,4 @@
-// import { Suspense } from "react";
+import { Suspense } from "react";
 import { Balancer } from "react-wrap-balancer";
 
 import { Shell } from "@/components/Shell";
@@ -6,8 +6,8 @@ import { Shell } from "@/components/Shell";
 // import RecentlyAdded from "@/components/ServerComponents/RecentlyAdded";
 // import UserDesigned from "@/components/ServerComponents/UserDesigned";
 // import AnimeCardSkeleton from "@/components/SkeletonLoaders/AnimeCardSkeleton";
-// import Overview from "@/components/ServerComponents/Overview";
-// import OverviewSkeleton from "@/components/SkeletonLoaders/OverviewSkeleton";
+import Overview from "@/components/ServerComponents/Overview";
+import OverviewSkeleton from "@/components/SkeletonLoaders/OverviewSkeleton";
 // import CommunityCategories from "@/components/Footer/CommunityCategories";
 
 export const fetchCache = "force-no-store";
@@ -29,9 +29,10 @@ export default function Home() {
           Animated Wonders, Where Imagination Knows No Bounds
         </Balancer>
       </section>
-      {/* <Suspense fallback={<OverviewSkeleton />}>
+      <Suspense fallback={<OverviewSkeleton />}>
         <Overview />
       </Suspense>
+      {/*
       <div className="flex flex-col gap-y-2">
         <h2 className="text-2xl font-semibold tracking-tight">Top Rated</h2>
         <p className="text-sm text-muted-foreground">
