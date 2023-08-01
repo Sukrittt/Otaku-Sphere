@@ -1,9 +1,21 @@
+import { cn } from "@/lib/utils";
 import { CardFooter } from "@/ui/Card";
 import { Skeleton } from "@/ui/Skeleton";
 
-const CommentSkeleton = ({ length = 10 }: { length?: number }) => {
+const CommentSkeleton = ({
+  length = 10,
+  noBorder,
+}: {
+  length?: number;
+  noBorder?: boolean;
+}) => {
   return (
-    <CardFooter className="py-3 border-t">
+    <CardFooter
+      className={cn({
+        "border-t py-3": !noBorder,
+        "px-0 w-full": noBorder,
+      })}
+    >
       <div className="flex flex-col gap-y-6 w-full">
         {Array.from({ length }).map((_, index) => (
           <CommentSkeletonCard key={index} />
