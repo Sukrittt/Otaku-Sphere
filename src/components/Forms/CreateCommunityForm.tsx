@@ -74,6 +74,7 @@ const CreateCommunityForm = () => {
           return toast({
             title: "Please select a category",
             description: "Category cannot be empty.",
+            variant: "destructive",
           });
         }
         if (statusCode === 422) {
