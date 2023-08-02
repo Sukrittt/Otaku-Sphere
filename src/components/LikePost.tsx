@@ -72,8 +72,7 @@ const LikePost: FC<LikePostProps> = ({ initialLike, likes, postId }) => {
         onClick={() => {
           if (isLoading) {
             toast({
-              title: "Please wait",
-              description: "We are processing your request.",
+              description: "Please wait for the previous request to finish.",
             });
             return;
           }
