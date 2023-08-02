@@ -27,15 +27,17 @@ const AboutPage = () => {
         />
         <Separator className="my-4" />
         <p className="font-light">
-          This is an open source all-in-one Anime Platform build with everything
-          in{" "}
+          Discover the ultimate Anime Platform, built on{" "}
           <Link
             href="https://nextjs.org/"
             target="_blank"
             className="underline font-semibold underline-offset-4"
           >
             Next.js 13.
-          </Link>
+          </Link>{" "}
+          Explore anime, join communities, manage watchlist, view leaderboards,
+          and engage in polls. An open-source all-in-one hub for anime
+          enthusiasts. Join us now!
         </p>
       </div>
 
