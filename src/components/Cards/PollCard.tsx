@@ -1,5 +1,5 @@
 "use client";
-import { FC } from "react";
+import { FC, useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 
@@ -34,11 +34,12 @@ const PollCard: FC<PollCardProps> = ({ poll, sessionId, interaction }) => {
   const queryClient = useQueryClient();
   const { endErrorToast, loginToast } = useAuthToast();
 
-  const hasVoted =
+  const [hasVoted, setHasVoted] = useState(
     !!interaction &&
-    poll.option.some((option) =>
-      option.vote.some((vote) => vote.userId === sessionId)
-    );
+      poll.option.some((option) =>
+        option.vote.some((vote) => vote.userId === sessionId)
+      )
+  );
 
   const votedOption = poll.option.find((option) =>
     option.vote.some((vote) => vote.userId === sessionId)
@@ -64,6 +65,8 @@ const PollCard: FC<PollCardProps> = ({ poll, sessionId, interaction }) => {
       return data;
     },
     onError: (error) => {
+      setHasVoted(false);
+
       if (error instanceof AxiosError) {
         const statusCode = error.response?.status;
         if (statusCode === 401) {
@@ -95,6 +98,8 @@ const PollCard: FC<PollCardProps> = ({ poll, sessionId, interaction }) => {
       endErrorToast();
     },
     onMutate: () => {
+      //setHasVoted(true);
+
       toast({
         title: "Please wait",
         description: "We are casting your vote.",
@@ -105,6 +110,8 @@ const PollCard: FC<PollCardProps> = ({ poll, sessionId, interaction }) => {
         title: "Success!",
         description: "Your vote was cast.",
       });
+
+      setHasVoted(true);
 
       queryClient.resetQueries(pollInfiniteQueryKey);
     },
