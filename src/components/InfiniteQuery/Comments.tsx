@@ -9,7 +9,6 @@ import { ExtendedComment } from "@/types/db";
 import CommentCard from "@/components/Cards/CommentCard";
 import { INFINITE_SCROLLING_PAGINATION_RESULTS } from "@/config";
 import CommentSkeleton from "@/components/SkeletonLoaders/CommentSkeleton";
-import { CardFooter } from "@/ui/Card";
 
 interface CommentsProps {
   initialComments: ExtendedComment[];
@@ -61,29 +60,32 @@ const InfiniteComments: FC<CommentsProps> = ({ initialComments, postId }) => {
     }
   }, [entry, fetchNextPage, noNewData]);
 
-  if (comments.length === 0) return;
+  if (comments.length === 0)
+    return (
+      <p className="text-muted-foreground text-sm w-full text-center">
+        No comments created yet.
+      </p>
+    );
 
   return (
-    <CardFooter className="py-3 border-t">
-      <div className="flex flex-col gap-y-6 w-full">
-        {comments.map((comment, index) => {
-          if (index === comments.length - 1) {
-            return (
-              <div key={comment.id} ref={ref}>
-                <CommentCard comment={comment} />
-              </div>
-            );
-          } else {
-            return (
-              <div key={comment.id}>
-                <CommentCard comment={comment} />
-              </div>
-            );
-          }
-        })}
-        {isFetchingNextPage && <CommentSkeleton length={5} noBorder />}
-      </div>
-    </CardFooter>
+    <div className="flex flex-col gap-y-6 w-full">
+      {comments.map((comment, index) => {
+        if (index === comments.length - 1) {
+          return (
+            <div key={comment.id} ref={ref}>
+              <CommentCard comment={comment} />
+            </div>
+          );
+        } else {
+          return (
+            <div key={comment.id}>
+              <CommentCard comment={comment} />
+            </div>
+          );
+        }
+      })}
+      {isFetchingNextPage && <CommentSkeleton length={5} noBorder />}
+    </div>
   );
 };
 
