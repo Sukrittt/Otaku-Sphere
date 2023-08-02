@@ -19,7 +19,6 @@ const InfiniteComments: FC<CommentsProps> = ({ initialComments, postId }) => {
   const lastPostRef = useRef<HTMLElement>(null);
   const [comments, setComments] = useState<ExtendedComment[]>(initialComments);
   const [noNewData, setNoNewData] = useState(false);
-  const [loading, setLoading] = useState(true);
 
   const { ref, entry } = useIntersection({
     root: lastPostRef.current,
@@ -33,6 +32,8 @@ const InfiniteComments: FC<CommentsProps> = ({ initialComments, postId }) => {
     async ({ pageParam = 1 }) => {
       const queryUrl = `/api/post/comment?limit=${INFINITE_SCROLLING_PAGINATION_RESULTS}&page=${pageParam}&postId=${postId}`;
 
+      console.log("pageParam: ", pageParam);
+
       const { data } = await axios(queryUrl);
 
       setNoNewData(false);
@@ -43,26 +44,17 @@ const InfiniteComments: FC<CommentsProps> = ({ initialComments, postId }) => {
       getNextPageParam: (_, pages) => {
         return pages.length + 1;
       },
-      // initialData: { pages: [initialComments], pageParams: [1] },
-      initialData: loading
-        ? { pages: [initialComments], pageParams: [1] }
-        : undefined,
+      initialData: { pages: [initialComments], pageParams: [1] },
     }
   );
 
   useEffect(() => {
-    if (loading && data && data.pages.length > 0) {
-      setLoading(false);
-    }
-
     if (data?.pages[data?.pages.length - 1].length === 0) {
       setNoNewData(true);
     }
 
     setComments(data?.pages.flatMap((page) => page) ?? initialComments);
-  }, [data, initialComments, loading]);
-
-  console.log("comments.length", comments.length);
+  }, [data, initialComments]);
 
   useEffect(() => {
     if (entry?.isIntersecting && !noNewData) {
