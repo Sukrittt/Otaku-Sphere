@@ -78,7 +78,7 @@ const CreatePostForm: FC<CreatePostFormProps> = ({ category, communityId }) => {
         if (statusCode === 422) {
           return toast({
             title: "Error!",
-            description: "Title and message cannot be empty.",
+            description: "Title or message was too short/long.",
             variant: "destructive",
           });
         }

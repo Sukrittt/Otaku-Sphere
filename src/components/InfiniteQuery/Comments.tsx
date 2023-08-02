@@ -48,10 +48,14 @@ const InfiniteComments: FC<CommentsProps> = ({ initialComments, postId }) => {
     }
   );
 
+  console.log("comments.length: ", comments.length);
+
   useEffect(() => {
     if (data?.pages[data?.pages.length - 1].length === 0) {
       setNoNewData(true);
     }
+
+    console.log("data?.pages: ", data?.pages);
 
     setComments(data?.pages.flatMap((page) => page) ?? initialComments);
   }, [data, initialComments]);
