@@ -2,10 +2,8 @@ export const siteConfig = {
   name: "Otaku Sphere",
   description:
     "Discover the ultimate Anime Platform, built on Next.js 13. Explore anime, join communities, manage watchlist, view leaderboards, and engage in polls. An open-source all-in-one hub for anime enthusiasts. Join us now!",
-  url: "https://otaku-sphere.vercel.app", //change this url
+  url: "http://otakusphere.in",
 };
-
-// url: "https://otakusphere.io",
 
 export const INFINITE_SCROLLING_PAGINATION_ANIME = 3;
 export const INFINITE_SCROLLING_PAGINATION_RESULTS = 5;
