@@ -1,8 +1,6 @@
 import { db } from "@/lib/db";
 import OverviewClient from "@/components/ClientWrapper/OverviewClient";
 import { OverviewType } from "@/types/item-type";
-// import { Card, CardContent, CardHeader, CardTitle } from "@/ui/Card";
-// import { calculateIncreasePercentage } from "@/lib/utils";
 
 const Overview = async () => {
   const currentDate = new Date();
