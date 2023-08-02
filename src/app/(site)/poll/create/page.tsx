@@ -15,7 +15,8 @@ import CreatePollClient from "@/components/ClientWrapper/CreatePollClient";
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
   title: "Create Poll",
-  description: "Your voice, Your vote!",
+  description:
+    "Engage the community by creating interactive polls. Enter a question, set 2-10 options, and choose an expiry date to gather opinions.",
 };
 
 const CreatePollPage = () => {
