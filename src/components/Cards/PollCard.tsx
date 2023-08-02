@@ -98,8 +98,6 @@ const PollCard: FC<PollCardProps> = ({ poll, sessionId, interaction }) => {
       endErrorToast();
     },
     onMutate: () => {
-      //setHasVoted(true);
-
       toast({
         title: "Please wait",
         description: "We are casting your vote.",
@@ -168,6 +166,7 @@ const PollCard: FC<PollCardProps> = ({ poll, sessionId, interaction }) => {
         title: "Success!",
         description: "Your vote was removed",
       });
+      setHasVoted(false);
 
       queryClient.resetQueries(pollInfiniteQueryKey);
     },
