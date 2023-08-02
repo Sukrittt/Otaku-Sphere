@@ -47,15 +47,12 @@ const AddCommentForm = ({ postId }: { postId: string }) => {
     },
     onSuccess: () => {
       form.reset();
+      queryClient.resetQueries([`posts-infinite-query-${postId}`]);
 
       toast({
         title: "Success!",
         description: "Comment added successfully.",
       });
-    },
-    onSettled: () => {
-      console.log("%c resetingg", "color: red");
-      queryClient.resetQueries([`posts-infinite-query-${postId}`]);
     },
     onError: (error) => {
       if (error instanceof AxiosError) {

@@ -1,5 +1,4 @@
 import { db } from "@/lib/db";
-import { CardFooter } from "@/ui/Card";
 import { INFINITE_SCROLLING_PAGINATION_RESULTS } from "@/config";
 import CommentClient from "@/components/ClientWrapper/CommentClient";
 
@@ -21,13 +20,7 @@ const Comments = async ({ postId }: CommentsProps) => {
     take: INFINITE_SCROLLING_PAGINATION_RESULTS,
   });
 
-  if (comments.length === 0) return;
-
-  return (
-    <CardFooter className="py-3 border-t">
-      <CommentClient initialComments={comments} postId={postId} />
-    </CardFooter>
-  );
+  return <CommentClient initialComments={comments} postId={postId} />;
 };
 
 export default Comments;

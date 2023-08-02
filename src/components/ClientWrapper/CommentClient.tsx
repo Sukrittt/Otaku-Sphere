@@ -8,7 +8,7 @@ const InfiniteComments = dynamic(
   () => import("@/components/InfiniteQuery/Comments"),
   {
     ssr: false,
-    loading: () => <CommentSkeleton noBorder />,
+    loading: () => <CommentSkeleton />,
   }
 );
 

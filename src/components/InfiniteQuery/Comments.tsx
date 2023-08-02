@@ -9,6 +9,7 @@ import { ExtendedComment } from "@/types/db";
 import CommentCard from "@/components/Cards/CommentCard";
 import { INFINITE_SCROLLING_PAGINATION_RESULTS } from "@/config";
 import CommentSkeleton from "@/components/SkeletonLoaders/CommentSkeleton";
+import { CardFooter } from "@/ui/Card";
 
 interface CommentsProps {
   initialComments: ExtendedComment[];
@@ -32,8 +33,6 @@ const InfiniteComments: FC<CommentsProps> = ({ initialComments, postId }) => {
     async ({ pageParam = 1 }) => {
       const queryUrl = `/api/post/comment?limit=${INFINITE_SCROLLING_PAGINATION_RESULTS}&page=${pageParam}&postId=${postId}`;
 
-      console.log("pageParam: ", pageParam);
-
       const { data } = await axios(queryUrl);
 
       setNoNewData(false);
@@ -48,14 +47,10 @@ const InfiniteComments: FC<CommentsProps> = ({ initialComments, postId }) => {
     }
   );
 
-  console.log("comments.length: ", comments.length);
-
   useEffect(() => {
     if (data?.pages[data?.pages.length - 1].length === 0) {
       setNoNewData(true);
     }
-
-    console.log("data?.pages: ", data?.pages);
 
     setComments(data?.pages.flatMap((page) => page) ?? initialComments);
   }, [data, initialComments]);
@@ -69,24 +64,26 @@ const InfiniteComments: FC<CommentsProps> = ({ initialComments, postId }) => {
   if (comments.length === 0) return;
 
   return (
-    <div className="flex flex-col gap-y-6 w-full">
-      {comments.map((comment, index) => {
-        if (index === comments.length - 1) {
-          return (
-            <div key={comment.id} ref={ref}>
-              <CommentCard comment={comment} />
-            </div>
-          );
-        } else {
-          return (
-            <div key={comment.id}>
-              <CommentCard comment={comment} />
-            </div>
-          );
-        }
-      })}
-      {isFetchingNextPage && <CommentSkeleton length={5} noBorder />}
-    </div>
+    <CardFooter className="py-3 border-t">
+      <div className="flex flex-col gap-y-6 w-full">
+        {comments.map((comment, index) => {
+          if (index === comments.length - 1) {
+            return (
+              <div key={comment.id} ref={ref}>
+                <CommentCard comment={comment} />
+              </div>
+            );
+          } else {
+            return (
+              <div key={comment.id}>
+                <CommentCard comment={comment} />
+              </div>
+            );
+          }
+        })}
+        {isFetchingNextPage && <CommentSkeleton length={5} noBorder />}
+      </div>
+    </CardFooter>
   );
 };
 
