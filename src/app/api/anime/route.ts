@@ -52,6 +52,10 @@ export async function POST(req: Request) {
       return new Response("Please enter a genre", { status: 422 });
     }
 
+    if (name.includes("-")) {
+      return new Response("Anime name cannot contain '-'", { status: 405 });
+    }
+
     //all checks complete ✅
     await db.anime.create({
       data: {

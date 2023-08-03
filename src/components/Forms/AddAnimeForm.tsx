@@ -89,6 +89,13 @@ const AddAnimeForm = () => {
             variant: "destructive",
           });
         }
+        if (statusCode === 405) {
+          return toast({
+            title: "Error!",
+            description: "Anime name cannot have '-'.",
+            variant: "destructive",
+          });
+        }
         if (statusCode === 400) {
           return toast({
             title: "Error!",
