@@ -126,7 +126,7 @@ const BrowseAnime: FC<BrowseAnimeProps> = ({ initialAnimes }) => {
           })}
         </div>
       )}
-      {animes.length === 0 && (
+      {!isFetching && animes.length === 0 && (
         <p className="text-center text-sm text-muted-foreground">
           No results found.
         </p>
