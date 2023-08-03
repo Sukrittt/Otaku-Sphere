@@ -60,12 +60,13 @@ const InfiniteComments: FC<CommentsProps> = ({ initialComments, postId }) => {
     }
   }, [entry, fetchNextPage, noNewData]);
 
-  if (comments.length === 0)
+  if (comments.length === 0) {
     return (
-      <p className="text-muted-foreground text-sm text-center">
+      <p className="text-muted-foreground w-full text-sm text-center">
         No comments created yet.
       </p>
     );
+  }
 
   return (
     <div className="flex flex-col gap-y-6 w-full">

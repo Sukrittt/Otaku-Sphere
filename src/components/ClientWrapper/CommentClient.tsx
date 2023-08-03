@@ -21,7 +21,7 @@ interface CommentsProps {
 const CommentClient = ({ initialComments, postId }: CommentsProps) => {
   return (
     <CardFooter className="py-3 border-t">
-      <InfiniteComments initialComments={initialComments} postId={postId} />;
+      <InfiniteComments initialComments={initialComments} postId={postId} />
     </CardFooter>
   );
 };
