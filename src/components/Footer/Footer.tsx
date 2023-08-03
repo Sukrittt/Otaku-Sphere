@@ -22,7 +22,7 @@ const Footer = () => {
           </Link>
           .
         </div>
-        <div className="flex items-center space-x-1">
+        <div className="flex items-center sm:space-x-1">
           <Link
             href="https://github.com/Sukrittt/Otaku-Sphere"
             target="_blank"
@@ -38,6 +38,40 @@ const Footer = () => {
             >
               <Icons.gitHub className="h-4 w-4" aria-hidden="true" />
               <span className="sr-only">GitHub</span>
+            </div>
+          </Link>
+          <Link
+            href="https://twitter.com/SphereOtaku"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <div
+              className={cn(
+                buttonVariants({
+                  size: "icon",
+                  variant: "ghost",
+                })
+              )}
+            >
+              <Icons.twitter className="h-4 w-4" aria-hidden="true" />
+              <span className="sr-only">Twitter</span>
+            </div>
+          </Link>
+          <Link
+            href="https://www.instagram.com/otaku.sphere/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <div
+              className={cn(
+                buttonVariants({
+                  size: "icon",
+                  variant: "ghost",
+                })
+              )}
+            >
+              <Icons.instagram className="h-4 w-4" aria-hidden="true" />
+              <span className="sr-only">Instagram</span>
             </div>
           </Link>
           <ThemeToggle />

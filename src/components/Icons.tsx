@@ -32,6 +32,8 @@ import {
   ChevronRight,
   ChevronLeft,
   Activity,
+  Instagram,
+  Twitter,
 } from "lucide-react";
 
 export type Icon = LucideIcon;
@@ -110,4 +112,6 @@ export const Icons = {
   plus: Plus,
   menu: Menu,
   activity: Activity,
+  instagram: Instagram,
+  twitter: Twitter
 };
