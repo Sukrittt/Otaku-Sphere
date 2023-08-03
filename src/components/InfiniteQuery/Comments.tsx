@@ -61,12 +61,7 @@ const InfiniteComments: FC<CommentsProps> = ({ initialComments, postId }) => {
     }
   }, [entry, fetchNextPage, noNewData]);
 
-  if (comments.length === 0)
-    return (
-      <p className="text-muted-foreground text-sm w-full text-center">
-        No comments created yet.
-      </p>
-    );
+  if (comments.length === 0) return;
 
   return (
     <CardFooter className="py-3 border-t">
