@@ -1,7 +1,7 @@
 export const siteConfig = {
   name: "Otaku Sphere",
   description:
-    "Discover the ultimate Anime Platform, built on Next.js 13. Explore anime, join communities, manage watchlist, view leaderboards, and engage in polls. An open-source all-in-one hub for anime enthusiasts. Join us now!",
+    "Join the ultimate Anime Platform, Next.js 13 based. Explore anime, join communities, manage watchlist, view leaderboards, and more! Open-source hub for enthusiasts.",
   url: "https://otakusphere.in",
 };
 
