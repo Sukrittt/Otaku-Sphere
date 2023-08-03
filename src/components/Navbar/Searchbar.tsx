@@ -89,7 +89,7 @@ const Searchbar = () => {
       </Button>
       <CommandDialog position="top" open={isOpen} onOpenChange={setIsOpen}>
         <CommandInput
-          placeholder="Search products..."
+          placeholder="Search anime..."
           value={query}
           onValueChange={setQuery}
         />
