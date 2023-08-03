@@ -1,18 +1,11 @@
 import { z } from "zod";
 
 import { db } from "@/lib/db";
-import { getAuthSession } from "@/lib/auth";
 
 export async function GET(req: Request) {
   const url = new URL(req.url);
 
   try {
-    const session = await getAuthSession();
-
-    if (!session) {
-      return new Response("Unauthorized", { status: 401 });
-    }
-
     const { limit, page } = z
       .object({
         limit: z.string(),
