@@ -47,7 +47,7 @@ const AddCommentForm = ({ postId }: { postId: string }) => {
     },
     onSuccess: () => {
       form.reset();
-      queryClient.refetchQueries([`posts-infinite-query-${postId}`]);
+      queryClient.resetQueries([`posts-infinite-query-${postId}`]);
 
       toast({
         title: "Success!",
