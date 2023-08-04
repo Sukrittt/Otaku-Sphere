@@ -113,5 +113,5 @@ export const Icons = {
   menu: Menu,
   activity: Activity,
   instagram: Instagram,
-  twitter: Twitter
+  twitter: Twitter,
 };

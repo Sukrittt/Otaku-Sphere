@@ -51,7 +51,10 @@ export default function MobileNav({ mainNavItems, session }: MobileNavProps) {
             className="flex items-center"
             onClick={() => setIsOpen(false)}
           >
-            <Icons.logo className="mr-2 h-5 w-5" aria-hidden="true" />
+            <Icons.logo
+              className="mr-2 h-5 w-5 hidden dark:block"
+              aria-hidden="true"
+            />
             <span className="font-bold">Otaku Sphere</span>
           </Link>
         </div>

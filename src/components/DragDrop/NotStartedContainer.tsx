@@ -1,7 +1,6 @@
 import { DropTargetMonitor, useDrop } from "react-dnd";
 import axios, { AxiosError } from "axios";
 import { useMutation } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/ui/Card";
 import { cn } from "@/lib/utils";
@@ -17,7 +16,6 @@ import CustomContextMenu from "@/components/Custom-UI/CustomContextMenu";
 
 const NotStartedContainer = () => {
   const { loginToast, endErrorToast } = useAuthToast();
-  const router = useRouter();
 
   const { board, addImageToBoard, removeItemFromBoard } = useNotStarted();
   const { removeItemFromBoard: removeCurrentlyWatching } =
@@ -61,9 +59,6 @@ const NotStartedContainer = () => {
       monitor: DropTargetMonitor;
     }) => {
       onDrop(item, monitor);
-    },
-    onSuccess: () => {
-      router.refresh();
     },
   });
 
