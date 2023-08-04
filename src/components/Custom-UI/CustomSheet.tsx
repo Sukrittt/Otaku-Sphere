@@ -76,9 +76,6 @@ const WatchlistFormSkeleton = () => {
         <Skeleton className="h-4 w-20" />
         <Skeleton className="h-10 w-2/3 md:w-[200px]" />
       </div>
-      <SheetFooter className="flex w-full justify-end">
-        <Skeleton className="h-8 w-24" />
-      </SheetFooter>
     </div>
   );
 };
