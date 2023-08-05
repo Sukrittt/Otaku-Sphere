@@ -34,7 +34,7 @@ const CustomSheet: FC<CustomSheetProps> = ({ children }) => {
       <SheetTrigger className={cn(buttonVariants({ size: "sm" }), "w-fit")}>
         {children}
       </SheetTrigger>
-      <SheetContent className="flex flex-col justify-between">
+      <SheetContent className="flex flex-col justify-between overflow-y-auto">
         <div>
           <SheetHeader>
             <SheetTitle>Add anime to watchlist</SheetTitle>
@@ -67,7 +67,7 @@ export default CustomSheet;
 
 const WatchlistFormSkeleton = () => {
   return (
-    <div className="grid gap-5 mt-6">
+    <div className="grid gap-5 my-6">
       <div className="space-y-3">
         <Skeleton className="h-4 w-20" />
         <Skeleton className="h-10 w-full" />
