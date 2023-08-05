@@ -118,6 +118,7 @@ const AddAnimeReviewForm: FC<AddAnimeReviewFormProps> = ({ animeId }) => {
                 <Input
                   placeholder="Type your review title here."
                   {...field}
+                  autoFocus
                   disabled={isLoading}
                 />
               </FormControl>
