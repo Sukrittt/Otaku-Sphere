@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     "Ratings",
     "Leaderboard",
     "Poll",
-    "Anime"
+    "Anime",
   ],
   authors: [
     {
@@ -57,9 +57,6 @@ export const metadata: Metadata = {
     description: siteConfig.description,
     images: [`${siteConfig.url}/og.jpg`],
     creator: "@SukritSaha11",
-  },
-  icons: {
-    icon: "/favicon.ico",
   },
 };
 
