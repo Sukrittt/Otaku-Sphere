@@ -19,9 +19,14 @@ export async function GET(req: Request) {
     const leaderboardAnimes = await db.anime.findMany({
       take: parseInt(limit),
       skip: (parseInt(page) - 1) * parseInt(limit),
-      orderBy: {
-        totalRatings: "desc",
-      },
+      orderBy: [
+        {
+          totalRatings: "desc",
+        },
+        {
+          createdAt: "desc",
+        },
+      ],
       include: {
         rating: true,
       },

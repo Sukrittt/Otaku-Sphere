@@ -16,9 +16,14 @@ export const metadata: Metadata = {
 const LeaderboardPage = async () => {
   const initialLeaderBoardAnimes = await db.anime.findMany({
     take: INFINITE_SCROLLING_PAGINATION_LEADERBOARD,
-    orderBy: {
-      totalRatings: "desc",
-    },
+    orderBy: [
+      {
+        totalRatings: "desc",
+      },
+      {
+        createdAt: "desc",
+      },
+    ],
     include: {
       rating: true,
     },
