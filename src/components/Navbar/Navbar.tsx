@@ -54,7 +54,7 @@ const Navbar = async () => {
               "text-md tracking-tighter"
             )}
           >
-            <Icons.logo className="mr-2 h-6 w-6" />
+            <Icons.logo className="mr-2 h-6 w-6 hidden dark:block" />
             Otaku Sphere
           </Link>
         </div>
