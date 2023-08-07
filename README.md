@@ -6,14 +6,14 @@ Discover the ultimate Anime Platform, built on Next.js 13. Explore anime, join c
 ## Tech Stack
 
 - **Framework:** [Next.js](https://nextjs.org)
-- **Database** [PlanetScale](http://planetscale.com/)
+- **Database:** [PlanetScale](http://planetscale.com/)
 - **Styling:** [Tailwind CSS](https://tailwindcss.com)
 - **Authentication:** [NextAuth.js](https://next-auth.js.org/)
 - **ORM:** [Prisma ORM](https://www.prisma.io/)
 - **UI Components:** [shadcn/ui](https://ui.shadcn.com)
 - **File Uploads:** [uploadthing](https://uploadthing.com)
 - **Drag and Drop:** [react-dnd](https://react-dnd.github.io/react-dnd/about)
-- **Deployment** - [Vercel](https://vercel.com/dashboard)
+- **Deployment:** [Vercel](https://vercel.com/dashboard)
 
 ## Key Features
 
