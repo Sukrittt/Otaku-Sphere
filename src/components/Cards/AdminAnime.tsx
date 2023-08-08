@@ -32,7 +32,7 @@ export function AnimeAdminCard({
       {...props}
     >
       <CardHeader className="border-b p-0">
-        <AspectRatio ratio={3 / 4}>
+        <AspectRatio ratio={4 / 5}>
           {anime?.coverImage?.length ? (
             <Image
               src={anime.coverImage ?? "/images/anime-placeholder.png"}
@@ -57,8 +57,8 @@ export function AnimeAdminCard({
           )}
         </AspectRatio>
       </CardHeader>
-      <CardContent className="grid gap-2.5 p-4">
-        <CardTitle className="line-clamp-1">{anime.name}</CardTitle>
+      <CardContent className="grid gap-[2px] p-4">
+        <CardTitle className="truncate py-[2px]">{anime.name}</CardTitle>
         <CardDescription className="line-clamp-2">
           {formatDescription(anime.description, 100)}
         </CardDescription>
