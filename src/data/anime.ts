@@ -18,6 +18,10 @@ export const genres: ComboBoxItemType[] = [
     label: "Isekai",
   },
   {
+    value: "sports",
+    label: "Sports",
+  },
+  {
     value: "horror",
     label: "Horror",
   },
@@ -30,8 +34,12 @@ export const genres: ComboBoxItemType[] = [
     label: "Shoujo",
   },
   {
-    value: "sports",
-    label: "Sports",
+    value: "adventure",
+    label: "Adventure",
+  },
+  {
+    value: "fantasy",
+    label: "Fantasy",
   },
   {
     value: "romance",
