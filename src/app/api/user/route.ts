@@ -49,7 +49,7 @@ export async function GET(req: Request) {
       where: whereClause,
       include: {
         anime: true,
-        community: true,
+        pollVote: true,
         post: true,
         rating: true,
       },

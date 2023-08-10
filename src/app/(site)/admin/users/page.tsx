@@ -14,7 +14,7 @@ const UsersPage = async () => {
     },
     include: {
       anime: true,
-      community: true,
+      pollVote: true,
       post: true,
       rating: true,
     },
@@ -25,7 +25,7 @@ const UsersPage = async () => {
     email: user.email,
     createdAt: format(new Date(user.createdAt), "do MMMM',' yyyy"),
     rating: user.rating.length,
-    communitiesCreated: user.community.length,
+    pollsVoted: user.pollVote.length,
     postsCreated: user.post.length,
   }));
 

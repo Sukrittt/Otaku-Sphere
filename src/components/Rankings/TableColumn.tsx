@@ -183,21 +183,19 @@ export const userColumns: ColumnDef<UserDisplay>[] = [
     ),
   },
   {
-    accessorKey: "communitiesCreated",
+    accessorKey: "pollsVoted",
     header: ({ column }) => (
       <div className="flex justify-center">
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Communities <Icons.upDown className="ml-2 h-4 w-4" />
+          Polls Voted <Icons.upDown className="ml-2 h-4 w-4" />
         </Button>
       </div>
     ),
     cell: ({ row }) => {
-      return (
-        <div className="text-center">{row.getValue("communitiesCreated")}</div>
-      );
+      return <div className="text-center">{row.getValue("pollsVoted")}</div>;
     },
   },
   {

@@ -33,7 +33,7 @@ export type ExtendedAnime = Anime & {
 
 export type ExtendedUser = User & {
   anime: Anime[];
-  community: Community[];
+  pollVote: PollVote[];
   post: Post[];
   rating: Rating[];
 };

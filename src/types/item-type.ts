@@ -46,7 +46,7 @@ export type UserDisplay = {
   email: string | null;
   createdAt: string;
   rating: number;
-  communitiesCreated: number;
+  pollsVoted: number;
   postsCreated: number;
 };
 

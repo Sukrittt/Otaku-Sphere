@@ -32,7 +32,7 @@ const TableColumns = [
   "Email",
   "Ratings",
   "Joined At",
-  "Communities",
+  "Polls Voted",
   "Posts",
 ];
 

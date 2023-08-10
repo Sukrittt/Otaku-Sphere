@@ -68,7 +68,7 @@ const Users: FC<UsersProps> = ({ initialUsers, initialFetchedUsers }) => {
           email: user.email,
           createdAt: format(new Date(user.createdAt), "do MMMM',' yyyy"),
           rating: user.rating.length,
-          communitiesCreated: user.community.length,
+          pollsVoted: user.pollVote.length,
           postsCreated: user.post.length,
         })
       );
@@ -84,7 +84,7 @@ const Users: FC<UsersProps> = ({ initialUsers, initialFetchedUsers }) => {
           email: user.email,
           createdAt: format(new Date(user.createdAt), "do MMMM',' yyyy"),
           rating: user.rating.length,
-          communitiesCreated: user.community.length,
+          pollsVoted: user.pollVote.length,
           postsCreated: user.post.length,
         })
       );
