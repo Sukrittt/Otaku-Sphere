@@ -274,4 +274,10 @@ export const dialogue = [
       "Inherited Will, The Destiny Of Age, The Dreams Of Its People. As Long As People Continue To Pursue The Meaning Of Freedom, These Things Will Never Cease!",
     character: "Gol D. Roger",
   },
+  {
+    id: 36,
+    message:
+      "To know sorrow is not terrifying. What is terrifying is to know you can't go back to the happiness you could have.",
+    character: "Matsmoto Rangiku",
+  },
 ];
