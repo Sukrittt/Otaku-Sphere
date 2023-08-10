@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/ui/Card";
 import { calculateIncreasePercentage } from "@/lib/utils";
 import { OverviewType } from "@/types/item-type";
-import { Icons } from "./Icons";
+import { Icons } from "@/components/Icons";
 
 const OverviewDisplay = ({ data }: { data: OverviewType[] }) => {
   return (
@@ -12,7 +12,7 @@ const OverviewDisplay = ({ data }: { data: OverviewType[] }) => {
             ? Icons.users
             : item.category === "anime"
             ? Icons.anime
-            : Icons.boxes;
+            : Icons.activity;
 
         return (
           <Card key={index}>

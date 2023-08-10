@@ -20,7 +20,7 @@ const Overview = async () => {
   const promises = [
     db.user.count(),
     db.anime.count(),
-    db.community.count(),
+    db.poll.count(),
     db.user.count({
       where: {
         createdAt: {
@@ -35,7 +35,7 @@ const Overview = async () => {
         },
       },
     }),
-    db.community.count({
+    db.poll.count({
       where: {
         createdAt: {
           lte: lastDayOfPreviousMonth,
@@ -47,10 +47,10 @@ const Overview = async () => {
   const [
     userCount,
     animeCount,
-    communityCount,
+    pollCount,
     previousMonthUserCount,
     previousMonthAnimeCount,
-    previousMonthCommunityCount,
+    previousMonthPollCount,
   ] = await Promise.all(promises);
 
   const data: OverviewType[] = [
@@ -67,10 +67,10 @@ const Overview = async () => {
       previousMonthCount: previousMonthAnimeCount,
     },
     {
-      title: "Total Communities",
-      category: "community",
-      count: communityCount,
-      previousMonthCount: previousMonthCommunityCount,
+      title: "Total Polls",
+      category: "poll",
+      count: pollCount,
+      previousMonthCount: previousMonthPollCount,
     },
   ];
 

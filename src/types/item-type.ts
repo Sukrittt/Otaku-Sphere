@@ -71,4 +71,4 @@ export type OverviewType = {
   previousMonthCount: number;
 };
 
-type OverviewCategory = "anime" | "user" | "community";
+type OverviewCategory = "anime" | "user" | "poll";
