@@ -53,7 +53,9 @@ const BrowseAnime: FC<BrowseAnimeProps> = ({ initialAnimes }) => {
     );
 
   useEffect(() => {
-    if (data?.pages[data?.pages.length - 1].length === 0) {
+    const newDataLength = data?.pages[data?.pages.length - 1].length ?? 0;
+
+    if (newDataLength < INFINITE_SCROLLING_PAGINATION_BROWSE) {
       setNoNewData(true);
     }
 
