@@ -59,7 +59,7 @@ const CustomReviewSheet: FC<CustomReviewSheetProps> = ({
       >
         {children}
       </SheetTrigger>
-      <SheetContent className="overflow-y-scroll">
+      <SheetContent className="overflow-y-auto">
         <SheetHeader>
           <SheetTitle>Add your review</SheetTitle>
           <SheetDescription>
