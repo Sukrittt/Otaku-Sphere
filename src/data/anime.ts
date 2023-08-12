@@ -30,8 +30,8 @@ export const genres: ComboBoxItemType[] = [
     label: "Mystery",
   },
   {
-    value: "echi",
-    label: "Echi",
+    value: "ecchi",
+    label: "Ecchi",
   },
   {
     value: "shoujo",
