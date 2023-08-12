@@ -7,6 +7,7 @@ import { UserAuthForm } from "@/components/Forms/AuthForm";
 import { Icons } from "@/components/Icons";
 import { env } from "@/env.mjs";
 import { dialogue } from "@/data";
+import TypingMessage from "@/components/TypingMessage";
 
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
@@ -40,8 +41,10 @@ const AuthenticationPage = () => {
         </div>
         <div className="relative z-20 mt-auto text-zinc-800 dark:text-white">
           <blockquote className="space-y-2">
-            <p className="text-lg">&ldquo;{randomDialogue.message}&rdquo;</p>
-            <footer className="text-sm">{randomDialogue.character}</footer>
+            <TypingMessage text={`"${randomDialogue.message}"`} />
+            <footer className="text-sm">
+              <TypingMessage text={randomDialogue.character} />
+            </footer>
           </blockquote>
         </div>
       </div>
