@@ -25,6 +25,8 @@ export async function GET(req: Request) {
       take: 5,
     });
 
+    results.sort((a, b) => a.name.length - b.name.length);
+
     return new Response(JSON.stringify(results));
   } catch (error) {
     return new Response("Something went wrong", { status: 500 });
