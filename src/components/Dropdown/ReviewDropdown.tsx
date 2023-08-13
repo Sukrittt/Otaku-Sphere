@@ -82,7 +82,7 @@ const ReviewDropdown: FC<ReviewDropdownProps> = ({
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>{children}</DropdownMenuTrigger>
+      <DropdownMenuTrigger asChild>{children}</DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem
           onClick={() => deleteReview()}

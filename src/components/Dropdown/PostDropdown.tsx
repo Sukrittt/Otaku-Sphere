@@ -99,7 +99,7 @@ const PostDropdown: FC<PostDropdownProps> = ({ children, post, sessionId }) => {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>{children}</DropdownMenuTrigger>
+      <DropdownMenuTrigger asChild>{children}</DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem onClick={handleShare} className="cursor-pointer">
           <div className="flex items-center gap-x-2">

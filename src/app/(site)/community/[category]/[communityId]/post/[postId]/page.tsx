@@ -7,7 +7,7 @@ import { Shell } from "@/components/Shell";
 import { Card, CardContent, CardHeader } from "@/ui/Card";
 import { getAuthSession } from "@/lib/auth";
 import { Icons } from "@/components/Icons";
-import { buttonVariants } from "@/ui/Button";
+import { Button, buttonVariants } from "@/ui/Button";
 import { cn, formatTimeToNow } from "@/lib/utils";
 
 import Comments from "@/components/ServerComponents/Comments";
@@ -75,14 +75,9 @@ const IndividualPostPage = async ({ params }: IndividualPostPageProps) => {
                 Go back
               </Link>
               <PostDropdownClient post={post} sessionId={session.user.id}>
-                <div
-                  className={buttonVariants({
-                    variant: "ghost",
-                    size: "icon",
-                  })}
-                >
+                <Button variant="ghost" size="icon">
                   <Icons.options className="h-4 w-4" />
-                </div>
+                </Button>
               </PostDropdownClient>
             </div>
             <div>

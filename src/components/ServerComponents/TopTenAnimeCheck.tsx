@@ -15,7 +15,10 @@ const TopTenAnimeCheck = async ({ name }: { name: string }) => {
   if (inTopTen < 0) return null;
 
   return (
-    <Link href="/leaderboard" className="hover:underline underline-offset-4">
+    <Link
+      href="/leaderboard"
+      className="hover:underline underline-offset-4 focus:outline:none focus-visible:outline-none focus:underline"
+    >
       Top Rated
     </Link>
   );
