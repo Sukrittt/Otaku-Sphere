@@ -33,7 +33,7 @@ const PollResultsPage = async () => {
   });
 
   return (
-    <Shell layout="dashboard">
+    <Shell layout="dashboard" className="px-1">
       <Header title="Poll Results" description="The Verdict Is In!" />
       <PollClient initialPolls={initialPolls} sessionId={session.user.id} />
     </Shell>

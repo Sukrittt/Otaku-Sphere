@@ -52,7 +52,7 @@ const CommunityCategoryPage = async ({
   const baseLink = `/community/${community.category.toLowerCase()}`;
 
   return (
-    <Shell layout="dashboard">
+    <Shell layout="dashboard" className="px-1">
       <Header
         title={community.name}
         description={community.description}

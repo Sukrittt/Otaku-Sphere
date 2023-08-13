@@ -26,9 +26,12 @@ export default function AnimeCard({
   const formattedHref = `/anime/${formatUrl(anime.name)}`;
 
   return (
-    <a href={formattedHref}>
+    <a href={formattedHref} className="focus:outline-none group">
       <Card
-        className={cn("h-full overflow-hidden rounded-sm group", className)}
+        className={cn(
+          "h-full overflow-hidden rounded-sm group focused",
+          className
+        )}
         {...props}
       >
         <CardHeader className="border-b p-0">

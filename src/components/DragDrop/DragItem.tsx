@@ -19,10 +19,13 @@ export const DragItem = ({ item }: { item: DragItemType }) => {
   }));
 
   return (
-    <a href={`/anime/${formatUrl(item.name)}`}>
+    <a
+      href={`/anime/${formatUrl(item.name)}`}
+      className="focus:outline-none group"
+    >
       <Card
         ref={drag}
-        className={cn({
+        className={cn("focused", {
           "opacity-50": isDragging,
         })}
       >

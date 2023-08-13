@@ -36,7 +36,7 @@ const PollPage = async () => {
   });
 
   return (
-    <Shell layout="dashboard">
+    <Shell layout="dashboard" className="px-1">
       <Header title="Anime Poll" description="Your voice, Your vote!" />
       <Link
         href="/poll/create"

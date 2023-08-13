@@ -1,6 +1,5 @@
 import Link from "next/link";
 
-import { cn } from "@/lib/utils";
 import { Icons } from "@/components/Icons";
 import { ThemeToggle } from "@/components/Footer/ThemeToggle";
 import { buttonVariants } from "@/ui/Button";
@@ -16,7 +15,7 @@ const Footer = () => {
             href="https://github.com/Sukrittt"
             target="_blank"
             rel="noreferrer"
-            className="font-medium underline underline-offset-4"
+            className="font-medium underline underline-offset-4 focus:outline-none focus:font-bold"
           >
             Sukrit
           </Link>
@@ -27,15 +26,12 @@ const Footer = () => {
             href="https://github.com/Sukrittt/Otaku-Sphere"
             target="_blank"
             rel="noreferrer"
+            className={buttonVariants({
+              size: "icon",
+              variant: "ghost",
+            })}
           >
-            <div
-              className={cn(
-                buttonVariants({
-                  size: "icon",
-                  variant: "ghost",
-                })
-              )}
-            >
+            <div>
               <Icons.gitHub className="h-4 w-4" aria-hidden="true" />
               <span className="sr-only">GitHub</span>
             </div>
@@ -44,15 +40,12 @@ const Footer = () => {
             href="https://twitter.com/SphereOtaku"
             target="_blank"
             rel="noreferrer"
+            className={buttonVariants({
+              size: "icon",
+              variant: "ghost",
+            })}
           >
-            <div
-              className={cn(
-                buttonVariants({
-                  size: "icon",
-                  variant: "ghost",
-                })
-              )}
-            >
+            <div>
               <Icons.twitter className="h-4 w-4" aria-hidden="true" />
               <span className="sr-only">Twitter</span>
             </div>
@@ -61,15 +54,12 @@ const Footer = () => {
             href="https://www.instagram.com/otaku.sphere/"
             target="_blank"
             rel="noreferrer"
+            className={buttonVariants({
+              size: "icon",
+              variant: "ghost",
+            })}
           >
-            <div
-              className={cn(
-                buttonVariants({
-                  size: "icon",
-                  variant: "ghost",
-                })
-              )}
-            >
+            <div>
               <Icons.instagram className="h-4 w-4" aria-hidden="true" />
               <span className="sr-only">Instagram</span>
             </div>

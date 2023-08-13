@@ -64,7 +64,11 @@ export function AnimeAdminCard({
         </CardDescription>
       </CardContent>
       <CardFooter className="p-4">
-        <Link href={`/admin/anime/${anime.id}`} className="w-full">
+        <Link
+          href={`/admin/anime/${anime.id}`}
+          className="w-full"
+          tabIndex={-1}
+        >
           <Button
             aria-label="Edit content"
             size="sm"

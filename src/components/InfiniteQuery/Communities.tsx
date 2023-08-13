@@ -101,7 +101,7 @@ const Communities: FC<CommunitiesProps> = ({
 
   return (
     <div className="flex flex-col gap-y-4">
-      <div className="flex gap-x-2 items-center px-1">
+      <div className="flex gap-x-2 items-center">
         <Input
           placeholder="Type a community name here."
           onChange={(e) => setQuery(e.target.value)}

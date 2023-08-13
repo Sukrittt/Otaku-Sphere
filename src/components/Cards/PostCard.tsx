@@ -18,8 +18,8 @@ const PostCard: FC<PostCardProps> = ({ post }) => {
   const trimmedMessage = formatDescription(post.message, 250);
 
   return (
-    <Link href={href}>
-      <Card className="flex h-full flex-col relative dark:hover:border-neutral-900 hover:border-neutral-100 transition">
+    <Link href={href} className="focus:outline-none group">
+      <Card className="flex h-full flex-col relative dark:hover:border-neutral-900 hover:border-neutral-100 transition focused">
         <CardHeader className="flex gap-x-2 flex-row py-5">
           <UserAvatar className="h-8 w-8 mt-2" user={post.creator} />
           <div className="flex-1 space-y-2">

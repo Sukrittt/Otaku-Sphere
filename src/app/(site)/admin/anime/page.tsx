@@ -32,18 +32,17 @@ const AnimePage = () => {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <Link href="/admin/anime/new">
-              <div
-                className={cn(
-                  buttonVariants({
-                    size: "sm",
-                    className: "h-8 w-full",
-                  })
-                )}
-              >
-                Add a new anime
-                <span className="sr-only">Add a new anime</span>
-              </div>
+            <Link
+              href="/admin/anime/new"
+              className={cn(
+                buttonVariants({
+                  size: "sm",
+                  className: "h-8 w-full",
+                })
+              )}
+            >
+              Add a new anime
+              <span className="sr-only">Add a new anime</span>
             </Link>
           </CardContent>
         </Card>
