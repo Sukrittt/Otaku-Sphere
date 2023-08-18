@@ -1,7 +1,7 @@
 "use client";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { SessionProvider } from "next-auth/react";
-import { Analytics } from "@vercel/analytics/react";
+import Loglib from "@loglib/tracker/react";
 
 import { ThemeProvider } from "@/components/ThemeProvider";
 
@@ -17,7 +17,11 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
           </ThemeProvider>
         </SessionProvider>
       </QueryClientProvider>
-      <Analytics />
+      <Loglib
+        config={{
+          id: "otakusphere",
+        }}
+      />
     </>
   );
 };
