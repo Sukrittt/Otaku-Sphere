@@ -1,4 +1,4 @@
-# [Otaku Sphere](https://otaku-sphere.vercel.app/)
+# [Otaku Sphere](https://otakusphere.in)
 Discover the ultimate Anime Platform, built on Next.js 13. Explore anime, join communities, manage watchlist, view leaderboards, and engage in polls. An open-source all-in-one hub for anime enthusiasts. Join us now!
 
 [![Otaku Sphere](./public/images/home-page-snapshot.png)](https://otakusphere.in)
