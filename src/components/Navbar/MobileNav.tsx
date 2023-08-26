@@ -52,7 +52,7 @@ export default function MobileNav({ mainNavItems, session }: MobileNavProps) {
             onClick={() => setIsOpen(false)}
           >
             <Icons.logo
-              className="mr-2 h-5 w-5 hidden dark:block"
+              className="mr-2 h-5 w-5 fill-black dark:fill-white"
               aria-hidden="true"
             />
             <span className="font-bold">Otaku Sphere</span>
