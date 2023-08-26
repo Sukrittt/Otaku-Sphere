@@ -52,9 +52,8 @@ const Navbar = async () => {
             className={cn(
               buttonVariants({ variant: "link" }),
               "text-md tracking-tighter"
-            )}
-          >
-            <Icons.logo className="mr-2 h-6 w-6 hidden dark:block" />
+            )}>
+            <Icons.logo className="mr-2 h-6 w-6  fill-black dark:fill-white" />
             Otaku Sphere
           </Link>
         </div>
@@ -66,8 +65,7 @@ const Navbar = async () => {
               className={cn(
                 buttonVariants({ variant: "link" }),
                 "text-sm font-medium"
-              )}
-            >
+              )}>
               {item.label}
             </Link>
           ))}
