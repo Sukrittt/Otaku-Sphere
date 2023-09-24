@@ -80,7 +80,7 @@ const ReviewInfiniteFetching: FC<ReviewsProps> = ({
                       ?.split(" ")[0]
                       .toLowerCase()}`}</span>
                     <span>·</span>
-                    <span>{formatTimeToNow(review.createdAt)}</span>
+                    <span>{formatTimeToNow(new Date(review.createdAt)}</span>
                     <span>·</span>
                     <LikeReview
                       initialLike={initialLike}
