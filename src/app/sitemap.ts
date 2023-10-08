@@ -1,24 +1,8 @@
-import { type MetadataRoute } from "next";
 import { siteConfig } from "@/config";
-import { db } from "@/lib/db";
-import { formatUrl } from "@/lib/utils";
+import { type MetadataRoute } from "next";
 import { communitySidebarNavItems } from "@/data";
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const animeLists = await db.anime.findMany({
-    take: 10,
-    orderBy: {
-      rating: {
-        _count: "desc",
-      },
-    },
-  });
-
-  const animes = animeLists.map((anime) => ({
-    url: `${siteConfig.url}/anime/${formatUrl(anime.name)}`,
-    lastModified: new Date().toISOString(),
-  }));
-
+export default function sitemap(): MetadataRoute.Sitemap {
   const communities = communitySidebarNavItems.map((page) => ({
     url: `${siteConfig.url}${page.href}`,
     lastModified: new Date().toISOString(),
@@ -45,5 +29,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     lastModified: new Date().toISOString(),
   }));
 
-  return [...routes, ...animes, ...communities];
+  return [...routes, ...communities];
 }
