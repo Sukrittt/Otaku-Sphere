@@ -72,6 +72,7 @@ export default function RootLayout({
         id="Adsense-id"
         data-ad-client="ca-pub-8448763122793144"
         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+        async
       />
       <body className={inter.className}>
         <Providers>
