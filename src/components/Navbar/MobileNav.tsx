@@ -196,7 +196,7 @@ interface MobileLinkProps {
   children?: React.ReactNode;
   href: string;
   disabled?: boolean;
-  pathname: string;
+  pathname: string | null;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
