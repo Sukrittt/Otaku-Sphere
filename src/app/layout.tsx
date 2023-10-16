@@ -1,5 +1,6 @@
 import { Inter } from "next/font/google";
 import { Metadata } from "next";
+// import Head from "next/head";
 import { env } from "@/env.mjs";
 import "./styles/globals.css";
 
@@ -67,6 +68,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      {/* <Head>
+        <meta name="google-adsense-account" content="ca-pub-8448763122793144" />
+      </Head> */}
+
       <body className={inter.className}>
         <Providers>
           {children}

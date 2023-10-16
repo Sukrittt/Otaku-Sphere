@@ -1,7 +1,7 @@
 "use client";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import { Adsense } from "@ctrl/react-adsense";
 import { SessionProvider } from "next-auth/react";
-import Loglib from "@loglib/tracker/react";
 
 import { ThemeProvider } from "@/components/ThemeProvider";
 
@@ -10,6 +10,7 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <>
+      <Adsense client="ca-pub-8448763122793144" slot="7259870550" />
       <QueryClientProvider client={queryClient}>
         <SessionProvider>
           <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
@@ -17,11 +18,6 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
           </ThemeProvider>
         </SessionProvider>
       </QueryClientProvider>
-      <Loglib
-        config={{
-          id: "otakusphere",
-        }}
-      />
     </>
   );
 };
