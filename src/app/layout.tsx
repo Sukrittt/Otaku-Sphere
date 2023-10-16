@@ -1,5 +1,4 @@
 import { Inter } from "next/font/google";
-import Script from "next/script";
 import { Metadata } from "next";
 import { env } from "@/env.mjs";
 import "./styles/globals.css";
@@ -68,13 +67,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <Script
-        id="Adsense-id"
-        data-ad-client="ca-pub-8448763122793144"
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
-        crossOrigin="anonymous"
-        async
-      />
       <body className={inter.className}>
         <Providers>
           {children}
