@@ -1,10 +1,11 @@
 # [Otaku Sphere](https://otakusphere.in)
+
 Discover the ultimate Anime Platform, built on Next.js 13. Explore anime, join communities, manage watchlist, view leaderboards, and engage in polls. An open-source all-in-one hub for anime enthusiasts. Join us now!
 
 ## Tech Stack
 
 - **Framework:** [Next.js](https://nextjs.org)
-- **Database:** [PlanetScale](http://planetscale.com/)
+- **Database:** [Supabase](https://supabase.com/)
 - **Styling:** [Tailwind CSS](https://tailwindcss.com)
 - **Authentication:** [NextAuth.js](https://next-auth.js.org/)
 - **ORM:** [Prisma ORM](https://www.prisma.io/)
@@ -18,11 +19,10 @@ Discover the ultimate Anime Platform, built on Next.js 13. Explore anime, join c
 - Authentication with **NextAuth.js**
 - File uploads with **uploadthing**
 - ORM using **Prisma ORM**
-- Database on **PlanetScale**
+- Database on **Supabase**
 - Validation with **Zod**
 - Drag and drop with **React-dnd**
 - Admin dashboard with anime
-
 
 ## Running Locally
 

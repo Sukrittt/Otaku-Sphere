@@ -28,8 +28,8 @@ export const techStack = [
     url: "https://www.prisma.io/",
   },
   {
-    name: "PlanetScale",
-    url: "https://planetscale.com/",
+    name: "Supabase",
+    url: "https://supabase.com",
   },
   {
     name: "NextAuth",
