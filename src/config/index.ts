@@ -90,12 +90,6 @@ export const contact = [
   },
   {
     id: 2,
-    label: "Phone",
-    linkLabel: "+91 8240849936",
-    href: "tel:+918240849936",
-  },
-  {
-    id: 3,
     label: "Twitter",
     linkLabel: "@SukritSaha11",
     href: "https://twitter.com/SukritSaha11",
